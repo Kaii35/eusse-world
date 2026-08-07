@@ -1,0 +1,48 @@
+# CODEOWNERS — Eusse World
+#
+# Define quién debe revisar cada área. Se rellena con los usuarios reales en el Sprint 0.
+# Mientras tanto, documenta qué AGENTE es responsable de cada carpeta.
+#
+# Formato: <patrón>  <@usuario o @equipo>
+
+# Arquitectura y proceso — agente 01 Arquitecto
+/docs/                      # @arquitecto
+/rfcs/                      # @arquitecto
+/adrs/                      # @arquitecto
+/agents/                    # @arquitecto
+/skills/                    # @arquitecto
+/templates/                 # @arquitecto
+/checklists/                # @qa @arquitecto
+
+# Backend — agente 02
+/apps/api/                  # @backend
+/apps/workers/              # @backend
+/packages/domain/           # @backend @arquitecto
+/packages/contracts/        # @backend @frontend @arquitecto
+
+# Base de datos — agente 18 (revisión obligatoria en migraciones)
+/apps/api/prisma/           # @database @arquitecto
+
+# Frontend — agente 03
+/apps/web/                  # @frontend
+/apps/admin/                # @frontend
+/packages/sdk/              # @frontend @backend
+
+# Design System — agente 06 (dueño único)
+/packages/ui/               # @design-system
+/packages/tokens/           # @design-system
+
+# Infraestructura — agente 19
+/.github/                   # @devops
+/docker/                    # @devops
+/packages/config-*/         # @devops
+/turbo.json                 # @devops
+/pnpm-workspace.yaml        # @devops
+
+# Testing — agente 20
+/e2e/                       # @testing
+/packages/testing/          # @testing
+
+# Seguridad — agente 23 (revisión obligatoria, con poder de veto)
+/apps/api/src/modules/identity/     # @security @auth
+/packages/auth/                     # @security @auth

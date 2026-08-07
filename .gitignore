@@ -1,0 +1,55 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build
+dist/
+build/
+.next/
+out/
+.turbo/
+*.tsbuildinfo
+
+# Env — nunca commitear secretos
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Test
+coverage/
+playwright-report/
+test-results/
+blob-report/
+.nyc_output/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.recommended.json
+.idea/
+*.swp
+
+# Claude Code — generado desde /agents y /skills por pnpm sync:claude
+.claude/settings.local.json
+
+# Storybook
+storybook-static/
+
+# Prisma
+prisma/*.db
+prisma/*.db-journal
+
+# Misc
+.cache/
+tmp/
