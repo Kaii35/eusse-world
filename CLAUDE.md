@@ -35,6 +35,8 @@ Verificado en ejecución, no sólo compilado:
   publica en BullMQ y el consumidor lo procesa una sola vez, con el `correlationId`
   intacto hasta el worker.
 
+**Bloque A cerrado.** El Bloque B (Identidad, RFC-0003) está desbloqueado.
+
 **Sólo se implementa lo que cubre un RFC ya aprobado.** Los bloques D, E y F siguen
 bloqueados: RFC-0005, RFC-0006 y RFC-0007 están en `Borrador` y requieren validar el
 modelo de precios contra listas reales del negocio.

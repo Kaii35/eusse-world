@@ -1,0 +1,8 @@
+{
+  "meta": { "siteName": "Eusse Admin", "title": "Back-office — Eusse World" },
+  "overview": {
+    "title": "Panel de operación",
+    "phase": "Sprint 0",
+    "description": "Las pantallas de gestión de cuentas, catálogo, precios y órdenes se construyen en el Bloque H, tras la Puerta F."
+  }
+}

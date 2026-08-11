@@ -81,7 +81,10 @@
       "Bash(timeout 20 node dist/main.js)",
       "Bash(export DATABASE_URL=\"postgresql://eusse:eusse@localhost:5434/eusse\" REDIS_URL=\"redis://localhost:6379\" APP_ENV=local)",
       "Bash(node -e ' *)",
-      "Bash(pnpm --filter @eusse/workers exec eslint . --fix)"
+      "Bash(pnpm --filter @eusse/workers exec eslint . --fix)",
+      "Bash(grep -E \"Failed|Error:|Route|First Load|/\\\\[locale\\\\]|○|●\")",
+      "Bash(npx playwright *)",
+      "Bash(pnpm --filter @eusse/web build)"
     ],
     "additionalDirectories": ["c:\\Users"]
   }

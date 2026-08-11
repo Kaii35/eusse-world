@@ -1,0 +1,8 @@
+{
+  "meta": { "siteName": "Eusse Admin", "title": "Back-office — Eusse World" },
+  "overview": {
+    "title": "Operations dashboard",
+    "phase": "Sprint 0",
+    "description": "Account, catalogue, pricing and order management screens are built in Block H, after Gate F."
+  }
+}
