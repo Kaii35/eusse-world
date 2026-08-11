@@ -29,6 +29,10 @@
     "declarationMap": true,
     "sourceMap": true,
     "incremental": true,
+    // Dentro de outDir a propósito: si el .tsbuildinfo queda fuera, borrar dist deja a
+    // tsc creyendo que todo está al día y NO emite nada. Un `nest build` con
+    // deleteOutDir produciría un dist vacío sin ningún error.
+    "tsBuildInfoFile": "${configDir}/dist/.tsbuildinfo",
     "noEmit": true
   },
   "exclude": ["node_modules", "dist", ".next", ".turbo", "coverage"]

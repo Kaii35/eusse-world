@@ -12,15 +12,22 @@ Punto de entrada para cualquier agente que trabaje en este repositorio.
 
 Lo que ya existe y está verificado (`lint` · `typecheck` · `test` en verde):
 
-| Paso          | Entregable                                                                      | Estado       |
-| ------------- | ------------------------------------------------------------------------------- | ------------ |
-| A1            | Monorepo: pnpm workspaces, Turborepo                                            | ✅           |
-| A2            | `@eusse/config-typescript`, `-eslint`, `-tailwind`, Prettier, commitlint, husky | ✅           |
-| A3            | Docker Compose: PostgreSQL, Redis, MailHog, MinIO                               | ✅           |
-| A4            | CI en GitHub Actions                                                            | ✅           |
-| A8            | `@eusse/tokens` con contraste AA verificado por test                            | ✅           |
-| —             | `@eusse/utils`, `@eusse/domain` (`Money`, IDs, reglas de cantidad)              | ✅           |
-| A5–A7, A9–A15 | api, contracts, ui, web, admin, workers, outbox, testing, Playwright            | ⏳ pendiente |
+| Paso   | Entregable                                                                      | Estado       |
+| ------ | ------------------------------------------------------------------------------- | ------------ |
+| A1     | Monorepo: pnpm workspaces, Turborepo                                            | ✅           |
+| A2     | `@eusse/config-typescript`, `-eslint`, `-tailwind`; Prettier; commitlint; husky | ✅           |
+| A3     | Docker Compose: PostgreSQL, Redis, MailHog, MinIO                               | ✅           |
+| A4     | CI en GitHub Actions                                                            | ✅           |
+| A5     | `apps/api`: NestJS, config validada, `correlationId`, filtro de errores, health | ✅           |
+| A6     | Prisma: un schema por contexto, outbox, idempotencia, migración inicial         | ✅           |
+| A7     | `@eusse/contracts`: catálogo de errores, primitivos, paginación por cursor      | ✅           |
+| A8     | `@eusse/tokens` con contraste AA verificado por test                            | ✅           |
+| —      | `@eusse/utils`, `@eusse/domain` (`Money`, IDs, reglas de cantidad)              | ✅           |
+| A9–A15 | ui, web, admin, workers, relay del outbox, testing, Playwright                  | ⏳ pendiente |
+
+Verificado contra servicios reales: `GET /api/v1/health/live` → 200 ·
+`GET /api/v1/health/ready` → 200 con PostgreSQL y Redis en pie, 503 y `degraded` con una
+dependencia caída.
 
 **Sólo se implementa lo que cubre un RFC ya aprobado.** Los bloques D, E y F siguen
 bloqueados: RFC-0005, RFC-0006 y RFC-0007 están en `Borrador` y requieren validar el

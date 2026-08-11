@@ -54,7 +54,7 @@ export default tseslint.config(
       ],
       '@typescript-eslint/consistent-type-imports': [
         'error',
-        { prefer: 'type-imports', fixStyle: 'inline-type-imports' },
+        { prefer: 'type-imports', fixStyle: 'separate-type-imports' },
       ],
       '@typescript-eslint/no-import-type-side-effects': 'error',
       '@typescript-eslint/explicit-module-boundary-types': 'off',

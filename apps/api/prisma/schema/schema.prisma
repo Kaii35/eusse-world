@@ -1,0 +1,23 @@
+// Esquema base de Prisma.
+//
+// UN SCHEMA DE POSTGRESQL POR CONTEXTO ACOTADO (ADR-0006).
+// Sin claves foráneas entre esquemas: la referencia cruzada se guarda por ID.
+//
+// Convenciones (docs/03-conventions.md §11):
+//   · tablas snake_case plural, columnas snake_case, mapeadas con @map
+//   · toda tabla: id uuid, created_at, updated_at
+//   · tablas de negocio, además: tenant_id
+//   · dinero: numeric(18,4) + columna de moneda. NUNCA float
+//   · fechas: timestamptz en UTC
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // Un schema por contexto acotado. En una sola línea: el parser de Prisma no acepta
+  // arrays multilínea dentro de `datasource`.
+  schemas  = ["shared", "identity", "accounts", "catalog", "pricing", "cart", "orders", "content", "notifications", "search"]
+}

@@ -14,7 +14,9 @@ services:
       # Un esquema por contexto acotado (ADR-0006). Los crea la migración inicial.
       POSTGRES_INITDB_ARGS: '--encoding=UTF8 --locale=C'
     ports:
-      - '5432:5432'
+      # Configurable: es habitual tener ya un PostgreSQL en el 5432.
+      # Cambia POSTGRES_PORT en .env si el tuyo está ocupado.
+      - '${POSTGRES_PORT:-5432}:5432'
     volumes:
       - postgres-data:/var/lib/postgresql/data
       - ./postgres/init:/docker-entrypoint-initdb.d:ro
@@ -38,7 +40,7 @@ services:
     container_name: eusse-redis
     restart: unless-stopped
     ports:
-      - '6379:6379'
+      - '${REDIS_PORT:-6379}:6379'
     volumes:
       - redis-data:/data
     command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
