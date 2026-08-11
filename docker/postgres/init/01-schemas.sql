@@ -16,6 +16,7 @@ CREATE SCHEMA IF NOT EXISTS notifications;
 CREATE SCHEMA IF NOT EXISTS search;
 
 -- Extensiones necesarias en Fase 1
+CREATE EXTENSION IF NOT EXISTS pgcrypto;            -- gen_random_bytes, usado por uuid_generate_v7
 CREATE EXTENSION IF NOT EXISTS pg_trgm;             -- búsqueda tolerante a erratas (RFC-0005)
 CREATE EXTENSION IF NOT EXISTS pg_stat_statements;  -- diagnóstico de consultas lentas
 

@@ -74,7 +74,14 @@
       "Bash(netstat -ano)",
       "Bash(pnpm --filter @eusse/ui test)",
       "Bash(curl -s http://localhost:3020/es)",
-      "Bash(pnpm exec *)"
+      "Bash(pnpm exec *)",
+      "Bash(export DATABASE_URL=\"postgresql://eusse:eusse@localhost:5434/eusse\" REDIS_URL=\"redis://localhost:6379\")",
+      "Bash(tail -12 /tmp/workers.log 2>&1 | sed 's/\\\\x1b\\\\[[0-9;]*m//g')",
+      "Bash(export DATABASE_URL=\"postgresql://eusse:eusse@localhost:5434/eusse\" REDIS_URL=\"redis://localhost:6379\" APP_ENV=local OUTBOX_POLL_INTERVAL_MS=500)",
+      "Bash(timeout 20 node dist/main.js)",
+      "Bash(export DATABASE_URL=\"postgresql://eusse:eusse@localhost:5434/eusse\" REDIS_URL=\"redis://localhost:6379\" APP_ENV=local)",
+      "Bash(node -e ' *)",
+      "Bash(pnpm --filter @eusse/workers exec eslint . --fix)"
     ],
     "additionalDirectories": ["c:\\Users"]
   }

@@ -31,6 +31,9 @@ Verificado en ejecución, no sólo compilado:
   503 y `degraded` con una dependencia caída.
 - `apps/web` sirve `/es` y `/en` prerenderizadas, con `canonical` y `hreflang` absolutos.
   JS inicial: 108 kB (presupuesto de la landing: 120 kB).
+- **Puerta A superada:** un evento insertado en `shared.outbox_events` pasa a `SENT`, se
+  publica en BullMQ y el consumidor lo procesa una sola vez, con el `correlationId`
+  intacto hasta el worker.
 
 **Sólo se implementa lo que cubre un RFC ya aprobado.** Los bloques D, E y F siguen
 bloqueados: RFC-0005, RFC-0006 y RFC-0007 están en `Borrador` y requieren validar el
