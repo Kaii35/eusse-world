@@ -17,8 +17,17 @@ export default [
           message: 'Sin enums de TS. Usa `as const` + type.',
         },
         {
-          // bg-[#1a2b3c], p-[13px], text-[14px]… todo valor arbitrario de Tailwind
-          selector: 'Literal[value=/\b(?:bg|text|border|p|m|w|h|gap|rounded|shadow|z)-\[/]',
+          // bg-[#1a2b3c], p-[13px], text-[14px]… todo valor arbitrario de Tailwind.
+          //
+          // El selector se construye por concatenación a propósito: escrito como
+          // literal, Prettier normaliza las comillas y se lleva por delante los
+          // escapes (`\\b` acaba siendo un retroceso literal), dejando un selector
+          // inválido que ESLint ignora en silencio. La regla parecía activa y no
+          // protegía nada.
+          selector:
+            'Literal[value=/' +
+            String.raw`\b(?:bg|text|border|p|m|w|h|gap|rounded|shadow|z|size|leading|tracking)-\[` +
+            '/]',
           message:
             'Sin valores mágicos de Tailwind. Usa un token de @eusse/tokens. Si falta, pídelo al Design System (ADR-0010).',
         },

@@ -25,9 +25,12 @@ Lo que ya existe y está verificado (`lint` · `typecheck` · `test` en verde):
 | —      | `@eusse/utils`, `@eusse/domain` (`Money`, IDs, reglas de cantidad)              | ✅           |
 | A9–A15 | ui, web, admin, workers, relay del outbox, testing, Playwright                  | ⏳ pendiente |
 
-Verificado contra servicios reales: `GET /api/v1/health/live` → 200 ·
-`GET /api/v1/health/ready` → 200 con PostgreSQL y Redis en pie, 503 y `degraded` con una
-dependencia caída.
+Verificado en ejecución, no sólo compilado:
+
+- `GET /api/v1/health/live` → 200 · `/health/ready` → 200 con PostgreSQL y Redis en pie,
+  503 y `degraded` con una dependencia caída.
+- `apps/web` sirve `/es` y `/en` prerenderizadas, con `canonical` y `hreflang` absolutos.
+  JS inicial: 108 kB (presupuesto de la landing: 120 kB).
 
 **Sólo se implementa lo que cubre un RFC ya aprobado.** Los bloques D, E y F siguen
 bloqueados: RFC-0005, RFC-0006 y RFC-0007 están en `Borrador` y requieren validar el

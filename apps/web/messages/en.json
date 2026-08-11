@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "siteName": "Eusse World",
+    "title": "Eusse World — Wholesale distribution with your pricing",
+    "description": "Buy wholesale with your own price list, credit terms and order history. No phone calls, no outdated PDFs."
+  },
+  "home": {
+    "eyebrow": "Wholesale distribution",
+    "title": "Your pricing, your credit, your history. All in one place.",
+    "subtitle": "Stop rebuilding orders from a PDF. Repeat your last purchase in under a minute and track your shipment without calling anyone.",
+    "ctaPrimary": "Open a wholesale account",
+    "ctaSecondary": "Browse catalogue"
+  },
+  "notFound": {
+    "code": "Error 404",
+    "title": "We couldn't find this page",
+    "description": "The link may have changed, or the page no longer exists.",
+    "action": "Back to home"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "description": "We couldn't load this page. Try again; if the problem persists, contact us with the reference.",
+    "reference": "Reference: ",
+    "retry": "Try again"
+  },
+  "a11y": {
+    "skipToContent": "Skip to content",
+    "toggleTheme": "Toggle theme"
+  }
+}

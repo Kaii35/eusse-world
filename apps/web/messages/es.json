@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "siteName": "Eusse World",
+    "title": "Eusse World — Distribución mayorista con tus precios",
+    "description": "Compra al por mayor con tu lista de precios, tu crédito y tu histórico. Sin llamadas, sin PDF desactualizados."
+  },
+  "home": {
+    "eyebrow": "Distribución mayorista",
+    "title": "Tus precios, tu crédito, tu histórico. En un solo sitio.",
+    "subtitle": "Deja de reconstruir pedidos desde un PDF. Repite tu última compra en menos de un minuto y sigue tu despacho sin llamar a nadie.",
+    "ctaPrimary": "Crear cuenta mayorista",
+    "ctaSecondary": "Ver catálogo"
+  },
+  "notFound": {
+    "code": "Error 404",
+    "title": "No encontramos esta página",
+    "description": "Puede que el enlace haya cambiado o que la página ya no exista.",
+    "action": "Volver al inicio"
+  },
+  "error": {
+    "title": "Algo no funcionó",
+    "description": "No pudimos cargar esta página. Vuelve a intentarlo; si el problema sigue, contáctanos con la referencia.",
+    "reference": "Referencia: ",
+    "retry": "Reintentar"
+  },
+  "a11y": {
+    "skipToContent": "Saltar al contenido",
+    "toggleTheme": "Cambiar tema"
+  }
+}

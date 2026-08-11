@@ -71,7 +71,10 @@
       "Bash(node \"C:/Users/USER/AppData/Local/Temp/claude/c--Users-USER-Desktop-eusseworld/6df0e776-e33b-4f4a-8665-87ec640c963d/scratchpad/redisdbg.mjs\")",
       "Bash(cp \"C:/Users/USER/AppData/Local/Temp/claude/c--Users-USER-Desktop-eusseworld/6df0e776-e33b-4f4a-8665-87ec640c963d/scratchpad/redisdbg.mjs\" ./redisdbg.mjs)",
       "Bash(node redisdbg.mjs)",
-      "Bash(netstat -ano)"
+      "Bash(netstat -ano)",
+      "Bash(pnpm --filter @eusse/ui test)",
+      "Bash(curl -s http://localhost:3020/es)",
+      "Bash(pnpm exec *)"
     ],
     "additionalDirectories": ["c:\\Users"]
   }

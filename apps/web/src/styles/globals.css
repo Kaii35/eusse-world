@@ -1,0 +1,8 @@
+/* Los tokens son la única fuente de verdad del sistema visual (ADR-0010).
+   Aquí no se define ningún valor: si falta uno, se añade a @eusse/tokens. */
+@import '@eusse/tokens/theme.css';
+
+/* Se declaran las fuentes de clases que Tailwind debe escanear, incluido el paquete
+   de UI: sin esto sus clases se eliminarían del CSS final. */
+@source "../../src";
+@source "../../../../packages/ui/src";
