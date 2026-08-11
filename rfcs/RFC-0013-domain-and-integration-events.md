@@ -1,11 +1,11 @@
 # RFC-0013 — Eventos de dominio e integración
 
-| Campo | Valor |
-| ----- | ----- |
-| **Estado** | Aprobado · **Autor** Arquitecto · **Creado** 2026-08-06 |
-| **Revisores** | Backend · Base de Datos · DevOps · Observabilidad |
-| **ADR generados** | ADR-0007, ADR-0014 |
-| **Bloque** | A (A12, A13) · Sprint 0 |
+| Campo             | Valor                                                   |
+| ----------------- | ------------------------------------------------------- |
+| **Estado**        | Aprobado · **Autor** Arquitecto · **Creado** 2026-08-06 |
+| **Revisores**     | Backend · Base de Datos · DevOps · Observabilidad       |
+| **ADR generados** | ADR-0007, ADR-0014                                      |
+| **Bloque**        | A (A12, A13) · Sprint 0                                 |
 
 ---
 
@@ -34,17 +34,17 @@ entrega exactamente-una-vez (no existe; se logra idempotencia).
 
 **Atomicidad**
 
-| Alternativa | Descarte |
-| ----------- | -------- |
+| Alternativa                          | Descarte                                                                                                                                 |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | A. Publicar dentro de la transacción | La cola no participa en la transacción de PostgreSQL: si la publicación falla, se revierte el negocio por un problema de infraestructura |
-| B. Publicar tras el commit | Si el proceso muere entre el commit y la publicación, el evento se pierde para siempre |
-| **C. Outbox transaccional + relay** | **Elegida.** El evento se escribe en la misma transacción; un relay lo publica después, con reintento |
+| B. Publicar tras el commit           | Si el proceso muere entre el commit y la publicación, el evento se pierde para siempre                                                   |
+| **C. Outbox transaccional + relay**  | **Elegida.** El evento se escribe en la misma transacción; un relay lo publica después, con reintento                                    |
 
 **Transporte**
 
-| Alternativa | Descarte |
-| ----------- | -------- |
-| A. Kafka | Infraestructura pesada para el volumen de la Fase 1 |
+| Alternativa               | Descarte                                                                                                       |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| A. Kafka                  | Infraestructura pesada para el volumen de la Fase 1                                                            |
 | **B. BullMQ sobre Redis** | **Elegida.** Redis ya está en el stack; reintentos, DLQ y prioridades incluidos; sustituible detrás del puerto |
 
 ## 4. Diseño
@@ -84,7 +84,7 @@ sequenceDiagram
   "occurredAt": "2026-08-06T14:30:00.000Z",
   "correlationId": "req-abc123",
   "tenantId": "eusse",
-  "payload": { }
+  "payload": {}
 }
 ```
 
@@ -105,28 +105,28 @@ Siempre en **pasado**: describe un hecho ocurrido, no una orden de hacer algo.
 
 ### 4.4 Catálogo de eventos de Fase 1
 
-| Evento | Emisor | Consumidores (fase) |
-| ------ | ------ | ------------------- |
-| `identity.UserRegistered.v1` | Identity | Notifications, CRM(3) |
-| `accounts.AccountApproved.v1` | Accounts | Notifications, Pricing, CRM(3) |
-| `accounts.AccountRejected.v1` | Accounts | Notifications |
-| `catalog.ProductPublished.v1` | Catalog | Search, ISR, Analytics(2) |
-| `pricing.VariantPriceChanged.v1` | Pricing | Cart, Notifications |
-| `cart.ItemAdded.v1` | Cart | Analytics(2) |
-| `cart.CartAbandoned.v1` | Cart | Notifications, CRM(3) |
-| `orders.OrderPlaced.v1` | Orders | Notifications, Inventory(2), Payments(2), CRM(3) |
-| `orders.OrderApproved.v1` | Orders | Notifications |
-| `orders.OrderCancelled.v1` | Orders | Notifications, Inventory(2), Payments(2) |
-| `orders.OrderShipped.v1` | Orders | Notifications, Tracking(2) |
-| `content.LeadCaptured.v1` | Content | Notifications, CRM(3) |
+| Evento                           | Emisor   | Consumidores (fase)                              |
+| -------------------------------- | -------- | ------------------------------------------------ |
+| `identity.UserRegistered.v1`     | Identity | Notifications, CRM(3)                            |
+| `accounts.AccountApproved.v1`    | Accounts | Notifications, Pricing, CRM(3)                   |
+| `accounts.AccountRejected.v1`    | Accounts | Notifications                                    |
+| `catalog.ProductPublished.v1`    | Catalog  | Search, ISR, Analytics(2)                        |
+| `pricing.VariantPriceChanged.v1` | Pricing  | Cart, Notifications                              |
+| `cart.ItemAdded.v1`              | Cart     | Analytics(2)                                     |
+| `cart.CartAbandoned.v1`          | Cart     | Notifications, CRM(3)                            |
+| `orders.OrderPlaced.v1`          | Orders   | Notifications, Inventory(2), Payments(2), CRM(3) |
+| `orders.OrderApproved.v1`        | Orders   | Notifications                                    |
+| `orders.OrderCancelled.v1`       | Orders   | Notifications, Inventory(2), Payments(2)         |
+| `orders.OrderShipped.v1`         | Orders   | Notifications, Tracking(2)                       |
+| `content.LeadCaptured.v1`        | Content  | Notifications, CRM(3)                            |
 
 ### 4.5 Versionado
 
-| Cambio | Compatible | Acción |
-| ------ | ---------- | ------ |
-| Añadir campo opcional al payload | Sí | Mismo `v1` |
-| Quitar o renombrar campo | No | `v2` |
-| Cambiar tipo o semántica | No | `v2` |
+| Cambio                           | Compatible | Acción     |
+| -------------------------------- | ---------- | ---------- |
+| Añadir campo opcional al payload | Sí         | Mismo `v1` |
+| Quitar o renombrar campo         | No         | `v2`       |
+| Cambiar tipo o semántica         | No         | `v2`       |
 
 Durante la migración se publican `v1` y `v2` simultáneamente hasta que todos los
 consumidores migren. Los esquemas de payload viven en `@eusse/contracts` y se validan al
@@ -154,13 +154,13 @@ tablas `shared.outbox` y `shared.processed_events` desde el Bloque A.
 
 ## 6. Riesgos
 
-| Riesgo | Prob. | Impacto | Mitigación |
-| ------ | ----- | ------- | ---------- |
-| Evento perdido (R-08) | Media | Alto | Outbox + relay con reintento + alerta de pendientes |
-| Efecto duplicado (R-08) | Alta | Alto | `processed_events` + test de entrega doble por handler |
-| Handler que asume orden de llegada | Alta | Medio | Regla explícita + test con eventos desordenados |
-| Cadenas de eventos profundas | Media | Medio | Máximo 2 saltos; más de eso requiere revisión del Arquitecto |
-| Payload que crece sin control | Media | Bajo | Límite de 64 KB por evento; lo mayor va por referencia a `StoragePort` |
+| Riesgo                             | Prob. | Impacto | Mitigación                                                             |
+| ---------------------------------- | ----- | ------- | ---------------------------------------------------------------------- |
+| Evento perdido (R-08)              | Media | Alto    | Outbox + relay con reintento + alerta de pendientes                    |
+| Efecto duplicado (R-08)            | Alta  | Alto    | `processed_events` + test de entrega doble por handler                 |
+| Handler que asume orden de llegada | Alta  | Medio   | Regla explícita + test con eventos desordenados                        |
+| Cadenas de eventos profundas       | Media | Medio   | Máximo 2 saltos; más de eso requiere revisión del Arquitecto           |
+| Payload que crece sin control      | Media | Bajo    | Límite de 64 KB por evento; lo mayor va por referencia a `StoragePort` |
 
 ## 7. Criterios de aceptación
 

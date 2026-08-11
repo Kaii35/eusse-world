@@ -1,7 +1,7 @@
 # ADR-0012 — TanStack Query para estado de servidor, Zustand para estado de UI
 
 | Estado | Aceptado · **Fecha** 2026-08-06 · **Decisor** Arquitecto + Frontend · **RFC** RFC-0001, RFC-0006 |
-| ------ | --- |
+| ------ | ------------------------------------------------------------------------------------------------ |
 
 ## Contexto
 
@@ -16,13 +16,13 @@ cobrar (riesgo R-01).
 
 Cada tipo de estado tiene **un solo dueño**:
 
-| Tipo | Dueño | Ejemplos |
-| ---- | ----- | -------- |
-| Servidor (remoto, cacheable) | **TanStack Query** | catálogo, carrito, órdenes, precios |
-| URL (compartible, navegable) | **search params** | filtros, búsqueda, página |
-| Cliente global (sólo UI) | **Zustand** | tema, drawer abierto, sidebar |
-| Formulario | **React Hook Form** | login, checkout, alta de producto |
-| Local | `useState` | acordeón, hover |
+| Tipo                         | Dueño               | Ejemplos                            |
+| ---------------------------- | ------------------- | ----------------------------------- |
+| Servidor (remoto, cacheable) | **TanStack Query**  | catálogo, carrito, órdenes, precios |
+| URL (compartible, navegable) | **search params**   | filtros, búsqueda, página           |
+| Cliente global (sólo UI)     | **Zustand**         | tema, drawer abierto, sidebar       |
+| Formulario                   | **React Hook Form** | login, checkout, alta de producto   |
+| Local                        | `useState`          | acordeón, hover                     |
 
 **Regla prohibitiva:** copiar datos del servidor a Zustand está prohibido. Si vino de la
 API, lo posee TanStack Query.
@@ -31,13 +31,13 @@ API, lo posee TanStack Query.
 
 ## Alternativas descartadas
 
-| Alternativa | Por qué se descarta |
-| ----------- | ------------------- |
-| Redux Toolkit para todo | Maquinaria considerable; invita precisamente a copiar el estado del servidor al store |
-| Sólo Context | Sin caché, sin deduplicación, sin reintentos; re-renders masivos |
-| Sólo Zustand | Habría que reimplementar caché, invalidación y reintentos |
-| SWR | Muy válido, pero TanStack Query tiene mejores herramientas para mutaciones optimistas, que aquí son centrales (carrito) |
-| Estado del carrito en el cliente | El precio se recalcularía en el navegador: riesgo R-01 |
+| Alternativa                      | Por qué se descarta                                                                                                     |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Redux Toolkit para todo          | Maquinaria considerable; invita precisamente a copiar el estado del servidor al store                                   |
+| Sólo Context                     | Sin caché, sin deduplicación, sin reintentos; re-renders masivos                                                        |
+| Sólo Zustand                     | Habría que reimplementar caché, invalidación y reintentos                                                               |
+| SWR                              | Muy válido, pero TanStack Query tiene mejores herramientas para mutaciones optimistas, que aquí son centrales (carrito) |
+| Estado del carrito en el cliente | El precio se recalcularía en el navegador: riesgo R-01                                                                  |
 
 ## Consecuencias
 

@@ -154,22 +154,22 @@ Expo + React Native. Consume `@eusse/sdk` y `@eusse/contracts` sin cambios en el
 
 ## `packages/`
 
-| Paquete | Contenido | Depende de |
-| ------- | --------- | ---------- |
-| `@eusse/utils` | Helpers puros: fechas, strings, `Result`, invariantes | — |
-| `@eusse/tokens` | Tokens de diseño, `@theme` de Tailwind v4, light/dark | — |
-| `@eusse/domain` | Tipos, enums, estados y reglas puras compartidas | utils |
-| `@eusse/contracts` | Esquemas Zod, tipos de API, errores, generación de OpenAPI | domain, utils |
-| `@eusse/ui` | Design system: primitivos, patrones, Storybook | tokens, utils |
-| `@eusse/sdk` | Cliente HTTP tipado + hooks de TanStack Query (subpath opcional) | contracts |
-| `@eusse/auth` | Sesión cliente/servidor, guards, helpers de permisos | contracts |
-| `@eusse/i18n` | Configuración de next-intl, formateadores, utilidades de locale | — |
-| `@eusse/analytics` | Puerto de eventos de producto, proveedores, consentimiento | utils |
-| `@eusse/observability` | Logger, tracing, métricas, `correlationId` | utils |
-| `@eusse/testing` | Setup de Vitest, Testcontainers, fábricas, matchers | — |
-| `@eusse/config-typescript` | `tsconfig` base, next, nest, react, library | — |
-| `@eusse/config-eslint` | Reglas base, react, next, nest, boundaries | — |
-| `@eusse/config-tailwind` | Preset de Tailwind v4 | tokens |
+| Paquete                    | Contenido                                                        | Depende de    |
+| -------------------------- | ---------------------------------------------------------------- | ------------- |
+| `@eusse/utils`             | Helpers puros: fechas, strings, `Result`, invariantes            | —             |
+| `@eusse/tokens`            | Tokens de diseño, `@theme` de Tailwind v4, light/dark            | —             |
+| `@eusse/domain`            | Tipos, enums, estados y reglas puras compartidas                 | utils         |
+| `@eusse/contracts`         | Esquemas Zod, tipos de API, errores, generación de OpenAPI       | domain, utils |
+| `@eusse/ui`                | Design system: primitivos, patrones, Storybook                   | tokens, utils |
+| `@eusse/sdk`               | Cliente HTTP tipado + hooks de TanStack Query (subpath opcional) | contracts     |
+| `@eusse/auth`              | Sesión cliente/servidor, guards, helpers de permisos             | contracts     |
+| `@eusse/i18n`              | Configuración de next-intl, formateadores, utilidades de locale  | —             |
+| `@eusse/analytics`         | Puerto de eventos de producto, proveedores, consentimiento       | utils         |
+| `@eusse/observability`     | Logger, tracing, métricas, `correlationId`                       | utils         |
+| `@eusse/testing`           | Setup de Vitest, Testcontainers, fábricas, matchers              | —             |
+| `@eusse/config-typescript` | `tsconfig` base, next, nest, react, library                      | —             |
+| `@eusse/config-eslint`     | Reglas base, react, next, nest, boundaries                       | —             |
+| `@eusse/config-tailwind`   | Preset de Tailwind v4                                            | tokens        |
 
 Estructura de `@eusse/ui`:
 
@@ -205,18 +205,18 @@ e2e/
 
 ## Convención de archivos por tipo
 
-| Tipo | Patrón |
-| ---- | ------ |
-| Componente | `PascalCase.tsx` |
-| Hook | `use-kebab-case.ts` |
-| Caso de uso | `kebab-case.use-case.ts` |
-| Entidad | `kebab-case.entity.ts` |
-| Value object | `kebab-case.vo.ts` |
-| Evento | `kebab-case.event.ts` |
-| Puerto | `kebab-case.port.ts` |
-| Repositorio | `prisma-<agg>.repository.ts` |
-| Contrato | `kebab-case.contract.ts` |
-| Test unitario | `<archivo>.spec.ts` |
-| Test E2E | `<flujo>.e2e.ts` |
+| Tipo          | Patrón                       |
+| ------------- | ---------------------------- |
+| Componente    | `PascalCase.tsx`             |
+| Hook          | `use-kebab-case.ts`          |
+| Caso de uso   | `kebab-case.use-case.ts`     |
+| Entidad       | `kebab-case.entity.ts`       |
+| Value object  | `kebab-case.vo.ts`           |
+| Evento        | `kebab-case.event.ts`        |
+| Puerto        | `kebab-case.port.ts`         |
+| Repositorio   | `prisma-<agg>.repository.ts` |
+| Contrato      | `kebab-case.contract.ts`     |
+| Test unitario | `<archivo>.spec.ts`          |
+| Test E2E      | `<flujo>.e2e.ts`             |
 
 Detalle completo: [03-conventions.md](03-conventions.md).

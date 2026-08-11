@@ -1,7 +1,7 @@
 # ADR-0005 — NestJS como framework de backend
 
 | Estado | Aceptado · **Fecha** 2026-08-06 · **Decisor** Arquitecto · **RFC** RFC-0001 |
-| ------ | --- |
+| ------ | --------------------------------------------------------------------------- |
 
 ## Contexto
 
@@ -22,12 +22,12 @@ externas; el dominio es TypeScript puro.
 
 ## Alternativas descartadas
 
-| Alternativa | Por qué se descarta |
-| ----------- | ------------------- |
-| Route Handlers de Next | La lógica de negocio queda atada al framework de UI; la app móvil obligaría a reescribir |
-| Express o Fastify a pelo | Habría que construir DI, módulos y validación: reinventar NestJS peor |
-| Hono | Excelente y ligero, pero sin DI ni estructura modular; el equipo tendría que imponer ambas a mano |
-| Go o Java | El equipo es de TypeScript; compartir tipos y contratos con el frontend es una ventaja que no se quiere perder |
+| Alternativa              | Por qué se descarta                                                                                            |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| Route Handlers de Next   | La lógica de negocio queda atada al framework de UI; la app móvil obligaría a reescribir                       |
+| Express o Fastify a pelo | Habría que construir DI, módulos y validación: reinventar NestJS peor                                          |
+| Hono                     | Excelente y ligero, pero sin DI ni estructura modular; el equipo tendría que imponer ambas a mano              |
+| Go o Java                | El equipo es de TypeScript; compartir tipos y contratos con el frontend es una ventaja que no se quiere perder |
 
 ## Consecuencias
 

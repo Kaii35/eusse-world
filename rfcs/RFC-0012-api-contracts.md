@@ -1,11 +1,11 @@
 # RFC-0012 — Contratos de API y versionado
 
-| Campo | Valor |
-| ----- | ----- |
-| **Estado** | Aprobado · **Autor** Arquitecto · **Creado** 2026-08-06 |
-| **Revisores** | Backend · Frontend · Testing · Documentación |
-| **ADR generados** | ADR-0009 |
-| **Bloque** | A (A7) · Sprint 0 |
+| Campo             | Valor                                                   |
+| ----------------- | ------------------------------------------------------- |
+| **Estado**        | Aprobado · **Autor** Arquitecto · **Creado** 2026-08-06 |
+| **Revisores**     | Backend · Frontend · Testing · Documentación            |
+| **ADR generados** | ADR-0009                                                |
+| **Bloque**        | A (A7) · Sprint 0                                       |
 
 ---
 
@@ -29,12 +29,12 @@ UI desde el esquema.
 
 ## 3. Alternativas consideradas
 
-| Alternativa | Descarte |
-| ----------- | -------- |
-| A. OpenAPI escrito a mano + generador de tipos | El esquema se desincroniza del código; nadie lo actualiza |
-| B. Decoradores de NestJS como fuente | Ata el contrato al framework del backend; el frontend y el móvil no lo pueden importar |
-| C. tRPC | Excelente para monorepo TypeScript, pero acopla cliente y servidor y complica la app móvil y cualquier consumidor futuro |
-| **D. Zod en `@eusse/contracts` como fuente de verdad** | **Elegida.** Neutral, genera tipos, validación y OpenAPI; importable desde cualquier consumidor |
+| Alternativa                                            | Descarte                                                                                                                 |
+| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| A. OpenAPI escrito a mano + generador de tipos         | El esquema se desincroniza del código; nadie lo actualiza                                                                |
+| B. Decoradores de NestJS como fuente                   | Ata el contrato al framework del backend; el frontend y el móvil no lo pueden importar                                   |
+| C. tRPC                                                | Excelente para monorepo TypeScript, pero acopla cliente y servidor y complica la app móvil y cualquier consumidor futuro |
+| **D. Zod en `@eusse/contracts` como fuente de verdad** | **Elegida.** Neutral, genera tipos, validación y OpenAPI; importable desde cualquier consumidor                          |
 
 ## 4. Diseño
 
@@ -71,7 +71,7 @@ GET /api/v1/orders?cursor=eyJ...&limit=20
 `totalCount` sólo si es barato de calcular. El offset queda prohibido: es inestable ante
 inserciones y su coste crece con la página.
 
-### 4.4 Errores — *problem+json* con código estable
+### 4.4 Errores — _problem+json_ con código estable
 
 ```json
 {
@@ -98,15 +98,15 @@ Toda mutación que cree o cobre algo acepta `Idempotency-Key`. Misma clave + mis
 
 ### 4.6 Versionado
 
-| Cambio | Compatible | Acción |
-| ------ | ---------- | ------ |
-| Añadir campo opcional a la respuesta | Sí | Mismo `v1` |
-| Añadir parámetro opcional | Sí | Mismo `v1` |
-| Añadir código de error nuevo | Sí | Mismo `v1` (el cliente tiene fallback genérico) |
-| Quitar o renombrar campo | **No** | `v2` |
-| Cambiar el tipo de un campo | **No** | `v2` |
-| Hacer obligatorio un parámetro | **No** | `v2` |
-| Cambiar semántica sin cambiar forma | **No** | `v2` |
+| Cambio                               | Compatible | Acción                                          |
+| ------------------------------------ | ---------- | ----------------------------------------------- |
+| Añadir campo opcional a la respuesta | Sí         | Mismo `v1`                                      |
+| Añadir parámetro opcional            | Sí         | Mismo `v1`                                      |
+| Añadir código de error nuevo         | Sí         | Mismo `v1` (el cliente tiene fallback genérico) |
+| Quitar o renombrar campo             | **No**     | `v2`                                            |
+| Cambiar el tipo de un campo          | **No**     | `v2`                                            |
+| Hacer obligatorio un parámetro       | **No**     | `v2`                                            |
+| Cambiar semántica sin cambiar forma  | **No**     | `v2`                                            |
 
 Al publicar `v2`, `v1` se mantiene al menos 6 meses, con fecha de retirada anunciada en la
 respuesta (`Deprecation` y `Sunset`).
@@ -124,12 +124,12 @@ Un cambio de contrato exige actualizar consumidores y tests en el mismo PR.
 
 ## 6. Riesgos
 
-| Riesgo | Prob. | Impacto | Mitigación |
-| ------ | ----- | ------- | ---------- |
-| Tipos escritos a mano en paralelo | Media | Alto | Lint que prohíbe declarar tipos de API fuera de `@eusse/contracts` |
-| Cambio rompedor sin subir versión | Media | Alto | Contract tests + revisión obligatoria de cambios en `contracts` |
-| `@eusse/contracts` acoplado a un framework | Baja | Alto | Regla de frontera en CI |
-| Frontend que analiza mensajes de error | Media | Medio | Revisión de código; los mensajes son localizables y cambian |
+| Riesgo                                     | Prob. | Impacto | Mitigación                                                         |
+| ------------------------------------------ | ----- | ------- | ------------------------------------------------------------------ |
+| Tipos escritos a mano en paralelo          | Media | Alto    | Lint que prohíbe declarar tipos de API fuera de `@eusse/contracts` |
+| Cambio rompedor sin subir versión          | Media | Alto    | Contract tests + revisión obligatoria de cambios en `contracts`    |
+| `@eusse/contracts` acoplado a un framework | Baja  | Alto    | Regla de frontera en CI                                            |
+| Frontend que analiza mensajes de error     | Media | Medio   | Revisión de código; los mensajes son localizables y cambian        |
 
 ## 7. Criterios de aceptación
 

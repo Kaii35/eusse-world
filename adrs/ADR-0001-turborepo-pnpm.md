@@ -1,7 +1,7 @@
 # ADR-0001 — Turborepo + pnpm como monorepo
 
 | Estado | Aceptado · **Fecha** 2026-08-06 · **Decisor** Arquitecto · **RFC** RFC-0001 |
-| ------ | --- |
+| ------ | --------------------------------------------------------------------------- |
 
 ## Contexto
 
@@ -16,11 +16,11 @@ tareas y cachear.
 
 ## Alternativas descartadas
 
-| Alternativa | Por qué se descarta |
-| ----------- | ------------------- |
-| Repositorios separados | Coordinación constante; los contratos se desincronizan; onboarding lento |
-| npm/yarn workspaces sin orquestador | Sin caché ni ejecución selectiva: CI lenta desde el primer mes |
-| Nx | Más potente, pero su curva y su acoplamiento a generadores no se justifican con este tamaño de equipo |
+| Alternativa                         | Por qué se descarta                                                                                   |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Repositorios separados              | Coordinación constante; los contratos se desincronizan; onboarding lento                              |
+| npm/yarn workspaces sin orquestador | Sin caché ni ejecución selectiva: CI lenta desde el primer mes                                        |
+| Nx                                  | Más potente, pero su curva y su acoplamiento a generadores no se justifican con este tamaño de equipo |
 
 ## Consecuencias
 

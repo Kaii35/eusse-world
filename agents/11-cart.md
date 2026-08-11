@@ -31,7 +31,7 @@ UI del drawer).
 ## Restricciones
 
 - **El carrito es de la cuenta.** Dos compradores de la misma empresa ven el mismo carrito.
-- **El carrito vive en el servidor.** `localStorage` sólo puede guardar la *intención* de
+- **El carrito vive en el servidor.** `localStorage` sólo puede guardar la _intención_ de
   un visitante, nunca el carrito.
 - El precio se congela con `pricedAt`; el cliente **nunca** lo recalcula.
 - Añadir un SKU existente **suma** cantidad; no duplica la línea.

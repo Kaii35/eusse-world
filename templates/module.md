@@ -1,11 +1,11 @@
 # Módulo — `<nombre>`
 
-| Campo | Valor |
-| ----- | ----- |
-| **Contexto acotado** | |
-| **RFC** | RFC-XXXX |
-| **Fase** | 1 · 2 · 3 · 4 |
-| **Dueño** | agente |
+| Campo                | Valor         |
+| -------------------- | ------------- |
+| **Contexto acotado** |               |
+| **RFC**              | RFC-XXXX      |
+| **Fase**             | 1 · 2 · 3 · 4 |
+| **Dueño**            | agente        |
 
 ## Responsabilidad
 
@@ -51,9 +51,9 @@ export interface <Nombre>Facade {
 
 ## Dependencias
 
-| Depende de | Tipo | Qué usa | Declarado en `07-module-dependencies.md` |
-| ---------- | ---- | ------- | :---: |
-| | Síncrona / Evento | | ☐ |
+| Depende de | Tipo              | Qué usa | Declarado en `07-module-dependencies.md` |
+| ---------- | ----------------- | ------- | :--------------------------------------: |
+|            | Síncrona / Evento |         |                    ☐                     |
 
 **Verificar:** sin dependencias circulares. Si A necesita B y B necesita A, uno publica un
 evento.
@@ -64,7 +64,7 @@ evento.
 
 | Tabla | Propósito |
 | ----- | --------- |
-| | |
+|       |           |
 
 ## Eventos
 
@@ -74,7 +74,7 @@ evento.
 
 | Variable | Obligatoria | Descripción |
 | -------- | ----------- | ----------- |
-| | | |
+|          |             |             |
 
 Añadir a `.env.example` y validar con Zod al arrancar.
 

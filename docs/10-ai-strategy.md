@@ -55,11 +55,11 @@ graph LR
 
 ## 3. Los tres artefactos y sus roles
 
-| Artefacto | Responde | Analogía |
-| --------- | -------- | -------- |
-| **Agente** | *Quién soy, qué puedo tocar, qué entrego* | Contrato laboral |
-| **Skill** | *Cómo se hace bien esto en este repo* | Manual del oficio |
-| **RFC** | *Qué hay que construir ahora y por qué* | Orden de trabajo |
+| Artefacto  | Responde                                  | Analogía          |
+| ---------- | ----------------------------------------- | ----------------- |
+| **Agente** | _Quién soy, qué puedo tocar, qué entrego_ | Contrato laboral  |
+| **Skill**  | _Cómo se hace bien esto en este repo_     | Manual del oficio |
+| **RFC**    | _Qué hay que construir ahora y por qué_   | Orden de trabajo  |
 
 Separarlos evita el error habitual de meter todo en un prompt gigante: el agente es
 estable, la skill cambia poco, el RFC cambia en cada feature.
@@ -94,9 +94,9 @@ Ante ambigüedad, el agente **no adivina**. Emite:
 **Ambigüedad:** El RFC no define qué ocurre si una cuenta tiene dos listas de
 precios vigentes que cubren el mismo SKU.
 **Opciones:**
-  A) Gana la lista con prioridad más alta (requiere campo `priority`).
-  B) Gana el precio más bajo.
-  C) Es un error de configuración → `PRICING_AMBIGUOUS_PRICE_LIST`.
+A) Gana la lista con prioridad más alta (requiere campo `priority`).
+B) Gana el precio más bajo.
+C) Es un error de configuración → `PRICING_AMBIGUOUS_PRICE_LIST`.
 **Recomendación:** C — un precio ambiguo en B2B es un fallo de datos, no algo
 que el sistema deba resolver en silencio.
 **Impacto:** bloquea E2, E5. No bloquea E1.
@@ -130,13 +130,13 @@ Cada entrega incluye:
 La deuda técnica de la IA nace de generar código plausible pero incoherente con el
 sistema. Cinco barreras lo impiden:
 
-| Barrera | Qué bloquea | Verificado por |
-| ------- | ----------- | -------------- |
-| **RFC previo** | Código que resuelve el problema equivocado | Revisión humana |
-| **Contratos Zod primero** | Interfaces inventadas o divergentes | Contract tests |
-| **Fronteras de arquitectura** | Código en la capa equivocada | ESLint boundaries (CI) |
-| **Cobertura de dominio ≥ 90%** | Reglas de negocio sin probar | Vitest coverage (CI) |
-| **Definition of Done** | "Terminado" ambiguo | Checklist + CI |
+| Barrera                        | Qué bloquea                                | Verificado por         |
+| ------------------------------ | ------------------------------------------ | ---------------------- |
+| **RFC previo**                 | Código que resuelve el problema equivocado | Revisión humana        |
+| **Contratos Zod primero**      | Interfaces inventadas o divergentes        | Contract tests         |
+| **Fronteras de arquitectura**  | Código en la capa equivocada               | ESLint boundaries (CI) |
+| **Cobertura de dominio ≥ 90%** | Reglas de negocio sin probar               | Vitest coverage (CI)   |
+| **Definition of Done**         | "Terminado" ambiguo                        | Checklist + CI         |
 
 **La clave:** cuatro de las cinco barreras las verifica una máquina. Un agente no puede
 convencer a `tsc` de que su código está bien.
@@ -147,16 +147,16 @@ convencer a `tsc` de que su código está bien.
 
 Asignar tareas contra esta tabla es la mitad del resultado.
 
-| Alta fiabilidad — delegar | Baja fiabilidad — supervisar de cerca |
-| ------------------------- | ------------------------------------- |
-| Implementar un contrato Zod ya especificado | Diseñar el modelo de dominio |
-| Escribir tests desde criterios de aceptación | Decidir fronteras entre contextos |
-| Traducir un diseño a componentes | Juzgar si una UX es buena |
-| CRUD, adaptadores, mapeadores | Elegir entre trade-offs de arquitectura |
-| Refactorizar con tests verdes de red | Optimizar rendimiento sin medir antes |
-| Documentar código existente | Escribir el "por qué" de un ADR |
-| Migrar patrones repetitivos | Modelar reglas de negocio no escritas |
-| Detectar inconsistencias entre archivos | Priorizar producto |
+| Alta fiabilidad — delegar                    | Baja fiabilidad — supervisar de cerca   |
+| -------------------------------------------- | --------------------------------------- |
+| Implementar un contrato Zod ya especificado  | Diseñar el modelo de dominio            |
+| Escribir tests desde criterios de aceptación | Decidir fronteras entre contextos       |
+| Traducir un diseño a componentes             | Juzgar si una UX es buena               |
+| CRUD, adaptadores, mapeadores                | Elegir entre trade-offs de arquitectura |
+| Refactorizar con tests verdes de red         | Optimizar rendimiento sin medir antes   |
+| Documentar código existente                  | Escribir el "por qué" de un ADR         |
+| Migrar patrones repetitivos                  | Modelar reglas de negocio no escritas   |
+| Detectar inconsistencias entre archivos      | Priorizar producto                      |
 
 **Corolario:** los agentes de diseño (Arquitecto, UX, Product Owner, Analista Funcional)
 producen **documentos para revisión humana**, nunca código directo.
@@ -203,8 +203,8 @@ revisables, legibles por cualquier herramienta). `.claude/` se sincroniza desde 
 
 **Skills externas instaladas**
 
-| Skill | Origen | Para qué |
-| ----- | ------ | -------- |
+| Skill           | Origen                                                                                          | Para qué                                                                                                                        |
+| --------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | `ui-ux-pro-max` | [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | Sistemas de color, tipografía, estilos visuales, guías de UX y auditoría de diseño. La usan los agentes UI, UX y Design System. |
 
 Uso previsto: `ui-ux-pro-max` aporta **inspiración y criterio visual**; `@eusse/tokens`
@@ -241,13 +241,13 @@ Reglas:
 
 ## 10. Métricas de la colaboración con IA
 
-| Métrica | Objetivo | Qué indica si falla |
-| ------- | -------- | ------------------- |
-| PRs de agente aprobados sin cambios mayores | > 70% | Contexto o RFC insuficientes |
-| Bloqueos emitidos por feature | 1–3 | 0 = está adivinando. >5 = el RFC está incompleto |
-| Fallos de CI por violación de fronteras | < 5% de PRs | Las reglas no están claras en la skill |
-| Deuda técnica introducida por PR de agente | 0 | Definition of Done demasiado laxa |
-| Tiempo de revisión humana por PR | < 20 min | PRs demasiado grandes |
+| Métrica                                     | Objetivo    | Qué indica si falla                              |
+| ------------------------------------------- | ----------- | ------------------------------------------------ |
+| PRs de agente aprobados sin cambios mayores | > 70%       | Contexto o RFC insuficientes                     |
+| Bloqueos emitidos por feature               | 1–3         | 0 = está adivinando. >5 = el RFC está incompleto |
+| Fallos de CI por violación de fronteras     | < 5% de PRs | Las reglas no están claras en la skill           |
+| Deuda técnica introducida por PR de agente  | 0           | Definition of Done demasiado laxa                |
+| Tiempo de revisión humana por PR            | < 20 min    | PRs demasiado grandes                            |
 
 Estas métricas se revisan al cerrar cada bloque. Si un número se sale, **se corrige el
 documento, no el agente**.

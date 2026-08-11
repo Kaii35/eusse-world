@@ -13,20 +13,20 @@ desplegable. Sin sprints de "sólo infraestructura" después del Sprint 0.
 
 **Objetivo:** cualquiera clona, ejecuta un comando y tiene todo funcionando.
 
-| # | Tarea | Agente | Referencia |
-| - | ----- | ------ | ---------- |
-| 0.1 | Monorepo: pnpm, Turborepo, workspaces | DevOps | A1 |
-| 0.2 | Configuraciones compartidas: TS, ESLint, Prettier, commitlint, husky | DevOps | A2 |
-| 0.3 | Docker Compose: PostgreSQL, Redis, MailHog, MinIO | DevOps | A3 |
-| 0.4 | CI: lint, typecheck, test, build, con caché | DevOps | A4 |
-| 0.5 | `apps/api` con health, config Zod, logger, errores | Backend | A5 |
-| 0.6 | Prisma con esquemas por contexto + seed | Base de Datos | A6 |
-| 0.7 | `@eusse/contracts` base | Backend + Frontend | A7 |
-| 0.8 | `@eusse/tokens` completo (light + dark) | Design System | A8 |
-| 0.9 | `@eusse/ui` con 8 primitivos + Storybook | UI | A9 |
-| 0.10 | `apps/web` y `apps/admin` con i18n, tema y layouts | Frontend | A10, A11 |
-| 0.11 | `apps/workers` + outbox + DLQ | Backend | A12, A13 |
-| 0.12 | `@eusse/testing` + Playwright | Testing | A14, A15 |
+| #    | Tarea                                                                | Agente             | Referencia |
+| ---- | -------------------------------------------------------------------- | ------------------ | ---------- |
+| 0.1  | Monorepo: pnpm, Turborepo, workspaces                                | DevOps             | A1         |
+| 0.2  | Configuraciones compartidas: TS, ESLint, Prettier, commitlint, husky | DevOps             | A2         |
+| 0.3  | Docker Compose: PostgreSQL, Redis, MailHog, MinIO                    | DevOps             | A3         |
+| 0.4  | CI: lint, typecheck, test, build, con caché                          | DevOps             | A4         |
+| 0.5  | `apps/api` con health, config Zod, logger, errores                   | Backend            | A5         |
+| 0.6  | Prisma con esquemas por contexto + seed                              | Base de Datos      | A6         |
+| 0.7  | `@eusse/contracts` base                                              | Backend + Frontend | A7         |
+| 0.8  | `@eusse/tokens` completo (light + dark)                              | Design System      | A8         |
+| 0.9  | `@eusse/ui` con 8 primitivos + Storybook                             | UI                 | A9         |
+| 0.10 | `apps/web` y `apps/admin` con i18n, tema y layouts                   | Frontend           | A10, A11   |
+| 0.11 | `apps/workers` + outbox + DLQ                                        | Backend            | A12, A13   |
+| 0.12 | `@eusse/testing` + Playwright                                        | Testing            | A14, A15   |
 
 **Demo:** `pnpm dev` levanta cuatro apps · un evento va de API a worker · Storybook
 publicado · CI verde.
@@ -193,13 +193,13 @@ equipo comercial · 13.4 Migración de catálogo y precios reales · 13.5 **Lanz
 
 ## Ritmo de trabajo
 
-| Cuándo | Qué | Duración |
-| ------ | --- | -------- |
-| Diario | Sincronización: hecho, siguiente, bloqueos | 15 min |
-| Lunes de sprint | Planificación con Definition of Ready verificada | 2 h |
-| Miércoles | Revisión técnica: RFCs abiertos, ADRs pendientes, deuda | 1 h |
-| Viernes de sprint | Demo con negocio + retrospectiva | 1.5 h |
-| Fin de bloque | Revisión de arquitectura: grafo real vs. documentado + riesgos | 2 h |
+| Cuándo            | Qué                                                            | Duración |
+| ----------------- | -------------------------------------------------------------- | -------- |
+| Diario            | Sincronización: hecho, siguiente, bloqueos                     | 15 min   |
+| Lunes de sprint   | Planificación con Definition of Ready verificada               | 2 h      |
+| Miércoles         | Revisión técnica: RFCs abiertos, ADRs pendientes, deuda        | 1 h      |
+| Viernes de sprint | Demo con negocio + retrospectiva                               | 1.5 h    |
+| Fin de bloque     | Revisión de arquitectura: grafo real vs. documentado + riesgos | 2 h      |
 
 ---
 

@@ -21,18 +21,18 @@ staff opera el negocio.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Panel con gráficos bonitos e inútiles | Nadie lo mira dos veces |
-| Filtrar por `accountId` del cliente | IDOR |
-| Permisos sólo en la UI | Se saltan con `curl` |
-| Mismo diseño para portal y back-office | Uno queda vacío, el otro agobia |
-| Tabla sin filtros ni orden | Inútil con más de 50 filas |
-| Cargar 10 000 filas de golpe | Navegador colgado |
-| Acción destructiva sin confirmar | Datos perdidos |
-| Sin auditoría en el admin | Imposible investigar un incidente |
-| Exportación síncrona de 50 000 filas | Timeout |
-| Sin estado vacío | El usuario nuevo ve una pantalla en blanco |
+| Error                                  | Consecuencia                               |
+| -------------------------------------- | ------------------------------------------ |
+| Panel con gráficos bonitos e inútiles  | Nadie lo mira dos veces                    |
+| Filtrar por `accountId` del cliente    | IDOR                                       |
+| Permisos sólo en la UI                 | Se saltan con `curl`                       |
+| Mismo diseño para portal y back-office | Uno queda vacío, el otro agobia            |
+| Tabla sin filtros ni orden             | Inútil con más de 50 filas                 |
+| Cargar 10 000 filas de golpe           | Navegador colgado                          |
+| Acción destructiva sin confirmar       | Datos perdidos                             |
+| Sin auditoría en el admin              | Imposible investigar un incidente          |
+| Exportación síncrona de 50 000 filas   | Timeout                                    |
+| Sin estado vacío                       | El usuario nuevo ve una pantalla en blanco |
 
 ## Patrones
 

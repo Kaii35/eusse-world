@@ -95,11 +95,11 @@ externa**.
 
 Para el feature revisado, enumera al menos una amenaza por categoría y su control:
 
-| Categoría | Amenaza | Control |
-| --------- | ------- | ------- |
-| **S**poofing (suplantación) | | |
-| **T**ampering (manipulación) | | |
-| **R**epudiation (repudio) | | |
-| **I**nformation disclosure (fuga) | | |
-| **D**enial of service | | |
-| **E**levation of privilege | | |
+| Categoría                         | Amenaza | Control |
+| --------------------------------- | ------- | ------- |
+| **S**poofing (suplantación)       |         |         |
+| **T**ampering (manipulación)      |         |         |
+| **R**epudiation (repudio)         |         |         |
+| **I**nformation disclosure (fuga) |         |         |
+| **D**enial of service             |         |         |
+| **E**levation of privilege        |         |         |

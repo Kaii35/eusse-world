@@ -14,30 +14,33 @@ Puertas de calidad **verificables**. Una checklist no es una sugerencia: es lo q
 ## Índice
 
 ### Proceso
-| Checklist | Cuándo |
-| --------- | ------ |
-| [pre-rfc.md](pre-rfc.md) | Antes de escribir un RFC |
-| [pre-code.md](pre-code.md) | **Antes de escribir la primera línea de código de un feature** |
-| [definition-of-ready.md](definition-of-ready.md) | Antes de que una tarea entre a un sprint |
-| [definition-of-done.md](definition-of-done.md) | Antes de dar una tarea por terminada |
-| [pr-review.md](pr-review.md) | Al revisar un PR |
+
+| Checklist                                        | Cuándo                                                         |
+| ------------------------------------------------ | -------------------------------------------------------------- |
+| [pre-rfc.md](pre-rfc.md)                         | Antes de escribir un RFC                                       |
+| [pre-code.md](pre-code.md)                       | **Antes de escribir la primera línea de código de un feature** |
+| [definition-of-ready.md](definition-of-ready.md) | Antes de que una tarea entre a un sprint                       |
+| [definition-of-done.md](definition-of-done.md)   | Antes de dar una tarea por terminada                           |
+| [pr-review.md](pr-review.md)                     | Al revisar un PR                                               |
 
 ### Por disciplina
-| Checklist | Para |
-| --------- | ---- |
-| [backend.md](backend.md) | Módulos, casos de uso, endpoints |
-| [frontend.md](frontend.md) | Rutas, componentes, integración |
-| [database-migration.md](database-migration.md) | Cualquier cambio de esquema |
-| [security.md](security.md) | Features con datos privados, dinero o entrada externa |
-| [accessibility.md](accessibility.md) | Cualquier pantalla o componente |
-| [performance.md](performance.md) | Rutas y consultas críticas |
-| [seo.md](seo.md) | Páginas públicas |
-| [i18n.md](i18n.md) | Cualquier texto visible |
+
+| Checklist                                      | Para                                                  |
+| ---------------------------------------------- | ----------------------------------------------------- |
+| [backend.md](backend.md)                       | Módulos, casos de uso, endpoints                      |
+| [frontend.md](frontend.md)                     | Rutas, componentes, integración                       |
+| [database-migration.md](database-migration.md) | Cualquier cambio de esquema                           |
+| [security.md](security.md)                     | Features con datos privados, dinero o entrada externa |
+| [accessibility.md](accessibility.md)           | Cualquier pantalla o componente                       |
+| [performance.md](performance.md)               | Rutas y consultas críticas                            |
+| [seo.md](seo.md)                               | Páginas públicas                                      |
+| [i18n.md](i18n.md)                             | Cualquier texto visible                               |
 
 ### Operación
-| Checklist | Para |
-| --------- | ---- |
-| [release.md](release.md) | Despliegue a producción |
+
+| Checklist                  | Para                    |
+| -------------------------- | ----------------------- |
+| [release.md](release.md)   | Despliegue a producción |
 | [incident.md](incident.md) | Incidente en producción |
 
 ## Regla

@@ -14,22 +14,22 @@ install (pnpm --frozen-lockfile, con caché)
 
 Puertas **bloqueantes** (ver [`docs/04-standards.md`](../../docs/04-standards.md) §5):
 
-| Puerta | Herramienta |
-| ------ | ----------- |
-| Formato | Prettier `--check` |
-| Lint (0 errores, 0 warnings) | ESLint |
+| Puerta                        | Herramienta                                       |
+| ----------------------------- | ------------------------------------------------- |
+| Formato                       | Prettier `--check`                                |
+| Lint (0 errores, 0 warnings)  | ESLint                                            |
 | **Fronteras de arquitectura** | `eslint-plugin-boundaries` + `dependency-cruiser` |
-| Tipos | `tsc --noEmit` |
-| Tests unitarios e integración | Vitest + Testcontainers |
-| Cobertura | dominio ≥ 90%, aplicación ≥ 80% |
-| Build | `turbo build` |
-| Bundle | `size-limit` |
-| Secretos | gitleaks |
-| Formato de commit | commitlint |
-| Paridad de i18n | `pnpm check:i18n` |
-| Enlaces de documentación | `pnpm check:docs` |
-| Migraciones seguras | `pnpm check:migration` |
-| `.claude/` sincronizado | `pnpm sync:claude --check` |
+| Tipos                         | `tsc --noEmit`                                    |
+| Tests unitarios e integración | Vitest + Testcontainers                           |
+| Cobertura                     | dominio ≥ 90%, aplicación ≥ 80%                   |
+| Build                         | `turbo build`                                     |
+| Bundle                        | `size-limit`                                      |
+| Secretos                      | gitleaks                                          |
+| Formato de commit             | commitlint                                        |
+| Paridad de i18n               | `pnpm check:i18n`                                 |
+| Enlaces de documentación      | `pnpm check:docs`                                 |
+| Migraciones seguras           | `pnpm check:migration`                            |
+| `.claude/` sincronizado       | `pnpm sync:claude --check`                        |
 
 **Objetivo: PR típico en menos de 10 minutos.** Con caché remota de Turborepo y ejecución
 selectiva por el grafo de dependencias.

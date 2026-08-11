@@ -1,7 +1,7 @@
 # ADR-0020 — Contenedores en PaaS gestionado, sin Kubernetes
 
 | Estado | Aceptado · **Fecha** 2026-08-06 · **Decisor** DevOps + Arquitecto · **RFC** RFC-0015 |
-| ------ | --- |
+| ------ | ------------------------------------------------------------------------------------ |
 
 ## Contexto
 
@@ -26,12 +26,12 @@ autoalojados.
 
 ## Alternativas descartadas
 
-| Alternativa | Por qué se descarta |
-| ----------- | ------------------- |
-| Kubernetes | Coste operativo enorme sin equipo que lo opere de guardia; resuelve problemas de escala que no tenemos |
-| Servidores propios (VPS a mano) | Configuración manual irreproducible; copias de seguridad y parcheo a cargo del equipo |
-| Serverless por función | Arranques en frío, gestión de conexiones a base de datos y el dominio troceado por la infraestructura |
-| PostgreSQL y Redis autoalojados | Copias de seguridad, réplicas, parcheo y guardia — trabajo que no aporta valor al producto |
+| Alternativa                     | Por qué se descarta                                                                                    |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Kubernetes                      | Coste operativo enorme sin equipo que lo opere de guardia; resuelve problemas de escala que no tenemos |
+| Servidores propios (VPS a mano) | Configuración manual irreproducible; copias de seguridad y parcheo a cargo del equipo                  |
+| Serverless por función          | Arranques en frío, gestión de conexiones a base de datos y el dominio troceado por la infraestructura  |
+| PostgreSQL y Redis autoalojados | Copias de seguridad, réplicas, parcheo y guardia — trabajo que no aporta valor al producto             |
 
 ## Consecuencias
 

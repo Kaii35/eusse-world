@@ -17,7 +17,7 @@ Lo que sale mal en la práctica, con su consecuencia real.
 
 | Error | Consecuencia |
 | ----- | ------------ |
-| | |
+|       |              |
 
 ## Patrones
 
@@ -39,13 +39,19 @@ deliberadas y equivocadas.
 ## Ejemplos
 
 **Bien**
+
 ```
+
 ```
+
 Por qué está bien.
 
 **Mal**
+
 ```
+
 ```
+
 Qué problema concreto causa.
 
 ## Convenciones

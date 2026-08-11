@@ -23,18 +23,18 @@ teclado, con lector de pantalla y sin superar el presupuesto de rendimiento.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Sólo el estado con datos | Se descubren los vacíos y errores en producción |
-| Skeleton de tamaño distinto al contenido | Salto de layout; CLS alto |
-| Spinner centrado en vez de skeleton | Se percibe más lento de lo que es |
-| Valores mágicos de Tailwind | Deriva del sistema |
-| Modo oscuro al final | Se rehace la mitad |
-| `div` con `onClick` | Sin teclado, sin rol, sin foco |
-| `alt=""` en imagen de producto | Inaccesible y peor SEO |
-| Animar `width`/`height`/`top` | Reflow y jank |
-| Componente de 400 líneas | Imposible de revisar y de reutilizar |
-| Texto escrito directamente en el JSX | Bloquea i18n desde el minuto uno |
+| Error                                    | Consecuencia                                    |
+| ---------------------------------------- | ----------------------------------------------- |
+| Sólo el estado con datos                 | Se descubren los vacíos y errores en producción |
+| Skeleton de tamaño distinto al contenido | Salto de layout; CLS alto                       |
+| Spinner centrado en vez de skeleton      | Se percibe más lento de lo que es               |
+| Valores mágicos de Tailwind              | Deriva del sistema                              |
+| Modo oscuro al final                     | Se rehace la mitad                              |
+| `div` con `onClick`                      | Sin teclado, sin rol, sin foco                  |
+| `alt=""` en imagen de producto           | Inaccesible y peor SEO                          |
+| Animar `width`/`height`/`top`            | Reflow y jank                                   |
+| Componente de 400 líneas                 | Imposible de revisar y de reutilizar            |
+| Texto escrito directamente en el JSX     | Bloquea i18n desde el minuto uno                |
 
 ## Patrones
 

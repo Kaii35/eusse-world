@@ -21,17 +21,17 @@ velocidad.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Priorizar por intuición | Se construye lo que no importa |
-| Negociar calidad por fecha | Deuda que hace cada sprint más lento |
-| Alcance añadido a mitad de sprint | Nada se termina |
-| Funcionalidad sin métrica | Nunca se sabe si funcionó |
-| Aceptar sin la Definition of Done | La deuda entra en producción |
-| Dejar lo arriesgado para el final | Se descubre tarde y cuesta el proyecto |
-| Comprometer fechas sin estimación | Pérdida de credibilidad |
-| Copiar funcionalidades de la competencia | Se resuelven problemas ajenos |
-| Backlog de 400 elementos | Nadie lo lee; la priorización es teatro |
+| Error                                    | Consecuencia                            |
+| ---------------------------------------- | --------------------------------------- |
+| Priorizar por intuición                  | Se construye lo que no importa          |
+| Negociar calidad por fecha               | Deuda que hace cada sprint más lento    |
+| Alcance añadido a mitad de sprint        | Nada se termina                         |
+| Funcionalidad sin métrica                | Nunca se sabe si funcionó               |
+| Aceptar sin la Definition of Done        | La deuda entra en producción            |
+| Dejar lo arriesgado para el final        | Se descubre tarde y cuesta el proyecto  |
+| Comprometer fechas sin estimación        | Pérdida de credibilidad                 |
+| Copiar funcionalidades de la competencia | Se resuelven problemas ajenos           |
+| Backlog de 400 elementos                 | Nadie lo lee; la priorización es teatro |
 
 ## Patrones
 

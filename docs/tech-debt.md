@@ -9,16 +9,16 @@ El 20% de la capacidad de cada sprint está reservado a pagar esta lista.
 
 ## Formato
 
-| # | Qué | Por qué se aceptó | Coste de arreglarla | Coste de NO arreglarla | Fecha límite | Dueño | Estado |
-| - | --- | ----------------- | ------------------- | ---------------------- | ------------ | ----- | ------ |
+| #   | Qué | Por qué se aceptó | Coste de arreglarla | Coste de NO arreglarla | Fecha límite | Dueño | Estado |
+| --- | --- | ----------------- | ------------------- | ---------------------- | ------------ | ----- | ------ |
 
 ## Deuda abierta
 
-*Ninguna. El proyecto está en Fase 0.*
+_Ninguna. El proyecto está en Fase 0._
 
 ## Deuda cerrada
 
-*Ninguna todavía.*
+_Ninguna todavía._
 
 ---
 

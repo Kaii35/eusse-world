@@ -1,13 +1,13 @@
 # RFC-0004 — Intención de compra del visitante y retorno post-login
 
-| Campo | Valor |
-| ----- | ----- |
-| **Estado** | Aprobado |
-| **Autor** | Arquitecto |
-| **Revisores** | Auth (07) · Carrito (11) · UX (05) · Seguridad (23) · Product Owner (29) |
-| **Creado** | 2026-08-06 |
-| **ADR generados** | ADR-0008 |
-| **Bloque / Sprint** | E7 · Sprint 7 |
+| Campo               | Valor                                                                    |
+| ------------------- | ------------------------------------------------------------------------ |
+| **Estado**          | Aprobado                                                                 |
+| **Autor**           | Arquitecto                                                               |
+| **Revisores**       | Auth (07) · Carrito (11) · UX (05) · Seguridad (23) · Product Owner (29) |
+| **Creado**          | 2026-08-06                                                               |
+| **ADR generados**   | ADR-0008                                                                 |
+| **Bloque / Sprint** | E7 · Sprint 7                                                            |
 
 ---
 
@@ -30,12 +30,14 @@ su carrito con su precio real**.
 ## 2. Objetivos y no-objetivos
 
 **Objetivos**
+
 - Preservar la intención de compra (SKU + cantidad + origen) a través de la autenticación.
 - Devolver al usuario exactamente al producto de origen.
 - Aplicar la intención **con la cuenta real**, revalidando todo.
 - Hacerlo sin abrir un vector de redirección abierta ni de manipulación.
 
 **No-objetivos**
+
 - Carrito de invitado persistente con varios productos. Se preserva **una** intención, la
   última.
 - Precios visibles sin sesión.
@@ -44,12 +46,12 @@ su carrito con su precio real**.
 
 ## 3. Alternativas consideradas
 
-| Alternativa | Ventajas | Inconvenientes | Descarte |
-| ----------- | -------- | -------------- | -------- |
-| **A. Carrito de invitado en `localStorage`, fusión al entrar** | Familiar en B2C; varios productos | El invitado no tiene precio: el carrito sería una lista sin importes. Manipulable. Fusión ambigua entre cuentas con acuerdos distintos | Descartada |
-| **B. Intención en la query (`?sku=X&qty=10`)** | Trivial de implementar | Manipulable; vector de redirección abierta; se filtra en logs y `Referer` | Descartada |
-| **C. Intención firmada en cookie httpOnly del servidor** | No manipulable, no visible al JS, TTL corto, un solo uso | Un solo producto por intención | **Elegida** |
-| **D. Intención persistida en base de datos con ID en cookie** | Auditable, sin límite de tamaño | Escritura en base de datos por cada visitante que pulsa el botón; limpieza necesaria | Descartada por coste sin beneficio |
+| Alternativa                                                    | Ventajas                                                 | Inconvenientes                                                                                                                         | Descarte                           |
+| -------------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| **A. Carrito de invitado en `localStorage`, fusión al entrar** | Familiar en B2C; varios productos                        | El invitado no tiene precio: el carrito sería una lista sin importes. Manipulable. Fusión ambigua entre cuentas con acuerdos distintos | Descartada                         |
+| **B. Intención en la query (`?sku=X&qty=10`)**                 | Trivial de implementar                                   | Manipulable; vector de redirección abierta; se filtra en logs y `Referer`                                                              | Descartada                         |
+| **C. Intención firmada en cookie httpOnly del servidor**       | No manipulable, no visible al JS, TTL corto, un solo uso | Un solo producto por intención                                                                                                         | **Elegida**                        |
+| **D. Intención persistida en base de datos con ID en cookie**  | Auditable, sin límite de tamaño                          | Escritura en base de datos por cada visitante que pulsa el botón; limpieza necesaria                                                   | Descartada por coste sin beneficio |
 
 **Por qué C:** en B2B el visitante añade un producto puntual antes de identificarse, no
 arma un carrito de 40 líneas de forma anónima. Una intención firmada, de un solo uso y de
@@ -109,6 +111,7 @@ PurchaseIntent {
 Serializada y firmada: `base64url(payload) + "." + base64url(HMAC-SHA256(payload, secret))`.
 
 **Propiedades de seguridad**
+
 - `httpOnly` → inaccesible desde JavaScript, inmune a XSS de lectura.
 - Firmada → no manipulable sin el secreto del servidor.
 - `exp` de 30 min → ventana de ataque mínima.
@@ -157,15 +160,15 @@ javascript:alert(1)           data:text/html,<script>       /%2f%2fevil.com
 
 **La intención nunca se aplica a ciegas.** Se revalida con la cuenta real:
 
-| Comprobación | Si falla |
-| ------------ | -------- |
-| La variante existe | `CATALOG_VARIANT_NOT_FOUND` → mensaje y no se agrega |
-| Es visible para la cuenta | `CATALOG_VARIANT_NOT_VISIBLE` → "Este producto no está disponible para tu cuenta" |
-| Hay precio para la cuenta | `PRICING_NO_PRICE_FOR_ACCOUNT` → "Consulta con tu asesor" |
-| Cantidad ≥ `minOrderQty` | `CART_QTY_BELOW_MINIMUM` → se ofrece ajustar al mínimo |
-| Cantidad múltiplo de `qtyIncrement` | `CART_QTY_NOT_MULTIPLE` → se ofrece el múltiplo más cercano |
-| Cuenta `ACTIVE` | `ACCOUNT_NOT_ACTIVE` → "Tu cuenta está pendiente de aprobación" |
-| Permiso `cart:write` | `AUTH_FORBIDDEN` → "No tienes permiso para agregar productos" |
+| Comprobación                        | Si falla                                                                          |
+| ----------------------------------- | --------------------------------------------------------------------------------- |
+| La variante existe                  | `CATALOG_VARIANT_NOT_FOUND` → mensaje y no se agrega                              |
+| Es visible para la cuenta           | `CATALOG_VARIANT_NOT_VISIBLE` → "Este producto no está disponible para tu cuenta" |
+| Hay precio para la cuenta           | `PRICING_NO_PRICE_FOR_ACCOUNT` → "Consulta con tu asesor"                         |
+| Cantidad ≥ `minOrderQty`            | `CART_QTY_BELOW_MINIMUM` → se ofrece ajustar al mínimo                            |
+| Cantidad múltiplo de `qtyIncrement` | `CART_QTY_NOT_MULTIPLE` → se ofrece el múltiplo más cercano                       |
+| Cuenta `ACTIVE`                     | `ACCOUNT_NOT_ACTIVE` → "Tu cuenta está pendiente de aprobación"                   |
+| Permiso `cart:write`                | `AUTH_FORBIDDEN` → "No tienes permiso para agregar productos"                     |
 
 En todos los casos **se vuelve a `returnTo`** y se muestra el motivo con precisión. Nunca
 un fallo silencioso.
@@ -210,16 +213,16 @@ Sólo existe **una** intención activa. Crear una nueva descarta la anterior.
 
 ### 4.7 Errores
 
-| Código | HTTP | Cuándo | Qué ve el usuario |
-| ------ | ---- | ------ | ----------------- |
-| — | 302 | Intención ausente o expirada | Vuelve a `next`, sin mensaje de error |
-| `AUTH_INTENT_INVALID_SIGNATURE` | 400 | Firma no válida (manipulación) | Vuelve a `/`, se registra como incidente de seguridad |
-| `AUTH_INTENT_ALREADY_USED` | 409 | `nonce` ya consumido | Vuelve a `returnTo`, sin duplicar |
-| `CATALOG_VARIANT_NOT_VISIBLE` | 403 | No visible para la cuenta | "Este producto no está disponible para tu cuenta" |
-| `PRICING_NO_PRICE_FOR_ACCOUNT` | 422 | Sin lista aplicable | "Consulta con tu asesor comercial" |
-| `CART_QTY_BELOW_MINIMUM` | 422 | Cantidad insuficiente | "La cantidad mínima es N" + acción de ajuste |
-| `CART_QTY_NOT_MULTIPLE` | 422 | No múltiplo | "Se vende en cajas de N" + acción de ajuste |
-| `ACCOUNT_NOT_ACTIVE` | 403 | Cuenta pendiente o suspendida | "Tu cuenta está pendiente de aprobación" |
+| Código                          | HTTP | Cuándo                         | Qué ve el usuario                                     |
+| ------------------------------- | ---- | ------------------------------ | ----------------------------------------------------- |
+| —                               | 302  | Intención ausente o expirada   | Vuelve a `next`, sin mensaje de error                 |
+| `AUTH_INTENT_INVALID_SIGNATURE` | 400  | Firma no válida (manipulación) | Vuelve a `/`, se registra como incidente de seguridad |
+| `AUTH_INTENT_ALREADY_USED`      | 409  | `nonce` ya consumido           | Vuelve a `returnTo`, sin duplicar                     |
+| `CATALOG_VARIANT_NOT_VISIBLE`   | 403  | No visible para la cuenta      | "Este producto no está disponible para tu cuenta"     |
+| `PRICING_NO_PRICE_FOR_ACCOUNT`  | 422  | Sin lista aplicable            | "Consulta con tu asesor comercial"                    |
+| `CART_QTY_BELOW_MINIMUM`        | 422  | Cantidad insuficiente          | "La cantidad mínima es N" + acción de ajuste          |
+| `CART_QTY_NOT_MULTIPLE`         | 422  | No múltiplo                    | "Se vende en cajas de N" + acción de ajuste           |
+| `ACCOUNT_NOT_ACTIVE`            | 403  | Cuenta pendiente o suspendida  | "Tu cuenta está pendiente de aprobación"              |
 
 ### 4.8 Interfaz de usuario
 
@@ -245,29 +248,29 @@ correctiva:
 
 ## 5. Impacto
 
-| Área | Impacto |
-| ---- | ------- |
-| Contextos | Identity (firma y verificación) · Cart (aplicación) · Catalog (revalidación) |
-| Paquetes | `@eusse/auth`, `@eusse/contracts` |
-| Rompedores | Ninguno (funcionalidad nueva) |
-| Migración | Ninguna |
-| Rendimiento | Una verificación HMAC y una escritura en Redis por login con intención. Despreciable |
-| **Seguridad** | **Alto.** Redirección abierta e IDOR son los riesgos principales. Revisión obligatoria del agente 23 |
-| Accesibilidad | El mensaje de resultado se anuncia con `aria-live` |
-| i18n | Mensajes de resultado en `es` y `en` |
-| SEO | Ninguno: la ficha de producto sigue siendo estática e indexable |
-| Observabilidad | Evento `intent.created` / `intent.applied` / `intent.rejected` con motivo, para medir el embudo |
+| Área           | Impacto                                                                                              |
+| -------------- | ---------------------------------------------------------------------------------------------------- |
+| Contextos      | Identity (firma y verificación) · Cart (aplicación) · Catalog (revalidación)                         |
+| Paquetes       | `@eusse/auth`, `@eusse/contracts`                                                                    |
+| Rompedores     | Ninguno (funcionalidad nueva)                                                                        |
+| Migración      | Ninguna                                                                                              |
+| Rendimiento    | Una verificación HMAC y una escritura en Redis por login con intención. Despreciable                 |
+| **Seguridad**  | **Alto.** Redirección abierta e IDOR son los riesgos principales. Revisión obligatoria del agente 23 |
+| Accesibilidad  | El mensaje de resultado se anuncia con `aria-live`                                                   |
+| i18n           | Mensajes de resultado en `es` y `en`                                                                 |
+| SEO            | Ninguno: la ficha de producto sigue siendo estática e indexable                                      |
+| Observabilidad | Evento `intent.created` / `intent.applied` / `intent.rejected` con motivo, para medir el embudo      |
 
 ## 6. Riesgos
 
-| Riesgo | Prob. | Impacto | Mitigación verificable |
-| ------ | ----- | ------- | ---------------------- |
-| Redirección abierta | Alta | Crítico | Allowlist + corpus de payloads en CI + revisión de Seguridad |
-| Intención aplicada sin revalidar | Media | Alto | Test E2E por cada regla de rechazo |
-| Reutilización de la intención | Media | Medio | `nonce` de un solo uso registrado en Redis |
-| Cookie que sobrevive al cierre de sesión | Baja | Medio | Se borra en logout y al consumirse |
-| Manipulación del `sku` o la cantidad | Media | Alto | Firma HMAC + revalidación en servidor |
-| Confusión si el usuario cambia de cuenta activa antes de aplicar | Baja | Bajo | La intención se aplica a la cuenta activa tras el login; se indica en el mensaje |
+| Riesgo                                                           | Prob. | Impacto | Mitigación verificable                                                           |
+| ---------------------------------------------------------------- | ----- | ------- | -------------------------------------------------------------------------------- |
+| Redirección abierta                                              | Alta  | Crítico | Allowlist + corpus de payloads en CI + revisión de Seguridad                     |
+| Intención aplicada sin revalidar                                 | Media | Alto    | Test E2E por cada regla de rechazo                                               |
+| Reutilización de la intención                                    | Media | Medio   | `nonce` de un solo uso registrado en Redis                                       |
+| Cookie que sobrevive al cierre de sesión                         | Baja  | Medio   | Se borra en logout y al consumirse                                               |
+| Manipulación del `sku` o la cantidad                             | Media | Alto    | Firma HMAC + revalidación en servidor                                            |
+| Confusión si el usuario cambia de cuenta activa antes de aplicar | Baja  | Bajo    | La intención se aplica a la cuenta activa tras el login; se indica en el mensaje |
 
 ## 7. Criterios de aceptación
 
@@ -320,37 +323,39 @@ Escenario: Intención de un solo uso
 
 ## 8. Plan de implementación
 
-| # | Paso | Agente | Depende de |
-| - | ---- | ------ | ---------- |
-| 1 | Contratos de intención y resultado | Auth + Frontend | RFC aprobado |
-| 2 | Firma, verificación y `safeReturnTo` en `@eusse/auth` | Auth | 1 |
-| 3 | Corpus de payloads maliciosos + tests | Seguridad | 2 |
-| 4 | Route Handler de "añadir sin sesión" | Auth + Frontend | 2 |
-| 5 | Registro de `nonce` consumido en Redis | Auth | 2 |
-| 6 | Aplicación tras login con revalidación completa | Carrito | E5 (casos de uso del carrito) |
-| 7 | UI: login con contexto, toast de resultado, estado del botón | UI + UX | 4 |
-| 8 | Telemetría del embudo (`created`/`applied`/`rejected`) | Frontend | 4 |
-| 9 | E2E de los seis escenarios de aceptación | Testing | 6, 7 |
-| 10 | Revisión de seguridad | Seguridad | 9 |
+| #   | Paso                                                         | Agente          | Depende de                    |
+| --- | ------------------------------------------------------------ | --------------- | ----------------------------- |
+| 1   | Contratos de intención y resultado                           | Auth + Frontend | RFC aprobado                  |
+| 2   | Firma, verificación y `safeReturnTo` en `@eusse/auth`        | Auth            | 1                             |
+| 3   | Corpus de payloads maliciosos + tests                        | Seguridad       | 2                             |
+| 4   | Route Handler de "añadir sin sesión"                         | Auth + Frontend | 2                             |
+| 5   | Registro de `nonce` consumido en Redis                       | Auth            | 2                             |
+| 6   | Aplicación tras login con revalidación completa              | Carrito         | E5 (casos de uso del carrito) |
+| 7   | UI: login con contexto, toast de resultado, estado del botón | UI + UX         | 4                             |
+| 8   | Telemetría del embudo (`created`/`applied`/`rejected`)       | Frontend        | 4                             |
+| 9   | E2E de los seis escenarios de aceptación                     | Testing         | 6, 7                          |
+| 10  | Revisión de seguridad                                        | Seguridad       | 9                             |
 
 ## 9. Preparación para fases futuras
 
 **Hueco dejado**
+
 - El formato de la intención lleva `v: 1`: admite evolucionar a varias líneas sin romper.
 - El mecanismo de firma y validación de retorno se reutilizará para otras acciones que
   requieran identificación (solicitar cotización, descargar ficha técnica).
 
 **Explícitamente NO se construye ahora**
+
 - Carrito de invitado con varios productos.
 - Fusión de intenciones al cambiar de cuenta activa.
 - Persistencia de la intención más allá de 30 minutos.
 
 ## 10. Preguntas abiertas
 
-| # | Pregunta | Bloquea | Resuelta |
-| - | -------- | ------- | -------- |
-| 1 | ¿Un usuario con varias cuentas debe elegir cuenta antes de aplicar la intención? | No (E6) | **Sí** — se aplica a la última cuenta activa; si nunca eligió, a la primera por orden alfabético, y se indica en el mensaje |
-| 2 | ¿Se conserva la intención si el usuario se registra en vez de iniciar sesión? | No | **Sí** — se conserva, pero la cuenta nace `PENDING_VERIFICATION`: se informa de que se aplicará al aprobarse, y la intención se descarta |
+| #   | Pregunta                                                                         | Bloquea | Resuelta                                                                                                                                 |
+| --- | -------------------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | ¿Un usuario con varias cuentas debe elegir cuenta antes de aplicar la intención? | No (E6) | **Sí** — se aplica a la última cuenta activa; si nunca eligió, a la primera por orden alfabético, y se indica en el mensaje              |
+| 2   | ¿Se conserva la intención si el usuario se registra en vez de iniciar sesión?    | No      | **Sí** — se conserva, pero la cuenta nace `PENDING_VERIFICATION`: se informa de que se aplicará al aprobarse, y la intención se descarta |
 
 ## 11. Enlaces
 

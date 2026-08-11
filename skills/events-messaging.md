@@ -9,7 +9,7 @@ infraestructura reintenta — porque va a reintentar.
 
 - **Outbox transaccional, siempre.** El evento se escribe en la misma transacción que el
   cambio de estado. Un relay lo publica después.
-- **Asume entrega *at-least-once*.** El mensaje llegará dos veces. Diseña para ello desde
+- **Asume entrega _at-least-once_.** El mensaje llegará dos veces. Diseña para ello desde
   el primer handler.
 - **Todo consumidor es idempotente** por `eventId`, con tabla `processed_events`.
 - **Eventos en pasado y con hecho consumado**: `OrderPlaced`, nunca `PlaceOrder`.
@@ -23,16 +23,16 @@ infraestructura reintenta — porque va a reintentar.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Publicar antes del commit | El evento existe y el cambio no |
-| Publicar después del commit, fuera de transacción | El cambio existe y el evento se pierde si el proceso muere |
-| Handler no idempotente | Stock descontado dos veces; dos correos; doble cargo |
-| Payload con sólo un ID | El consumidor consulta al emisor: acoplamiento reintroducido |
-| Evento sin versión | Cualquier cambio rompe a todos los consumidores |
-| Reintento infinito | Un mensaje envenenado bloquea la cola para siempre |
-| Orden garantizado asumido | Casi ningún sistema lo garantiza; el handler debe tolerarlo |
-| Eventos como llamada a procedimiento (`SendEmail`) | Es un comando disfrazado; acopla emisor y consumidor |
+| Error                                              | Consecuencia                                                 |
+| -------------------------------------------------- | ------------------------------------------------------------ |
+| Publicar antes del commit                          | El evento existe y el cambio no                              |
+| Publicar después del commit, fuera de transacción  | El cambio existe y el evento se pierde si el proceso muere   |
+| Handler no idempotente                             | Stock descontado dos veces; dos correos; doble cargo         |
+| Payload con sólo un ID                             | El consumidor consulta al emisor: acoplamiento reintroducido |
+| Evento sin versión                                 | Cualquier cambio rompe a todos los consumidores              |
+| Reintento infinito                                 | Un mensaje envenenado bloquea la cola para siempre           |
+| Orden garantizado asumido                          | Casi ningún sistema lo garantiza; el handler debe tolerarlo  |
+| Eventos como llamada a procedimiento (`SendEmail`) | Es un comando disfrazado; acopla emisor y consumidor         |
 
 ## Patrones
 

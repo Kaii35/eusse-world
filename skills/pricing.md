@@ -22,18 +22,18 @@ ese momento. Un error aquí es el riesgo R-01, el más crítico del proyecto.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| `float` para dinero | Descuadres de céntimos imposibles de conciliar |
-| Redondear en cada paso | El total no coincide con la suma de las líneas |
-| Precio sin moneda | Se suman pesos con dólares |
-| Precio por defecto si no hay lista | Se vende al precio equivocado |
-| Componer el precio en el cliente | El número mostrado no es el cobrado |
-| Escalas con solape | Dos precios válidos para la misma cantidad |
-| Escalas con hueco | Cantidades sin precio |
-| No revalidar antes de confirmar | Se cobra un precio distinto al mostrado |
-| Cachear precios en capa compartida | Un cliente ve el precio de otro |
-| Impuesto calculado en el frontend | Total incorrecto, riesgo fiscal |
+| Error                              | Consecuencia                                   |
+| ---------------------------------- | ---------------------------------------------- |
+| `float` para dinero                | Descuadres de céntimos imposibles de conciliar |
+| Redondear en cada paso             | El total no coincide con la suma de las líneas |
+| Precio sin moneda                  | Se suman pesos con dólares                     |
+| Precio por defecto si no hay lista | Se vende al precio equivocado                  |
+| Componer el precio en el cliente   | El número mostrado no es el cobrado            |
+| Escalas con solape                 | Dos precios válidos para la misma cantidad     |
+| Escalas con hueco                  | Cantidades sin precio                          |
+| No revalidar antes de confirmar    | Se cobra un precio distinto al mostrado        |
+| Cachear precios en capa compartida | Un cliente ve el precio de otro                |
+| Impuesto calculado en el frontend  | Total incorrecto, riesgo fiscal                |
 
 ## Patrones
 

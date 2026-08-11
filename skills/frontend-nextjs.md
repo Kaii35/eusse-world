@@ -19,17 +19,17 @@ de negocio se filtre al cliente.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| `"use client"` en el layout raíz | Toda la app se vuelve cliente; se pierde RSC |
-| `useEffect` para obtener datos | Cascadas de peticiones, parpadeos, sin caché |
-| Copiar datos del servidor en Zustand | Dos fuentes de verdad que divergen |
-| Lógica de negocio en el componente | Se duplica, no se testea, se desincroniza del backend |
-| Calcular precios o totales en el cliente | Riesgo R-01: el número mostrado puede no ser el cobrado |
-| Datos privados en rutas cacheadas | Fuga entre usuarios |
-| `fetch` directo a la API | Sin tipos, sin manejo uniforme de errores |
-| Secreto con prefijo `NEXT_PUBLIC_` | Incidente de seguridad |
-| Estado de filtros sólo en React | No se puede compartir el enlace; el botón atrás no funciona |
+| Error                                    | Consecuencia                                                |
+| ---------------------------------------- | ----------------------------------------------------------- |
+| `"use client"` en el layout raíz         | Toda la app se vuelve cliente; se pierde RSC                |
+| `useEffect` para obtener datos           | Cascadas de peticiones, parpadeos, sin caché                |
+| Copiar datos del servidor en Zustand     | Dos fuentes de verdad que divergen                          |
+| Lógica de negocio en el componente       | Se duplica, no se testea, se desincroniza del backend       |
+| Calcular precios o totales en el cliente | Riesgo R-01: el número mostrado puede no ser el cobrado     |
+| Datos privados en rutas cacheadas        | Fuga entre usuarios                                         |
+| `fetch` directo a la API                 | Sin tipos, sin manejo uniforme de errores                   |
+| Secreto con prefijo `NEXT_PUBLIC_`       | Incidente de seguridad                                      |
+| Estado de filtros sólo en React          | No se puede compartir el enlace; el botón atrás no funciona |
 
 ## Patrones
 
@@ -56,7 +56,7 @@ La página sigue siendo servidor; sólo el botón es cliente.
 **Hidratación de TanStack Query** — se precarga en el servidor y se hidrata en el cliente:
 sin parpadeo y sin doble petición.
 
-**Estado en la URL** — filtros, búsqueda y paginación en *search params*: compartible,
+**Estado en la URL** — filtros, búsqueda y paginación en _search params_: compartible,
 navegable con atrás/adelante, y recuperable al recargar.
 
 **BFF de sesión** — el Route Handler intercambia credenciales por cookie httpOnly. El

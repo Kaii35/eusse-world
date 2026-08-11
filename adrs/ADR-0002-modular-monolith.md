@@ -1,7 +1,7 @@
 # ADR-0002 — Monolito modular sobre microservicios
 
 | Estado | Aceptado · **Fecha** 2026-08-06 · **Decisor** Arquitecto · **RFC** RFC-0001 |
-| ------ | --- |
+| ------ | --------------------------------------------------------------------------- |
 
 ## Contexto
 
@@ -21,11 +21,11 @@ Un solo despliegue de API con **módulos aislados por contrato**, no por red:
 
 ## Alternativas descartadas
 
-| Alternativa | Por qué se descarta |
-| ----------- | ------------------- |
+| Alternativa                   | Por qué se descarta                                                                                                                                            |
+| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Microservicios desde el día 1 | Coste operativo multiplicado sin equipo que lo opere; congela fronteras que aún no conocemos; transacciones distribuidas donde hoy basta una transacción local |
-| Monolito sin modularizar | Rápido tres meses, imposible a partir del sexto; extraer nada sería viable |
-| Serverless por función | Arranques en frío, gestión de conexiones a base de datos, y el dominio queda troceado por infraestructura |
+| Monolito sin modularizar      | Rápido tres meses, imposible a partir del sexto; extraer nada sería viable                                                                                     |
+| Serverless por función        | Arranques en frío, gestión de conexiones a base de datos, y el dominio queda troceado por infraestructura                                                      |
 
 ## Consecuencias
 

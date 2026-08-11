@@ -15,10 +15,33 @@
       "Bash(git init *)",
       "Bash(git add *)",
       "Bash(awk '{print $2}')",
-      "Bash(awk -F/ '{print \\($2==\"\" ? \"\\(raíz\\)\" : $1\\)}')"
+      "Bash(awk -F/ '{print \\($2==\"\" ? \"\\(raíz\\)\" : $1\\)}')",
+      "Bash(git -c core.autocrlf=false commit -q -m ' *)",
+      "Bash(git remote *)",
+      "Bash(gh repo *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://api.github.com/repos/Kaii35/eusse-world)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://api.github.com/users/Kaii35)",
+      "Bash(curl -s https://api.github.com/repos/Kaii35/eusse-world)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://api.github.com/repos/Kaii35/eusse-world/branches)",
+      "Bash(git push *)",
+      "Bash(curl -s https://api.github.com/repos/Kaii35/eusse-world/commits/main)",
+      "Bash(curl -s \"https://api.github.com/repos/Kaii35/eusse-world/git/trees/main?recursive=1\")",
+      "Bash(pnpm install *)",
+      "Bash(pnpm --filter @eusse/tokens test)",
+      "Bash(node \"C:/Users/USER/AppData/Local/Temp/claude/c--Users-USER-Desktop-eusseworld/6df0e776-e33b-4f4a-8665-87ec640c963d/scratchpad/dbg.mjs\")",
+      "Bash(python -)",
+      "Bash(pnpm --filter \"@eusse/*\" test)",
+      "Bash(pnpm --filter @eusse/utils test)",
+      "Bash(pnpm --filter \"@eusse/*\" typecheck)",
+      "Bash(pnpm --filter \"@eusse/*\" lint)",
+      "Bash(pnpm --filter \"@eusse/tokens\" exec eslint . --fix)",
+      "Bash(pnpm format *)",
+      "Bash(pnpm format:check)",
+      "Bash(pnpm check:docs)",
+      "Bash(pnpm lint *)",
+      "Bash(pnpm typecheck *)",
+      "Bash(pnpm test *)"
     ],
-    "additionalDirectories": [
-      "c:\\Users"
-    ]
+    "additionalDirectories": ["c:\\Users"]
   }
 }

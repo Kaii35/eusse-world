@@ -7,8 +7,24 @@ Punto de entrada para cualquier agente que trabaje en este repositorio.
 
 ## Estado del proyecto
 
-**Fase 0 — Diseño.** Este repositorio contiene arquitectura, especificaciones y proceso.
-**No hay código de producto y no debe escribirse hasta que la Fase 0 esté aprobada.**
+**Fase 0 aprobada. Sprint 0 en curso** — Bloque A de
+[`docs/06-implementation-order.md`](docs/06-implementation-order.md).
+
+Lo que ya existe y está verificado (`lint` · `typecheck` · `test` en verde):
+
+| Paso          | Entregable                                                                      | Estado       |
+| ------------- | ------------------------------------------------------------------------------- | ------------ |
+| A1            | Monorepo: pnpm workspaces, Turborepo                                            | ✅           |
+| A2            | `@eusse/config-typescript`, `-eslint`, `-tailwind`, Prettier, commitlint, husky | ✅           |
+| A3            | Docker Compose: PostgreSQL, Redis, MailHog, MinIO                               | ✅           |
+| A4            | CI en GitHub Actions                                                            | ✅           |
+| A8            | `@eusse/tokens` con contraste AA verificado por test                            | ✅           |
+| —             | `@eusse/utils`, `@eusse/domain` (`Money`, IDs, reglas de cantidad)              | ✅           |
+| A5–A7, A9–A15 | api, contracts, ui, web, admin, workers, outbox, testing, Playwright            | ⏳ pendiente |
+
+**Sólo se implementa lo que cubre un RFC ya aprobado.** Los bloques D, E y F siguen
+bloqueados: RFC-0005, RFC-0006 y RFC-0007 están en `Borrador` y requieren validar el
+modelo de precios contra listas reales del negocio.
 
 ---
 
@@ -77,12 +93,12 @@ Estrategia completa: [`docs/10-ai-strategy.md`](docs/10-ai-strategy.md).
 
 ## Idioma
 
-| Qué | Idioma |
-| --- | ------ |
-| Documentación, RFC, ADR, comentarios de diseño | **Español** |
-| Código, identificadores, tablas, columnas | **Inglés** |
-| Ramas y mensajes de commit | **Inglés** |
-| Textos de interfaz | Ninguno en el código — todo vía `next-intl` |
+| Qué                                            | Idioma                                      |
+| ---------------------------------------------- | ------------------------------------------- |
+| Documentación, RFC, ADR, comentarios de diseño | **Español**                                 |
+| Código, identificadores, tablas, columnas      | **Inglés**                                  |
+| Ramas y mensajes de commit                     | **Inglés**                                  |
+| Textos de interfaz                             | Ninguno en el código — todo vía `next-intl` |
 
 ---
 
@@ -92,6 +108,7 @@ Estrategia completa: [`docs/10-ai-strategy.md`](docs/10-ai-strategy.md).
 
 ```markdown
 ## BLOQUEO
+
 **Agente:** …
 **Tarea:** RFC-XXXX · …
 **Ambigüedad:** …
@@ -108,6 +125,7 @@ La resolución **modifica el RFC**, para que la ambigüedad no vuelva.
 
 ```markdown
 ## ENTREGA
+
 **Tarea:** …
 **Archivos:** (creados / modificados)
 **Decisiones tomadas dentro del margen del RFC:** … o "ninguna"
@@ -123,16 +141,16 @@ La resolución **modifica el RFC**, para que la ambigüedad no vuelva.
 
 ## Mapa rápido
 
-| Necesitas | Ve a |
-| --------- | ---- |
-| Entender el proyecto | [`docs/00-vision.md`](docs/00-vision.md) |
-| Entender la arquitectura | [`docs/01-architecture.md`](docs/01-architecture.md) |
-| Modelar o nombrar algo | [`docs/02-domain-model.md`](docs/02-domain-model.md) · [`docs/13-glossary.md`](docs/13-glossary.md) |
-| Saber cómo se escribe aquí | [`docs/03-conventions.md`](docs/03-conventions.md) |
-| Saber cuándo has terminado | [`docs/04-standards.md`](docs/04-standards.md) |
-| Saber qué toca ahora | [`docs/06-implementation-order.md`](docs/06-implementation-order.md) · [`docs/11-execution-plan.md`](docs/11-execution-plan.md) |
-| Saber qué puede fallar | [`docs/08-technical-risks.md`](docs/08-technical-risks.md) |
-| Diseñar interfaz | [`docs/12-ux-guidelines.md`](docs/12-ux-guidelines.md) + skill `ui-ux-pro-max` |
+| Necesitas                  | Ve a                                                                                                                            |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Entender el proyecto       | [`docs/00-vision.md`](docs/00-vision.md)                                                                                        |
+| Entender la arquitectura   | [`docs/01-architecture.md`](docs/01-architecture.md)                                                                            |
+| Modelar o nombrar algo     | [`docs/02-domain-model.md`](docs/02-domain-model.md) · [`docs/13-glossary.md`](docs/13-glossary.md)                             |
+| Saber cómo se escribe aquí | [`docs/03-conventions.md`](docs/03-conventions.md)                                                                              |
+| Saber cuándo has terminado | [`docs/04-standards.md`](docs/04-standards.md)                                                                                  |
+| Saber qué toca ahora       | [`docs/06-implementation-order.md`](docs/06-implementation-order.md) · [`docs/11-execution-plan.md`](docs/11-execution-plan.md) |
+| Saber qué puede fallar     | [`docs/08-technical-risks.md`](docs/08-technical-risks.md)                                                                      |
+| Diseñar interfaz           | [`docs/12-ux-guidelines.md`](docs/12-ux-guidelines.md) + skill `ui-ux-pro-max`                                                  |
 
 ---
 

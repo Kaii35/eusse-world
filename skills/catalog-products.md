@@ -23,18 +23,18 @@ nueva.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
+| Error                               | Consecuencia                                       |
+| ----------------------------------- | -------------------------------------------------- |
 | Vender el producto y no la variante | Imposible modelar tallas, colores o presentaciones |
-| Reutilizar un SKU | Órdenes históricas apuntan a otro producto |
-| Atributos como texto libre | Facetas inútiles: "Rojo", "rojo", "ROJO" |
-| Precio como columna de la variante | Impide el modelo B2B de listas |
-| Stock en el catálogo en Fase 1 | Se duplica cuando llegue Inventario |
-| Imágenes en la base de datos | Base inflada, consultas lentas |
-| Categorías con ciclos | Bucles infinitos al recorrer el árbol |
-| Borrar un producto con órdenes | Rompe el histórico |
-| Slug cambiado sin redirección | Se pierde el posicionamiento |
-| Filtrar visibilidad en memoria | Se traen productos que el usuario no puede ver |
+| Reutilizar un SKU                   | Órdenes históricas apuntan a otro producto         |
+| Atributos como texto libre          | Facetas inútiles: "Rojo", "rojo", "ROJO"           |
+| Precio como columna de la variante  | Impide el modelo B2B de listas                     |
+| Stock en el catálogo en Fase 1      | Se duplica cuando llegue Inventario                |
+| Imágenes en la base de datos        | Base inflada, consultas lentas                     |
+| Categorías con ciclos               | Bucles infinitos al recorrer el árbol              |
+| Borrar un producto con órdenes      | Rompe el histórico                                 |
+| Slug cambiado sin redirección       | Se pierde el posicionamiento                       |
+| Filtrar visibilidad en memoria      | Se traen productos que el usuario no puede ver     |
 
 ## Patrones
 

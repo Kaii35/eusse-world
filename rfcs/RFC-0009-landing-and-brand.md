@@ -1,10 +1,10 @@
 # RFC-0009 — Landing page e identidad visual
 
-| Campo | Valor |
-| ----- | ----- |
-| **Estado** | Borrador · **Autor** UX + UI + Product Owner · **Creado** 2026-08-06 |
+| Campo         | Valor                                                                 |
+| ------------- | --------------------------------------------------------------------- |
+| **Estado**    | Borrador · **Autor** UX + UI + Product Owner · **Creado** 2026-08-06  |
 | **Revisores** | Design System · SEO · Performance · Accesibilidad · i18n · Arquitecto |
-| **Bloque** | C · Sprints 2–3 |
+| **Bloque**    | C · Sprints 2–3                                                       |
 
 ---
 
@@ -29,11 +29,11 @@ chat en vivo (F3) · configurador de productos.
 
 ## 3. Alternativas consideradas
 
-| Alternativa | Descarte |
-| ----------- | -------- |
-| A. CMS headless externo | Latencia, coste y un punto de fallo más, para un contenido acotado y estructurado |
-| B. Contenido en el código | Cada corrección de texto es un despliegue |
-| **C. Contenido estructurado en base de datos, editable desde el admin, con ISR** | **Elegida.** Editable sin desplegar, cacheado, sin servicio externo |
+| Alternativa                                                                      | Descarte                                                                          |
+| -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| A. CMS headless externo                                                          | Latencia, coste y un punto de fallo más, para un contenido acotado y estructurado |
+| B. Contenido en el código                                                        | Cada corrección de texto es un despliegue                                         |
+| **C. Contenido estructurado en base de datos, editable desde el admin, con ISR** | **Elegida.** Editable sin desplegar, cacheado, sin servicio externo               |
 
 ## 4. Diseño
 
@@ -48,18 +48,18 @@ hecho", acierta.
 
 ### 4.2 Estructura — una pregunta por sección
 
-| # | Sección | Pregunta que responde |
-| - | ------- | --------------------- |
-| 1 | Hero | ¿Qué es esto y por qué me importa? |
-| 2 | Prueba social | ¿Quién más confía? |
-| 3 | Categorías | ¿Tienen lo que necesito? |
-| 4 | Propuesta de valor B2B | ¿Por qué aquí y no con mi proveedor actual? |
-| 5 | Cómo funciona | ¿Qué tengo que hacer? |
-| 6 | Producto destacado | ¿Qué tan bueno es esto? |
-| 7 | Testimonios | ¿Le funcionó a alguien como yo? |
-| 8 | FAQ | ¿Y mis dudas de B2B (crédito, mínimos, despacho)? |
-| 9 | CTA final | ¿Cómo empiezo? |
-| 10 | Footer | ¿Quiénes son y cómo los contacto? |
+| #   | Sección                | Pregunta que responde                             |
+| --- | ---------------------- | ------------------------------------------------- |
+| 1   | Hero                   | ¿Qué es esto y por qué me importa?                |
+| 2   | Prueba social          | ¿Quién más confía?                                |
+| 3   | Categorías             | ¿Tienen lo que necesito?                          |
+| 4   | Propuesta de valor B2B | ¿Por qué aquí y no con mi proveedor actual?       |
+| 5   | Cómo funciona          | ¿Qué tengo que hacer?                             |
+| 6   | Producto destacado     | ¿Qué tan bueno es esto?                           |
+| 7   | Testimonios            | ¿Le funcionó a alguien como yo?                   |
+| 8   | FAQ                    | ¿Y mis dudas de B2B (crédito, mínimos, despacho)? |
+| 9   | CTA final              | ¿Cómo empiezo?                                    |
+| 10  | Footer                 | ¿Quiénes son y cómo los contacto?                 |
 
 ### 4.3 El hero
 
@@ -107,23 +107,23 @@ visible.
 
 ## 5. Impacto
 
-| Área | Impacto |
-| ---- | ------- |
-| Contextos | Content (nuevo) |
-| Rendimiento | Presupuesto más estricto del proyecto: LCP < 2.0 s, JS < 120 KB |
-| SEO | Es la página con más peso de indexación |
-| Accesibilidad | AA verificada con teclado y lector de pantalla |
-| i18n | Todo el contenido en es y en |
+| Área          | Impacto                                                         |
+| ------------- | --------------------------------------------------------------- |
+| Contextos     | Content (nuevo)                                                 |
+| Rendimiento   | Presupuesto más estricto del proyecto: LCP < 2.0 s, JS < 120 KB |
+| SEO           | Es la página con más peso de indexación                         |
+| Accesibilidad | AA verificada con teclado y lector de pantalla                  |
+| i18n          | Todo el contenido en es y en                                    |
 
 ## 6. Riesgos
 
-| Riesgo | Prob. | Impacto | Mitigación |
-| ------ | ----- | ------- | ---------- |
-| El movimiento penaliza el LCP | Alta | Alto | El `h1` y el hero no dependen de animación; Motion diferido; presupuesto en CI |
-| El vidrio rompe el contraste | Alta | Alto | Contraste verificado contra el peor fondo; fallback sólido; test automatizado |
-| Bundle inflado por Motion | Media | Medio | Carga dinámica + `size-limit` de 120 KB que rompe el build |
-| Contenido con *lorem ipsum* al lanzar | Media | Medio | Contenido definitivo como criterio de la Definition of Done |
-| Desborde de layout al traducir | Media | Bajo | Pseudo-localización en preview |
+| Riesgo                                | Prob. | Impacto | Mitigación                                                                     |
+| ------------------------------------- | ----- | ------- | ------------------------------------------------------------------------------ |
+| El movimiento penaliza el LCP         | Alta  | Alto    | El `h1` y el hero no dependen de animación; Motion diferido; presupuesto en CI |
+| El vidrio rompe el contraste          | Alta  | Alto    | Contraste verificado contra el peor fondo; fallback sólido; test automatizado  |
+| Bundle inflado por Motion             | Media | Medio   | Carga dinámica + `size-limit` de 120 KB que rompe el build                     |
+| Contenido con _lorem ipsum_ al lanzar | Media | Medio   | Contenido definitivo como criterio de la Definition of Done                    |
+| Desborde de layout al traducir        | Media | Bajo    | Pseudo-localización en preview                                                 |
 
 ## 7. Criterios de aceptación
 
@@ -167,10 +167,10 @@ contexto propio, listo para blog y centro de recursos en F2.
 
 ## 10. Preguntas abiertas
 
-| # | Pregunta | Bloquea | Resuelta |
-| - | -------- | ------- | -------- |
-| 1 | ¿Se muestran precios públicos en los productos destacados de la landing? | C2 | **No.** Coherencia con RFC-0006: un solo mensaje, "inicia sesión para ver tu precio" |
-| 2 | ¿Qué logos de clientes se pueden usar? | C2 | Pendiente de autorización comercial. **No bloquea**: la sección se lanza con el conjunto autorizado disponible |
+| #   | Pregunta                                                                 | Bloquea | Resuelta                                                                                                       |
+| --- | ------------------------------------------------------------------------ | ------- | -------------------------------------------------------------------------------------------------------------- |
+| 1   | ¿Se muestran precios públicos en los productos destacados de la landing? | C2      | **No.** Coherencia con RFC-0006: un solo mensaje, "inicia sesión para ver tu precio"                           |
+| 2   | ¿Qué logos de clientes se pueden usar?                                   | C2      | Pendiente de autorización comercial. **No bloquea**: la sección se lanza con el conjunto autorizado disponible |
 
 ## 11. Enlaces
 

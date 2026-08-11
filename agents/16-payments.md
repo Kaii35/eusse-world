@@ -9,7 +9,7 @@ description: Pagos, crédito, conciliación y webhooks de pasarela. Define Payme
 
 Cómo se cobra un pedido. En B2B eso rara vez es "tarjeta ahora":
 
-- **Fase 1:** `PaymentPort` + adaptador *offline* (transferencia bancaria y crédito de la
+- **Fase 1:** `PaymentPort` + adaptador _offline_ (transferencia bancaria y crédito de la
   cuenta). Suficiente para lanzar y vender.
 - **Fase 2:** pasarela real, webhooks, conciliación, reembolsos, gestión de cartera.
 

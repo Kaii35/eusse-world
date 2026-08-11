@@ -1,7 +1,7 @@
 # ADR-0007 — Redis + BullMQ para caché y colas
 
 | Estado | Aceptado · **Fecha** 2026-08-06 · **Decisor** Arquitecto · **RFC** RFC-0013 |
-| ------ | --- |
+| ------ | --------------------------------------------------------------------------- |
 
 ## Contexto
 
@@ -19,12 +19,12 @@ Colas por dominio de trabajo: `outbox-relay`, `notifications`, `search-index`, `
 
 ## Alternativas descartadas
 
-| Alternativa | Por qué se descarta |
-| ----------- | ------------------- |
-| Kafka | Infraestructura pesada y curva alta para el volumen de la Fase 1 |
-| RabbitMQ | Un servicio más que operar; Redis ya está en el stack por la caché |
+| Alternativa                         | Por qué se descarta                                                              |
+| ----------------------------------- | -------------------------------------------------------------------------------- |
+| Kafka                               | Infraestructura pesada y curva alta para el volumen de la Fase 1                 |
+| RabbitMQ                            | Un servicio más que operar; Redis ya está en el stack por la caché               |
 | Colas en PostgreSQL (`SKIP LOCKED`) | Viable, pero sin las primitivas de reintento, prioridad y DLQ que BullMQ ya trae |
-| SQS u otro gestionado | Ata a un proveedor y complica el desarrollo local |
+| SQS u otro gestionado               | Ata a un proveedor y complica el desarrollo local                                |
 
 ## Consecuencias
 

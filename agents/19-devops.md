@@ -32,7 +32,7 @@ Changesets · size-limit · Lighthouse CI.
 ## Restricciones
 
 - **`main` siempre desplegable.** Sin ramas de larga vida.
-- Toda puerta de CI que bloquea merge debe ser rápida y determinista. Un test *flaky* se
+- Toda puerta de CI que bloquea merge debe ser rápida y determinista. Un test _flaky_ se
   arregla o se quita; no se ignora.
 - Sin secretos en el repositorio, en logs ni en variables de build del cliente.
 - `--frozen-lockfile` en CI. Siempre.

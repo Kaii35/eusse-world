@@ -13,7 +13,7 @@ lo que el usuario intentaba hacer antes de identificarse.
   refresh se usa dos veces, se revoca toda la familia: alguien lo robó.
 - **Argon2id** para contraseñas, con parámetros documentados en el ADR.
 - **Autorización en el servidor, por operación, sobre el recurso concreto.** El rol no
-  basta: hay que comprobar que *ese* recurso pertenece a *esa* cuenta.
+  basta: hay que comprobar que _ese_ recurso pertenece a _esa_ cuenta.
 - **`accountId` desde la sesión, siempre.** En cuanto lo aceptas del cliente, tienes un
   IDOR.
 - **Respuestas uniformes** en login y recuperación: no revelan si el email existe.
@@ -23,18 +23,18 @@ lo que el usuario intentaba hacer antes de identificarse.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Token en `localStorage` | XSS = sesión robada permanentemente |
-| `accountId` del cuerpo de la petición | IDOR inmediato |
-| Permisos comprobados sólo en la UI | Se saltan con `curl` |
+| Error                                               | Consecuencia                                   |
+| --------------------------------------------------- | ---------------------------------------------- |
+| Token en `localStorage`                             | XSS = sesión robada permanentemente            |
+| `accountId` del cuerpo de la petición               | IDOR inmediato                                 |
+| Permisos comprobados sólo en la UI                  | Se saltan con `curl`                           |
 | Comprobar el rol pero no la pertenencia del recurso | Un `ADMIN` de la cuenta A gestiona la cuenta B |
-| Redirección `next` sin validar | Phishing (riesgo R-02) |
-| "Email no registrado" en login | Enumeración de usuarios |
-| Comparación de tokens no constante en tiempo | Ataque de temporización |
-| Logout que sólo borra la cookie | La sesión sigue válida en el servidor |
-| Refresh sin rotación | Un token robado vale para siempre |
-| Sesión que no cambia al cambiar de cuenta activa | El usuario ve datos de la cuenta anterior |
+| Redirección `next` sin validar                      | Phishing (riesgo R-02)                         |
+| "Email no registrado" en login                      | Enumeración de usuarios                        |
+| Comparación de tokens no constante en tiempo        | Ataque de temporización                        |
+| Logout que sólo borra la cookie                     | La sesión sigue válida en el servidor          |
+| Refresh sin rotación                                | Un token robado vale para siempre              |
+| Sesión que no cambia al cambiar de cuenta activa    | El usuario ve datos de la cuenta anterior      |
 
 ## Patrones
 

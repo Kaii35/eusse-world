@@ -1,0 +1,19 @@
+{
+  "name": "@eusse/config-tailwind",
+  "version": "0.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "exports": {
+    "./postcss": "./postcss.config.js"
+  },
+  "files": [
+    "postcss.config.js"
+  ],
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.0.0"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^4.0.0"
+  }
+}

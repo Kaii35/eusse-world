@@ -25,17 +25,17 @@ consiga su objetivo en el menor número de pasos y sin perder nunca lo que hizo.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Diseñar sólo el camino feliz | El desarrollador improvisa los demás |
-| Estados vacíos sin diseñar | Pantallas en blanco que parecen rotas |
-| Mensajes de error genéricos | El usuario no sabe qué corregir y llama por teléfono |
-| Copiar patrones de B2C | Carrito de tarjetas para 40 líneas; búsqueda sin SKU |
-| Añadir un paso "por seguridad" | Abandono en checkout |
-| Ocultar información importante tras un acordeón | Nadie lo abre |
-| Diseñar sólo en escritorio | El seguimiento del pedido se consulta desde el móvil |
-| *Lorem ipsum* hasta el final | El contenido real rompe el diseño |
-| Depender del hover para descubrir algo | No existe en táctil |
+| Error                                           | Consecuencia                                         |
+| ----------------------------------------------- | ---------------------------------------------------- |
+| Diseñar sólo el camino feliz                    | El desarrollador improvisa los demás                 |
+| Estados vacíos sin diseñar                      | Pantallas en blanco que parecen rotas                |
+| Mensajes de error genéricos                     | El usuario no sabe qué corregir y llama por teléfono |
+| Copiar patrones de B2C                          | Carrito de tarjetas para 40 líneas; búsqueda sin SKU |
+| Añadir un paso "por seguridad"                  | Abandono en checkout                                 |
+| Ocultar información importante tras un acordeón | Nadie lo abre                                        |
+| Diseñar sólo en escritorio                      | El seguimiento del pedido se consulta desde el móvil |
+| _Lorem ipsum_ hasta el final                    | El contenido real rompe el diseño                    |
+| Depender del hover para descubrir algo          | No existe en táctil                                  |
 
 ## Patrones
 
@@ -49,8 +49,8 @@ técnica completa importa: se muestra, no se esconde.
 **Recuperación en vez de prevención** — mejor deshacer que un diálogo de confirmación en
 cada acción. Reserva la confirmación para lo irreversible.
 
-**Estado vacío accionable** — no "No hay resultados", sino "No hay resultados para *taladro
-percutor* con los filtros actuales" + un botón para quitar filtros.
+**Estado vacío accionable** — no "No hay resultados", sino "No hay resultados para _taladro
+percutor_ con los filtros actuales" + un botón para quitar filtros.
 
 **Error recuperable** — el mensaje explica, conserva lo escrito y ofrece la acción de salida.
 
@@ -94,7 +94,7 @@ Sin número, sin precio tachado, sin mentira.
 
 - Flujos en Mermaid, dentro del RFC.
 - Un mapa de estados por pantalla con datos.
-- Contenido definitivo antes de entregar a UI. Nunca *lorem ipsum*.
+- Contenido definitivo antes de entregar a UI. Nunca _lorem ipsum_.
 - Criterios de aceptación de UX verificables ("completable sólo con teclado", "recompra en
   < 90 s").
 - Textos preparados para traducir: sin concatenación de fragmentos.

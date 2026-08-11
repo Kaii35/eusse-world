@@ -20,18 +20,18 @@ Que construir, probar, desplegar y revertir sea rápido, fiable y aburrido.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| CI que tarda 40 minutos | Nadie la espera; se mergea a ciegas |
-| Caché de Turborepo mal configurada | Builds que no reflejan el código |
-| Sin `--frozen-lockfile` | Versiones distintas en local y en producción |
-| Desplegar código antes que la migración | Errores de columna inexistente |
-| Reversión no probada | Se descubre que no funciona durante el incidente |
-| Secretos en variables de build del cliente | Credenciales públicas |
-| Contenedor como root | Escalada de privilegios |
-| Sin health checks | Tráfico enrutado a instancias que aún arrancan |
-| Alertas ruidosas | Se ignoran, incluida la que importaba |
-| Copias de seguridad sin restaurar nunca | Se descubre que están corruptas cuando hacen falta |
+| Error                                      | Consecuencia                                       |
+| ------------------------------------------ | -------------------------------------------------- |
+| CI que tarda 40 minutos                    | Nadie la espera; se mergea a ciegas                |
+| Caché de Turborepo mal configurada         | Builds que no reflejan el código                   |
+| Sin `--frozen-lockfile`                    | Versiones distintas en local y en producción       |
+| Desplegar código antes que la migración    | Errores de columna inexistente                     |
+| Reversión no probada                       | Se descubre que no funciona durante el incidente   |
+| Secretos en variables de build del cliente | Credenciales públicas                              |
+| Contenedor como root                       | Escalada de privilegios                            |
+| Sin health checks                          | Tráfico enrutado a instancias que aún arrancan     |
+| Alertas ruidosas                           | Se ignoran, incluida la que importaba              |
+| Copias de seguridad sin restaurar nunca    | Se descubre que están corruptas cuando hacen falta |
 
 ## Patrones
 
@@ -40,11 +40,11 @@ Que construir, probar, desplegar y revertir sea rápido, fiable y aburrido.
 ```json
 {
   "tasks": {
-    "build":     { "dependsOn": ["^build"], "outputs": [".next/**", "!.next/cache/**", "dist/**"] },
+    "build": { "dependsOn": ["^build"], "outputs": [".next/**", "!.next/cache/**", "dist/**"] },
     "typecheck": { "dependsOn": ["^build"] },
-    "test":      { "dependsOn": ["^build"], "outputs": ["coverage/**"] },
-    "lint":      {},
-    "dev":       { "cache": false, "persistent": true }
+    "test": { "dependsOn": ["^build"], "outputs": ["coverage/**"] },
+    "lint": {},
+    "dev": { "cache": false, "persistent": true }
   }
 }
 ```

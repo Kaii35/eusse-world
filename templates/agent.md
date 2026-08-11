@@ -37,7 +37,7 @@ Qué necesita recibir y de quién.
 
 | Artefacto | Dónde |
 | --------- | ----- |
-| | |
+|           |       |
 
 ## Checklist
 

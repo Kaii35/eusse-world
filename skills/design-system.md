@@ -24,16 +24,16 @@ sientan el mismo producto y que construir una pantalla nueva sea ensamblar, no i
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Tokens literales (`--blue-500`) | Cambiar la marca implica tocar 200 archivos |
-| Token sin par oscuro | El modo oscuro se rompe de forma silenciosa |
-| Contraste "a ojo" | Falla WCAG y nadie se entera hasta la auditoría |
-| Componente que conoce el dominio | Deja de ser reutilizable |
-| Reimplementar un `Select` accesible | Meses de bugs de teclado y ARIA |
-| Variantes con strings concatenados | Imposible de tipar y de auditar |
-| Promover a `@eusse/ui` en la primera aparición | API equivocada, congelada demasiado pronto |
-| Cambio rompedor sin changeset | Consumidores rotos sin aviso |
+| Error                                          | Consecuencia                                    |
+| ---------------------------------------------- | ----------------------------------------------- |
+| Tokens literales (`--blue-500`)                | Cambiar la marca implica tocar 200 archivos     |
+| Token sin par oscuro                           | El modo oscuro se rompe de forma silenciosa     |
+| Contraste "a ojo"                              | Falla WCAG y nadie se entera hasta la auditoría |
+| Componente que conoce el dominio               | Deja de ser reutilizable                        |
+| Reimplementar un `Select` accesible            | Meses de bugs de teclado y ARIA                 |
+| Variantes con strings concatenados             | Imposible de tipar y de auditar                 |
+| Promover a `@eusse/ui` en la primera aparición | API equivocada, congelada demasiado pronto      |
+| Cambio rompedor sin changeset                  | Consumidores rotos sin aviso                    |
 
 ## Patrones
 

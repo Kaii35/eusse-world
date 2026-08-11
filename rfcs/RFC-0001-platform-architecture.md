@@ -1,13 +1,13 @@
 # RFC-0001 — Arquitectura general de la plataforma
 
-| Campo | Valor |
-| ----- | ----- |
-| **Estado** | Aprobado |
-| **Autor** | Arquitecto |
-| **Revisores** | Backend · Frontend · DevOps · Base de Datos · Product Owner |
-| **Creado** | 2026-08-06 |
-| **ADR generados** | ADR-0001 … ADR-0007, ADR-0012, ADR-0014, ADR-0020 |
-| **Bloque** | A |
+| Campo             | Valor                                                       |
+| ----------------- | ----------------------------------------------------------- |
+| **Estado**        | Aprobado                                                    |
+| **Autor**         | Arquitecto                                                  |
+| **Revisores**     | Backend · Frontend · DevOps · Base de Datos · Product Owner |
+| **Creado**        | 2026-08-06                                                  |
+| **ADR generados** | ADR-0001 … ADR-0007, ADR-0012, ADR-0014, ADR-0020           |
+| **Bloque**        | A                                                           |
 
 ---
 
@@ -18,6 +18,7 @@ portal de cliente, back-office) que además debe admitir CRM, Inventario, Cursos
 móvil **sin reescritura**, con un equipo pequeño y sin generar deuda estructural.
 
 Las dos formas típicas de fallar:
+
 - **Sobre-ingeniería**: microservicios y abstracciones para una escala que no existe. Se
   gasta el presupuesto en infraestructura en vez de en producto.
 - **Sub-ingeniería**: un Next.js con toda la lógica en Route Handlers y Prisma. Rápido los
@@ -26,6 +27,7 @@ Las dos formas típicas de fallar:
 ## 2. Objetivos y no-objetivos
 
 **Objetivos**
+
 - Fronteras de dominio claras y **verificadas por CI**, no por buena voluntad.
 - Un despliegue simple hoy, con capacidad de extraer servicios mañana sin rediseñar.
 - Lógica de negocio testeable sin base de datos ni red.
@@ -33,6 +35,7 @@ Las dos formas típicas de fallar:
 - Preparación real (no especulativa) para CRM, Inventario, Cursos y móvil.
 
 **No-objetivos**
+
 - Microservicios en Fase 1.
 - Kubernetes en Fase 1.
 - Event sourcing.
@@ -41,12 +44,12 @@ Las dos formas típicas de fallar:
 
 ## 3. Alternativas consideradas
 
-| Alternativa | Ventajas | Inconvenientes | Descarte |
-| ----------- | -------- | -------------- | -------- |
-| **A. Next.js full-stack** (todo en Route Handlers) | Máxima velocidad inicial; un solo despliegue | La lógica de negocio queda atada al framework de UI; imposible reutilizar en móvil; el testing de dominio requiere levantar Next | Descartada: la app móvil de Fase 4 obligaría a reescribir el backend |
-| **B. Microservicios desde el día 1** | Fronteras físicas; escalado independiente | Coste operativo x5 sin equipo que lo opere; las fronteras aún se están descubriendo y quedarían congeladas mal | Descartada |
-| **C. Monolito modular con hexagonal + EDA** | Fronteras verificables; dominio puro y reutilizable; un solo despliegue; extracción posterior barata | Más ceremonia que A en los CRUD simples | **Elegida**, con la mitigación de §4.6 |
-| **D. Backend separado sin modularizar** | Simple | Reproduce el problema de A un nivel más abajo | Descartada |
+| Alternativa                                        | Ventajas                                                                                             | Inconvenientes                                                                                                                   | Descarte                                                             |
+| -------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| **A. Next.js full-stack** (todo en Route Handlers) | Máxima velocidad inicial; un solo despliegue                                                         | La lógica de negocio queda atada al framework de UI; imposible reutilizar en móvil; el testing de dominio requiere levantar Next | Descartada: la app móvil de Fase 4 obligaría a reescribir el backend |
+| **B. Microservicios desde el día 1**               | Fronteras físicas; escalado independiente                                                            | Coste operativo x5 sin equipo que lo opere; las fronteras aún se están descubriendo y quedarían congeladas mal                   | Descartada                                                           |
+| **C. Monolito modular con hexagonal + EDA**        | Fronteras verificables; dominio puro y reutilizable; un solo despliegue; extracción posterior barata | Más ceremonia que A en los CRUD simples                                                                                          | **Elegida**, con la mitigación de §4.6                               |
+| **D. Backend separado sin modularizar**            | Simple                                                                                               | Reproduce el problema de A un nivel más abajo                                                                                    | Descartada                                                           |
 
 ## 4. Diseño
 
@@ -109,7 +112,7 @@ evento.
 ### 4.4 Eventos con outbox
 
 El evento se escribe en la misma transacción que el cambio de estado; un relay lo publica
-a BullMQ. Entrega *at-least-once*; todo consumidor deduplica por `eventId`.
+a BullMQ. Entrega _at-least-once_; todo consumidor deduplica por `eventId`.
 Detalle: [RFC-0013](RFC-0013-domain-and-integration-events.md).
 
 ### 4.5 Contratos compartidos
@@ -147,23 +150,23 @@ Detalle: [ADR-0006](../adrs/ADR-0006-postgres-prisma.md).
 
 ## 5. Impacto
 
-| Área | Impacto |
-| ---- | ------- |
-| Contextos | Define todos |
-| Paquetes | Define la estructura completa del monorepo |
-| Rompedores | N/A (proyecto nuevo) |
-| Rendimiento | Presupuestos en [`docs/04-standards.md`](../docs/04-standards.md) §6 |
-| Seguridad | Frontera única en `apps/api`; sin acceso directo a datos desde el cliente |
-| Observabilidad | `correlationId` de punta a punta desde el Bloque A |
+| Área           | Impacto                                                                   |
+| -------------- | ------------------------------------------------------------------------- |
+| Contextos      | Define todos                                                              |
+| Paquetes       | Define la estructura completa del monorepo                                |
+| Rompedores     | N/A (proyecto nuevo)                                                      |
+| Rendimiento    | Presupuestos en [`docs/04-standards.md`](../docs/04-standards.md) §6      |
+| Seguridad      | Frontera única en `apps/api`; sin acceso directo a datos desde el cliente |
+| Observabilidad | `correlationId` de punta a punta desde el Bloque A                        |
 
 ## 6. Riesgos
 
-| Riesgo | Prob. | Impacto | Mitigación verificable |
-| ------ | ----- | ------- | ---------------------- |
-| El monolito modular degenera en monolito | Alta | Alto | Fronteras en CI + revisión de arquitectura por bloque comparando el grafo real con el documentado |
-| La ceremonia frena al equipo | Alta | Medio | §4.6: excepción explícita para CRUD + generadores |
-| Caché de Turborepo que miente | Media | Medio | `inputs`/`outputs` explícitos; verificación periódica build limpio vs. cacheado |
-| Sobre-preparación para fases futuras | Alta | Medio | Regla: se paga el hueco (puerto, evento, columna), nunca la habitación |
+| Riesgo                                   | Prob. | Impacto | Mitigación verificable                                                                            |
+| ---------------------------------------- | ----- | ------- | ------------------------------------------------------------------------------------------------- |
+| El monolito modular degenera en monolito | Alta  | Alto    | Fronteras en CI + revisión de arquitectura por bloque comparando el grafo real con el documentado |
+| La ceremonia frena al equipo             | Alta  | Medio   | §4.6: excepción explícita para CRUD + generadores                                                 |
+| Caché de Turborepo que miente            | Media | Medio   | `inputs`/`outputs` explícitos; verificación periódica build limpio vs. cacheado                   |
+| Sobre-preparación para fases futuras     | Alta  | Medio   | Regla: se paga el hueco (puerto, evento, columna), nunca la habitación                            |
 
 ## 7. Criterios de aceptación
 
@@ -192,13 +195,13 @@ pasos A1–A15. Puerta A: las cuatro apps arrancan, CI verde y un evento fluye d
 
 ## 9. Preparación para fases futuras
 
-| Necesidad | Hueco que se deja | Lo que NO se construye |
-| --------- | ----------------- | ---------------------- |
-| CRM | Eventos de orden y cuenta ya publicados; contexto reservado | Pipeline, actividades, UI |
-| Inventario | `InventoryPort` con adaptador trivial | Bodegas, reservas, conteos |
-| Cursos | Contexto reservado; Identity admite usuarios sin cuenta B2B | Modelo LMS |
-| App móvil | API versionada + `@eusse/contracts` y `@eusse/sdk` agnósticos | Cliente Expo |
-| Multi-marca | `tenantId` en el modelo desde el día 1 | Resolución por dominio |
+| Necesidad   | Hueco que se deja                                             | Lo que NO se construye     |
+| ----------- | ------------------------------------------------------------- | -------------------------- |
+| CRM         | Eventos de orden y cuenta ya publicados; contexto reservado   | Pipeline, actividades, UI  |
+| Inventario  | `InventoryPort` con adaptador trivial                         | Bodegas, reservas, conteos |
+| Cursos      | Contexto reservado; Identity admite usuarios sin cuenta B2B   | Modelo LMS                 |
+| App móvil   | API versionada + `@eusse/contracts` y `@eusse/sdk` agnósticos | Cliente Expo               |
+| Multi-marca | `tenantId` en el modelo desde el día 1                        | Resolución por dominio     |
 
 ## 10. Preguntas abiertas
 

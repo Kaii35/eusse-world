@@ -1,7 +1,7 @@
 # ADR-0003 — Next.js App Router con React Server Components
 
 | Estado | Aceptado · **Fecha** 2026-08-06 · **Decisor** Arquitecto · **RFC** RFC-0001 |
-| ------ | --- |
+| ------ | --------------------------------------------------------------------------- |
 
 ## Contexto
 
@@ -22,12 +22,12 @@ cliente.** Eso resuelve la contradicción de arriba.
 
 ## Alternativas descartadas
 
-| Alternativa | Por qué se descarta |
-| ----------- | ------------------- |
-| Pages Router | En mantenimiento; sin RSC; peor granularidad de caché |
-| SPA con Vite | Sin SEO en la landing y el catálogo, que es donde el SEO importa |
-| Astro para marketing + SPA para la app | Dos stacks, dos design systems, dos onboardings |
-| Remix / React Router | Buen framework, pero ecosistema menor y sin RSC maduro |
+| Alternativa                            | Por qué se descarta                                              |
+| -------------------------------------- | ---------------------------------------------------------------- |
+| Pages Router                           | En mantenimiento; sin RSC; peor granularidad de caché            |
+| SPA con Vite                           | Sin SEO en la landing y el catálogo, que es donde el SEO importa |
+| Astro para marketing + SPA para la app | Dos stacks, dos design systems, dos onboardings                  |
+| Remix / React Router                   | Buen framework, pero ecosistema menor y sin RSC maduro           |
 
 ## Consecuencias
 

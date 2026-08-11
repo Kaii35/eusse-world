@@ -6,8 +6,8 @@ Propósito, dependencias permitidas y paso de creación: ver [packages/README.md
 
 ## Cuándo usarlo
 
-*Por definir al implementarlo.*
+_Por definir al implementarlo._
 
 ## Cuándo NO usarlo
 
-*Por definir al implementarlo. Esta sección es la que evita la deriva del sistema.*
+_Por definir al implementarlo. Esta sección es la que evita la deriva del sistema._

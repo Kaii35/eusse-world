@@ -37,24 +37,24 @@ Antes y después, en claro y en oscuro, si hay cambios visuales.
 
 ## Impacto
 
-| Área | Impacto |
-| ---- | ------- |
-| Cambios rompedores | Sí / No — cuáles |
-| Migración de base de datos | Sí / No — ver checklist |
+| Área                        | Impacto                              |
+| --------------------------- | ------------------------------------ |
+| Cambios rompedores          | Sí / No — cuáles                     |
+| Migración de base de datos  | Sí / No — ver checklist              |
 | Variables de entorno nuevas | Sí / No — `.env.example` actualizado |
-| Contratos modificados | Sí / No — consumidores actualizados |
-| Feature flag | Nombre y estado en producción |
-| Rendimiento | |
-| Seguridad | |
+| Contratos modificados       | Sí / No — consumidores actualizados  |
+| Feature flag                | Nombre y estado en producción        |
+| Rendimiento                 |                                      |
+| Seguridad                   |                                      |
 
 ## Checklists
 
 - [ ] [`checklists/definition-of-done.md`](../checklists/definition-of-done.md)
-- [ ] [`checklists/backend.md`](../checklists/backend.md) *(si aplica)*
-- [ ] [`checklists/frontend.md`](../checklists/frontend.md) *(si aplica)*
-- [ ] [`checklists/security.md`](../checklists/security.md) *(si toca datos privados o dinero)*
-- [ ] [`checklists/accessibility.md`](../checklists/accessibility.md) *(si hay UI)*
-- [ ] [`checklists/database-migration.md`](../checklists/database-migration.md) *(si hay migración)*
+- [ ] [`checklists/backend.md`](../checklists/backend.md) _(si aplica)_
+- [ ] [`checklists/frontend.md`](../checklists/frontend.md) _(si aplica)_
+- [ ] [`checklists/security.md`](../checklists/security.md) _(si toca datos privados o dinero)_
+- [ ] [`checklists/accessibility.md`](../checklists/accessibility.md) _(si hay UI)_
+- [ ] [`checklists/database-migration.md`](../checklists/database-migration.md) _(si hay migración)_
 
 ## Verificación
 
@@ -62,7 +62,7 @@ Antes y después, en claro y en oscuro, si hay cambios visuales.
 - [ ] Cobertura dentro de umbral
 - [ ] E2E del recorrido afectado en verde
 - [ ] Documentación actualizada **en este PR**
-- [ ] Changeset creado *(si es paquete publicable)*
+- [ ] Changeset creado _(si es paquete publicable)_
 - [ ] Diff productivo ≤ ~400 líneas
 
 ## Deuda técnica

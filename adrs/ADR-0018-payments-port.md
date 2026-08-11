@@ -1,7 +1,7 @@
 # ADR-0018 — `PaymentPort` con adaptador offline en Fase 1
 
 | Estado | Aceptado · **Fecha** 2026-08-06 · **Decisor** Arquitecto + Product Owner · **RFC** RFC-0007 |
-| ------ | --- |
+| ------ | ------------------------------------------------------------------------------------------- |
 
 ## Contexto
 
@@ -30,12 +30,12 @@ datos de tarjeta · los webhooks se verifican por firma y son idempotentes · la
 
 ## Alternativas descartadas
 
-| Alternativa | Por qué se descarta |
-| ----------- | ------------------- |
-| Integrar una pasarela ya, sin decisión comercial | Se elegiría mal y habría que rehacerlo |
-| Retrasar el checkout hasta tener pasarela | Bloquea la funcionalidad central del proyecto por una decisión comercial |
-| Acoplarse al SDK de un proveedor sin puerto | Cambiar de proveedor obligaría a tocar dominio y UI |
-| Sólo transferencia, sin crédito | El crédito es el mecanismo de venta habitual del negocio |
+| Alternativa                                      | Por qué se descarta                                                      |
+| ------------------------------------------------ | ------------------------------------------------------------------------ |
+| Integrar una pasarela ya, sin decisión comercial | Se elegiría mal y habría que rehacerlo                                   |
+| Retrasar el checkout hasta tener pasarela        | Bloquea la funcionalidad central del proyecto por una decisión comercial |
+| Acoplarse al SDK de un proveedor sin puerto      | Cambiar de proveedor obligaría a tocar dominio y UI                      |
+| Sólo transferencia, sin crédito                  | El crédito es el mecanismo de venta habitual del negocio                 |
 
 ## Consecuencias
 

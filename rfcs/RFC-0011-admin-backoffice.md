@@ -1,10 +1,10 @@
 # RFC-0011 — Back-office administrativo
 
-| Campo | Valor |
-| ----- | ----- |
-| **Estado** | Borrador · **Autor** UX + Dashboard Admin · **Creado** 2026-08-06 |
-| **Revisores** | Auth · Seguridad · Backend · Product Owner · el equipo comercial |
-| **Bloque** | H · Sprint 11 |
+| Campo         | Valor                                                             |
+| ------------- | ----------------------------------------------------------------- |
+| **Estado**    | Borrador · **Autor** UX + Dashboard Admin · **Creado** 2026-08-06 |
+| **Revisores** | Auth · Seguridad · Backend · Product Owner · el equipo comercial  |
+| **Bloque**    | H · Sprint 11                                                     |
 
 ---
 
@@ -28,11 +28,11 @@ interfaz · edición de datos financieros históricos.
 
 ## 3. Alternativas consideradas
 
-| Alternativa | Descarte |
-| ----------- | -------- |
-| A. Herramienta de admin generada (Retool, Forest) | No cubre los flujos B2B propios; datos de clientes en un tercero; sin control de la auditoría |
-| B. Extender `apps/web` con rutas de admin | Mezcla superficies de riesgo muy distintas; un bug del admin afecta a la tienda |
-| **C. `apps/admin` como app propia, consumiendo la misma API con permisos elevados** | **Elegida.** Aislamiento de despliegue y de riesgo; el design system se comparte |
+| Alternativa                                                                         | Descarte                                                                                      |
+| ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| A. Herramienta de admin generada (Retool, Forest)                                   | No cubre los flujos B2B propios; datos de clientes en un tercero; sin control de la auditoría |
+| B. Extender `apps/web` con rutas de admin                                           | Mezcla superficies de riesgo muy distintas; un bug del admin afecta a la tienda               |
+| **C. `apps/admin` como app propia, consumiendo la misma API con permisos elevados** | **Elegida.** Aislamiento de despliegue y de riesgo; el design system se comparte              |
 
 ## 4. Diseño
 
@@ -82,24 +82,24 @@ precio?".
 
 ### 4.5 Operaciones sensibles
 
-| Operación | Control |
-| --------- | ------- |
-| Aprobar o rechazar cuenta | Motivo obligatorio al rechazar; notificación al cliente |
-| Cambiar límite de crédito | Motivo obligatorio; auditado |
-| Cambiar precios | Vista previa del impacto (cuántas cuentas, qué SKUs); auditado |
-| Cancelar una orden | Motivo obligatorio; sólo con permiso `order:cancel` |
-| Eliminar cualquier cosa | Confirmación escribiendo el nombre del recurso |
-| Publicar contenido | Vista previa antes de publicar |
+| Operación                 | Control                                                        |
+| ------------------------- | -------------------------------------------------------------- |
+| Aprobar o rechazar cuenta | Motivo obligatorio al rechazar; notificación al cliente        |
+| Cambiar límite de crédito | Motivo obligatorio; auditado                                   |
+| Cambiar precios           | Vista previa del impacto (cuántas cuentas, qué SKUs); auditado |
+| Cancelar una orden        | Motivo obligatorio; sólo con permiso `order:cancel`            |
+| Eliminar cualquier cosa   | Confirmación escribiendo el nombre del recurso                 |
+| Publicar contenido        | Vista previa antes de publicar                                 |
 
 ### 4.6 Permisos de staff
 
-| Rol | Alcance |
-| --- | ------- |
-| `STAFF_ADMIN` | Todo |
-| `STAFF_SALES` | Cuentas, precios, órdenes, cotizaciones |
-| `STAFF_OPS` | Órdenes, despachos, catálogo |
-| `STAFF_CONTENT` | Contenido y catálogo |
-| `STAFF_VIEWER` | Sólo lectura |
+| Rol             | Alcance                                 |
+| --------------- | --------------------------------------- |
+| `STAFF_ADMIN`   | Todo                                    |
+| `STAFF_SALES`   | Cuentas, precios, órdenes, cotizaciones |
+| `STAFF_OPS`     | Órdenes, despachos, catálogo            |
+| `STAFF_CONTENT` | Contenido y catálogo                    |
+| `STAFF_VIEWER`  | Sólo lectura                            |
 
 Evaluados en servidor por operación. La UI oculta, no autoriza.
 
@@ -117,13 +117,13 @@ vive en su módulo de dominio.
 
 ## 6. Riesgos
 
-| Riesgo | Prob. | Impacto | Mitigación |
-| ------ | ----- | ------- | ---------- |
-| Acción en lote destructiva por error | Media | Alto | Vista previa obligatoria + confirmación explícita |
-| Escalada de privilegios de staff | Baja | Crítico | Permisos en servidor por operación + auditoría + revisión de Seguridad |
-| Cambio de precios sin trazabilidad | Media | Alto | Auditoría con valor anterior y posterior; vista previa del impacto |
-| Tabla inutilizable con volumen real | Media | Medio | Paginación por cursor + orden en servidor + prueba con 10 000 filas |
-| Back-office indexado | Baja | Alto | `noindex` verificado por test |
+| Riesgo                               | Prob. | Impacto | Mitigación                                                             |
+| ------------------------------------ | ----- | ------- | ---------------------------------------------------------------------- |
+| Acción en lote destructiva por error | Media | Alto    | Vista previa obligatoria + confirmación explícita                      |
+| Escalada de privilegios de staff     | Baja  | Crítico | Permisos en servidor por operación + auditoría + revisión de Seguridad |
+| Cambio de precios sin trazabilidad   | Media | Alto    | Auditoría con valor anterior y posterior; vista previa del impacto     |
+| Tabla inutilizable con volumen real  | Media | Medio   | Paginación por cursor + orden en servidor + prueba con 10 000 filas    |
+| Back-office indexado                 | Baja  | Alto    | `noindex` verificado por test                                          |
 
 ## 7. Criterios de aceptación
 
@@ -168,9 +168,9 @@ reutilizable.
 
 ## 10. Preguntas abiertas
 
-| # | Pregunta | Bloquea | Resuelta |
-| - | -------- | ------- | -------- |
-| 1 | ¿Puede el staff comprar en nombre de un cliente? | H6 | **Sí**, con permiso `order:create-on-behalf`, con el actor real registrado en la orden y auditado. Se implementa en F2 |
+| #   | Pregunta                                         | Bloquea | Resuelta                                                                                                               |
+| --- | ------------------------------------------------ | ------- | ---------------------------------------------------------------------------------------------------------------------- |
+| 1   | ¿Puede el staff comprar en nombre de un cliente? | H6      | **Sí**, con permiso `order:create-on-behalf`, con el actor real registrado en la orden y auditado. Se implementa en F2 |
 
 ## 11. Enlaces
 

@@ -1,32 +1,32 @@
 # <Título: qué falla, en una línea, sin diagnóstico>
 
-| Campo | Valor |
-| ----- | ----- |
-| **Severidad** | Crítica · Alta · Media · Baja |
-| **Reportado por** | |
-| **Fecha** | |
-| **Entorno** | producción · staging · preview-PR-NNN · local |
-| **Reproducible** | N de M intentos |
+| Campo             | Valor                                         |
+| ----------------- | --------------------------------------------- |
+| **Severidad**     | Crítica · Alta · Media · Baja                 |
+| **Reportado por** |                                               |
+| **Fecha**         |                                               |
+| **Entorno**       | producción · staging · preview-PR-NNN · local |
+| **Reproducible**  | N de M intentos                               |
 
 ## Severidad
 
-| Nivel | Definición | ¿Bloquea la aceptación? |
-| ----- | ---------- | :---: |
-| **Crítica** | El negocio se detiene, hay pérdida de datos o fuga de información | Sí |
-| **Alta** | Funcionalidad principal rota, sin alternativa | Sí |
-| **Media** | Funcionalidad rota, con alternativa viable | No |
-| **Baja** | Cosmético o de conveniencia | No |
+| Nivel       | Definición                                                        | ¿Bloquea la aceptación? |
+| ----------- | ----------------------------------------------------------------- | :---------------------: |
+| **Crítica** | El negocio se detiene, hay pérdida de datos o fuga de información |           Sí            |
+| **Alta**    | Funcionalidad principal rota, sin alternativa                     |           Sí            |
+| **Media**   | Funcionalidad rota, con alternativa viable                        |           No            |
+| **Baja**    | Cosmético o de conveniencia                                       |           No            |
 
 ## Entorno
 
-| | |
-| --- | --- |
-| Navegador y versión | |
-| Sistema operativo | |
-| Dispositivo y resolución | |
-| Idioma / tema | |
-| Rol del usuario | |
-| Cuenta | |
+|                          |     |
+| ------------------------ | --- |
+| Navegador y versión      |     |
+| Sistema operativo        |     |
+| Dispositivo y resolución |     |
+| Idioma / tema            |     |
+| Rol del usuario          |     |
+| Cuenta                   |     |
 
 ## Pasos de reproducción
 
@@ -57,12 +57,12 @@ Qué ocurre en realidad.
 - ¿A cuántos usuarios afecta?
 - ¿Hay alternativa? ¿Cuál?
 - ¿Hay pérdida o corrupción de datos?
-- ¿Hay implicación de seguridad o privacidad? *(si sí, no lo publiques con detalle
-  explotable: escala al agente de Seguridad)*
+- ¿Hay implicación de seguridad o privacidad? _(si sí, no lo publiques con detalle
+  explotable: escala al agente de Seguridad)_
 
 ## Diagnóstico
 
-*Lo rellena quien lo corrige, no quien lo reporta.*
+_Lo rellena quien lo corrige, no quien lo reporta._
 
 **Causa raíz:**
 **Corrección:**

@@ -35,23 +35,23 @@ graph LR
 
 ## Índice
 
-| RFC | Título | Estado | Bloque |
-| --- | ------ | ------ | ------ |
-| [0001](RFC-0001-platform-architecture.md) | Arquitectura general de la plataforma | Aprobado | A |
-| [0002](RFC-0002-b2b-domain-model.md) | Modelo de dominio B2B | Aprobado | A |
-| [0003](RFC-0003-identity-and-access.md) | Identidad, autenticación y autorización | Aprobado | B |
-| [0004](RFC-0004-guest-intent-auth-return.md) | **Intención de compra del visitante y retorno post-login** | Aprobado | E |
-| [0005](RFC-0005-catalog-and-search.md) | Catálogo, búsqueda y filtrado | Borrador | D |
-| [0006](RFC-0006-cart-and-b2b-pricing.md) | Carrito y precios B2B | Borrador | E |
-| [0007](RFC-0007-checkout-and-orders.md) | Checkout y órdenes | Borrador | F |
-| [0008](RFC-0008-design-system.md) | Design System y tokens | Aprobado | A |
-| [0009](RFC-0009-landing-and-brand.md) | Landing page e identidad visual | Borrador | C |
-| [0010](RFC-0010-client-portal.md) | Portal de cliente | Borrador | G |
-| [0011](RFC-0011-admin-backoffice.md) | Back-office administrativo | Borrador | H |
-| [0012](RFC-0012-api-contracts.md) | Contratos de API y versionado | Aprobado | A |
-| [0013](RFC-0013-domain-and-integration-events.md) | Eventos de dominio e integración | Aprobado | A |
-| [0014](RFC-0014-i18n-and-multicurrency.md) | Internacionalización y multi-moneda | Borrador | A/C |
-| [0015](RFC-0015-observability-and-quality.md) | Observabilidad, testing y calidad | Aprobado | A |
+| RFC                                               | Título                                                     | Estado   | Bloque |
+| ------------------------------------------------- | ---------------------------------------------------------- | -------- | ------ |
+| [0001](RFC-0001-platform-architecture.md)         | Arquitectura general de la plataforma                      | Aprobado | A      |
+| [0002](RFC-0002-b2b-domain-model.md)              | Modelo de dominio B2B                                      | Aprobado | A      |
+| [0003](RFC-0003-identity-and-access.md)           | Identidad, autenticación y autorización                    | Aprobado | B      |
+| [0004](RFC-0004-guest-intent-auth-return.md)      | **Intención de compra del visitante y retorno post-login** | Aprobado | E      |
+| [0005](RFC-0005-catalog-and-search.md)            | Catálogo, búsqueda y filtrado                              | Borrador | D      |
+| [0006](RFC-0006-cart-and-b2b-pricing.md)          | Carrito y precios B2B                                      | Borrador | E      |
+| [0007](RFC-0007-checkout-and-orders.md)           | Checkout y órdenes                                         | Borrador | F      |
+| [0008](RFC-0008-design-system.md)                 | Design System y tokens                                     | Aprobado | A      |
+| [0009](RFC-0009-landing-and-brand.md)             | Landing page e identidad visual                            | Borrador | C      |
+| [0010](RFC-0010-client-portal.md)                 | Portal de cliente                                          | Borrador | G      |
+| [0011](RFC-0011-admin-backoffice.md)              | Back-office administrativo                                 | Borrador | H      |
+| [0012](RFC-0012-api-contracts.md)                 | Contratos de API y versionado                              | Aprobado | A      |
+| [0013](RFC-0013-domain-and-integration-events.md) | Eventos de dominio e integración                           | Aprobado | A      |
+| [0014](RFC-0014-i18n-and-multicurrency.md)        | Internacionalización y multi-moneda                        | Borrador | A/C    |
+| [0015](RFC-0015-observability-and-quality.md)     | Observabilidad, testing y calidad                          | Aprobado | A      |
 
 ## Numeración
 

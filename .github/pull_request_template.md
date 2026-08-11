@@ -30,22 +30,22 @@
 
 ## Impacto
 
-| Área | Impacto |
-| ---- | ------- |
-| Cambios rompedores | Sí / No — |
-| Migración de base de datos | Sí / No |
+| Área                        | Impacto                              |
+| --------------------------- | ------------------------------------ |
+| Cambios rompedores          | Sí / No —                            |
+| Migración de base de datos  | Sí / No                              |
 | Variables de entorno nuevas | Sí / No — `.env.example` actualizado |
-| Contratos modificados | Sí / No — consumidores actualizados |
-| Feature flag | |
+| Contratos modificados       | Sí / No — consumidores actualizados  |
+| Feature flag                |                                      |
 
 ## Checklists
 
 - [ ] [Definition of Done](../checklists/definition-of-done.md)
-- [ ] [Backend](../checklists/backend.md) *(si aplica)*
-- [ ] [Frontend](../checklists/frontend.md) *(si aplica)*
-- [ ] [Seguridad](../checklists/security.md) *(si toca datos privados o dinero)*
-- [ ] [Accesibilidad](../checklists/accessibility.md) *(si hay UI)*
-- [ ] [Migración](../checklists/database-migration.md) *(si hay migración)*
+- [ ] [Backend](../checklists/backend.md) _(si aplica)_
+- [ ] [Frontend](../checklists/frontend.md) _(si aplica)_
+- [ ] [Seguridad](../checklists/security.md) _(si toca datos privados o dinero)_
+- [ ] [Accesibilidad](../checklists/accessibility.md) _(si hay UI)_
+- [ ] [Migración](../checklists/database-migration.md) _(si hay migración)_
 
 ## Verificación
 
@@ -53,7 +53,7 @@
 - [ ] Cobertura dentro de umbral (dominio ≥ 90%, aplicación ≥ 80%)
 - [ ] E2E del recorrido afectado en verde
 - [ ] Documentación actualizada **en este PR**
-- [ ] Changeset creado *(si es paquete publicable)*
+- [ ] Changeset creado _(si es paquete publicable)_
 - [ ] Diff productivo ≤ ~400 líneas
 
 ## Deuda técnica

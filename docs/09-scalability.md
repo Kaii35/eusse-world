@@ -14,25 +14,25 @@ Escalabilidad no es sólo tráfico. Son cuatro ejes: **carga**, **dominio**, **e
 B2B tiene un perfil muy distinto al B2C: menos usuarios, sesiones más largas, carritos
 grandes, y picos concentrados (inicio de mes, campañas, listas de precios nuevas).
 
-| Horizonte | Cuentas | Usuarios/día | Pedidos/día | SKUs | Peticiones/s (pico) |
-| --------- | ------- | ------------ | ----------- | ---- | ------------------- |
-| Lanzamiento | 100 | 150 | 30 | 5 000 | 20 |
-| Año 1 | 800 | 1 200 | 250 | 20 000 | 120 |
-| Año 3 | 5 000 | 8 000 | 1 500 | 80 000 | 700 |
+| Horizonte   | Cuentas | Usuarios/día | Pedidos/día | SKUs   | Peticiones/s (pico) |
+| ----------- | ------- | ------------ | ----------- | ------ | ------------------- |
+| Lanzamiento | 100     | 150          | 30          | 5 000  | 20                  |
+| Año 1       | 800     | 1 200        | 250         | 20 000 | 120                 |
+| Año 3       | 5 000   | 8 000        | 1 500       | 80 000 | 700                 |
 
 Ninguna de estas cifras justifica microservicios. Sí justifican caché, índices y colas
 correctas desde el principio.
 
 ### Escalado por capa
 
-| Capa | Estrategia | Disparador |
-| ---- | ---------- | ---------- |
-| **CDN / Edge** | Landing y catálogo estáticos con ISR. Imágenes optimizadas y cacheadas | por defecto |
-| **apps/web · apps/admin** | Sin estado, réplicas horizontales | CPU > 60% o p95 > presupuesto |
-| **apps/api** | Sin estado, réplicas horizontales | p95 > 200 ms en lecturas |
-| **apps/workers** | Escalado independiente por cola | profundidad de cola > 1 000 o antigüedad > 60 s |
-| **PostgreSQL** | Vertical primero → réplicas de lectura → particionado | conexiones > 70% o p95 de consulta > 100 ms |
-| **Redis** | Vertical → Cluster | memoria > 70% |
+| Capa                      | Estrategia                                                             | Disparador                                      |
+| ------------------------- | ---------------------------------------------------------------------- | ----------------------------------------------- |
+| **CDN / Edge**            | Landing y catálogo estáticos con ISR. Imágenes optimizadas y cacheadas | por defecto                                     |
+| **apps/web · apps/admin** | Sin estado, réplicas horizontales                                      | CPU > 60% o p95 > presupuesto                   |
+| **apps/api**              | Sin estado, réplicas horizontales                                      | p95 > 200 ms en lecturas                        |
+| **apps/workers**          | Escalado independiente por cola                                        | profundidad de cola > 1 000 o antigüedad > 60 s |
+| **PostgreSQL**            | Vertical primero → réplicas de lectura → particionado                  | conexiones > 70% o p95 de consulta > 100 ms     |
+| **Redis**                 | Vertical → Cluster                                                     | memoria > 70%                                   |
 
 **El orden importa.** Vertical antes que horizontal, caché antes que réplicas, índices
 antes que caché. Casi siempre el problema es una consulta sin índice, no falta de máquinas.
@@ -42,12 +42,12 @@ antes que caché. Casi siempre el problema es una consulta sin índice, no falta
 Cuatro niveles, cada uno con invalidación explícita. **Una caché sin política de
 invalidación escrita no se implementa.**
 
-| Nivel | Qué | TTL | Invalidación |
-| ----- | --- | --- | ------------ |
-| CDN | Landing, listados públicos, imágenes | 1 h / inmutable | webhook en publicación de contenido |
-| Next ISR | Páginas de producto y categoría | 5 min + `revalidateTag` | evento `catalog.ProductPublished` |
-| Redis | Facetas, categorías, listas de precios resueltas | 5–15 min | evento del contexto dueño |
-| Cliente | TanStack Query | `staleTime` por tipo de dato | mutación + invalidación de clave |
+| Nivel    | Qué                                              | TTL                          | Invalidación                        |
+| -------- | ------------------------------------------------ | ---------------------------- | ----------------------------------- |
+| CDN      | Landing, listados públicos, imágenes             | 1 h / inmutable              | webhook en publicación de contenido |
+| Next ISR | Páginas de producto y categoría                  | 5 min + `revalidateTag`      | evento `catalog.ProductPublished`   |
+| Redis    | Facetas, categorías, listas de precios resueltas | 5–15 min                     | evento del contexto dueño           |
+| Cliente  | TanStack Query                                   | `staleTime` por tipo de dato | mutación + invalidación de clave    |
 
 **Nunca se cachea:** carrito, precio de cuenta en capa compartida, sesión, órdenes,
 cualquier respuesta con `Set-Cookie`.
@@ -78,14 +78,14 @@ cualquier respuesta con `Set-Cookie`.
 El sistema debe admitir **CRM, Inventario, Cursos y App móvil sin reescritura**. Lo que lo
 garantiza:
 
-| Mecanismo | Qué habilita |
-| --------- | ------------ |
-| Contextos acotados con `public/` explícito | Añadir un contexto nuevo no toca los existentes |
-| Eventos de dominio ya publicados | CRM y Analítica se enchufan como consumidores nuevos |
-| Puertos para todo tercero | Cambiar de pasarela, ERP o buscador es cambiar un adaptador |
-| Esquema PostgreSQL por contexto | Un contexto puede migrar a su propia base sin refactor de código |
-| API versionada + contratos Zod | La app móvil consume la misma API sin backend duplicado |
-| `tenantId` desde el día 1 | Multi-marca sin migración de datos masiva |
+| Mecanismo                                  | Qué habilita                                                     |
+| ------------------------------------------ | ---------------------------------------------------------------- |
+| Contextos acotados con `public/` explícito | Añadir un contexto nuevo no toca los existentes                  |
+| Eventos de dominio ya publicados           | CRM y Analítica se enchufan como consumidores nuevos             |
+| Puertos para todo tercero                  | Cambiar de pasarela, ERP o buscador es cambiar un adaptador      |
+| Esquema PostgreSQL por contexto            | Un contexto puede migrar a su propia base sin refactor de código |
+| API versionada + contratos Zod             | La app móvil consume la misma API sin backend duplicado          |
+| `tenantId` desde el día 1                  | Multi-marca sin migración de datos masiva                        |
 
 ### Ruta de extracción a servicio
 
@@ -106,12 +106,12 @@ fronteras.
 
 ## 3. Escalabilidad de equipo
 
-| Tamaño | Organización | Qué cambia |
-| ------ | ------------ | ---------- |
-| 1–3 | Todos en todo | Convenciones y CI son el único control |
-| 4–8 | Frontend / Backend / Diseño | CODEOWNERS por carpeta; RFC obligatorio para cambios cruzados |
-| 9–20 | Equipos por contexto acotado | Cada equipo posee módulos y sus eventos; contratos como frontera de coordinación |
-| 20+ | Plataforma + producto | Un equipo posee `packages/*` y la infraestructura |
+| Tamaño | Organización                 | Qué cambia                                                                       |
+| ------ | ---------------------------- | -------------------------------------------------------------------------------- |
+| 1–3    | Todos en todo                | Convenciones y CI son el único control                                           |
+| 4–8    | Frontend / Backend / Diseño  | CODEOWNERS por carpeta; RFC obligatorio para cambios cruzados                    |
+| 9–20   | Equipos por contexto acotado | Cada equipo posee módulos y sus eventos; contratos como frontera de coordinación |
+| 20+    | Plataforma + producto        | Un equipo posee `packages/*` y la infraestructura                                |
 
 Lo que lo hace posible desde hoy:
 
@@ -124,12 +124,12 @@ Lo que lo hace posible desde hoy:
 
 ### Onboarding objetivo
 
-| Momento | Debe poder |
-| ------- | ---------- |
-| Día 1 | Entorno levantado, tests en verde, arquitectura comprendida |
-| Día 3 | Primer PR mergeado (bug pequeño o mejora de documentación) |
-| Semana 2 | Un feature completo siguiendo el ciclo de vida |
-| Mes 1 | Escribir un RFC |
+| Momento  | Debe poder                                                  |
+| -------- | ----------------------------------------------------------- |
+| Día 1    | Entorno levantado, tests en verde, arquitectura comprendida |
+| Día 3    | Primer PR mergeado (bug pequeño o mejora de documentación)  |
+| Semana 2 | Un feature completo siguiendo el ciclo de vida              |
+| Mes 1    | Escribir un RFC                                             |
 
 ---
 
@@ -146,14 +146,14 @@ Lo que lo hace posible desde hoy:
 
 ## 5. Qué NO se hace por adelantado
 
-| Tentación | Por qué no | Cuándo sí |
-| --------- | ---------- | --------- |
-| Microservicios | Coste operativo y fronteras aún inciertas | Métricas + equipo dedicado |
-| Kubernetes | Nadie que lo opere de guardia | Cuando el PaaS sea el cuello de botella |
-| CQRS con base de lectura separada | Complejidad sin problema medido | Cuando las lecturas degraden las escrituras |
-| Event sourcing | El negocio no lo pide | Si auditoría o reconstrucción histórica lo exigen |
-| Buscador dedicado | PostgreSQL FTS basta hasta ~50k SKUs | Latencia de búsqueda > 300 ms p95 |
-| Multi-región | Un solo mercado | Expansión geográfica real |
+| Tentación                         | Por qué no                                | Cuándo sí                                         |
+| --------------------------------- | ----------------------------------------- | ------------------------------------------------- |
+| Microservicios                    | Coste operativo y fronteras aún inciertas | Métricas + equipo dedicado                        |
+| Kubernetes                        | Nadie que lo opere de guardia             | Cuando el PaaS sea el cuello de botella           |
+| CQRS con base de lectura separada | Complejidad sin problema medido           | Cuando las lecturas degraden las escrituras       |
+| Event sourcing                    | El negocio no lo pide                     | Si auditoría o reconstrucción histórica lo exigen |
+| Buscador dedicado                 | PostgreSQL FTS basta hasta ~50k SKUs      | Latencia de búsqueda > 300 ms p95                 |
+| Multi-región                      | Un solo mercado                           | Expansión geográfica real                         |
 
 **Criterio:** se implementa cuando hay una **métrica** que lo justifica, no cuando hay una
 intuición. La métrica se define en el ADR que aprueba el cambio.

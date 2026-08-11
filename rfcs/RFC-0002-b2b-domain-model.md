@@ -1,11 +1,11 @@
 # RFC-0002 — Modelo de dominio B2B
 
-| Campo | Valor |
-| ----- | ----- |
-| **Estado** | Aprobado · **Autor** Arquitecto + Analista Funcional · **Creado** 2026-08-06 |
-| **Revisores** | Backend · Base de Datos · Ecommerce · Product Owner |
-| **ADR generados** | ADR-0006 |
-| **Bloque** | A |
+| Campo             | Valor                                                                        |
+| ----------------- | ---------------------------------------------------------------------------- |
+| **Estado**        | Aprobado · **Autor** Arquitecto + Analista Funcional · **Creado** 2026-08-06 |
+| **Revisores**     | Backend · Base de Datos · Ecommerce · Product Owner                          |
+| **ADR generados** | ADR-0006                                                                     |
+| **Bloque**        | A                                                                            |
 
 ---
 
@@ -27,10 +27,10 @@ preparado, una moneda).
 
 ## 3. Alternativas consideradas
 
-| Alternativa | Descarte |
-| ----------- | -------- |
-| **A. Usuario = cliente** (modelo B2C) | Imposible: varios compradores por empresa, precios de empresa, crédito de empresa |
-| **B. Cuenta con un solo usuario** | Simplifica hoy, obliga a migrar cuando la empresa añada un segundo comprador — que ocurre en el primer mes |
+| Alternativa                                     | Descarte                                                                                                                                               |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **A. Usuario = cliente** (modelo B2C)           | Imposible: varios compradores por empresa, precios de empresa, crédito de empresa                                                                      |
+| **B. Cuenta con un solo usuario**               | Simplifica hoy, obliga a migrar cuando la empresa añada un segundo comprador — que ocurre en el primer mes                                             |
 | **C. Cuenta ↔ Usuario N:M mediante Membership** | **Elegida.** Un usuario puede trabajar para varias empresas (asesores, grupos empresariales); una empresa tiene varios compradores con roles distintos |
 
 ## 4. Diseño
@@ -45,14 +45,14 @@ Mapa completo y responsabilidades: [`docs/02-domain-model.md`](../docs/02-domain
 
 ### 4.2 Agregados y sus invariantes
 
-| Agregado | Invariantes |
-| -------- | ----------- |
-| `Account` | ≥ 1 miembro `OWNER` · `creditLimit` ≥ 0 · `taxId` único por tenant · sólo `ACTIVE` puede comprar |
-| `User` | Email único · credencial válida o cuenta bloqueada |
-| `Product` | ≥ 1 variante · slug único · una variante por combinación de atributos |
-| `PriceList` | Escalas sin solape ni hueco · moneda única · vigencia coherente |
-| `Cart` | Un carrito activo por cuenta · cantidad ≥ mínimo y múltiplo del incremento · sin líneas duplicadas por SKU |
-| `Order` | Líneas inmutables · total = Σ líneas + impuestos + envío − descuentos · transiciones válidas |
+| Agregado    | Invariantes                                                                                                |
+| ----------- | ---------------------------------------------------------------------------------------------------------- |
+| `Account`   | ≥ 1 miembro `OWNER` · `creditLimit` ≥ 0 · `taxId` único por tenant · sólo `ACTIVE` puede comprar           |
+| `User`      | Email único · credencial válida o cuenta bloqueada                                                         |
+| `Product`   | ≥ 1 variante · slug único · una variante por combinación de atributos                                      |
+| `PriceList` | Escalas sin solape ni hueco · moneda única · vigencia coherente                                            |
+| `Cart`      | Un carrito activo por cuenta · cantidad ≥ mínimo y múltiplo del incremento · sin líneas duplicadas por SKU |
+| `Order`     | Líneas inmutables · total = Σ líneas + impuestos + envío − descuentos · transiciones válidas               |
 
 ### 4.3 Decisión central: la cuenta es la unidad de compra
 
@@ -66,6 +66,7 @@ User  ──< Membership >──  Account
 ```
 
 **Consecuencias que atraviesan todo el sistema:**
+
 1. El carrito es de la cuenta: dos compradores de la misma empresa colaboran.
 2. El precio depende de la cuenta, no del usuario.
 3. Toda consulta lleva `accountId` **de la sesión**. Es la defensa contra IDOR.
@@ -73,13 +74,13 @@ User  ──< Membership >──  Account
 
 ### 4.4 Roles y permisos
 
-| Rol | Puede |
-| --- | ----- |
-| `OWNER` | Todo, incluida la gestión de miembros y el cierre de la cuenta |
-| `ADMIN` | Gestionar miembros, direcciones y comprar |
-| `BUYER` | Comprar hasta su `approvalThreshold` |
-| `APPROVER` | Comprar y aprobar pedidos de otros |
-| `VIEWER` | Sólo lectura; no ve crédito ni precios de pedidos ajenos |
+| Rol        | Puede                                                          |
+| ---------- | -------------------------------------------------------------- |
+| `OWNER`    | Todo, incluida la gestión de miembros y el cierre de la cuenta |
+| `ADMIN`    | Gestionar miembros, direcciones y comprar                      |
+| `BUYER`    | Comprar hasta su `approvalThreshold`                           |
+| `APPROVER` | Comprar y aprobar pedidos de otros                             |
+| `VIEWER`   | Sólo lectura; no ve crédito ni precios de pedidos ajenos       |
 
 Permisos con formato `<recurso>:<acción>`, evaluados en servidor sobre el recurso concreto.
 
@@ -112,11 +113,11 @@ este RFC esté aprobado.
 
 ## 6. Riesgos
 
-| Riesgo | Mitigación |
-| ------ | ---------- |
+| Riesgo                                       | Mitigación                                                                                |
+| -------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | Modelo equivocado descubierto en el Sprint 8 | Validación con el equipo comercial **antes** de aprobar, con datos reales de tres cuentas |
-| Agregados demasiado grandes | `Order` no contiene `Fulfillment` ni `Payment`: son agregados propios |
-| Lenguaje que deriva | Glosario normativo + revisión de nombres en cada PR |
+| Agregados demasiado grandes                  | `Order` no contiene `Fulfillment` ni `Payment`: son agregados propios                     |
+| Lenguaje que deriva                          | Glosario normativo + revisión de nombres en cada PR                                       |
 
 ## 7. Criterios de aceptación
 
@@ -150,10 +151,10 @@ reservados en el mapa · Identity admite usuarios sin cuenta B2B (para Cursos en
 
 ## 10. Preguntas abiertas
 
-| # | Pregunta | Resuelta |
-| - | -------- | -------- |
-| 1 | ¿Un usuario puede pertenecer a cuentas de tenants distintos? | **No** en Fase 1. La membresía es dentro de un tenant |
-| 2 | ¿El `APPROVER` puede aprobar su propio pedido? | **No.** Regla `CHK-02b`: el aprobador debe ser distinto del creador |
+| #   | Pregunta                                                     | Resuelta                                                            |
+| --- | ------------------------------------------------------------ | ------------------------------------------------------------------- |
+| 1   | ¿Un usuario puede pertenecer a cuentas de tenants distintos? | **No** en Fase 1. La membresía es dentro de un tenant               |
+| 2   | ¿El `APPROVER` puede aprobar su propio pedido?               | **No.** Regla `CHK-02b`: el aprobador debe ser distinto del creador |
 
 ## 11. Enlaces
 

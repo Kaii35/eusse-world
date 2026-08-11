@@ -22,18 +22,18 @@ utilizables en móvil.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Traer todas las filas y filtrar en cliente | Navegador colgado con datos reales |
-| Paginación por offset | Duplicados y saltos |
-| Estado sólo en React | Se pierde al recargar; enlace no compartible |
-| Tabla hecha con `div` | Inaccesible |
-| Acción en lote sin vista previa | Se modifican 400 registros por error |
-| Exportación síncrona | Timeout con volúmenes grandes |
-| Sin estado vacío ni de carga | Pantalla en blanco que parece rota |
-| Tabla sin adaptación a móvil | Inutilizable en teléfono |
-| Importes alineados a la izquierda | Ilegibles, imposibles de comparar |
-| Filtros que se reinician al cambiar de página | Frustración inmediata |
+| Error                                         | Consecuencia                                 |
+| --------------------------------------------- | -------------------------------------------- |
+| Traer todas las filas y filtrar en cliente    | Navegador colgado con datos reales           |
+| Paginación por offset                         | Duplicados y saltos                          |
+| Estado sólo en React                          | Se pierde al recargar; enlace no compartible |
+| Tabla hecha con `div`                         | Inaccesible                                  |
+| Acción en lote sin vista previa               | Se modifican 400 registros por error         |
+| Exportación síncrona                          | Timeout con volúmenes grandes                |
+| Sin estado vacío ni de carga                  | Pantalla en blanco que parece rota           |
+| Tabla sin adaptación a móvil                  | Inutilizable en teléfono                     |
+| Importes alineados a la izquierda             | Ilegibles, imposibles de comparar            |
+| Filtros que se reinician al cambiar de página | Frustración inmediata                        |
 
 ## Patrones
 

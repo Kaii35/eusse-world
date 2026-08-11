@@ -1,11 +1,11 @@
 # RFC-0015 — Observabilidad, testing y calidad
 
-| Campo | Valor |
-| ----- | ----- |
-| **Estado** | Aprobado · **Autor** Arquitecto + DevOps + Testing · **Creado** 2026-08-06 |
-| **Revisores** | QA · Seguridad · Performance · Product Owner |
-| **ADR generados** | ADR-0015, ADR-0019, ADR-0020 |
-| **Bloque** | A (A4, A14, A15) · Sprint 0 |
+| Campo             | Valor                                                                      |
+| ----------------- | -------------------------------------------------------------------------- |
+| **Estado**        | Aprobado · **Autor** Arquitecto + DevOps + Testing · **Creado** 2026-08-06 |
+| **Revisores**     | QA · Seguridad · Performance · Product Owner                               |
+| **ADR generados** | ADR-0015, ADR-0019, ADR-0020                                               |
+| **Bloque**        | A (A4, A14, A15) · Sprint 0                                                |
 
 ---
 
@@ -31,54 +31,54 @@ métricas de negocio avanzadas (F2).
 
 **Puertas de calidad**
 
-| Alternativa | Descarte |
-| ----------- | -------- |
-| A. Revisión humana como único control | No escala; depende del día que tenga el revisor |
-| B. Puertas como aviso, no bloqueantes | Se ignoran a la segunda semana |
-| **C. Puertas bloqueantes en CI** | **Elegida.** Es la única forma de que la calidad sobreviva a la presión de fechas |
+| Alternativa                           | Descarte                                                                          |
+| ------------------------------------- | --------------------------------------------------------------------------------- |
+| A. Revisión humana como único control | No escala; depende del día que tenga el revisor                                   |
+| B. Puertas como aviso, no bloqueantes | Se ignoran a la segunda semana                                                    |
+| **C. Puertas bloqueantes en CI**      | **Elegida.** Es la única forma de que la calidad sobreviva a la presión de fechas |
 
 **Tests de integración**
 
-| Alternativa | Descarte |
-| ----------- | -------- |
-| A. Mock de Prisma | No detecta índices ausentes, restricciones violadas ni problemas de transacción |
-| **B. Testcontainers con PostgreSQL y Redis reales** | **Elegida.** Más lento, infinitamente más útil |
+| Alternativa                                         | Descarte                                                                        |
+| --------------------------------------------------- | ------------------------------------------------------------------------------- |
+| A. Mock de Prisma                                   | No detecta índices ausentes, restricciones violadas ni problemas de transacción |
+| **B. Testcontainers con PostgreSQL y Redis reales** | **Elegida.** Más lento, infinitamente más útil                                  |
 
 ## 4. Diseño
 
 ### 4.1 Puertas de calidad (todas bloquean el merge)
 
-| Puerta | Herramienta |
-| ------ | ----------- |
-| Formato | Prettier `--check` |
-| Lint (0 errores, 0 warnings) | ESLint |
-| **Fronteras de arquitectura** | `eslint-plugin-boundaries` + `dependency-cruiser` |
-| Tipos | `tsc --noEmit` en todo el workspace |
-| Tests unitarios e integración | Vitest |
-| Cobertura mínima | Vitest coverage |
-| Build | `turbo build` |
-| E2E críticos | Playwright |
-| Accesibilidad | axe-core (violaciones críticas y serias) |
-| Presupuesto de bundle | `size-limit` |
-| Core Web Vitals | Lighthouse CI |
-| Vulnerabilidades | `pnpm audit` + Dependabot |
-| Secretos | gitleaks |
-| Formato de commit | commitlint |
-| **Sin literales de i18n** | ESLint |
-| **Sin valores mágicos de Tailwind** | ESLint |
+| Puerta                              | Herramienta                                       |
+| ----------------------------------- | ------------------------------------------------- |
+| Formato                             | Prettier `--check`                                |
+| Lint (0 errores, 0 warnings)        | ESLint                                            |
+| **Fronteras de arquitectura**       | `eslint-plugin-boundaries` + `dependency-cruiser` |
+| Tipos                               | `tsc --noEmit` en todo el workspace               |
+| Tests unitarios e integración       | Vitest                                            |
+| Cobertura mínima                    | Vitest coverage                                   |
+| Build                               | `turbo build`                                     |
+| E2E críticos                        | Playwright                                        |
+| Accesibilidad                       | axe-core (violaciones críticas y serias)          |
+| Presupuesto de bundle               | `size-limit`                                      |
+| Core Web Vitals                     | Lighthouse CI                                     |
+| Vulnerabilidades                    | `pnpm audit` + Dependabot                         |
+| Secretos                            | gitleaks                                          |
+| Formato de commit                   | commitlint                                        |
+| **Sin literales de i18n**           | ESLint                                            |
+| **Sin valores mágicos de Tailwind** | ESLint                                            |
 
 CI ejecuta sólo lo afectado usando el grafo de Turborepo. Objetivo: PR típico < 10 min.
 
 ### 4.2 Estrategia de tests
 
-| Nivel | Herramienta | Qué prueba | Umbral |
-| ----- | ----------- | ---------- | ------ |
-| Unitario | Vitest | Invariantes de dominio, cálculos, transiciones | **≥ 90% en `domain/`** |
-| Integración | Vitest + Testcontainers | Casos de uso con PostgreSQL y Redis reales | **≥ 80% en `application/`** |
-| Contrato | Vitest | Zod ⟷ handler ⟷ SDK | Todo endpoint |
-| Componente | Vitest + Testing Library | Comportamiento accesible | Criterio |
-| E2E | Playwright | 7 recorridos críticos | Todos verdes |
-| Visual | Playwright snapshots | Regresión del design system | Sin diffs no aprobados |
+| Nivel       | Herramienta              | Qué prueba                                     | Umbral                      |
+| ----------- | ------------------------ | ---------------------------------------------- | --------------------------- |
+| Unitario    | Vitest                   | Invariantes de dominio, cálculos, transiciones | **≥ 90% en `domain/`**      |
+| Integración | Vitest + Testcontainers  | Casos de uso con PostgreSQL y Redis reales     | **≥ 80% en `application/`** |
+| Contrato    | Vitest                   | Zod ⟷ handler ⟷ SDK                            | Todo endpoint               |
+| Componente  | Vitest + Testing Library | Comportamiento accesible                       | Criterio                    |
+| E2E         | Playwright               | 7 recorridos críticos                          | Todos verdes                |
+| Visual      | Playwright snapshots     | Regresión del design system                    | Sin diffs no aprobados      |
 
 Los siete recorridos críticos están en [`skills/testing.md`](../skills/testing.md).
 
@@ -132,13 +132,13 @@ PR y lo devuelve multiplicado a partir del tercer mes.
 
 ## 6. Riesgos
 
-| Riesgo | Prob. | Impacto | Mitigación |
-| ------ | ----- | ------- | ---------- |
-| CI lenta que se ignora | Media | Alto | Caché remota + ejecución de sólo lo afectado + objetivo de 10 min |
-| Tests inestables que erosionan la confianza | Alta | Alto | Regla: se arregla o se borra; verificación de 20 ejecuciones consecutivas |
-| Cobertura como objetivo en sí mismo | Media | Medio | Umbral sólo en dominio y aplicación; el resto es criterio |
-| Puertas desactivadas bajo presión | Media | Crítico | Desactivar una puerta requiere ADR; no es una decisión individual |
-| Alertas ruidosas | Alta | Medio | Revisión mensual: toda alerta que no llevó a una acción se ajusta o se elimina |
+| Riesgo                                      | Prob. | Impacto | Mitigación                                                                     |
+| ------------------------------------------- | ----- | ------- | ------------------------------------------------------------------------------ |
+| CI lenta que se ignora                      | Media | Alto    | Caché remota + ejecución de sólo lo afectado + objetivo de 10 min              |
+| Tests inestables que erosionan la confianza | Alta  | Alto    | Regla: se arregla o se borra; verificación de 20 ejecuciones consecutivas      |
+| Cobertura como objetivo en sí mismo         | Media | Medio   | Umbral sólo en dominio y aplicación; el resto es criterio                      |
+| Puertas desactivadas bajo presión           | Media | Crítico | Desactivar una puerta requiere ADR; no es una decisión individual              |
+| Alertas ruidosas                            | Alta  | Medio   | Revisión mensual: toda alerta que no llevó a una acción se ajusta o se elimina |
 
 ## 7. Criterios de aceptación
 

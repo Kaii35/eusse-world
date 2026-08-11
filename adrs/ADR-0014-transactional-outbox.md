@@ -1,7 +1,7 @@
 # ADR-0014 — Outbox transaccional para publicar eventos
 
 | Estado | Aceptado · **Fecha** 2026-08-06 · **Decisor** Arquitecto · **RFC** RFC-0013 |
-| ------ | --- |
+| ------ | --------------------------------------------------------------------------- |
 
 ## Contexto
 
@@ -23,18 +23,18 @@ confirmación de su pedido.
 transacción** que el cambio de estado. Un **relay** consulta los pendientes
 (`FOR UPDATE SKIP LOCKED`), los publica a BullMQ y los marca enviados.
 
-La entrega es *at-least-once*. **Todo consumidor deduplica** por `eventId` mediante
+La entrega es _at-least-once_. **Todo consumidor deduplica** por `eventId` mediante
 `shared.processed_events` con `INSERT ... ON CONFLICT DO NOTHING`.
 
 ## Alternativas descartadas
 
-| Alternativa | Por qué se descarta |
-| ----------- | ------------------- |
-| Publicar dentro de la transacción | Acopla la disponibilidad de la cola a la del negocio |
-| Publicar tras el commit | Pérdida silenciosa de eventos si el proceso muere |
+| Alternativa                           | Por qué se descarta                                                                             |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Publicar dentro de la transacción     | Acopla la disponibilidad de la cola a la del negocio                                            |
+| Publicar tras el commit               | Pérdida silenciosa de eventos si el proceso muere                                               |
 | Captura de cambios (CDC) con Debezium | Infraestructura considerable; el evento sería un reflejo del esquema, no un contrato de dominio |
-| Hooks `afterCommit` del ORM | Siguen sin ser atómicos: el problema es el mismo |
-| Confiar en que "casi nunca pasa" | Sí pasa, y cuando pasa nadie sabe por qué |
+| Hooks `afterCommit` del ORM           | Siguen sin ser atómicos: el problema es el mismo                                                |
+| Confiar en que "casi nunca pasa"      | Sí pasa, y cuando pasa nadie sabe por qué                                                       |
 
 ## Consecuencias
 

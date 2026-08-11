@@ -22,17 +22,17 @@ preferencias del usuario y sin coste de rendimiento.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Animaciones largas y "cinematográficas" | La app se percibe lenta y rota |
-| Animar `width`, `height`, `top`, `box-shadow` | Reflow, jank, batería |
-| Ignorar `prefers-reduced-motion` | Mareo, migrañas; incumple WCAG 2.3.3 |
-| Revelado al scroll que se repite | Distrae y molesta al releer |
-| Contenido invisible hasta que anima | Si el JS falla, la página está en blanco |
-| Parallax en móvil | Consumo de batería y mareo |
-| Animar cada elemento de una lista de 50 | Cascada eterna; se percibe lentísimo |
-| Motion en el bundle crítico | LCP penalizado en la landing |
-| Transición de página que bloquea la navegación | El usuario cree que no funcionó |
+| Error                                          | Consecuencia                             |
+| ---------------------------------------------- | ---------------------------------------- |
+| Animaciones largas y "cinematográficas"        | La app se percibe lenta y rota           |
+| Animar `width`, `height`, `top`, `box-shadow`  | Reflow, jank, batería                    |
+| Ignorar `prefers-reduced-motion`               | Mareo, migrañas; incumple WCAG 2.3.3     |
+| Revelado al scroll que se repite               | Distrae y molesta al releer              |
+| Contenido invisible hasta que anima            | Si el JS falla, la página está en blanco |
+| Parallax en móvil                              | Consumo de batería y mareo               |
+| Animar cada elemento de una lista de 50        | Cascada eterna; se percibe lentísimo     |
+| Motion en el bundle crítico                    | LCP penalizado en la landing             |
+| Transición de página que bloquea la navegación | El usuario cree que no funcionó          |
 
 ## Patrones
 

@@ -47,14 +47,14 @@ Procesos actuales · Restricciones legales y fiscales · Preguntas de los implem
 
 ## Salidas
 
-| Artefacto | Contenido |
-| --------- | --------- |
-| Casos de uso | Actor, precondiciones, disparador, flujo principal, alternos, error, postcondiciones |
-| Reglas de negocio | Numeradas, con ejemplo y contraejemplo |
-| Criterios de aceptación | Gherkin: Dado / Cuando / Entonces |
-| Tabla de decisión | Cuando hay combinaciones de condiciones |
-| Casos borde | Vacío, uno, muchos, máximo, nulo, negativo, expirado, concurrente |
-| Términos nuevos | Añadidos al glosario |
+| Artefacto               | Contenido                                                                            |
+| ----------------------- | ------------------------------------------------------------------------------------ |
+| Casos de uso            | Actor, precondiciones, disparador, flujo principal, alternos, error, postcondiciones |
+| Reglas de negocio       | Numeradas, con ejemplo y contraejemplo                                               |
+| Criterios de aceptación | Gherkin: Dado / Cuando / Entonces                                                    |
+| Tabla de decisión       | Cuando hay combinaciones de condiciones                                              |
+| Casos borde             | Vacío, uno, muchos, máximo, nulo, negativo, expirado, concurrente                    |
+| Términos nuevos         | Añadidos al glosario                                                                 |
 
 ## Checklist
 

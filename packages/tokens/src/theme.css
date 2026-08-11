@@ -1,0 +1,353 @@
+/**
+ * @eusse/tokens — Tokens de diseño de Eusse World
+ *
+ * Tres capas (RFC-0008 §4.1):
+ *   1. Primitivos   — sólo los usa la capa 2. Cambiar de marca toca SÓLO esta capa.
+ *   2. Semánticos   — los que usan los componentes.
+ *   3. De componente — sólo donde el componente lo exija.
+ *
+ * REGLAS DURAS (ADR-0010):
+ *   · Todo token semántico tiene par claro/oscuro. Uno sin par no existe.
+ *   · Los componentes NUNCA nombran un color literal. `bg-primary`, jamás `bg-blue-600`.
+ *   · Todo par texto/fondo tiene contraste verificado por test (contrast.spec.ts).
+ *   · Modo oscuro por CLASE, no por media query: el usuario elige.
+ */
+
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CAPA 1 — PRIMITIVOS
+   Escalas en OKLCH: interpolación perceptualmente uniforme y gama amplia.
+   NINGÚN componente usa estos tokens directamente.
+   ═══════════════════════════════════════════════════════════════════════════ */
+:root {
+  /* Neutros — base de superficies y texto */
+  --eusse-neutral-0: oklch(1 0 0);
+  --eusse-neutral-50: oklch(0.985 0.002 247);
+  --eusse-neutral-100: oklch(0.967 0.003 247);
+  --eusse-neutral-200: oklch(0.925 0.006 247);
+  --eusse-neutral-300: oklch(0.869 0.009 247);
+  --eusse-neutral-400: oklch(0.704 0.014 247);
+  --eusse-neutral-500: oklch(0.554 0.016 247);
+  --eusse-neutral-600: oklch(0.446 0.016 247);
+  --eusse-neutral-700: oklch(0.372 0.015 247);
+  --eusse-neutral-800: oklch(0.279 0.014 247);
+  --eusse-neutral-850: oklch(0.226 0.013 247);
+  --eusse-neutral-900: oklch(0.184 0.012 247);
+  --eusse-neutral-950: oklch(0.129 0.011 247);
+
+  /* Marca — azul industrial: confianza y precisión, no tecnología genérica */
+  --eusse-brand-50: oklch(0.97 0.018 250);
+  --eusse-brand-100: oklch(0.936 0.038 250);
+  --eusse-brand-200: oklch(0.882 0.072 250);
+  --eusse-brand-300: oklch(0.809 0.114 252);
+  --eusse-brand-400: oklch(0.708 0.157 254);
+  --eusse-brand-500: oklch(0.623 0.188 256);
+  --eusse-brand-600: oklch(0.546 0.198 258);
+  --eusse-brand-700: oklch(0.475 0.178 259);
+  --eusse-brand-800: oklch(0.407 0.146 259);
+  --eusse-brand-900: oklch(0.352 0.116 259);
+
+  /* Acento — ámbar. Se usa con moderación: si todo destaca, nada destaca. */
+  --eusse-accent-300: oklch(0.86 0.13 82);
+  --eusse-accent-400: oklch(0.8 0.152 76);
+  --eusse-accent-500: oklch(0.74 0.163 68);
+  --eusse-accent-600: oklch(0.653 0.15 60);
+
+  /* Estado */
+  --eusse-success-100: oklch(0.95 0.045 155);
+  --eusse-success-500: oklch(0.62 0.145 155);
+  --eusse-success-600: oklch(0.54 0.135 155);
+  --eusse-success-900: oklch(0.32 0.08 155);
+
+  --eusse-warning-100: oklch(0.96 0.05 85);
+  --eusse-warning-500: oklch(0.75 0.155 75);
+  --eusse-warning-600: oklch(0.66 0.15 65);
+  --eusse-warning-900: oklch(0.36 0.09 70);
+
+  --eusse-danger-100: oklch(0.95 0.035 25);
+  --eusse-danger-500: oklch(0.598 0.216 27);
+  --eusse-danger-600: oklch(0.527 0.204 27);
+  --eusse-danger-900: oklch(0.31 0.11 27);
+
+  --eusse-info-100: oklch(0.95 0.03 232);
+  --eusse-info-500: oklch(0.65 0.13 232);
+  /* 0.56 daba 4.45:1 con texto blanco: por debajo de AA. Verificado en contrast.spec.ts */
+  --eusse-info-600: oklch(0.535 0.13 232);
+  --eusse-info-900: oklch(0.33 0.08 232);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CAPA 2 — SEMÁNTICOS · TEMA CLARO
+   Estos son los que usan los componentes.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@theme {
+  /* --- Superficies --- */
+  --color-background: var(--eusse-neutral-0);
+  --color-surface: var(--eusse-neutral-0);
+  --color-surface-raised: var(--eusse-neutral-50);
+  --color-surface-sunken: var(--eusse-neutral-100);
+  --color-surface-overlay: var(--eusse-neutral-0);
+
+  /* --- Contenido --- */
+  --color-foreground: var(--eusse-neutral-900);
+  --color-muted-foreground: var(--eusse-neutral-600);
+  --color-subtle-foreground: var(--eusse-neutral-500);
+  --color-inverse-foreground: var(--eusse-neutral-0);
+
+  /* --- Marca --- */
+  --color-primary: var(--eusse-brand-600);
+  --color-primary-hover: var(--eusse-brand-700);
+  --color-primary-active: var(--eusse-brand-800);
+  --color-primary-foreground: var(--eusse-neutral-0);
+  --color-primary-subtle: var(--eusse-brand-50);
+  --color-primary-subtle-foreground: var(--eusse-brand-800);
+
+  --color-accent: var(--eusse-accent-600);
+  --color-accent-foreground: var(--eusse-neutral-950);
+  --color-accent-subtle: var(--eusse-accent-300);
+
+  /* --- Estado --- */
+  --color-success: var(--eusse-success-600);
+  --color-success-foreground: var(--eusse-neutral-0);
+  --color-success-subtle: var(--eusse-success-100);
+  --color-success-subtle-foreground: var(--eusse-success-900);
+
+  /* El ámbar no alcanza AA con texto blanco (3.23:1). Va con texto oscuro, como el acento. */
+  --color-warning: var(--eusse-warning-500);
+  --color-warning-foreground: var(--eusse-neutral-950);
+  --color-warning-subtle: var(--eusse-warning-100);
+  --color-warning-subtle-foreground: var(--eusse-warning-900);
+
+  --color-danger: var(--eusse-danger-600);
+  --color-danger-foreground: var(--eusse-neutral-0);
+  --color-danger-subtle: var(--eusse-danger-100);
+  --color-danger-subtle-foreground: var(--eusse-danger-900);
+
+  --color-info: var(--eusse-info-600);
+  --color-info-foreground: var(--eusse-neutral-0);
+  --color-info-subtle: var(--eusse-info-100);
+  --color-info-subtle-foreground: var(--eusse-info-900);
+
+  /* --- Bordes y foco ---
+     `border`        decorativo (separadores, tarjetas): sin requisito de contraste.
+     `border-strong` frontera de componente interactivo (input, checkbox): debe cumplir
+                     3:1 por WCAG 1.4.11, porque es lo que identifica el control.
+                     Verificado en contrast.spec.ts. */
+  --color-border: var(--eusse-neutral-200);
+  --color-border-strong: var(--eusse-neutral-500);
+  --color-ring: var(--eusse-brand-500);
+
+  /* --- Tipografía --- */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Escala modular 1.25. Nombres semánticos, no numéricos. */
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1rem;
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.375rem;
+  --text-body: 1rem;
+  --text-body--line-height: 1.625rem;
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.75rem;
+  --text-h4: 1.25rem;
+  --text-h4--line-height: 1.75rem;
+  --text-h4--letter-spacing: -0.01em;
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 2rem;
+  --text-h3--letter-spacing: -0.015em;
+  --text-h2: 1.875rem;
+  --text-h2--line-height: 2.25rem;
+  --text-h2--letter-spacing: -0.02em;
+  --text-h1: 2.5rem;
+  --text-h1--line-height: 2.875rem;
+  --text-h1--letter-spacing: -0.025em;
+  --text-display: 3.75rem;
+  --text-display--line-height: 4rem;
+  --text-display--letter-spacing: -0.03em;
+
+  /* --- Espaciado: escala de 4 px. Nada fuera de la escala. --- */
+  --spacing: 0.25rem;
+  --spacing-section: 6rem;
+  --spacing-section-sm: 4rem;
+
+  /* --- Contenedor --- */
+  --container-content: 80rem; /* 1280 px */
+  --container-prose: 42rem; /* ~65 caracteres */
+
+  /* --- Radio --- */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  /* --- Elevación: 5 niveles. Nunca se escribe un z-index a mano. --- */
+  --shadow-raised: 0 1px 2px 0 oklch(0 0 0 / 0.05);
+  --shadow-overlay: 0 4px 12px -2px oklch(0 0 0 / 0.08), 0 2px 4px -2px oklch(0 0 0 / 0.04);
+  --shadow-modal: 0 16px 48px -12px oklch(0 0 0 / 0.18), 0 4px 12px -4px oklch(0 0 0 / 0.08);
+  --shadow-toast: 0 8px 24px -6px oklch(0 0 0 / 0.14);
+
+  /* --- Movimiento (ADR-0016) --- */
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CAPA 2 — SEMÁNTICOS · TEMA OSCURO
+   Nativo, no invertido. Sin negro puro: reduce el halo.
+   En oscuro las sombras dejan de funcionar: la elevación se comunica con LUMINOSIDAD.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.dark {
+  --color-background: var(--eusse-neutral-950);
+  --color-surface: var(--eusse-neutral-900);
+  --color-surface-raised: var(--eusse-neutral-850);
+  --color-surface-sunken: var(--eusse-neutral-950);
+  --color-surface-overlay: var(--eusse-neutral-850);
+
+  --color-foreground: var(--eusse-neutral-50);
+  --color-muted-foreground: var(--eusse-neutral-400);
+  --color-subtle-foreground: var(--eusse-neutral-500);
+  --color-inverse-foreground: var(--eusse-neutral-950);
+
+  --color-primary: var(--eusse-brand-400);
+  --color-primary-hover: var(--eusse-brand-300);
+  --color-primary-active: var(--eusse-brand-200);
+  --color-primary-foreground: var(--eusse-neutral-950);
+  --color-primary-subtle: var(--eusse-brand-900);
+  --color-primary-subtle-foreground: var(--eusse-brand-100);
+
+  --color-accent: var(--eusse-accent-400);
+  --color-accent-foreground: var(--eusse-neutral-950);
+  --color-accent-subtle: var(--eusse-accent-600);
+
+  --color-success: var(--eusse-success-500);
+  --color-success-foreground: var(--eusse-neutral-950);
+  --color-success-subtle: var(--eusse-success-900);
+  --color-success-subtle-foreground: var(--eusse-success-100);
+
+  --color-warning: var(--eusse-warning-500);
+  --color-warning-foreground: var(--eusse-neutral-950);
+  --color-warning-subtle: var(--eusse-warning-900);
+  --color-warning-subtle-foreground: var(--eusse-warning-100);
+
+  --color-danger: var(--eusse-danger-500);
+  --color-danger-foreground: var(--eusse-neutral-950);
+  --color-danger-subtle: var(--eusse-danger-900);
+  --color-danger-subtle-foreground: var(--eusse-danger-100);
+
+  --color-info: var(--eusse-info-500);
+  --color-info-foreground: var(--eusse-neutral-950);
+  --color-info-subtle: var(--eusse-info-900);
+  --color-info-subtle-foreground: var(--eusse-info-100);
+
+  --color-border: var(--eusse-neutral-800);
+  --color-border-strong: var(--eusse-neutral-500);
+  --color-ring: var(--eusse-brand-400);
+
+  --shadow-raised: 0 1px 2px 0 oklch(0 0 0 / 0.4);
+  --shadow-overlay: 0 4px 12px -2px oklch(0 0 0 / 0.5);
+  --shadow-modal: 0 16px 48px -12px oklch(0 0 0 / 0.6);
+  --shadow-toast: 0 8px 24px -6px oklch(0 0 0 / 0.5);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CAPA 3 — TOKENS DE COMPONENTE
+   ═══════════════════════════════════════════════════════════════════════════ */
+:root {
+  /* --- Elevación: z-index centralizado (docs/12-ux-guidelines.md §3) --- */
+  --z-flat: 0;
+  --z-raised: 10;
+  --z-sticky: 20;
+  --z-overlay: 30;
+  --z-modal: 40;
+  --z-toast: 50;
+
+  /* --- Movimiento --- */
+  --motion-fast: 150ms;
+  --motion-base: 250ms;
+  --motion-slow: 450ms;
+
+  /* --- Glassmorphism (docs/12-ux-guidelines.md §3)
+         Herramienta de jerarquía, no decoración.
+         PROHIBIDO en apps/admin. Máximo dos capas superpuestas. --- */
+  --surface-glass-bg: oklch(1 0 0 / 0.72);
+  --surface-glass-border: oklch(1 0 0 / 0.55);
+  --surface-glass-blur: 20px;
+  --surface-glass-saturate: 150%;
+  --surface-glass-fallback: var(--eusse-neutral-50);
+}
+
+.dark {
+  --surface-glass-bg: oklch(0.226 0.013 247 / 0.68);
+  --surface-glass-border: oklch(1 0 0 / 0.08);
+  --surface-glass-fallback: var(--eusse-neutral-850);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BASE
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Foco siempre visible, con contraste ≥ 3:1 (WCAG 2.2 AA) */
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+
+  /* Números tabulares en precios y cantidades: si no alinean, se ve amateur */
+  .tabular,
+  [data-numeric] {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+
+  /* prefers-reduced-motion: requisito de accesibilidad, no una mejora */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Vidrio con fallback sólido obligatorio */
+  .surface-glass {
+    background-color: var(--surface-glass-fallback);
+    border: 1px solid var(--color-border);
+  }
+
+  @supports (backdrop-filter: blur(1px)) {
+    .surface-glass {
+      background-color: var(--surface-glass-bg);
+      border-color: var(--surface-glass-border);
+      backdrop-filter: blur(var(--surface-glass-blur)) saturate(var(--surface-glass-saturate));
+      -webkit-backdrop-filter: blur(var(--surface-glass-blur))
+        saturate(var(--surface-glass-saturate));
+    }
+  }
+}

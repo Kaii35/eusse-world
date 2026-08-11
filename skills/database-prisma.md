@@ -22,18 +22,18 @@ Un esquema correcto, consultas rápidas y migraciones que no tumban producción.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| `float` para dinero | Errores de céntimos que se acumulan; imposible cuadrar |
-| ID autoincremental | Enumerable; revela volumen; colisiona al fusionar entornos |
-| `DROP COLUMN` en el mismo despliegue | Ventana de caída entre versiones |
-| `CREATE INDEX` sin `CONCURRENTLY` | Bloqueo de escritura en tabla grande |
-| Migración sin ensayar con volumen real | Un `ALTER` de 40 minutos en producción |
-| Consulta sin índice | Funciona con 100 filas, muere con 100 000 |
-| `include` anidado profundo en Prisma | Consultas monstruosas; trae MB innecesarios |
-| Consultar dentro de un bucle | N+1 clásico |
-| `$queryRaw` con interpolación de strings | Inyección SQL |
-| Borrado lógico por defecto en todo | Toda consulta necesita `WHERE deleted_at IS NULL`; se olvida una y filtra datos |
+| Error                                    | Consecuencia                                                                    |
+| ---------------------------------------- | ------------------------------------------------------------------------------- |
+| `float` para dinero                      | Errores de céntimos que se acumulan; imposible cuadrar                          |
+| ID autoincremental                       | Enumerable; revela volumen; colisiona al fusionar entornos                      |
+| `DROP COLUMN` en el mismo despliegue     | Ventana de caída entre versiones                                                |
+| `CREATE INDEX` sin `CONCURRENTLY`        | Bloqueo de escritura en tabla grande                                            |
+| Migración sin ensayar con volumen real   | Un `ALTER` de 40 minutos en producción                                          |
+| Consulta sin índice                      | Funciona con 100 filas, muere con 100 000                                       |
+| `include` anidado profundo en Prisma     | Consultas monstruosas; trae MB innecesarios                                     |
+| Consultar dentro de un bucle             | N+1 clásico                                                                     |
+| `$queryRaw` con interpolación de strings | Inyección SQL                                                                   |
+| Borrado lógico por defecto en todo       | Toda consulta necesita `WHERE deleted_at IS NULL`; se olvida una y filtra datos |
 
 ## Patrones
 

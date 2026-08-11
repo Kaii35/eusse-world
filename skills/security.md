@@ -23,20 +23,20 @@ cuentas es un incidente comercial, no sólo técnico.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Confiar en la validación del cliente | Se salta con `curl` |
-| `accountId` del cuerpo o la query | IDOR (riesgo R-03) |
+| Error                                      | Consecuencia                                 |
+| ------------------------------------------ | -------------------------------------------- |
+| Confiar en la validación del cliente       | Se salta con `curl`                          |
+| `accountId` del cuerpo o la query          | IDOR (riesgo R-03)                           |
 | Autorizar por rol sin comprobar el recurso | Un ADMIN de la cuenta A gestiona la cuenta B |
-| `next` sin validar | Redirección abierta y phishing (riesgo R-02) |
-| Importe tomado del cliente | Manipulación de precio |
-| Secreto con prefijo `NEXT_PUBLIC_` | Credencial pública |
-| `$queryRaw` con interpolación | Inyección SQL |
-| Mensajes que revelan si un email existe | Enumeración de usuarios |
-| Subida de archivos sin validar tipo real | Ejecución remota |
-| CORS con comodín y credenciales | Cualquier origen lee datos |
-| Datos personales en logs | Incumplimiento normativo |
-| Dependencia vulnerable sin actualizar | Compromiso por cadena de suministro |
+| `next` sin validar                         | Redirección abierta y phishing (riesgo R-02) |
+| Importe tomado del cliente                 | Manipulación de precio                       |
+| Secreto con prefijo `NEXT_PUBLIC_`         | Credencial pública                           |
+| `$queryRaw` con interpolación              | Inyección SQL                                |
+| Mensajes que revelan si un email existe    | Enumeración de usuarios                      |
+| Subida de archivos sin validar tipo real   | Ejecución remota                             |
+| CORS con comodín y credenciales            | Cualquier origen lee datos                   |
+| Datos personales en logs                   | Incumplimiento normativo                     |
+| Dependencia vulnerable sin actualizar      | Compromiso por cadena de suministro          |
 
 ## Patrones
 

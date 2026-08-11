@@ -21,19 +21,19 @@ mejora para más adelante.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| `div` con `onClick` | No funciona con teclado; sin rol; sin foco |
-| `outline: none` sin alternativa | Imposible navegar con teclado |
-| `placeholder` como etiqueta | Desaparece al escribir; muchos lectores lo ignoran |
-| Error sólo en color rojo | Invisible para daltonismo |
-| Trampa de foco en un modal mal hecho | El usuario queda atrapado |
-| `tabindex` positivo | Rompe el orden natural de tabulación |
-| `alt` vacío en imagen informativa | Contenido perdido |
-| Contraste verificado sólo en claro | El modo oscuro falla |
-| Contenido nuevo sin anunciar | El usuario de lector no se entera |
-| Ignorar `prefers-reduced-motion` | Mareo; incumple WCAG 2.3.3 |
-| Objetivo táctil menor de 44 px | Inutilizable en móvil |
+| Error                                | Consecuencia                                       |
+| ------------------------------------ | -------------------------------------------------- |
+| `div` con `onClick`                  | No funciona con teclado; sin rol; sin foco         |
+| `outline: none` sin alternativa      | Imposible navegar con teclado                      |
+| `placeholder` como etiqueta          | Desaparece al escribir; muchos lectores lo ignoran |
+| Error sólo en color rojo             | Invisible para daltonismo                          |
+| Trampa de foco en un modal mal hecho | El usuario queda atrapado                          |
+| `tabindex` positivo                  | Rompe el orden natural de tabulación               |
+| `alt` vacío en imagen informativa    | Contenido perdido                                  |
+| Contraste verificado sólo en claro   | El modo oscuro falla                               |
+| Contenido nuevo sin anunciar         | El usuario de lector no se entera                  |
+| Ignorar `prefers-reduced-motion`     | Mareo; incumple WCAG 2.3.3                         |
+| Objetivo táctil menor de 44 px       | Inutilizable en móvil                              |
 
 ## Patrones
 

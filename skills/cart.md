@@ -9,7 +9,7 @@ pierde nunca la intención del usuario, ni siquiera a través del login.
 
 - **El carrito es de la cuenta, no del usuario.** Dos compradores de la misma empresa
   colaboran sobre el mismo carrito.
-- **El carrito vive en el servidor.** El navegador sólo puede guardar la *intención* de un
+- **El carrito vive en el servidor.** El navegador sólo puede guardar la _intención_ de un
   visitante.
 - **Precio congelado con `pricedAt`.** El cliente nunca lo recalcula.
 - **Añadir un SKU existente suma cantidad**, no crea una línea duplicada.
@@ -21,18 +21,18 @@ pierde nunca la intención del usuario, ni siquiera a través del login.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Carrito por usuario | Dos compradores de la misma empresa se pisan |
-| Carrito en `localStorage` | Se pierde al cambiar de dispositivo; sin precios reales |
-| Precio recalculado en el cliente | Riesgo R-01 |
-| Duplicar línea al añadir el mismo SKU | Carrito confuso; totales incorrectos |
-| Ignorar `qtyIncrement` | Pedidos imposibles de despachar |
-| Borrar líneas no disponibles en silencio | El usuario no entiende qué pasó |
-| Reservar stock en el carrito | Bloqueo de inventario por carritos abandonados |
-| Optimistic update sin reversión | La UI miente |
-| Aceptar `cartId` del cliente | IDOR |
-| Perder la intención del visitante en el login | Abandono; requisito de producto incumplido |
+| Error                                         | Consecuencia                                            |
+| --------------------------------------------- | ------------------------------------------------------- |
+| Carrito por usuario                           | Dos compradores de la misma empresa se pisan            |
+| Carrito en `localStorage`                     | Se pierde al cambiar de dispositivo; sin precios reales |
+| Precio recalculado en el cliente              | Riesgo R-01                                             |
+| Duplicar línea al añadir el mismo SKU         | Carrito confuso; totales incorrectos                    |
+| Ignorar `qtyIncrement`                        | Pedidos imposibles de despachar                         |
+| Borrar líneas no disponibles en silencio      | El usuario no entiende qué pasó                         |
+| Reservar stock en el carrito                  | Bloqueo de inventario por carritos abandonados          |
+| Optimistic update sin reversión               | La UI miente                                            |
+| Aceptar `cartId` del cliente                  | IDOR                                                    |
+| Perder la intención del visitante en el login | Abandono; requisito de producto incumplido              |
 
 ## Patrones
 

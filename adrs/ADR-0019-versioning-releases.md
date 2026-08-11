@@ -1,7 +1,7 @@
 # ADR-0019 — Changesets + Conventional Commits + trunk-based
 
 | Estado | Aceptado · **Fecha** 2026-08-06 · **Decisor** DevOps + Arquitecto · **RFC** RFC-0015 |
-| ------ | --- |
+| ------ | ------------------------------------------------------------------------------------ |
 
 ## Contexto
 
@@ -24,13 +24,13 @@ consumen más tiempo que el propio desarrollo.
 
 ## Alternativas descartadas
 
-| Alternativa | Por qué se descarta |
-| ----------- | ------------------- |
-| Git Flow | Ramas de larga vida, conflictos constantes, integración tardía; pensado para releases empaquetadas que aquí no existen |
-| Versionado fijo de todo el monorepo | Un cambio en `@eusse/utils` subiría la versión de todo |
-| semantic-release | Deriva la versión del mensaje de commit; con paquetes interdependientes, Changesets es más explícito y controlable |
-| Sin versionado interno | Imposible comunicar cambios rompedores a los consumidores |
-| Merge commits | Historial ruidoso con los commits de trabajo en curso |
+| Alternativa                         | Por qué se descarta                                                                                                    |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Git Flow                            | Ramas de larga vida, conflictos constantes, integración tardía; pensado para releases empaquetadas que aquí no existen |
+| Versionado fijo de todo el monorepo | Un cambio en `@eusse/utils` subiría la versión de todo                                                                 |
+| semantic-release                    | Deriva la versión del mensaje de commit; con paquetes interdependientes, Changesets es más explícito y controlable     |
+| Sin versionado interno              | Imposible comunicar cambios rompedores a los consumidores                                                              |
+| Merge commits                       | Historial ruidoso con los commits de trabajo en curso                                                                  |
 
 ## Consecuencias
 

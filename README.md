@@ -3,9 +3,18 @@
 Plataforma B2B: landing, ecommerce mayorista, portal de cliente y back-office administrativo.
 Preparada para crecer hacia CRM, Inventario, Cursos y App móvil.
 
-> **Estado actual: Fase 0 — Diseño.** Este repositorio contiene únicamente arquitectura,
-> especificaciones y proceso. **No hay código de producto todavía y no debe escribirse
-> hasta que la Fase 0 esté aprobada.** Ver [`docs/11-execution-plan.md`](docs/11-execution-plan.md).
+> **Estado: Fase 0 aprobada · Sprint 0 en curso.** Las fundaciones del monorepo están en
+> pie y verificadas; las aplicaciones aún no. Detalle en [`CLAUDE.md`](CLAUDE.md) y
+> [`docs/11-execution-plan.md`](docs/11-execution-plan.md).
+
+## Empezar
+
+```bash
+pnpm install
+pnpm db:up        # PostgreSQL, Redis, MailHog, MinIO
+pnpm test         # 109 tests
+pnpm lint && pnpm typecheck
+```
 
 ---
 
@@ -24,30 +33,30 @@ El detalle y el criterio de aceptación de esta regla están en
 
 ## Mapa del repositorio
 
-| Carpeta        | Qué contiene                                                                 |
-| -------------- | ---------------------------------------------------------------------------- |
-| `docs/`        | Documentación viva: visión, arquitectura, dominio, convenciones, roadmap.     |
-| `agents/`      | 30 agentes especializados. Contrato de trabajo de cada rol.                   |
-| `skills/`      | Skills por dominio: cómo se hace bien cada cosa en este repo.                 |
-| `rfcs/`        | Propuestas de diseño. Se aprueban **antes** de escribir código.               |
-| `adrs/`        | Decisiones de arquitectura registradas e inmutables.                          |
-| `checklists/`  | Puertas de calidad verificables.                                              |
-| `templates/`   | Plantillas canónicas de todo artefacto.                                       |
-| `scripts/`     | Automatización del repo (especificada en Fase 0, implementada en Fase 1).     |
-| `apps/`        | Aplicaciones desplegables.                                                    |
-| `packages/`    | Librerías compartidas del monorepo.                                           |
+| Carpeta       | Qué contiene                                                              |
+| ------------- | ------------------------------------------------------------------------- |
+| `docs/`       | Documentación viva: visión, arquitectura, dominio, convenciones, roadmap. |
+| `agents/`     | 30 agentes especializados. Contrato de trabajo de cada rol.               |
+| `skills/`     | Skills por dominio: cómo se hace bien cada cosa en este repo.             |
+| `rfcs/`       | Propuestas de diseño. Se aprueban **antes** de escribir código.           |
+| `adrs/`       | Decisiones de arquitectura registradas e inmutables.                      |
+| `checklists/` | Puertas de calidad verificables.                                          |
+| `templates/`  | Plantillas canónicas de todo artefacto.                                   |
+| `scripts/`    | Automatización del repo (especificada en Fase 0, implementada en Fase 1). |
+| `apps/`       | Aplicaciones desplegables.                                                |
+| `packages/`   | Librerías compartidas del monorepo.                                       |
 
 Estructura detallada: [`docs/14-repo-structure.md`](docs/14-repo-structure.md).
 
 ## Aplicaciones
 
-| App             | Qué es                                    | Fase |
-| --------------- | ----------------------------------------- | ---- |
-| `apps/web`      | Landing + catálogo + carrito + checkout + portal de cliente (Next.js) | 1 |
-| `apps/admin`    | Back-office administrativo (Next.js)      | 1    |
-| `apps/api`      | API y núcleo de dominio (NestJS)          | 1    |
-| `apps/workers`  | Consumidores BullMQ, jobs y proyecciones  | 1    |
-| `apps/mobile`   | App móvil (Expo)                          | 4    |
+| App            | Qué es                                                                | Fase |
+| -------------- | --------------------------------------------------------------------- | ---- |
+| `apps/web`     | Landing + catálogo + carrito + checkout + portal de cliente (Next.js) | 1    |
+| `apps/admin`   | Back-office administrativo (Next.js)                                  | 1    |
+| `apps/api`     | API y núcleo de dominio (NestJS)                                      | 1    |
+| `apps/workers` | Consumidores BullMQ, jobs y proyecciones                              | 1    |
+| `apps/mobile`  | App móvil (Expo)                                                      | 4    |
 
 ## Paquetes
 

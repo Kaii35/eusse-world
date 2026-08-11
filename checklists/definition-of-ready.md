@@ -24,7 +24,7 @@ sprints que no se terminan.
 ## Diseño
 
 - [ ] Diseño aprobado con **todos** los estados, o declarado explícitamente "sin UI"
-- [ ] Contenido definitivo, no *lorem ipsum*
+- [ ] Contenido definitivo, no _lorem ipsum_
 - [ ] Mensajes de error escritos
 
 ## Técnico

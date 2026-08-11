@@ -1,11 +1,11 @@
 # RFC-0006 — Carrito y precios B2B
 
-| Campo | Valor |
-| ----- | ----- |
-| **Estado** | Borrador · **Autor** Arquitecto + Ecommerce · **Creado** 2026-08-06 |
-| **Revisores** | Carrito · Backend · Frontend · Seguridad · Performance · Product Owner |
-| **ADR generados** | ADR-0012 |
-| **Bloque** | E · Sprints 6–7 |
+| Campo             | Valor                                                                  |
+| ----------------- | ---------------------------------------------------------------------- |
+| **Estado**        | Borrador · **Autor** Arquitecto + Ecommerce · **Creado** 2026-08-06    |
+| **Revisores**     | Carrito · Backend · Frontend · Seguridad · Performance · Product Owner |
+| **ADR generados** | ADR-0012                                                               |
+| **Bloque**        | E · Sprints 6–7                                                        |
 
 ---
 
@@ -34,17 +34,17 @@ de precio · páginas de producto cacheables sin filtrar precios.
 
 **Dónde se resuelve el precio de una página de producto**
 
-| Alternativa | Descarte |
-| ----------- | -------- |
-| A. Renderizar la página completa por cuenta (SSR sin caché) | Se pierde ISR y SEO; LCP se dispara |
-| B. Incluir el precio en el HTML y cachear con `Vary: Cookie` | Riesgo R-01: un fallo de configuración de CDN filtra precios |
+| Alternativa                                                                       | Descarte                                                                        |
+| --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| A. Renderizar la página completa por cuenta (SSR sin caché)                       | Se pierde ISR y SEO; LCP se dispara                                             |
+| B. Incluir el precio en el HTML y cachear con `Vary: Cookie`                      | Riesgo R-01: un fallo de configuración de CDN filtra precios                    |
 | **C. Página cacheada sin precio; el precio se pide autenticado desde el cliente** | **Elegida.** SEO y velocidad intactos; el precio nunca entra en HTML compartido |
 
 **Estructura de precios**
 
-| Alternativa | Descarte |
-| ----------- | -------- |
-| A. Precio base + porcentaje de descuento por cuenta | Descuentos en cascada, ambiguos e irreproducibles |
+| Alternativa                                                          | Descarte                                                             |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| A. Precio base + porcentaje de descuento por cuenta                  | Descuentos en cascada, ambiguos e irreproducibles                    |
 | **B. Listas de precios con entradas por SKU y escalas por cantidad** | **Elegida.** Es como el negocio ya piensa; auditable; sin ambigüedad |
 
 ## 4. Diseño
@@ -89,13 +89,13 @@ Vary: Cookie
 
 ### 4.4 Zona de precio en la UI
 
-| Estado | Qué muestra |
-| ------ | ----------- |
-| Sin sesión | "Inicia sesión para ver tu precio" — **sin número, nunca** |
-| Cargando | Skeleton del tamaño exacto del precio (CLS = 0) |
-| Con precio | Precio unitario · moneda · escalas aplicables · mínimo y múltiplo |
-| Sin precio para la cuenta | "Consulta con tu asesor" + acción de contacto |
-| No visible | El producto no aparece en el listado |
+| Estado                    | Qué muestra                                                       |
+| ------------------------- | ----------------------------------------------------------------- |
+| Sin sesión                | "Inicia sesión para ver tu precio" — **sin número, nunca**        |
+| Cargando                  | Skeleton del tamaño exacto del precio (CLS = 0)                   |
+| Con precio                | Precio unitario · moneda · escalas aplicables · mínimo y múltiplo |
+| Sin precio para la cuenta | "Consulta con tu asesor" + acción de contacto                     |
+| No visible                | El producto no aparece en el listado                              |
 
 ### 4.5 Modelo del carrito
 
@@ -111,6 +111,7 @@ no reserva stock.
 ### 4.6 Congelado y revalidación de precio
 
 El precio se congela en la línea con `pricedAt`. Se revalida:
+
 - Al entrar al checkout, si `pricedAt` tiene más de 24 h (regla PRC-04).
 - Siempre en el paso final de confirmación.
 
@@ -148,22 +149,22 @@ Todos con `meta` accionable para que la UI ofrezca la corrección.
 
 ## 5. Impacto
 
-| Área | Impacto |
-| ---- | ------- |
-| Contextos | Pricing (nuevo) · Cart (nuevo) · Catalog (visibilidad) |
-| Rendimiento | Resolución en lote obligatoria; p95 < 100 ms para 100 SKUs |
+| Área          | Impacto                                                                     |
+| ------------- | --------------------------------------------------------------------------- |
+| Contextos     | Pricing (nuevo) · Cart (nuevo) · Catalog (visibilidad)                      |
+| Rendimiento   | Resolución en lote obligatoria; p95 < 100 ms para 100 SKUs                  |
 | **Seguridad** | **Crítico.** R-01 (fuga de precios) y IDOR de carrito. Revisión obligatoria |
-| SEO | Ninguno: la ficha sigue estática e indexable, sin precio |
+| SEO           | Ninguno: la ficha sigue estática e indexable, sin precio                    |
 
 ## 6. Riesgos
 
-| Riesgo | Prob. | Impacto | Mitigación verificable |
-| ------ | ----- | ------- | ---------------------- |
+| Riesgo                                 | Prob. | Impacto     | Mitigación verificable                                                                                                                |
+| -------------------------------------- | ----- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | Precio de una cuenta visible para otra | Media | **Crítico** | `private, no-store` + `Vary: Cookie` + test de aislamiento en CI + test de que ningún endpoint con precio devuelve cabecera cacheable |
-| N+1 al resolver precios | Alta | Alto | Endpoint en lote; test que falla si se emiten más de 2 peticiones por listado |
-| Redondeo divergente entre front y back | Media | Medio | Un único helper compartido; el front nunca calcula, sólo formatea |
-| Escalas mal configuradas | Media | Alto | Invariante en el agregado + validación en el admin antes de guardar |
-| Carrito corrupto por concurrencia | Media | Medio | Bloqueo optimista + test de concurrencia |
+| N+1 al resolver precios                | Alta  | Alto        | Endpoint en lote; test que falla si se emiten más de 2 peticiones por listado                                                         |
+| Redondeo divergente entre front y back | Media | Medio       | Un único helper compartido; el front nunca calcula, sólo formatea                                                                     |
+| Escalas mal configuradas               | Media | Alto        | Invariante en el agregado + validación en el admin antes de guardar                                                                   |
+| Carrito corrupto por concurrencia      | Media | Medio       | Bloqueo optimista + test de concurrencia                                                                                              |
 
 ## 7. Criterios de aceptación
 
@@ -216,10 +217,10 @@ más dimensiones (canal, región) por composición · el carrito admite metadato
 
 ## 10. Preguntas abiertas
 
-| # | Pregunta | Bloquea | Resuelta |
-| - | -------- | ------- | -------- |
-| 1 | ¿Qué ocurre si dos listas vigentes con la misma prioridad cubren el mismo SKU? | E2 | **Sí** — es un error de configuración: `PRICING_AMBIGUOUS_PRICE_LIST` y alerta al admin. El sistema no adivina |
-| 2 | ¿Se muestra precio público a visitantes para SKUs `PUBLIC`? | E8 | **No** en Fase 1. Coherencia: un solo mensaje, "inicia sesión para ver tu precio". Revisable con datos de conversión |
+| #   | Pregunta                                                                       | Bloquea | Resuelta                                                                                                             |
+| --- | ------------------------------------------------------------------------------ | ------- | -------------------------------------------------------------------------------------------------------------------- |
+| 1   | ¿Qué ocurre si dos listas vigentes con la misma prioridad cubren el mismo SKU? | E2      | **Sí** — es un error de configuración: `PRICING_AMBIGUOUS_PRICE_LIST` y alerta al admin. El sistema no adivina       |
+| 2   | ¿Se muestra precio público a visitantes para SKUs `PUBLIC`?                    | E8      | **No** en Fase 1. Coherencia: un solo mensaje, "inicia sesión para ver tu precio". Revisable con datos de conversión |
 
 ## 11. Enlaces
 

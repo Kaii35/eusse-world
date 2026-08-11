@@ -19,17 +19,17 @@ Reducir el coste de cambiar el código, sin cambiar lo que hace.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Refactorizar sin tests | Se rompe algo y nadie lo nota hasta producción |
-| Modificar los tests durante el refactor | Se pierde la garantía |
-| Mezclar refactor y cambio funcional | Imposible de revisar; imposible de revertir |
-| Abstraer a la primera repetición | Abstracción equivocada, congelada |
-| Unificar duplicación accidental | Acoplamiento entre cosas que evolucionan distinto |
-| Refactor gigante de una vez | Conflictos eternos y revisión imposible |
-| Cambios cosméticos masivos | Ensucia el historial y oculta los cambios reales |
-| Refactorizar sin motivo | Riesgo sin beneficio |
-| "Mientras estoy aquí, mejoro esto también" | El PR crece hasta no ser revisable |
+| Error                                      | Consecuencia                                      |
+| ------------------------------------------ | ------------------------------------------------- |
+| Refactorizar sin tests                     | Se rompe algo y nadie lo nota hasta producción    |
+| Modificar los tests durante el refactor    | Se pierde la garantía                             |
+| Mezclar refactor y cambio funcional        | Imposible de revisar; imposible de revertir       |
+| Abstraer a la primera repetición           | Abstracción equivocada, congelada                 |
+| Unificar duplicación accidental            | Acoplamiento entre cosas que evolucionan distinto |
+| Refactor gigante de una vez                | Conflictos eternos y revisión imposible           |
+| Cambios cosméticos masivos                 | Ensucia el historial y oculta los cambios reales  |
+| Refactorizar sin motivo                    | Riesgo sin beneficio                              |
+| "Mientras estoy aquí, mejoro esto también" | El PR crece hasta no ser revisable                |
 
 ## Patrones
 
@@ -57,7 +57,7 @@ sitios pide una jerarquía o un mapa de estrategias.
 que está en un controller o en un componente vuelve al dominio.
 
 **Strangler fig** — para reemplazar algo grande: fachada nueva, migración pieza a pieza,
-eliminación de lo viejo. Nunca *big bang*.
+eliminación de lo viejo. Nunca _big bang_.
 
 ## Antipatrones
 

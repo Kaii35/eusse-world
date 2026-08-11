@@ -23,15 +23,15 @@ base de datos y el código se lea con las palabras que usa el negocio.
 
 ## Errores comunes
 
-| Error | Por qué es malo |
-| ----- | --------------- |
-| Entidad con `set` públicos | Cualquiera puede romper el invariante |
-| Lógica de negocio en el caso de uso | El dominio queda anémico y la regla se duplica |
-| Lógica de negocio en el controller | Imposible de reutilizar y de testear |
-| Un agregado gigante (`Order` con todo dentro) | Contención, bloqueos, transacciones lentas |
-| Referenciar entidades de otro agregado por objeto | Acoplamiento y transacciones que abarcan dos agregados |
-| `throw new Error('algo falló')` | El frontend no puede reaccionar; el mensaje no se traduce |
-| Usar el modelo de Prisma como entidad de dominio | El esquema de base de datos dicta las reglas de negocio |
+| Error                                             | Por qué es malo                                           |
+| ------------------------------------------------- | --------------------------------------------------------- |
+| Entidad con `set` públicos                        | Cualquiera puede romper el invariante                     |
+| Lógica de negocio en el caso de uso               | El dominio queda anémico y la regla se duplica            |
+| Lógica de negocio en el controller                | Imposible de reutilizar y de testear                      |
+| Un agregado gigante (`Order` con todo dentro)     | Contención, bloqueos, transacciones lentas                |
+| Referenciar entidades de otro agregado por objeto | Acoplamiento y transacciones que abarcan dos agregados    |
+| `throw new Error('algo falló')`                   | El frontend no puede reaccionar; el mensaje no se traduce |
+| Usar el modelo de Prisma como entidad de dominio  | El esquema de base de datos dicta las reglas de negocio   |
 
 ## Patrones
 

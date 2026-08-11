@@ -21,18 +21,18 @@ sistema en estado inconsistente cuando un tercero falla.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Sin idempotencia | Doble clic = dos órdenes (riesgo R-04) |
-| Clave de idempotencia generada al pulsar enviar | Cada clic genera una clave nueva: inútil |
-| No revalidar precios | Se cobra distinto de lo mostrado |
-| Verificar crédito sólo al iniciar el checkout | Cambió mientras el usuario rellenaba |
-| Llamar a la pasarela antes de crear la orden | Cobro sin orden asociada |
-| `UPDATE status` directo | Transiciones inválidas; máquina de estados inútil |
-| Publicar el evento fuera de la transacción | Orden sin notificar, o notificación sin orden |
-| Borrar el carrito al confirmar | Se pierde la trazabilidad |
-| Número de orden por `COUNT(*) + 1` | Colisiones bajo concurrencia |
-| Mostrar el coste de envío sólo al final | Abandono |
+| Error                                           | Consecuencia                                      |
+| ----------------------------------------------- | ------------------------------------------------- |
+| Sin idempotencia                                | Doble clic = dos órdenes (riesgo R-04)            |
+| Clave de idempotencia generada al pulsar enviar | Cada clic genera una clave nueva: inútil          |
+| No revalidar precios                            | Se cobra distinto de lo mostrado                  |
+| Verificar crédito sólo al iniciar el checkout   | Cambió mientras el usuario rellenaba              |
+| Llamar a la pasarela antes de crear la orden    | Cobro sin orden asociada                          |
+| `UPDATE status` directo                         | Transiciones inválidas; máquina de estados inútil |
+| Publicar el evento fuera de la transacción      | Orden sin notificar, o notificación sin orden     |
+| Borrar el carrito al confirmar                  | Se pierde la trazabilidad                         |
+| Número de orden por `COUNT(*) + 1`              | Colisiones bajo concurrencia                      |
+| Mostrar el coste de envío sólo al final         | Abandono                                          |
 
 ## Patrones
 
@@ -100,10 +100,15 @@ if (total.isGreaterThan(buyer.approvalThreshold)) → PENDING_APPROVAL   // Regl
 {
   "code": "PRICING_PRICE_CHANGED",
   "detail": "El precio de 2 productos cambió desde que los añadiste",
-  "meta": { "changes": [
-    { "sku": "TAL-500", "oldUnitPrice": {"amount":104166,"currency":"COP"},
-                        "newUnitPrice": {"amount":109000,"currency":"COP"} }
-  ]}
+  "meta": {
+    "changes": [
+      {
+        "sku": "TAL-500",
+        "oldUnitPrice": { "amount": 104166, "currency": "COP" },
+        "newUnitPrice": { "amount": 109000, "currency": "COP" }
+      }
+    ]
+  }
 }
 ```
 

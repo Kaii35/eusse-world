@@ -33,20 +33,20 @@ gantt
 
 **Objetivo:** que cualquier agente pueda implementar sin preguntar nada.
 
-| Entregable | Estado |
-| ---------- | ------ |
-| Estructura del repositorio | ✅ este commit |
-| 30 agentes especificados | ✅ |
-| Skills por dominio | ✅ |
-| RFC-0001 … RFC-0015 | ✅ borradores |
-| ADR-0001 … ADR-0020 | ✅ |
-| Checklists y plantillas | ✅ |
-| Convenciones y estándares | ✅ |
-| Roadmap y plan de ejecución | ✅ |
-| Monorepo funcional (Turborepo, pnpm, tsconfig, ESLint, Prettier, CI) | ⏳ Sprint 0 |
-| Docker Compose (PostgreSQL + Redis) | ⏳ Sprint 0 |
-| `@eusse/tokens` y esqueleto de `@eusse/ui` | ⏳ Sprint 0 |
-| Apps arrancando con "hello world" y CI en verde | ⏳ Sprint 0 |
+| Entregable                                                           | Estado         |
+| -------------------------------------------------------------------- | -------------- |
+| Estructura del repositorio                                           | ✅ este commit |
+| 30 agentes especificados                                             | ✅             |
+| Skills por dominio                                                   | ✅             |
+| RFC-0001 … RFC-0015                                                  | ✅ borradores  |
+| ADR-0001 … ADR-0020                                                  | ✅             |
+| Checklists y plantillas                                              | ✅             |
+| Convenciones y estándares                                            | ✅             |
+| Roadmap y plan de ejecución                                          | ✅             |
+| Monorepo funcional (Turborepo, pnpm, tsconfig, ESLint, Prettier, CI) | ⏳ Sprint 0    |
+| Docker Compose (PostgreSQL + Redis)                                  | ⏳ Sprint 0    |
+| `@eusse/tokens` y esqueleto de `@eusse/ui`                           | ⏳ Sprint 0    |
+| Apps arrancando con "hello world" y CI en verde                      | ⏳ Sprint 0    |
 
 **Criterio de salida:** `pnpm install && pnpm dev` levanta las cuatro apps; CI verde;
 RFC-0001 a RFC-0004 aprobados.
@@ -58,34 +58,41 @@ RFC-0001 a RFC-0004 aprobados.
 Landing · Auth · Ecommerce B2B · Portal de cliente · Back-office.
 
 ### Hito 1.1 — Cimientos visibles
+
 Design system base · Landing completa · i18n · Dark mode · SEO técnico.
 **Salida:** landing en producción, Lighthouse ≥ 95, dos idiomas.
 
 ### Hito 1.2 — Identidad
+
 Registro · Login · Refresh · Recuperación · Roles · Cuenta activa · Aprobación de cuentas.
 **Salida:** un comprador entra, ve su cuenta y cambia entre cuentas.
 
 ### Hito 1.3 — Catálogo
+
 Producto, variante, categoría, atributos, medios · Búsqueda y facetas · Ficha de producto ·
 Visibilidad por cuenta · Admin de catálogo.
 **Salida:** catálogo real navegable, indexado y administrable.
 
 ### Hito 1.4 — Precios y carrito
+
 Listas de precios, escalas por volumen · Carrito de cuenta · **Flujo invitado → login →
 retorno al producto** ([RFC-0004](../rfcs/RFC-0004-guest-intent-auth-return.md)).
 **Salida:** el comprador ve su precio real y arma un carrito de 40 líneas sin fricción.
 
 ### Hito 1.5 — Checkout y órdenes
+
 Checkout multi-paso · Aprobación por umbral · Orden de compra del cliente ·
 Órdenes y estados · Recompra desde histórico · Notificaciones transaccionales.
 **Salida:** primer pedido real cursado de punta a punta.
 
 ### Hito 1.6 — Portal y back-office
+
 Portal de cliente (órdenes, usuarios, direcciones, documentos) ·
 Admin (cuentas, productos, precios, órdenes, contenido, usuarios) · Auditoría.
 **Salida:** el equipo comercial opera sin tocar la base de datos.
 
 ### Hito 1.7 — Endurecimiento
+
 Auditoría de seguridad · Rendimiento · Accesibilidad AA verificada · Carga ·
 Runbooks · Observabilidad · Plan de reversión.
 **Salida:** producción con clientes reales.
@@ -130,11 +137,11 @@ Portal de distribuidores · Multi-marca.
 
 ## Qué NO se hará (y por qué)
 
-| Idea | Motivo |
-| ---- | ------ |
-| Microservicios en Fase 1 | Coste operativo sin beneficio; las fronteras aún se están descubriendo |
-| GraphQL | Un solo consumidor principal; REST tipado con Zod cubre el caso con menos maquinaria |
-| CMS headless externo | El contenido de la landing es acotado y estructurado; un CMS añade latencia, coste y un punto de fallo |
-| Micro-frontends | Un equipo, dos apps. No hay problema que resolver |
-| Motor de búsqueda dedicado en Fase 1 | PostgreSQL FTS basta hasta ~50k SKUs; el puerto permite cambiarlo después |
-| Kubernetes en Fase 1 | Contenedores en un PaaS gestionado. K8s cuando haya equipo que lo opere |
+| Idea                                 | Motivo                                                                                                 |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| Microservicios en Fase 1             | Coste operativo sin beneficio; las fronteras aún se están descubriendo                                 |
+| GraphQL                              | Un solo consumidor principal; REST tipado con Zod cubre el caso con menos maquinaria                   |
+| CMS headless externo                 | El contenido de la landing es acotado y estructurado; un CMS añade latencia, coste y un punto de fallo |
+| Micro-frontends                      | Un equipo, dos apps. No hay problema que resolver                                                      |
+| Motor de búsqueda dedicado en Fase 1 | PostgreSQL FTS basta hasta ~50k SKUs; el puerto permite cambiarlo después                              |
+| Kubernetes en Fase 1                 | Contenedores en un PaaS gestionado. K8s cuando haya equipo que lo opere                                |

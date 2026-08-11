@@ -1,7 +1,7 @@
 # ADR-0008 — Autenticación propia con JWT en cookies httpOnly
 
 | Estado | Aceptado · **Fecha** 2026-08-06 · **Decisor** Arquitecto + Seguridad · **RFC** RFC-0003, RFC-0004 |
-| ------ | --- |
+| ------ | ------------------------------------------------------------------------------------------------- |
 
 ## Contexto
 
@@ -27,12 +27,12 @@ Autenticación **propia**, emitida por `apps/api`:
 
 ## Alternativas descartadas
 
-| Alternativa | Por qué se descarta |
-| ----------- | ------------------- |
-| Auth0 / Clerk | Coste por usuario; el modelo multi-cuenta con roles por cuenta no encaja en su modelo; dependencia crítica de un tercero |
-| NextAuth / Auth.js | La sesión vive en el frontend; la app móvil no la puede usar; el backend seguiría necesitando su propia autenticación |
-| Tokens en `localStorage` | Cualquier XSS se convierte en robo de sesión permanente |
-| Permisos dentro del JWT | Revocar un permiso no tendría efecto hasta que el token expire |
+| Alternativa              | Por qué se descarta                                                                                                      |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| Auth0 / Clerk            | Coste por usuario; el modelo multi-cuenta con roles por cuenta no encaja en su modelo; dependencia crítica de un tercero |
+| NextAuth / Auth.js       | La sesión vive en el frontend; la app móvil no la puede usar; el backend seguiría necesitando su propia autenticación    |
+| Tokens en `localStorage` | Cualquier XSS se convierte en robo de sesión permanente                                                                  |
+| Permisos dentro del JWT  | Revocar un permiso no tendría efecto hasta que el token expire                                                           |
 
 ## Consecuencias
 

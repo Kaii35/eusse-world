@@ -1,7 +1,7 @@
 # ADR-0015 — Vitest + Playwright + Testcontainers
 
 | Estado | Aceptado · **Fecha** 2026-08-06 · **Decisor** Testing + Arquitecto · **RFC** RFC-0015 |
-| ------ | --- |
+| ------ | ------------------------------------------------------------------------------------- |
 
 ## Contexto
 
@@ -14,14 +14,14 @@ transacción — precisamente los bugs que más duelen en producción.
 
 ## Decisión
 
-| Nivel | Herramienta |
-| ----- | ----------- |
-| Unitario (dominio) | **Vitest** |
+| Nivel                      | Herramienta                                                   |
+| -------------------------- | ------------------------------------------------------------- |
+| Unitario (dominio)         | **Vitest**                                                    |
 | Integración (casos de uso) | **Vitest + Testcontainers** con PostgreSQL y Redis **reales** |
-| Contrato | **Vitest** contra los esquemas de `@eusse/contracts` |
-| Componente | **Vitest + Testing Library**, consultando por rol accesible |
-| E2E | **Playwright** con axe integrado |
-| Visual | **Playwright snapshots** en ambos temas |
+| Contrato                   | **Vitest** contra los esquemas de `@eusse/contracts`          |
+| Componente                 | **Vitest + Testing Library**, consultando por rol accesible   |
+| E2E                        | **Playwright** con axe integrado                              |
+| Visual                     | **Playwright snapshots** en ambos temas                       |
 
 Umbrales: **≥ 90% en `domain/`**, **≥ 80% en `application/`**. El resto no tiene umbral:
 tiene criterio.
@@ -30,13 +30,13 @@ tiene criterio.
 
 ## Alternativas descartadas
 
-| Alternativa | Por qué se descarta |
-| ----------- | ------------------- |
-| Jest | Más lento; peor soporte de ESM y TypeScript nativo; Vitest comparte configuración con Vite |
-| Cypress | Playwright cubre más navegadores, es más rápido y su modelo de espera es más robusto |
-| Mock de Prisma en integración | No detecta índices, restricciones ni transacciones: los bugs más caros pasarían |
-| Base de datos compartida entre tests | Contaminación cruzada; imposible paralelizar |
-| Objetivo de 100% de cobertura | Produce tests de getters y setters que no detectan nada |
+| Alternativa                          | Por qué se descarta                                                                        |
+| ------------------------------------ | ------------------------------------------------------------------------------------------ |
+| Jest                                 | Más lento; peor soporte de ESM y TypeScript nativo; Vitest comparte configuración con Vite |
+| Cypress                              | Playwright cubre más navegadores, es más rápido y su modelo de espera es más robusto       |
+| Mock de Prisma en integración        | No detecta índices, restricciones ni transacciones: los bugs más caros pasarían            |
+| Base de datos compartida entre tests | Contaminación cruzada; imposible paralelizar                                               |
+| Objetivo de 100% de cobertura        | Produce tests de getters y setters que no detectan nada                                    |
 
 ## Consecuencias
 

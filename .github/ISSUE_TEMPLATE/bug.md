@@ -10,13 +10,13 @@ labels: bug
 
 ## Entorno
 
-| | |
-| --- | --- |
-| Entorno | producción / staging / preview-PR-NNN / local |
-| Navegador y versión | |
-| Dispositivo y resolución | |
-| Idioma / tema | |
-| Rol del usuario | |
+|                          |                                               |
+| ------------------------ | --------------------------------------------- |
+| Entorno                  | producción / staging / preview-PR-NNN / local |
+| Navegador y versión      |                                               |
+| Dispositivo y resolución |                                               |
+| Idioma / tema            |                                               |
+| Rol del usuario          |                                               |
 
 ## Pasos de reproducción
 

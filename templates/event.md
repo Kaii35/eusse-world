@@ -1,11 +1,11 @@
 # Evento — `<contexto>.<Agregado><VerboPasado>.v<N>`
 
-| Campo | Valor |
-| ----- | ----- |
-| **Emisor** | módulo |
-| **RFC** | RFC-XXXX |
-| **Versión** | v1 |
-| **Estado** | Vigente · Obsoleto (sustituido por v2) |
+| Campo       | Valor                                  |
+| ----------- | -------------------------------------- |
+| **Emisor**  | módulo                                 |
+| **RFC**     | RFC-XXXX                               |
+| **Versión** | v1                                     |
+| **Estado**  | Vigente · Obsoleto (sustituido por v2) |
 
 ## Cuándo se emite
 
@@ -34,7 +34,7 @@ export const <agregado><verbo>V1 = z.object({
 
 | Campo del payload | Tipo | Por qué está aquí |
 | ----------------- | ---- | ----------------- |
-| | | |
+|                   |      |                   |
 
 > **Regla:** el payload es autocontenido. Si un consumidor tiene que llamar al emisor para
 > entender el evento, el acoplamiento ha vuelto por la puerta de atrás.
@@ -48,7 +48,7 @@ export const <agregado><verbo>V1 = z.object({
   "occurredAt": "2026-08-06T14:30:00.000Z",
   "correlationId": "req-abc123",
   "tenantId": "eusse",
-  "payload": { }
+  "payload": {}
 }
 ```
 
@@ -56,7 +56,7 @@ export const <agregado><verbo>V1 = z.object({
 
 | Consumidor | Fase | Efecto | Idempotente por |
 | ---------- | ---- | ------ | --------------- |
-| | | | `eventId` |
+|            |      |        | `eventId`       |
 
 ## Garantías
 
@@ -67,11 +67,11 @@ export const <agregado><verbo>V1 = z.object({
 
 ## Compatibilidad
 
-| Cambio | ¿Compatible? | Acción |
-| ------ | ------------ | ------ |
-| Añadir campo opcional | Sí | Mismo `v1` |
-| Quitar o renombrar campo | No | `v2`, publicando ambos durante la migración |
-| Cambiar tipo o semántica | No | `v2` |
+| Cambio                   | ¿Compatible? | Acción                                      |
+| ------------------------ | ------------ | ------------------------------------------- |
+| Añadir campo opcional    | Sí           | Mismo `v1`                                  |
+| Quitar o renombrar campo | No           | `v2`, publicando ambos durante la migración |
+| Cambiar tipo o semántica | No           | `v2`                                        |
 
 ## Tests
 

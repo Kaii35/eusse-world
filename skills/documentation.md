@@ -20,18 +20,18 @@ hace perder tiempo y provoca decisiones equivocadas con falsa confianza.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Documentar "cuando haya tiempo" | Nunca hay tiempo |
-| Duplicar información | Se actualiza una copia y las otras mienten |
-| Comentar lo obvio (`// incrementa i`) | Ruido que oculta los comentarios útiles |
-| Documentar el qué en vez del porqué | El código ya dice el qué, y mejor |
-| Diagrama que no coincide con el código | Se pierde la confianza en toda la documentación |
-| Captura de pantalla como fuente | Imposible de actualizar |
-| README genérico de plantilla | Nadie lo lee |
-| Lenguaje vago ("debería", "en general") | Oculta una decisión no tomada |
-| Sin dueño ni fecha | Nadie sabe si sigue vigente |
-| Ejemplos que no compilan | Enseñan algo incorrecto |
+| Error                                   | Consecuencia                                    |
+| --------------------------------------- | ----------------------------------------------- |
+| Documentar "cuando haya tiempo"         | Nunca hay tiempo                                |
+| Duplicar información                    | Se actualiza una copia y las otras mienten      |
+| Comentar lo obvio (`// incrementa i`)   | Ruido que oculta los comentarios útiles         |
+| Documentar el qué en vez del porqué     | El código ya dice el qué, y mejor               |
+| Diagrama que no coincide con el código  | Se pierde la confianza en toda la documentación |
+| Captura de pantalla como fuente         | Imposible de actualizar                         |
+| README genérico de plantilla            | Nadie lo lee                                    |
+| Lenguaje vago ("debería", "en general") | Oculta una decisión no tomada                   |
+| Sin dueño ni fecha                      | Nadie sabe si sigue vigente                     |
+| Ejemplos que no compilan                | Enseñan algo incorrecto                         |
 
 ## Patrones
 

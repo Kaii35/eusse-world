@@ -1,11 +1,11 @@
 # RFC-0014 — Internacionalización y multi-moneda
 
-| Campo | Valor |
-| ----- | ----- |
-| **Estado** | Borrador · **Autor** i18n + Arquitecto · **Creado** 2026-08-06 |
-| **Revisores** | Frontend · Ecommerce · SEO · UX · Product Owner |
-| **ADR generados** | ADR-0013 |
-| **Bloque** | A/C · Sprints 0, 2–3 |
+| Campo             | Valor                                                          |
+| ----------------- | -------------------------------------------------------------- |
+| **Estado**        | Borrador · **Autor** i18n + Arquitecto · **Creado** 2026-08-06 |
+| **Revisores**     | Frontend · Ecommerce · SEO · UX · Product Owner                |
+| **ADR generados** | ADR-0013                                                       |
+| **Bloque**        | A/C · Sprints 0, 2–3                                           |
 
 ---
 
@@ -33,18 +33,18 @@ producto por idioma en Fase 1.
 
 **Enrutamiento de locale**
 
-| Alternativa | Descarte |
-| ----------- | -------- |
-| A. Subdominio (`es.eusse.world`) | Complica certificados, cookies y sesión compartida |
-| B. Parámetro de query | Malo para SEO; frágil |
-| C. Detección por cookie sin cambiar la URL | Una URL con dos contenidos: rompe caché y SEO |
+| Alternativa                                   | Descarte                                                           |
+| --------------------------------------------- | ------------------------------------------------------------------ |
+| A. Subdominio (`es.eusse.world`)              | Complica certificados, cookies y sesión compartida                 |
+| B. Parámetro de query                         | Malo para SEO; frágil                                              |
+| C. Detección por cookie sin cambiar la URL    | Una URL con dos contenidos: rompe caché y SEO                      |
 | **D. Prefijo de ruta (`/es/...`, `/en/...`)** | **Elegida.** Indexable, cacheable, compartible, `hreflang` natural |
 
 **Moneda**
 
-| Alternativa | Descarte |
-| ----------- | -------- |
-| A. `number` y asumir COP | Migración masiva cuando llegue otra moneda |
+| Alternativa                                                                       | Descarte                                                 |
+| --------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| A. `number` y asumir COP                                                          | Migración masiva cuando llegue otra moneda               |
 | **B. `Money { amount, currency }` desde el día 1, con una sola moneda operativa** | **Elegida.** Coste hoy: casi nulo. Ahorro mañana: enorme |
 
 ## 4. Diseño
@@ -78,12 +78,12 @@ español.
 
 Todo con `Intl`, expuesto por `@eusse/i18n`:
 
-| Dato | Regla |
-| ---- | ----- |
-| Fecha | `Intl.DateTimeFormat` con locale y zona horaria del usuario |
-| Número | `Intl.NumberFormat` con locale |
+| Dato       | Regla                                                               |
+| ---------- | ------------------------------------------------------------------- |
+| Fecha      | `Intl.DateTimeFormat` con locale y zona horaria del usuario         |
+| Número     | `Intl.NumberFormat` con locale                                      |
 | **Moneda** | `Intl.NumberFormat` con **la moneda del importe**, no la del locale |
-| Relativo | `Intl.RelativeTimeFormat` |
+| Relativo   | `Intl.RelativeTimeFormat`                                           |
 
 La moneda es un dato del `Money`. Un usuario en inglés puede comprar en pesos.
 
@@ -112,12 +112,12 @@ en `<html>` · canónicas por locale · sitemap con ambas versiones.
 
 ### 4.7 Verificación
 
-| Qué | Cómo | Bloquea |
-| --- | ---- | ------- |
-| Literales en el código | Regla de ESLint | Sí |
-| Paridad de claves es/en | Script en CI | Sí |
-| Desbordes de layout | Pseudo-localización en preview | No (revisión visual) |
-| Formatos | Tests con datos reales por locale | Sí |
+| Qué                     | Cómo                              | Bloquea              |
+| ----------------------- | --------------------------------- | -------------------- |
+| Literales en el código  | Regla de ESLint                   | Sí                   |
+| Paridad de claves es/en | Script en CI                      | Sí                   |
+| Desbordes de layout     | Pseudo-localización en preview    | No (revisión visual) |
+| Formatos                | Tests con datos reales por locale | Sí                   |
 
 ### 4.8 Preparación para RTL
 
@@ -131,13 +131,13 @@ es lo caro.
 
 ## 6. Riesgos
 
-| Riesgo | Prob. | Impacto | Mitigación |
-| ------ | ----- | ------- | ---------- |
-| Deuda de i18n por literales (R-12) | Alta | Medio | Lint bloqueante desde el primer commit |
-| Claves faltantes en producción | Media | Medio | Verificación de paridad en CI |
-| Desborde de layout al traducir | Media | Bajo | Pseudo-localización en preview |
-| Moneda formateada según el idioma | Media | Alto | Formateador que toma la moneda del `Money`; test explícito |
-| Traducción automática sin revisar | Media | Medio | Revisión por hablante nativo en textos de cara al cliente |
+| Riesgo                             | Prob. | Impacto | Mitigación                                                 |
+| ---------------------------------- | ----- | ------- | ---------------------------------------------------------- |
+| Deuda de i18n por literales (R-12) | Alta  | Medio   | Lint bloqueante desde el primer commit                     |
+| Claves faltantes en producción     | Media | Medio   | Verificación de paridad en CI                              |
+| Desborde de layout al traducir     | Media | Bajo    | Pseudo-localización en preview                             |
+| Moneda formateada según el idioma  | Media | Alto    | Formateador que toma la moneda del `Money`; test explícito |
+| Traducción automática sin revisar  | Media | Medio   | Revisión por hablante nativo en textos de cara al cliente  |
 
 ## 7. Criterios de aceptación
 
@@ -182,9 +182,9 @@ catálogo.
 
 ## 10. Preguntas abiertas
 
-| # | Pregunta | Bloquea | Resuelta |
-| - | -------- | ------- | -------- |
-| 1 | ¿Se traduce el catálogo al inglés en Fase 1? | C4 | **No.** El catálogo permanece en español; la interfaz sí se traduce. Se revisa si aparece demanda real de clientes anglófonos |
+| #   | Pregunta                                     | Bloquea | Resuelta                                                                                                                      |
+| --- | -------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| 1   | ¿Se traduce el catálogo al inglés en Fase 1? | C4      | **No.** El catálogo permanece en español; la interfaz sí se traduce. Se revisa si aparece demanda real de clientes anglófonos |
 
 ## 11. Enlaces
 

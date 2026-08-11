@@ -21,18 +21,18 @@ sin quedar atado a él.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Buscar sólo por nombre | El comprador B2B busca por SKU y no encuentra nada |
-| `ILIKE '%texto%'` | Sin índice utilizable; escaneo completo |
-| Facetas sin conteo | El usuario aplica un filtro y obtiene cero resultados |
-| Conteo de facetas sin aplicar los otros filtros | Números que mienten |
-| Paginación por offset | Duplicados y saltos al insertarse filas |
-| Estado sólo en React | Enlace no compartible; botón atrás roto |
-| Reindexar todo en cada cambio | Coste absurdo |
-| Reindexación no idempotente | Duplicados en el índice |
-| Filtrar la visibilidad después de consultar | Se traen productos que el usuario no puede ver |
-| Sin estado vacío accionable | Callejón sin salida |
+| Error                                           | Consecuencia                                          |
+| ----------------------------------------------- | ----------------------------------------------------- |
+| Buscar sólo por nombre                          | El comprador B2B busca por SKU y no encuentra nada    |
+| `ILIKE '%texto%'`                               | Sin índice utilizable; escaneo completo               |
+| Facetas sin conteo                              | El usuario aplica un filtro y obtiene cero resultados |
+| Conteo de facetas sin aplicar los otros filtros | Números que mienten                                   |
+| Paginación por offset                           | Duplicados y saltos al insertarse filas               |
+| Estado sólo en React                            | Enlace no compartible; botón atrás roto               |
+| Reindexar todo en cada cambio                   | Coste absurdo                                         |
+| Reindexación no idempotente                     | Duplicados en el índice                               |
+| Filtrar la visibilidad después de consultar     | Se traen productos que el usuario no puede ver        |
+| Sin estado vacío accionable                     | Callejón sin salida                                   |
 
 ## Patrones
 

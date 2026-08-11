@@ -1,11 +1,11 @@
 # Contrato — <Nombre de la operación>
 
-| Campo | Valor |
-| ----- | ----- |
-| **Método y ruta** | `POST /api/v1/<recurso>` |
-| **RFC** | RFC-XXXX |
-| **Contexto** | |
-| **Archivo** | `packages/contracts/src/<contexto>/<recurso>.contract.ts` |
+| Campo             | Valor                                                     |
+| ----------------- | --------------------------------------------------------- |
+| **Método y ruta** | `POST /api/v1/<recurso>`                                  |
+| **RFC**           | RFC-XXXX                                                  |
+| **Contexto**      |                                                           |
+| **Archivo**       | `packages/contracts/src/<contexto>/<recurso>.contract.ts` |
 
 ## Propósito
 
@@ -13,19 +13,19 @@ Qué hace, en una frase de negocio.
 
 ## Autorización
 
-| Requisito | Valor |
-| --------- | ----- |
-| Sesión | Requerida / No requerida |
-| Permiso | `<recurso>:<acción>` |
-| Ámbito | `accountId` **de la sesión** |
-| Comprobación de recurso | Sí / No aplica |
+| Requisito               | Valor                        |
+| ----------------------- | ---------------------------- |
+| Sesión                  | Requerida / No requerida     |
+| Permiso                 | `<recurso>:<acción>`         |
+| Ámbito                  | `accountId` **de la sesión** |
+| Comprobación de recurso | Sí / No aplica               |
 
 ## Cabeceras
 
-| Cabecera | Obligatoria | Nota |
-| -------- | ----------- | ---- |
-| `Idempotency-Key` | Sí / No | UUID generado al montar el formulario |
-| `Accept-Language` | No | Locale para mensajes |
+| Cabecera          | Obligatoria | Nota                                  |
+| ----------------- | ----------- | ------------------------------------- |
+| `Idempotency-Key` | Sí / No     | UUID generado al montar el formulario |
+| `Accept-Language` | No          | Locale para mensajes                  |
 
 ## Entrada
 
@@ -37,7 +37,7 @@ export const <operacion>Request = z.object({
 
 | Campo | Tipo | Obligatorio | Reglas |
 | ----- | ---- | ----------- | ------ |
-| | | | |
+|       |      |             |        |
 
 ## Salida (éxito)
 
@@ -53,17 +53,17 @@ export const <operacion>Response = z.object({
 
 | Código de dominio | HTTP | Cuándo | `meta` |
 | ----------------- | ---- | ------ | ------ |
-| | | | |
+|                   |      |        |        |
 
-Formato de error: *problem+json* con `code` estable. El frontend reacciona al `code`,
+Formato de error: _problem+json_ con `code` estable. El frontend reacciona al `code`,
 **nunca** a `detail`.
 
 ## Caché
 
-| Cabecera | Valor |
-| -------- | ----- |
-| `Cache-Control` | |
-| `Vary` | |
+| Cabecera        | Valor |
+| --------------- | ----- |
+| `Cache-Control` |       |
+| `Vary`          |       |
 
 > Toda respuesta con precio de cuenta o datos privados: `private, no-store` + `Vary: Cookie`.
 
@@ -80,11 +80,12 @@ Misma clave + payload distinto → `409 COMMON_IDEMPOTENCY_CONFLICT`.
 
 | Evento | Cuándo |
 | ------ | ------ |
-| | |
+|        |        |
 
 ## Ejemplos
 
 **Petición**
+
 ```http
 POST /api/v1/cart/items
 Idempotency-Key: 01924f8a-...
@@ -94,17 +95,19 @@ Content-Type: application/json
 ```
 
 **Respuesta correcta**
+
 ```json
-{ }
+{}
 ```
 
 **Respuesta de error**
+
 ```json
 {
   "code": "CART_QTY_NOT_MULTIPLE",
   "status": 422,
   "detail": "…",
-  "meta": { }
+  "meta": {}
 }
 ```
 

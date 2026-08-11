@@ -2,8 +2,8 @@
 
 **Dueño:** Arquitecto + QA · **Última revisión:** 2026-08-06 · **Estado:** Vigente
 
-Mientras [03-conventions.md](03-conventions.md) dice *cómo se escribe*, este documento
-dice *qué debe existir y qué debe cumplirse* para que el trabajo se considere hecho.
+Mientras [03-conventions.md](03-conventions.md) dice _cómo se escribe_, este documento
+dice _qué debe existir y qué debe cumplirse_ para que el trabajo se considere hecho.
 
 ---
 
@@ -12,23 +12,23 @@ dice *qué debe existir y qué debe cumplirse* para que el trabajo se considere 
 > **Ningún módulo, feature o endpoint se implementa si antes no existen sus nueve
 > artefactos de diseño, revisados y aprobados.**
 
-| # | Artefacto | Dónde vive | Quién lo produce | Qué responde |
-| - | --------- | ---------- | ---------------- | ------------ |
-| 1 | **RFC** | `rfcs/RFC-XXXX-*.md` | Arquitecto / dueño del dominio | Qué se construye y por qué |
-| 2 | **ADR** | `adrs/ADR-XXXX-*.md` | Arquitecto | Qué decisión técnica se toma y qué se descarta |
-| 3 | **Checklist** | `checklists/*.md` | QA | Cómo se verifica que está bien |
-| 4 | **Diseño** | RFC §Diseño + Figma / `docs/diagrams/` | UX + UI | Cómo se ve y se comporta |
-| 5 | **Casos de uso** | RFC §Casos de uso | Analista Funcional | Qué puede hacer cada actor, con precondiciones y flujos alternos |
-| 6 | **Modelo de dominio** | `docs/domain/<ctx>.md` | Arquitecto | Agregados, invariantes, lenguaje |
-| 7 | **Contratos** | `packages/contracts/` (esquemas Zod) | Backend + Frontend | Forma exacta de la entrada y la salida |
-| 8 | **Interfaces** | RFC §Puertos | Backend | Qué necesita el dominio del exterior |
-| 9 | **Eventos, estados y errores** | RFC §§ correspondientes | Arquitecto | Qué se publica, qué transiciones existen, qué puede fallar |
+| #   | Artefacto                      | Dónde vive                             | Quién lo produce               | Qué responde                                                     |
+| --- | ------------------------------ | -------------------------------------- | ------------------------------ | ---------------------------------------------------------------- |
+| 1   | **RFC**                        | `rfcs/RFC-XXXX-*.md`                   | Arquitecto / dueño del dominio | Qué se construye y por qué                                       |
+| 2   | **ADR**                        | `adrs/ADR-XXXX-*.md`                   | Arquitecto                     | Qué decisión técnica se toma y qué se descarta                   |
+| 3   | **Checklist**                  | `checklists/*.md`                      | QA                             | Cómo se verifica que está bien                                   |
+| 4   | **Diseño**                     | RFC §Diseño + Figma / `docs/diagrams/` | UX + UI                        | Cómo se ve y se comporta                                         |
+| 5   | **Casos de uso**               | RFC §Casos de uso                      | Analista Funcional             | Qué puede hacer cada actor, con precondiciones y flujos alternos |
+| 6   | **Modelo de dominio**          | `docs/domain/<ctx>.md`                 | Arquitecto                     | Agregados, invariantes, lenguaje                                 |
+| 7   | **Contratos**                  | `packages/contracts/` (esquemas Zod)   | Backend + Frontend             | Forma exacta de la entrada y la salida                           |
+| 8   | **Interfaces**                 | RFC §Puertos                           | Backend                        | Qué necesita el dominio del exterior                             |
+| 9   | **Eventos, estados y errores** | RFC §§ correspondientes                | Arquitecto                     | Qué se publica, qué transiciones existen, qué puede fallar       |
 
 **Aplicación práctica:**
 
 - Un PR de tipo `feat` sin RFC referenciado **se cierra sin revisar**.
 - Un `fix`, `chore`, `docs`, `test` o `refactor` **no** necesita RFC.
-- Un cambio de menos de 20 líneas que no altera contratos ni dominio (un *tweak*) puede
+- Un cambio de menos de 20 líneas que no altera contratos ni dominio (un _tweak_) puede
   ir con una nota en el PR. Si la duda es si aplica o no, aplica.
 - El artefacto puede ser breve. Un RFC de dos páginas es un RFC. La regla no exige
   volumen; exige que la decisión esté escrita **antes**.
@@ -84,17 +84,20 @@ Una tarea no entra a un sprint sin:
 Una tarea está terminada cuando **todo** esto es cierto:
 
 **Funcional**
+
 - [ ] Cumple todos los criterios de aceptación.
 - [ ] Los flujos alternos y de error están implementados, no sólo el camino feliz.
 - [ ] Estados `loading`, `empty`, `error`, `success` implementados en cada vista.
 
 **Calidad**
+
 - [ ] `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build` pasan en verde.
 - [ ] Cobertura: ≥ 90% en `domain/`, ≥ 80% en `application/`.
 - [ ] E2E del recorrido crítico afectado, en verde.
 - [ ] Sin `any`, sin `@ts-ignore`, sin `console.log`, sin código muerto o comentado.
 
 **No funcional**
+
 - [ ] Accesibilidad: navegación por teclado, contraste, axe sin violaciones críticas.
 - [ ] Rendimiento: presupuesto de la ruta respetado (ver §6).
 - [ ] i18n: ningún literal en el código; claves en `es` y `en`.
@@ -102,6 +105,7 @@ Una tarea está terminada cuando **todo** esto es cierto:
 - [ ] Observabilidad: logs con `correlationId`, errores con código de dominio.
 
 **Proceso**
+
 - [ ] Checklist del dominio marcada en el PR.
 - [ ] Documentación actualizada (RFC, `docs/domain/`, `.env.example`, README).
 - [ ] Revisado y aprobado por al menos una persona distinta al autor.
@@ -111,23 +115,23 @@ Una tarea está terminada cuando **todo** esto es cierto:
 
 ## 5. Puertas de calidad en CI
 
-| Puerta | Herramienta | Bloquea merge |
-| ------ | ----------- | ------------- |
-| Formato | Prettier `--check` | Sí |
-| Lint | ESLint (0 errores, 0 warnings) | Sí |
-| Fronteras de arquitectura | `eslint-plugin-boundaries` | Sí |
-| Tipos | `tsc --noEmit` en todo el workspace | Sí |
-| Tests unitarios + integración | Vitest | Sí |
-| Cobertura mínima | Vitest coverage | Sí |
-| Build | `turbo build` | Sí |
-| E2E críticos | Playwright | Sí |
-| Accesibilidad | axe-core en E2E | Sí (violaciones críticas) |
-| Presupuesto de bundle | `size-limit` | Sí |
-| Lighthouse CI | LHCI | Sí (por debajo del umbral) |
-| Dependencias vulnerables | `pnpm audit` + Dependabot | Sí (severidad alta+) |
-| Secretos | gitleaks | Sí |
-| Formato de commit | commitlint | Sí |
-| Migraciones seguras | script de verificación | Sí |
+| Puerta                        | Herramienta                         | Bloquea merge              |
+| ----------------------------- | ----------------------------------- | -------------------------- |
+| Formato                       | Prettier `--check`                  | Sí                         |
+| Lint                          | ESLint (0 errores, 0 warnings)      | Sí                         |
+| Fronteras de arquitectura     | `eslint-plugin-boundaries`          | Sí                         |
+| Tipos                         | `tsc --noEmit` en todo el workspace | Sí                         |
+| Tests unitarios + integración | Vitest                              | Sí                         |
+| Cobertura mínima              | Vitest coverage                     | Sí                         |
+| Build                         | `turbo build`                       | Sí                         |
+| E2E críticos                  | Playwright                          | Sí                         |
+| Accesibilidad                 | axe-core en E2E                     | Sí (violaciones críticas)  |
+| Presupuesto de bundle         | `size-limit`                        | Sí                         |
+| Lighthouse CI                 | LHCI                                | Sí (por debajo del umbral) |
+| Dependencias vulnerables      | `pnpm audit` + Dependabot           | Sí (severidad alta+)       |
+| Secretos                      | gitleaks                            | Sí                         |
+| Formato de commit             | commitlint                          | Sí                         |
+| Migraciones seguras           | script de verificación              | Sí                         |
 
 CI corre sólo lo afectado, usando el grafo de Turborepo con caché remota.
 
@@ -137,14 +141,14 @@ CI corre sólo lo afectado, usando el grafo de Turborepo con caché remota.
 
 Medidos en p75, móvil, 4G simulada.
 
-| Ruta | LCP | INP | CLS | JS inicial |
-| ---- | --- | --- | --- | ---------- |
-| Landing | < 2.0 s | < 200 ms | < 0.1 | < 120 KB |
-| Listado de catálogo | < 2.5 s | < 200 ms | < 0.1 | < 160 KB |
-| Ficha de producto | < 2.5 s | < 200 ms | < 0.1 | < 160 KB |
-| Carrito / checkout | < 3.0 s | < 200 ms | < 0.1 | < 200 KB |
-| Portal de cliente | < 3.0 s | < 200 ms | < 0.1 | < 220 KB |
-| Admin | < 3.5 s | < 300 ms | < 0.1 | < 300 KB |
+| Ruta                | LCP     | INP      | CLS   | JS inicial |
+| ------------------- | ------- | -------- | ----- | ---------- |
+| Landing             | < 2.0 s | < 200 ms | < 0.1 | < 120 KB   |
+| Listado de catálogo | < 2.5 s | < 200 ms | < 0.1 | < 160 KB   |
+| Ficha de producto   | < 2.5 s | < 200 ms | < 0.1 | < 160 KB   |
+| Carrito / checkout  | < 3.0 s | < 200 ms | < 0.1 | < 200 KB   |
+| Portal de cliente   | < 3.0 s | < 200 ms | < 0.1 | < 220 KB   |
+| Admin               | < 3.5 s | < 300 ms | < 0.1 | < 300 KB   |
 
 Backend: p95 < 200 ms en lecturas, p95 < 500 ms en escrituras, excluyendo terceros.
 

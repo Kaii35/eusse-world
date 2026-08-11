@@ -1,13 +1,20 @@
 # @eusse/utils
 
-> Vacío. Se crea en el **Sprint 0**.
-
-Propósito, dependencias permitidas y paso de creación: ver [packages/README.md](../README.md).
+Helpers puros, sin dependencias. Es la hoja del grafo junto a `@eusse/tokens`.
 
 ## Cuándo usarlo
 
-*Por definir al implementarlo.*
+`Result` para errores esperados · `invariant` y `assertNever` para condiciones que, de
+fallar, indican un bug · `Brand` para IDs tipados · `roundHalfUp` para dinero.
 
 ## Cuándo NO usarlo
 
-*Por definir al implementarlo. Esta sección es la que evita la deriva del sistema.*
+- **No para reglas de negocio.** Esas van en el dominio, con su error tipado y su código
+  del catálogo.
+- **No metas aquí nada que dependa de React, NestJS o Prisma.** Este paquete no tiene
+  dependencias de runtime y debe seguir así.
+
+## Result vs. excepciones
+
+Un SKU sin precio para una cuenta **no es excepcional**: es un caso de negocio previsto.
+Se devuelve `Result`. Las excepciones se reservan para lo imprevisto.

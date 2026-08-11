@@ -25,16 +25,16 @@ framework se filtre a las reglas de negocio.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Lógica de negocio en el controller | Imposible de reutilizar, difícil de testear |
-| Prisma inyectado en el caso de uso | Dominio acoplado al ORM; tests lentos |
-| `Service` genérico que hace de todo | Nadie sabe qué hace; crece sin límite |
-| Importar `domain/` de otro módulo | Se rompe la frontera; extraer se vuelve imposible |
-| Publicar un evento fuera de la transacción | Evento sin cambio, o cambio sin evento |
-| `try/catch` que traga errores | Fallos silenciosos en producción |
-| Consultar en bucle | N+1; el endpoint muere con datos reales |
-| DTOs escritos a mano además del esquema Zod | Dos fuentes de verdad que divergen |
+| Error                                       | Consecuencia                                      |
+| ------------------------------------------- | ------------------------------------------------- |
+| Lógica de negocio en el controller          | Imposible de reutilizar, difícil de testear       |
+| Prisma inyectado en el caso de uso          | Dominio acoplado al ORM; tests lentos             |
+| `Service` genérico que hace de todo         | Nadie sabe qué hace; crece sin límite             |
+| Importar `domain/` de otro módulo           | Se rompe la frontera; extraer se vuelve imposible |
+| Publicar un evento fuera de la transacción  | Evento sin cambio, o cambio sin evento            |
+| `try/catch` que traga errores               | Fallos silenciosos en producción                  |
+| Consultar en bucle                          | N+1; el endpoint muere con datos reales           |
+| DTOs escritos a mano además del esquema Zod | Dos fuentes de verdad que divergen                |
 
 ## Patrones
 
@@ -64,7 +64,7 @@ lo imprevisto.
 **Facade de módulo** — `PricingFacade` expone lo mínimo que otros módulos necesitan, con
 DTOs planos.
 
-**Filtro global de errores** — `DomainError` → *problem+json* con `code`, mapeo declarativo
+**Filtro global de errores** — `DomainError` → _problem+json_ con `code`, mapeo declarativo
 en una tabla.
 
 **Guard + decorador de permisos** — `@RequirePermission('order:create')`, evaluado sobre el

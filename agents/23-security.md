@@ -52,18 +52,18 @@ respuesta a incidentes.
 
 ## Áreas de vigilancia permanente
 
-| Área | Riesgo | Verificación |
-| ---- | ------ | ------------ |
-| Autenticación | Fuerza bruta, fijación, robo de token | Rate limit, rotación, revocación probadas |
-| Autorización | **IDOR entre cuentas** | Test por endpoint: cuenta A ↛ recurso de B |
-| Retorno post-login | **Redirección abierta** | Allowlist + corpus de payloads en CI |
-| Precios | Manipulación desde el cliente | El importe siempre del servidor |
-| Checkout | Doble orden, alteración de total | Idempotencia + totales del servidor |
-| Entradas | Inyección, XSS | Validación Zod + escapado + CSP |
-| Archivos | Subida maliciosa | Tipo, tamaño, análisis, almacenamiento aislado |
-| Secretos | Filtración | gitleaks + revisión de `NEXT_PUBLIC_` |
-| Dependencias | Cadena de suministro | audit + Dependabot + lockfile congelado |
-| Datos personales | Exposición, retención | Minimización, cifrado, política de borrado |
+| Área               | Riesgo                                | Verificación                                   |
+| ------------------ | ------------------------------------- | ---------------------------------------------- |
+| Autenticación      | Fuerza bruta, fijación, robo de token | Rate limit, rotación, revocación probadas      |
+| Autorización       | **IDOR entre cuentas**                | Test por endpoint: cuenta A ↛ recurso de B     |
+| Retorno post-login | **Redirección abierta**               | Allowlist + corpus de payloads en CI           |
+| Precios            | Manipulación desde el cliente         | El importe siempre del servidor                |
+| Checkout           | Doble orden, alteración de total      | Idempotencia + totales del servidor            |
+| Entradas           | Inyección, XSS                        | Validación Zod + escapado + CSP                |
+| Archivos           | Subida maliciosa                      | Tipo, tamaño, análisis, almacenamiento aislado |
+| Secretos           | Filtración                            | gitleaks + revisión de `NEXT_PUBLIC_`          |
+| Dependencias       | Cadena de suministro                  | audit + Dependabot + lockfile congelado        |
+| Datos personales   | Exposición, retención                 | Minimización, cifrado, política de borrado     |
 
 ## Checklist
 

@@ -8,14 +8,14 @@ Reglas mecánicas. No se discuten en PR: se aplican o se cambia este documento p
 
 ## 1. Idioma
 
-| Qué | Idioma |
-| --- | ------ |
-| Documentación, RFC, ADR, comentarios de diseño | **Español** |
-| Código, identificadores, tipos, funciones, tablas, columnas | **Inglés** |
-| Nombres de archivo y carpetas | **Inglés** |
-| Ramas y mensajes de commit | **Inglés** |
-| Textos de interfaz | **Ninguno en el código** — todo vía `next-intl` |
-| Mensajes de error de dominio | Código en inglés, texto localizado |
+| Qué                                                         | Idioma                                          |
+| ----------------------------------------------------------- | ----------------------------------------------- |
+| Documentación, RFC, ADR, comentarios de diseño              | **Español**                                     |
+| Código, identificadores, tipos, funciones, tablas, columnas | **Inglés**                                      |
+| Nombres de archivo y carpetas                               | **Inglés**                                      |
+| Ramas y mensajes de commit                                  | **Inglés**                                      |
+| Textos de interfaz                                          | **Ninguno en el código** — todo vía `next-intl` |
+| Mensajes de error de dominio                                | Código en inglés, texto localizado              |
 
 Motivo: el equipo piensa en español, el ecosistema está en inglés. Mezclar dentro del
 código produce `getUsuarioById` y `precioTotal: number`, que envejecen mal.
@@ -24,21 +24,21 @@ código produce `getUsuarioById` y `precioTotal: number`, que envejecen mal.
 
 ## 2. Nombres de archivo
 
-| Tipo | Convención | Ejemplo |
-| ---- | ---------- | ------- |
-| Componente React | `PascalCase.tsx` | `ProductCard.tsx` |
-| Hook | `use-kebab-case.ts` | `use-cart.ts` |
-| Utilidad / módulo TS | `kebab-case.ts` | `format-money.ts` |
-| Tipo / contrato Zod | `kebab-case.contract.ts` | `cart.contract.ts` |
-| Caso de uso | `kebab-case.use-case.ts` | `add-item-to-cart.use-case.ts` |
-| Entidad de dominio | `kebab-case.entity.ts` | `order.entity.ts` |
-| Value object | `kebab-case.vo.ts` | `money.vo.ts` |
-| Evento | `kebab-case.event.ts` | `order-placed.event.ts` |
-| Puerto | `kebab-case.port.ts` | `price-list.port.ts` |
-| Repositorio (impl.) | `prisma-<agg>.repository.ts` | `prisma-order.repository.ts` |
-| Test unitario | `<archivo>.spec.ts` | `add-item-to-cart.use-case.spec.ts` |
-| Test E2E | `<flujo>.e2e.ts` | `guest-add-to-cart.e2e.ts` |
-| Carpeta | `kebab-case` | `price-lists/` |
+| Tipo                 | Convención                   | Ejemplo                             |
+| -------------------- | ---------------------------- | ----------------------------------- |
+| Componente React     | `PascalCase.tsx`             | `ProductCard.tsx`                   |
+| Hook                 | `use-kebab-case.ts`          | `use-cart.ts`                       |
+| Utilidad / módulo TS | `kebab-case.ts`              | `format-money.ts`                   |
+| Tipo / contrato Zod  | `kebab-case.contract.ts`     | `cart.contract.ts`                  |
+| Caso de uso          | `kebab-case.use-case.ts`     | `add-item-to-cart.use-case.ts`      |
+| Entidad de dominio   | `kebab-case.entity.ts`       | `order.entity.ts`                   |
+| Value object         | `kebab-case.vo.ts`           | `money.vo.ts`                       |
+| Evento               | `kebab-case.event.ts`        | `order-placed.event.ts`             |
+| Puerto               | `kebab-case.port.ts`         | `price-list.port.ts`                |
+| Repositorio (impl.)  | `prisma-<agg>.repository.ts` | `prisma-order.repository.ts`        |
+| Test unitario        | `<archivo>.spec.ts`          | `add-item-to-cart.use-case.spec.ts` |
+| Test E2E             | `<flujo>.e2e.ts`             | `guest-add-to-cart.e2e.ts`          |
+| Carpeta              | `kebab-case`                 | `price-lists/`                      |
 
 **Sin `index.ts` de re-export dentro de una app.** Sólo el `src/index.ts` público de cada
 paquete. Los barrels internos rompen tree-shaking y ocultan dependencias.
@@ -47,18 +47,18 @@ paquete. Los barrels internos rompen tree-shaking y ocultan dependencias.
 
 ## 3. Nombres en código
 
-| Elemento | Convención | Ejemplo |
-| -------- | ---------- | ------- |
-| Tipo, interfaz, clase, enum | `PascalCase` | `CartLine`, `OrderStatus` |
-| Variable, función, método | `camelCase` | `calculateLineTotal` |
-| Constante de módulo | `SCREAMING_SNAKE_CASE` | `MAX_CART_LINES` |
-| Booleano | `is/has/can/should` + adjetivo | `isApproved`, `canCheckout` |
-| Handler de evento (props) | `on` + evento | `onAddToCart` |
-| Handler (implementación) | `handle` + evento | `handleAddToCart` |
-| Caso de uso (comando) | Verbo imperativo + `UseCase` | `AddItemToCartUseCase` |
-| Caso de uso (consulta) | `Get`/`List`/`Search` + `Query` | `ListOrdersQuery` |
-| Evento de dominio | Sustantivo + verbo en **pasado** | `OrderPlaced`, `PriceChanged` |
-| Puerto | Sustantivo + `Port` | `PricingPort` |
+| Elemento                    | Convención                       | Ejemplo                       |
+| --------------------------- | -------------------------------- | ----------------------------- |
+| Tipo, interfaz, clase, enum | `PascalCase`                     | `CartLine`, `OrderStatus`     |
+| Variable, función, método   | `camelCase`                      | `calculateLineTotal`          |
+| Constante de módulo         | `SCREAMING_SNAKE_CASE`           | `MAX_CART_LINES`              |
+| Booleano                    | `is/has/can/should` + adjetivo   | `isApproved`, `canCheckout`   |
+| Handler de evento (props)   | `on` + evento                    | `onAddToCart`                 |
+| Handler (implementación)    | `handle` + evento                | `handleAddToCart`             |
+| Caso de uso (comando)       | Verbo imperativo + `UseCase`     | `AddItemToCartUseCase`        |
+| Caso de uso (consulta)      | `Get`/`List`/`Search` + `Query`  | `ListOrdersQuery`             |
+| Evento de dominio           | Sustantivo + verbo en **pasado** | `OrderPlaced`, `PriceChanged` |
+| Puerto                      | Sustantivo + `Port`              | `PricingPort`                 |
 
 **Prohibido:** sufijos `Manager`, `Helper`, `Util`, `Service` genérico, `Data`, `Info`.
 Si no sabes cómo llamarlo, el diseño está mal, no el nombre.
@@ -79,7 +79,7 @@ no.
   "noImplicitOverride": true,
   "noFallthroughCasesInSwitch": true,
   "verbatimModuleSyntax": true,
-  "isolatedModules": true
+  "isolatedModules": true,
 }
 ```
 
@@ -189,14 +189,14 @@ import type { CartLine } from '@eusse/domain'
 
 **Fronteras verificadas en CI** (`eslint-plugin-boundaries`):
 
-| Desde | Puede importar | Nunca |
-| ----- | -------------- | ----- |
-| `api/**/domain` | sólo `domain` y `@eusse/domain` | NestJS, Prisma, otro módulo |
-| `api/**/application` | su `domain`, puertos | Prisma, `infrastructure` concreta |
-| `api/**/infrastructure` | su `domain`, librerías | otro módulo |
-| `api/**/interface` | su `application` | `domain` de otro módulo |
-| `packages/ui` | `@eusse/tokens`, Radix, React | `@eusse/domain`, `@eusse/sdk`, apps |
-| `apps/*/features/a` | `packages/*`, `lib` | `features/b` |
+| Desde                   | Puede importar                  | Nunca                               |
+| ----------------------- | ------------------------------- | ----------------------------------- |
+| `api/**/domain`         | sólo `domain` y `@eusse/domain` | NestJS, Prisma, otro módulo         |
+| `api/**/application`    | su `domain`, puertos            | Prisma, `infrastructure` concreta   |
+| `api/**/infrastructure` | su `domain`, librerías          | otro módulo                         |
+| `api/**/interface`      | su `application`                | `domain` de otro módulo             |
+| `packages/ui`           | `@eusse/tokens`, Radix, React   | `@eusse/domain`, `@eusse/sdk`, apps |
+| `apps/*/features/a`     | `packages/*`, `lib`             | `features/b`                        |
 
 Los features no se importan entre sí. Lo compartido sube a `components/` o a un paquete.
 
@@ -237,7 +237,7 @@ Los features no se importan entre sí. Lo compartido sube a `components/` o a un
 - Paginación por cursor: `?cursor=<opaco>&limit=20` → `{ items, nextCursor }`.
 - Filtros como parámetros explícitos y tipados, no un blob de query.
 - Toda mutación acepta `Idempotency-Key`.
-- Errores en formato *problem+json* con `code` estable.
+- Errores en formato _problem+json_ con `code` estable.
 
 ---
 
@@ -255,14 +255,14 @@ Los features no se importan entre sí. Lo compartido sube a `components/` o a un
 
 ## 12. Testing
 
-| Nivel | Herramienta | Qué prueba | Dónde |
-| ----- | ----------- | ---------- | ----- |
-| Unitario | Vitest | Dominio puro: invariantes, cálculos, transiciones | junto al archivo |
-| Integración | Vitest + Testcontainers | Casos de uso con PostgreSQL y Redis reales | `test/integration/` |
-| Contrato | Vitest | Handler ⟷ esquema Zod ⟷ SDK | `test/contract/` |
-| Componente | Vitest + Testing Library | Comportamiento accesible | junto al componente |
-| E2E | Playwright | Recorridos críticos de usuario | `e2e/` |
-| Visual | Playwright snapshots | Regresión del design system | `e2e/visual/` |
+| Nivel       | Herramienta              | Qué prueba                                        | Dónde               |
+| ----------- | ------------------------ | ------------------------------------------------- | ------------------- |
+| Unitario    | Vitest                   | Dominio puro: invariantes, cálculos, transiciones | junto al archivo    |
+| Integración | Vitest + Testcontainers  | Casos de uso con PostgreSQL y Redis reales        | `test/integration/` |
+| Contrato    | Vitest                   | Handler ⟷ esquema Zod ⟷ SDK                       | `test/contract/`    |
+| Componente  | Vitest + Testing Library | Comportamiento accesible                          | junto al componente |
+| E2E         | Playwright               | Recorridos críticos de usuario                    | `e2e/`              |
+| Visual      | Playwright snapshots     | Regresión del design system                       | `e2e/visual/`       |
 
 - Nombre del test: `debería <comportamiento esperado> cuando <condición>`.
 - Se consulta por rol accesible (`getByRole`), nunca por clase CSS ni `data-testid`

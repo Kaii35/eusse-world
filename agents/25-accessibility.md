@@ -52,6 +52,7 @@ equipo.
 ## Checklist
 
 **Teclado**
+
 - [ ] Todo lo operable con ratón lo es con teclado
 - [ ] Orden de tabulación lógico y predecible
 - [ ] Foco siempre visible, con contraste ≥ 3:1
@@ -60,6 +61,7 @@ equipo.
 - [ ] Enlace "saltar al contenido" en cada página
 
 **Semántica**
+
 - [ ] HTML semántico: `nav`, `main`, `header`, `footer`, `article`
 - [ ] Un solo `h1` por página; jerarquía de encabezados sin saltos
 - [ ] Landmarks correctos y etiquetados cuando se repiten
@@ -67,6 +69,7 @@ equipo.
 - [ ] Botones que actúan son `button`; navegación es `a`
 
 **Formularios**
+
 - [ ] Todo campo con `<label>` asociado (no sólo `placeholder`)
 - [ ] Errores asociados con `aria-describedby` y anunciados con `aria-live`
 - [ ] Campos requeridos indicados textualmente, no sólo con color
@@ -74,6 +77,7 @@ equipo.
 - [ ] Autocompletado correcto (`autocomplete`)
 
 **Visual**
+
 - [ ] Contraste ≥ 4.5:1 texto, ≥ 3:1 texto grande y elementos de UI, en **ambos temas**
 - [ ] Información nunca sólo por color
 - [ ] Zoom al 200% sin pérdida de contenido ni de función
@@ -82,6 +86,7 @@ equipo.
 - [ ] Nada parpadea más de 3 veces por segundo
 
 **Contenido dinámico**
+
 - [ ] Cambios importantes anunciados con `aria-live`
 - [ ] Estados de carga anunciados
 - [ ] Toasts accesibles y no dependientes sólo del tiempo

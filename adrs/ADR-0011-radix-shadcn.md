@@ -1,7 +1,7 @@
 # ADR-0011 — Radix + shadcn/ui copiado a `packages/ui`
 
 | Estado | Aceptado · **Fecha** 2026-08-06 · **Decisor** Design System · **RFC** RFC-0008 |
-| ------ | --- |
+| ------ | ------------------------------------------------------------------------------ |
 
 ## Contexto
 
@@ -21,11 +21,11 @@ de los estilos, **copiado a `packages/ui`** y mantenido como código propio.
 
 ## Alternativas descartadas
 
-| Alternativa | Por qué se descarta |
-| ----------- | ------------------- |
-| MUI / Ant Design / Chakra | Estética propia difícil de doblegar; bundle grande; se acaba luchando contra la librería |
-| Headless UI | Menos primitivos que Radix; menor cobertura de patrones |
-| Todo a medida desde cero | Meses reimplementando accesibilidad ya resuelta, con peor resultado |
+| Alternativa                    | Por qué se descarta                                                                       |
+| ------------------------------ | ----------------------------------------------------------------------------------------- |
+| MUI / Ant Design / Chakra      | Estética propia difícil de doblegar; bundle grande; se acaba luchando contra la librería  |
+| Headless UI                    | Menos primitivos que Radix; menor cobertura de patrones                                   |
+| Todo a medida desde cero       | Meses reimplementando accesibilidad ya resuelta, con peor resultado                       |
 | shadcn/ui como dependencia npm | No es su modelo: está pensado para copiarse; además perderíamos control sobre los cambios |
 
 ## Consecuencias

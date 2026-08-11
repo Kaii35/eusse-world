@@ -1,7 +1,7 @@
 # ADR-0013 — next-intl con prefijo de ruta por locale
 
 | Estado | Aceptado · **Fecha** 2026-08-06 · **Decisor** i18n + Arquitecto · **RFC** RFC-0014 |
-| ------ | --- |
+| ------ | ---------------------------------------------------------------------------------- |
 
 ## Contexto
 
@@ -21,14 +21,14 @@ fragmentos traducidos · formatos con `Intl` · **la moneda sale del importe, no
 
 ## Alternativas descartadas
 
-| Alternativa | Por qué se descarta |
-| ----------- | ------------------- |
-| Subdominio (`es.eusse.world`) | Complica certificados, cookies y sesión compartida entre idiomas |
-| Parámetro de query (`?lang=es`) | Malo para SEO; frágil; se pierde al navegar |
-| Cookie sin cambiar la URL | Una misma URL con dos contenidos: rompe la caché de CDN y el SEO |
-| Detección sólo por IP | Un colombiano en Miami quiere español |
-| react-i18next | Menos integrado con App Router y con Server Components |
-| Añadir i18n más adelante | Coste multiplicado; en la práctica no se hace |
+| Alternativa                     | Por qué se descarta                                              |
+| ------------------------------- | ---------------------------------------------------------------- |
+| Subdominio (`es.eusse.world`)   | Complica certificados, cookies y sesión compartida entre idiomas |
+| Parámetro de query (`?lang=es`) | Malo para SEO; frágil; se pierde al navegar                      |
+| Cookie sin cambiar la URL       | Una misma URL con dos contenidos: rompe la caché de CDN y el SEO |
+| Detección sólo por IP           | Un colombiano en Miami quiere español                            |
+| react-i18next                   | Menos integrado con App Router y con Server Components           |
+| Añadir i18n más adelante        | Coste multiplicado; en la práctica no se hace                    |
 
 ## Consecuencias
 

@@ -7,17 +7,17 @@ los errores en este proyecto vendrán de aplicar intuiciones de B2C.
 
 ## Las diferencias que importan
 
-| B2C | B2B (Eusse World) | Consecuencia técnica |
-| --- | ----------------- | -------------------- |
-| Un precio para todos | Precio por cuenta y por volumen | El precio no puede cachearse en capa compartida |
-| Compra el usuario | Compra la **cuenta** | El carrito y las órdenes pertenecen a la cuenta |
-| Pago inmediato | Crédito, plazos, transferencia | El checkout no depende de una pasarela |
-| Carrito de 1–3 ítems | Carrito de 40+ SKUs | Tabla, no tarjetas; edición en línea; añadir por SKU |
-| Descubrimiento | **Recompra** | El portal se organiza alrededor de repetir pedidos |
-| Catálogo público | Visibilidad por cuenta | El filtro de visibilidad va en la consulta |
-| Checkout de 1 paso | Aprobador, orden de compra, dirección | Estado `PENDING_APPROVAL` desde el día 1 |
-| Busca por nombre | Busca por **SKU** | El SKU pesa más que el nombre en el ranking |
-| Compra emocional | Compra planificada | Sin urgencia falsa, sin escasez artificial |
+| B2C                  | B2B (Eusse World)                     | Consecuencia técnica                                 |
+| -------------------- | ------------------------------------- | ---------------------------------------------------- |
+| Un precio para todos | Precio por cuenta y por volumen       | El precio no puede cachearse en capa compartida      |
+| Compra el usuario    | Compra la **cuenta**                  | El carrito y las órdenes pertenecen a la cuenta      |
+| Pago inmediato       | Crédito, plazos, transferencia        | El checkout no depende de una pasarela               |
+| Carrito de 1–3 ítems | Carrito de 40+ SKUs                   | Tabla, no tarjetas; edición en línea; añadir por SKU |
+| Descubrimiento       | **Recompra**                          | El portal se organiza alrededor de repetir pedidos   |
+| Catálogo público     | Visibilidad por cuenta                | El filtro de visibilidad va en la consulta           |
+| Checkout de 1 paso   | Aprobador, orden de compra, dirección | Estado `PENDING_APPROVAL` desde el día 1             |
+| Busca por nombre     | Busca por **SKU**                     | El SKU pesa más que el nombre en el ranking          |
+| Compra emocional     | Compra planificada                    | Sin urgencia falsa, sin escasez artificial           |
 
 ## Buenas prácticas
 
@@ -35,18 +35,18 @@ los errores en este proyecto vendrán de aplicar intuiciones de B2C.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Cachear la ficha de producto con el precio | Un cliente ve el precio de otro (riesgo R-01) |
-| Carrito por usuario y no por cuenta | Dos compradores de la misma empresa se pisan |
-| Ignorar múltiplos de venta | Pedidos imposibles de despachar |
-| Buscar sólo por nombre | El comprador no encuentra nada |
-| Checkout de un paso | Falta la orden de compra, el aprobador, la dirección |
-| Mostrar precio tachado o "desde" | En B2B es engañoso y destruye la confianza |
-| Calcular el total en el cliente | El número mostrado puede no ser el cobrado |
-| Diseñar el carrito con tarjetas | 40 líneas en tarjetas es inmanejable |
-| Asumir pago con tarjeta | La mayoría paga a crédito o por transferencia |
-| Urgencia falsa ("¡Sólo quedan 3!") | Un comprador profesional lo detecta y desconfía |
+| Error                                      | Consecuencia                                         |
+| ------------------------------------------ | ---------------------------------------------------- |
+| Cachear la ficha de producto con el precio | Un cliente ve el precio de otro (riesgo R-01)        |
+| Carrito por usuario y no por cuenta        | Dos compradores de la misma empresa se pisan         |
+| Ignorar múltiplos de venta                 | Pedidos imposibles de despachar                      |
+| Buscar sólo por nombre                     | El comprador no encuentra nada                       |
+| Checkout de un paso                        | Falta la orden de compra, el aprobador, la dirección |
+| Mostrar precio tachado o "desde"           | En B2B es engañoso y destruye la confianza           |
+| Calcular el total en el cliente            | El número mostrado puede no ser el cobrado           |
+| Diseñar el carrito con tarjetas            | 40 líneas en tarjetas es inmanejable                 |
+| Asumir pago con tarjeta                    | La mayoría paga a crédito o por transferencia        |
+| Urgencia falsa ("¡Sólo quedan 3!")         | Un comprador profesional lo detecta y desconfía      |
 
 ## Patrones
 

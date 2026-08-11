@@ -1,10 +1,10 @@
 # Componente — `<NombreComponente>`
 
-| Campo | Valor |
-| ----- | ----- |
-| **Ubicación** | `packages/ui/src/primitives/` · `patterns/` · `apps/*/components/` · `features/<x>/components/` |
-| **Base** | Radix `<Primitive>` · ninguna |
-| **RFC / Diseño** | |
+| Campo            | Valor                                                                                           |
+| ---------------- | ----------------------------------------------------------------------------------------------- |
+| **Ubicación**    | `packages/ui/src/primitives/` · `patterns/` · `apps/*/components/` · `features/<x>/components/` |
+| **Base**         | Radix `<Primitive>` · ninguna                                                                   |
+| **RFC / Diseño** |                                                                                                 |
 
 ## Propósito
 
@@ -33,13 +33,13 @@ type <Nombre>Props = ComponentPropsWithoutRef<'element'> & {
 
 | Prop | Tipo | Por defecto | Descripción |
 | ---- | ---- | ----------- | ----------- |
-| | | | |
+|      |      |             |             |
 
 ## Variantes
 
 | Variante | Cuándo usarla |
 | -------- | ------------- |
-| | |
+|          |               |
 
 ## Estados
 
@@ -55,35 +55,35 @@ Si muestra datos, además: loading · empty · error · partial · success.
 
 ## Tokens usados
 
-| Categoría | Tokens |
-| --------- | ------ |
-| Color | |
-| Espaciado | |
-| Radio | |
-| Sombra | |
-| Movimiento | |
+| Categoría  | Tokens |
+| ---------- | ------ |
+| Color      |        |
+| Espaciado  |        |
+| Radio      |        |
+| Sombra     |        |
+| Movimiento |        |
 
 **Cero valores arbitrarios.** Si falta un token, se pide al Design System.
 
 ## Accesibilidad
 
-| Requisito | Cumplido |
-| --------- | :---: |
-| Rol correcto (elemento nativo o ARIA justificado) | ☐ |
-| Nombre accesible | ☐ |
-| Operable con teclado | ☐ |
-| Foco visible con contraste ≥ 3:1 | ☐ |
-| Estado anunciado (`aria-*`) | ☐ |
-| Contraste AA en **ambos** temas | ☐ |
-| Información no sólo por color | ☐ |
-| Objetivo táctil ≥ 44×44 px | ☐ |
-| `prefers-reduced-motion` respetado | ☐ |
+| Requisito                                         | Cumplido |
+| ------------------------------------------------- | :------: |
+| Rol correcto (elemento nativo o ARIA justificado) |    ☐     |
+| Nombre accesible                                  |    ☐     |
+| Operable con teclado                              |    ☐     |
+| Foco visible con contraste ≥ 3:1                  |    ☐     |
+| Estado anunciado (`aria-*`)                       |    ☐     |
+| Contraste AA en **ambos** temas                   |    ☐     |
+| Información no sólo por color                     |    ☐     |
+| Objetivo táctil ≥ 44×44 px                        |    ☐     |
+| `prefers-reduced-motion` respetado                |    ☐     |
 
 ## Movimiento
 
 | Interacción | Duración | Curva |
 | ----------- | -------- | ----- |
-| | | |
+|             |          |       |
 
 Sólo `transform` y `opacity`.
 

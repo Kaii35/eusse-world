@@ -69,6 +69,7 @@ operativo. Los módulos están tan aislados que **extraer uno a un servicio es u
 transporte, no un rediseño**.
 
 Condiciones para extraer un módulo (no antes):
+
 - Perfil de carga radicalmente distinto al resto (ej. búsqueda, chat).
 - Necesidad de escalar o desplegar por separado, demostrada con métricas.
 - Un equipo dedicado que lo posea.
@@ -129,7 +130,7 @@ sequenceDiagram
 que produjo el cambio. Ver [ADR-0014](../adrs/ADR-0014-transactional-outbox.md) y
 [RFC-0013](../rfcs/RFC-0013-domain-and-integration-events.md).
 
-**Todo consumidor es idempotente.** La entrega es *at-least-once*; se deduplica por
+**Todo consumidor es idempotente.** La entrega es _at-least-once_; se deduplica por
 `eventId` en una tabla `processed_events`. Un handler que no tolera reprocesamiento es un
 bug, no una limitación de la infraestructura.
 
@@ -177,24 +178,24 @@ graph LR
 
 Azul = Fase 1. Morado = Fase 2+ (interfaces definidas desde ya, implementación diferida).
 
-| Contexto | Responsabilidad | Fase |
-| -------- | --------------- | ---- |
-| **Identity & Access** | Usuarios, credenciales, sesiones, roles, permisos | 1 |
-| **Accounts** | Cuenta empresarial, miembros, límites, términos de pago, direcciones | 1 |
-| **Catalog** | Producto, variante, SKU, categoría, atributos, medios | 1 |
-| **Pricing** | Listas de precios, escalas por volumen, reglas por cuenta, impuestos | 1 |
-| **Cart** | Carrito de la cuenta, líneas, recálculo, validez | 1 |
-| **Checkout** | Proceso de compra, validaciones, aprobación, creación de orden | 1 |
-| **Orders** | Orden, estados, histórico, recompra, documentos | 1 |
-| **Content** | Contenido estructurado de landing y páginas | 1 |
-| **Notifications** | Email/WhatsApp transaccional, plantillas, preferencias | 1 |
-| **Search** | Indexación y consulta de catálogo | 1 |
-| **Payments** | Intentos de pago, conciliación, crédito | 2 |
-| **Shipping** | Métodos, tarifas, guías, tracking | 2 |
-| **Inventory** | Stock, bodegas, reservas, movimientos | 2 |
-| **CRM** | Contactos, oportunidades, actividades, cotizaciones | 3 |
-| **Analytics** | Métricas de negocio, proyecciones de lectura | 2 |
-| **Courses** | Cursos, lecciones, matrículas, progreso | 4 |
+| Contexto              | Responsabilidad                                                      | Fase |
+| --------------------- | -------------------------------------------------------------------- | ---- |
+| **Identity & Access** | Usuarios, credenciales, sesiones, roles, permisos                    | 1    |
+| **Accounts**          | Cuenta empresarial, miembros, límites, términos de pago, direcciones | 1    |
+| **Catalog**           | Producto, variante, SKU, categoría, atributos, medios                | 1    |
+| **Pricing**           | Listas de precios, escalas por volumen, reglas por cuenta, impuestos | 1    |
+| **Cart**              | Carrito de la cuenta, líneas, recálculo, validez                     | 1    |
+| **Checkout**          | Proceso de compra, validaciones, aprobación, creación de orden       | 1    |
+| **Orders**            | Orden, estados, histórico, recompra, documentos                      | 1    |
+| **Content**           | Contenido estructurado de landing y páginas                          | 1    |
+| **Notifications**     | Email/WhatsApp transaccional, plantillas, preferencias               | 1    |
+| **Search**            | Indexación y consulta de catálogo                                    | 1    |
+| **Payments**          | Intentos de pago, conciliación, crédito                              | 2    |
+| **Shipping**          | Métodos, tarifas, guías, tracking                                    | 2    |
+| **Inventory**         | Stock, bodegas, reservas, movimientos                                | 2    |
+| **CRM**               | Contactos, oportunidades, actividades, cotizaciones                  | 3    |
+| **Analytics**         | Métricas de negocio, proyecciones de lectura                         | 2    |
+| **Courses**           | Cursos, lecciones, matrículas, progreso                              | 4    |
 
 **Búsqueda:** en Fase 1 se implementa con PostgreSQL (`tsvector` + `pg_trgm`) tras el
 puerto `SearchPort`. Cuando el catálogo o las facetas lo exijan, se cambia el adaptador a
@@ -249,25 +250,25 @@ sólo tiene sentido dentro de ese feature.
 
 ### 4.4 Estado: tres tipos, tres herramientas
 
-| Tipo de estado | Herramienta | Ejemplos |
-| -------------- | ----------- | -------- |
-| **Servidor** (remoto, cacheable, puede quedar obsoleto) | TanStack Query | catálogo, carrito, órdenes, precios |
-| **Cliente global** (efímero, sólo UI) | Zustand | tema, drawer del carrito abierto, filtros activos |
-| **Formulario** | React Hook Form + Zod | login, checkout, alta de producto |
+| Tipo de estado                                          | Herramienta           | Ejemplos                                          |
+| ------------------------------------------------------- | --------------------- | ------------------------------------------------- |
+| **Servidor** (remoto, cacheable, puede quedar obsoleto) | TanStack Query        | catálogo, carrito, órdenes, precios               |
+| **Cliente global** (efímero, sólo UI)                   | Zustand               | tema, drawer del carrito abierto, filtros activos |
+| **Formulario**                                          | React Hook Form + Zod | login, checkout, alta de producto                 |
 
 **Antipatrón prohibido:** copiar datos del servidor a Zustand. Si vino de la API, lo posee
 TanStack Query. Ver [ADR-0012](../adrs/ADR-0012-state-management.md).
 
 ### 4.5 Renderizado por ruta
 
-| Ruta | Estrategia | Motivo |
-| ---- | ---------- | ------ |
-| Landing | Estático + ISR | Máxima velocidad y SEO |
-| Categoría / listado | Estático + ISR, filtros en cliente | SEO + navegación fluida |
-| Ficha de producto | Estático + ISR; **precio en cliente** | La página se cachea; el precio es por cuenta |
-| Carrito / checkout | Dinámico, sin caché | Estado de sesión |
-| Portal de cliente | Dinámico, sin caché | Datos privados |
-| Admin | Dinámico, sin caché, `noindex` | Datos privados |
+| Ruta                | Estrategia                            | Motivo                                       |
+| ------------------- | ------------------------------------- | -------------------------------------------- |
+| Landing             | Estático + ISR                        | Máxima velocidad y SEO                       |
+| Categoría / listado | Estático + ISR, filtros en cliente    | SEO + navegación fluida                      |
+| Ficha de producto   | Estático + ISR; **precio en cliente** | La página se cachea; el precio es por cuenta |
+| Carrito / checkout  | Dinámico, sin caché                   | Estado de sesión                             |
+| Portal de cliente   | Dinámico, sin caché                   | Datos privados                               |
+| Admin               | Dinámico, sin caché, `noindex`        | Datos privados                               |
 
 **Consecuencia crítica:** la ficha de producto **nunca** incluye el precio de la cuenta en
 el HTML cacheado. El precio se pide autenticado desde el cliente. Ver
@@ -313,6 +314,7 @@ sequenceDiagram
 ```
 
 Reglas:
+
 - La intención se **valida de nuevo** tras el login: precio, disponibilidad y visibilidad
   se resuelven con la cuenta real. Si el producto no es visible para esa cuenta, se informa
   claramente y no se agrega.
@@ -346,7 +348,7 @@ tipos TypeScript · validación en NestJS · OpenAPI · cliente tipado en `@euss
 Ver [ADR-0009](../adrs/ADR-0009-zod-contracts.md) y [RFC-0012](../rfcs/RFC-0012-api-contracts.md).
 
 - Versionado por URL: `/api/v1/...`. Los cambios rompedores suben versión.
-- Respuesta de error uniforme (RFC 7807 *problem+json*) con `code` estable y legible por
+- Respuesta de error uniforme (RFC 7807 _problem+json_) con `code` estable y legible por
   máquina. El frontend nunca hace `match` sobre mensajes en prosa.
 - Toda respuesta paginada usa **cursor**, no offset.
 - Todo endpoint mutador acepta `Idempotency-Key`.
@@ -366,16 +368,16 @@ Ver [ADR-0009](../adrs/ADR-0009-zod-contracts.md) y [RFC-0012](../rfcs/RFC-0012-
 
 ## 9. Preparación para el futuro
 
-| Necesidad futura | Qué la habilita hoy | Qué NO se construye hoy |
-| ---------------- | ------------------- | ----------------------- |
-| **CRM** | Eventos `OrderPlaced`, `AccountCreated`, `QuoteRequested` ya publicados; contexto CRM reservado | Pipeline, actividades, UI |
-| **Inventario** | `InventoryPort` en Catalog con adaptador *always-available*; eventos de orden ya emitidos | Bodegas, reservas, conteos |
-| **Cursos** | Contexto `Courses` reservado; Identity ya soporta usuarios sin cuenta B2B | Modelo LMS, reproductor |
-| **App móvil** | API pública versionada + `@eusse/contracts` + `@eusse/sdk` agnósticos de plataforma | Cliente Expo, push |
-| **Multi-marca** | `tenantId` presente en el modelo desde el día 1, con un único tenant activo | Resolución por dominio, aislamiento |
+| Necesidad futura | Qué la habilita hoy                                                                             | Qué NO se construye hoy             |
+| ---------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------- |
+| **CRM**          | Eventos `OrderPlaced`, `AccountCreated`, `QuoteRequested` ya publicados; contexto CRM reservado | Pipeline, actividades, UI           |
+| **Inventario**   | `InventoryPort` en Catalog con adaptador _always-available_; eventos de orden ya emitidos       | Bodegas, reservas, conteos          |
+| **Cursos**       | Contexto `Courses` reservado; Identity ya soporta usuarios sin cuenta B2B                       | Modelo LMS, reproductor             |
+| **App móvil**    | API pública versionada + `@eusse/contracts` + `@eusse/sdk` agnósticos de plataforma             | Cliente Expo, push                  |
+| **Multi-marca**  | `tenantId` presente en el modelo desde el día 1, con un único tenant activo                     | Resolución por dominio, aislamiento |
 
-**Regla:** se paga el coste de *dejar el hueco* (puerto, evento, columna), nunca el de
-*construir la habitación* antes de necesitarla.
+**Regla:** se paga el coste de _dejar el hueco_ (puerto, evento, columna), nunca el de
+_construir la habitación_ antes de necesitarla.
 
 ---
 

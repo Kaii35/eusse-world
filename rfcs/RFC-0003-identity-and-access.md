@@ -1,11 +1,11 @@
 # RFC-0003 — Identidad, autenticación y autorización
 
-| Campo | Valor |
-| ----- | ----- |
-| **Estado** | Aprobado · **Autor** Arquitecto + Auth · **Creado** 2026-08-06 |
-| **Revisores** | Seguridad · Backend · Frontend · UX · Product Owner |
-| **ADR generados** | ADR-0008 |
-| **Bloque** | B · Sprints 1–2 |
+| Campo             | Valor                                                          |
+| ----------------- | -------------------------------------------------------------- |
+| **Estado**        | Aprobado · **Autor** Arquitecto + Auth · **Creado** 2026-08-06 |
+| **Revisores**     | Seguridad · Backend · Frontend · UX · Product Owner            |
+| **ADR generados** | ADR-0008                                                       |
+| **Bloque**        | B · Sprints 1–2                                                |
 
 ---
 
@@ -29,11 +29,11 @@ self-service sin aprobación · federación con redes sociales.
 
 ## 3. Alternativas consideradas
 
-| Alternativa | Ventajas | Inconvenientes | Descarte |
-| ----------- | -------- | -------------- | -------- |
-| **A. Proveedor externo** (Auth0, Clerk) | Rápido, MFA incluido | Coste por usuario; el modelo multi-cuenta con roles por cuenta no encaja en su modelo; dependencia crítica externa | Descartada |
-| **B. NextAuth/Auth.js** | Integración natural con Next | La sesión vive en el frontend; la app móvil de F4 no la puede usar; el backend seguiría necesitando su propia autenticación | Descartada |
-| **C. Auth propia en `apps/api`, cookies httpOnly gestionadas por el BFF de Next** | Una sola fuente de identidad para web, admin y móvil; control total del modelo multi-cuenta; sin coste por usuario | Hay que implementarla y auditarla bien | **Elegida** |
+| Alternativa                                                                       | Ventajas                                                                                                           | Inconvenientes                                                                                                              | Descarte    |
+| --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| **A. Proveedor externo** (Auth0, Clerk)                                           | Rápido, MFA incluido                                                                                               | Coste por usuario; el modelo multi-cuenta con roles por cuenta no encaja en su modelo; dependencia crítica externa          | Descartada  |
+| **B. NextAuth/Auth.js**                                                           | Integración natural con Next                                                                                       | La sesión vive en el frontend; la app móvil de F4 no la puede usar; el backend seguiría necesitando su propia autenticación | Descartada  |
+| **C. Auth propia en `apps/api`, cookies httpOnly gestionadas por el BFF de Next** | Una sola fuente de identidad para web, admin y móvil; control total del modelo multi-cuenta; sin coste por usuario | Hay que implementarla y auditarla bien                                                                                      | **Elegida** |
 
 ## 4. Diseño
 
@@ -51,9 +51,9 @@ operación.
 
 ### 4.2 Tokens y cookies
 
-| Token | Vida | Transporte |
-| ----- | ---- | ---------- |
-| Access (JWT) | 15 min | `__Host-eusse_at`, httpOnly, Secure, SameSite=Lax |
+| Token           | Vida               | Transporte                                                           |
+| --------------- | ------------------ | -------------------------------------------------------------------- |
+| Access (JWT)    | 15 min             | `__Host-eusse_at`, httpOnly, Secure, SameSite=Lax                    |
 | Refresh (opaco) | 30 días, rotatorio | `__Host-eusse_rt`, httpOnly, Secure, SameSite=Lax, Path=/api/v1/auth |
 
 Claims del access token: `sub` (userId), `sid` (sessionId), `acc` (activeAccountId),
@@ -130,14 +130,14 @@ GET  /api/v1/me                     → perfil, cuentas, cuenta activa, permisos
 
 ### 4.8 Errores
 
-| Código | HTTP | Nota |
-| ------ | ---- | ---- |
-| `AUTH_INVALID_CREDENTIALS` | 401 | **Idéntico** para email inexistente y contraseña incorrecta |
-| `AUTH_SESSION_EXPIRED` | 401 | El cliente intenta refresh una vez y, si falla, redirige a login |
-| `AUTH_FORBIDDEN` | 403 | Sin permiso para la operación |
-| `AUTH_EMAIL_NOT_VERIFIED` | 403 | |
-| `ACCOUNT_NOT_ACTIVE` | 403 | Pendiente, suspendida o cerrada |
-| `AUTH_RATE_LIMITED` | 429 | |
+| Código                     | HTTP | Nota                                                             |
+| -------------------------- | ---- | ---------------------------------------------------------------- |
+| `AUTH_INVALID_CREDENTIALS` | 401  | **Idéntico** para email inexistente y contraseña incorrecta      |
+| `AUTH_SESSION_EXPIRED`     | 401  | El cliente intenta refresh una vez y, si falla, redirige a login |
+| `AUTH_FORBIDDEN`           | 403  | Sin permiso para la operación                                    |
+| `AUTH_EMAIL_NOT_VERIFIED`  | 403  |                                                                  |
+| `ACCOUNT_NOT_ACTIVE`       | 403  | Pendiente, suspendida o cerrada                                  |
+| `AUTH_RATE_LIMITED`        | 429  |                                                                  |
 
 ### 4.9 Controles de seguridad
 
@@ -157,13 +157,13 @@ Todos los módulos con datos privados dependen de este. Bloquea los bloques D, E
 
 ## 6. Riesgos
 
-| Riesgo | Prob. | Impacto | Mitigación |
-| ------ | ----- | ------- | ---------- |
-| IDOR entre cuentas | Media | Crítico | Repositorio con `accountId` obligatorio por tipo + test por endpoint |
-| Robo de token | Baja | Crítico | httpOnly + rotación + detección de reutilización |
-| Fuerza bruta | Alta | Medio | Rate limiting + Argon2id |
-| Enumeración de usuarios | Alta | Medio | Respuestas uniformes e insensibles al tiempo |
-| Sesión obsoleta tras cambio de permisos | Media | Medio | Permisos evaluados en servidor, no en el token |
+| Riesgo                                  | Prob. | Impacto | Mitigación                                                           |
+| --------------------------------------- | ----- | ------- | -------------------------------------------------------------------- |
+| IDOR entre cuentas                      | Media | Crítico | Repositorio con `accountId` obligatorio por tipo + test por endpoint |
+| Robo de token                           | Baja  | Crítico | httpOnly + rotación + detección de reutilización                     |
+| Fuerza bruta                            | Alta  | Medio   | Rate limiting + Argon2id                                             |
+| Enumeración de usuarios                 | Alta  | Medio   | Respuestas uniformes e insensibles al tiempo                         |
+| Sesión obsoleta tras cambio de permisos | Media | Medio   | Permisos evaluados en servidor, no en el token                       |
 
 ## 7. Criterios de aceptación
 

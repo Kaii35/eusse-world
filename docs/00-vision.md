@@ -22,28 +22,28 @@ pedidos por chat. Eso produce:
 
 Un canal digital que **no es un B2C con descuentos**. B2B tiene reglas propias:
 
-| B2C                          | Eusse World (B2B)                                          |
-| ---------------------------- | ---------------------------------------------------------- |
-| Un precio para todos         | Lista de precios por cuenta, con escalas por volumen        |
-| Compra el usuario            | Compra la **cuenta**; el usuario es un comprador con rol    |
-| Pago inmediato               | Pago inmediato **o** crédito con términos                   |
-| Carrito de 1–3 ítems         | Carrito de 40+ SKUs, recompra desde pedidos anteriores      |
-| Catálogo público completo    | Visibilidad y precio dependen de la cuenta autenticada      |
-| Checkout de 1 paso           | Orden de compra, aprobador, dirección de despacho, NIT      |
+| B2C                       | Eusse World (B2B)                                        |
+| ------------------------- | -------------------------------------------------------- |
+| Un precio para todos      | Lista de precios por cuenta, con escalas por volumen     |
+| Compra el usuario         | Compra la **cuenta**; el usuario es un comprador con rol |
+| Pago inmediato            | Pago inmediato **o** crédito con términos                |
+| Carrito de 1–3 ítems      | Carrito de 40+ SKUs, recompra desde pedidos anteriores   |
+| Catálogo público completo | Visibilidad y precio dependen de la cuenta autenticada   |
+| Checkout de 1 paso        | Orden de compra, aprobador, dirección de despacho, NIT   |
 
 Esta tabla es la razón de la mayoría de decisiones de arquitectura del proyecto.
 
 ## Público
 
-| Actor | Qué necesita |
-| ----- | ------------ |
-| **Visitante** | Entender qué vende Eusse World y confiar en la empresa. Explorar catálogo. |
-| **Comprador** | Reordenar rápido, ver su precio real, saber cuándo llega su pedido. |
-| **Aprobador** | Autorizar pedidos por encima de un monto antes de que se cursen. |
-| **Administrador de cuenta** | Gestionar quién compra dentro de su empresa y con qué límites. |
-| **Comercial (Eusse)** | Ver cuentas, cotizar, destrabar pedidos, medir. |
-| **Operaciones (Eusse)** | Preparar, despachar y facturar sin retrabajos. |
-| **Administrador (Eusse)** | Gobernar catálogo, precios, cuentas y contenido. |
+| Actor                       | Qué necesita                                                               |
+| --------------------------- | -------------------------------------------------------------------------- |
+| **Visitante**               | Entender qué vende Eusse World y confiar en la empresa. Explorar catálogo. |
+| **Comprador**               | Reordenar rápido, ver su precio real, saber cuándo llega su pedido.        |
+| **Aprobador**               | Autorizar pedidos por encima de un monto antes de que se cursen.           |
+| **Administrador de cuenta** | Gestionar quién compra dentro de su empresa y con qué límites.             |
+| **Comercial (Eusse)**       | Ver cuentas, cotizar, destrabar pedidos, medir.                            |
+| **Operaciones (Eusse)**     | Preparar, despachar y facturar sin retrabajos.                             |
+| **Administrador (Eusse)**   | Gobernar catálogo, precios, cuentas y contenido.                           |
 
 ## Alcance de la Fase 1
 
@@ -73,14 +73,14 @@ Suscripciones recurrentes · Subastas.
 
 ## Métricas de éxito de la Fase 1
 
-| Métrica | Objetivo |
-| ------- | -------- |
-| Pedidos digitales / pedidos totales | > 40% a los 3 meses |
-| Tiempo de recompra (login → pedido confirmado) | < 90 s |
-| Tasa de abandono en checkout | < 25% |
-| LCP en landing y catálogo (p75, móvil) | < 2.5 s |
-| Errores de precio reportados | 0 |
-| Tickets "¿dónde está mi pedido?" | −60% |
+| Métrica                                        | Objetivo            |
+| ---------------------------------------------- | ------------------- |
+| Pedidos digitales / pedidos totales            | > 40% a los 3 meses |
+| Tiempo de recompra (login → pedido confirmado) | < 90 s              |
+| Tasa de abandono en checkout                   | < 25%               |
+| LCP en landing y catálogo (p75, móvil)         | < 2.5 s             |
+| Errores de precio reportados                   | 0                   |
+| Tickets "¿dónde está mi pedido?"               | −60%                |
 
 ## No-objetivos
 

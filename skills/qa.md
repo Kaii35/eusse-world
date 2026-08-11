@@ -20,17 +20,17 @@ QA no escribe la suite automatizada: comprueba lo que ninguna suite cubre.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Sólo probar el camino feliz | Los bugs llegan a producción |
-| Reportar sin pasos de reproducción | El desarrollador no puede arreglarlo |
-| "No funciona" como descripción | Ida y vuelta de tres días |
-| Probar sólo en Chrome de escritorio | Safari en iOS revienta |
-| No probar con datos reales | El catálogo real rompe el layout |
-| Asumir el comportamiento esperado | Se aprueba algo incorrecto |
-| Aprobar "con observaciones" un defecto alto | La deuda entra en producción |
-| No probar la concurrencia | Órdenes duplicadas, carritos corruptos |
-| Probar sólo con el rol de administrador | Los permisos nunca se verifican |
+| Error                                       | Consecuencia                           |
+| ------------------------------------------- | -------------------------------------- |
+| Sólo probar el camino feliz                 | Los bugs llegan a producción           |
+| Reportar sin pasos de reproducción          | El desarrollador no puede arreglarlo   |
+| "No funciona" como descripción              | Ida y vuelta de tres días              |
+| Probar sólo en Chrome de escritorio         | Safari en iOS revienta                 |
+| No probar con datos reales                  | El catálogo real rompe el layout       |
+| Asumir el comportamiento esperado           | Se aprueba algo incorrecto             |
+| Aprobar "con observaciones" un defecto alto | La deuda entra en producción           |
+| No probar la concurrencia                   | Órdenes duplicadas, carritos corruptos |
+| Probar sólo con el rol de administrador     | Los permisos nunca se verifican        |
 
 ## Patrones
 
@@ -69,15 +69,15 @@ Reproducible: 5/5
 
 **Matriz de robustez** — para cada operación que muta datos:
 
-| Prueba | Esperado |
-| ------ | -------- |
-| Doble clic rápido | Una sola operación |
-| Recargar a mitad | Estado consistente |
-| Botón atrás tras completar | Sin repetir la operación |
+| Prueba                               | Esperado                         |
+| ------------------------------------ | -------------------------------- |
+| Doble clic rápido                    | Una sola operación               |
+| Recargar a mitad                     | Estado consistente               |
+| Botón atrás tras completar           | Sin repetir la operación         |
 | Sesión expirada durante la operación | Mensaje claro, datos preservados |
-| Red intermitente | Reintento o error recuperable |
-| Dos pestañas abiertas | Sin corrupción |
-| Dos usuarios de la misma cuenta | Sin pérdida de datos |
+| Red intermitente                     | Reintento o error recuperable    |
+| Dos pestañas abiertas                | Sin corrupción                   |
+| Dos usuarios de la misma cuenta      | Sin pérdida de datos             |
 
 **Casos borde sistemáticos:** vacío · uno · muchos · máximo · nulo · negativo · cero ·
 texto muy largo · caracteres especiales y emojis · expirado · concurrente.

@@ -63,15 +63,15 @@ graph BT
 
 ### Reglas duras
 
-| Regla | Motivo |
-| ----- | ------ |
+| Regla                                                                          | Motivo                                                                   |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
 | `@eusse/ui` **no** importa `@eusse/domain`, `@eusse/sdk` ni `@eusse/contracts` | Un botón no sabe qué es una orden. Si lo supiera, no sería reutilizable. |
-| `@eusse/ui` **no** importa nada de `apps/*` | Un paquete no depende de sus consumidores. |
-| `@eusse/contracts` **no** importa NestJS, React ni Prisma | Es el único punto de encuentro entre back y front. Debe ser neutral. |
-| `@eusse/domain` **no** tiene dependencias de runtime salvo `@eusse/utils` | Tipos y reglas puras, compartibles con móvil. |
-| `@eusse/sdk` **no** importa React como dependencia dura | Núcleo agnóstico + capa opcional de hooks. Móvil lo reutiliza. |
-| `apps/*` **no** se importan entre sí | Son despliegues independientes. Lo común sube a `packages/`. |
-| `@eusse/tokens` **no** importa nada | Es la hoja del grafo. |
+| `@eusse/ui` **no** importa nada de `apps/*`                                    | Un paquete no depende de sus consumidores.                               |
+| `@eusse/contracts` **no** importa NestJS, React ni Prisma                      | Es el único punto de encuentro entre back y front. Debe ser neutral.     |
+| `@eusse/domain` **no** tiene dependencias de runtime salvo `@eusse/utils`      | Tipos y reglas puras, compartibles con móvil.                            |
+| `@eusse/sdk` **no** importa React como dependencia dura                        | Núcleo agnóstico + capa opcional de hooks. Móvil lo reutiliza.           |
+| `apps/*` **no** se importan entre sí                                           | Son despliegues independientes. Lo común sube a `packages/`.             |
+| `@eusse/tokens` **no** importa nada                                            | Es la hoja del grafo.                                                    |
 
 **Sin ciclos.** Cero. `dependency-cruiser` rompe el build ante cualquier ciclo.
 
@@ -138,26 +138,26 @@ modules/pricing/
 └── infrastructure/            # ← privado
 ```
 
-| Permitido | Prohibido |
-| --------- | --------- |
+| Permitido                                                 | Prohibido                                                                        |
+| --------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | `import { PricingFacade } from '@modules/pricing/public'` | `import { PriceList } from '@modules/pricing/domain/entities/price-list.entity'` |
-| Recibir DTOs planos | Recibir o mutar entidades de otro módulo |
-| Llamada de sólo lectura | Escribir en las tablas de otro módulo |
+| Recibir DTOs planos                                       | Recibir o mutar entidades de otro módulo                                         |
+| Llamada de sólo lectura                                   | Escribir en las tablas de otro módulo                                            |
 
 **Cero dependencias circulares entre módulos.** Si A necesita B y B necesita A, uno de los
 dos publica un evento. Sin excepciones.
 
 ### Matriz de dependencias permitidas (Fase 1)
 
-| ↓ depende de → | identity | accounts | catalog | pricing | cart | checkout | orders |
-| -------------- | :------: | :------: | :-----: | :-----: | :--: | :------: | :----: |
-| **identity**   | —        | ✗        | ✗       | ✗       | ✗    | ✗        | ✗      |
-| **accounts**   | ✓        | —        | ✗       | ✗       | ✗    | ✗        | ✗      |
-| **catalog**    | ✗        | ✓ (visibilidad) | — | ✗   | ✗    | ✗        | ✗      |
-| **pricing**    | ✗        | ✓        | ✓       | —       | ✗    | ✗        | ✗      |
-| **cart**       | ✗        | ✓        | ✓       | ✓       | —    | ✗        | ✗      |
-| **checkout**   | ✗        | ✓        | ✓       | ✓       | ✓    | —        | ✓      |
-| **orders**     | ✗        | ✓        | ✗       | ✗       | ✗    | ✗        | —      |
+| ↓ depende de → | identity |    accounts     | catalog | pricing | cart | checkout | orders |
+| -------------- | :------: | :-------------: | :-----: | :-----: | :--: | :------: | :----: |
+| **identity**   |    —     |        ✗        |    ✗    |    ✗    |  ✗   |    ✗     |   ✗    |
+| **accounts**   |    ✓     |        —        |    ✗    |    ✗    |  ✗   |    ✗     |   ✗    |
+| **catalog**    |    ✗     | ✓ (visibilidad) |    —    |    ✗    |  ✗   |    ✗     |   ✗    |
+| **pricing**    |    ✗     |        ✓        |    ✓    |    —    |  ✗   |    ✗     |   ✗    |
+| **cart**       |    ✗     |        ✓        |    ✓    |    ✓    |  —   |    ✗     |   ✗    |
+| **checkout**   |    ✗     |        ✓        |    ✓    |    ✓    |  ✓   |    —     |   ✓    |
+| **orders**     |    ✗     |        ✓        |    ✗    |    ✗    |  ✗   |    ✗     |   —    |
 
 Las celdas vacías se resuelven **por evento** o no existen.
 
@@ -175,6 +175,7 @@ apps/web/src/
 ```
 
 Si `features/cart` necesita algo de `features/catalog`:
+
 1. Si es un **tipo**, vive en `@eusse/contracts`.
 2. Si es un **componente**, sube a `components/` o a `@eusse/ui`.
 3. Si es **lógica**, sube a `lib/` o a un paquete.
@@ -187,16 +188,16 @@ Si `features/cart` necesita algo de `features/catalog`:
 Todo tercero entra por un puerto. La app **nunca** importa el SDK del proveedor fuera de
 su adaptador. Esto permite cambiar de proveedor sin tocar dominio y testear sin red.
 
-| Servicio | Puerto | Adaptador F1 | Adaptador futuro |
-| -------- | ------ | ------------ | ---------------- |
-| Pagos | `PaymentPort` | Offline (transferencia / crédito) | Wompi, Stripe, PayU |
-| Envíos | `ShippingPort` | Tarifa plana | Transportadora vía API |
-| Inventario | `InventoryPort` | Siempre disponible | Inventario propio, ERP |
-| Email | `MailerPort` | MailHog (local) / SMTP | Resend, SES |
-| Archivos | `StoragePort` | MinIO (local) / S3 | S3, R2 |
-| Búsqueda | `SearchPort` | PostgreSQL FTS | Meilisearch, Typesense |
-| Analítica | `AnalyticsPort` | Consola / no-op | PostHog, GA4 |
-| ERP | `ErpPort` | No-op | Integración real (F2) |
+| Servicio   | Puerto          | Adaptador F1                      | Adaptador futuro       |
+| ---------- | --------------- | --------------------------------- | ---------------------- |
+| Pagos      | `PaymentPort`   | Offline (transferencia / crédito) | Wompi, Stripe, PayU    |
+| Envíos     | `ShippingPort`  | Tarifa plana                      | Transportadora vía API |
+| Inventario | `InventoryPort` | Siempre disponible                | Inventario propio, ERP |
+| Email      | `MailerPort`    | MailHog (local) / SMTP            | Resend, SES            |
+| Archivos   | `StoragePort`   | MinIO (local) / S3                | S3, R2                 |
+| Búsqueda   | `SearchPort`    | PostgreSQL FTS                    | Meilisearch, Typesense |
+| Analítica  | `AnalyticsPort` | Consola / no-op                   | PostHog, GA4           |
+| ERP        | `ErpPort`       | No-op                             | Integración real (F2)  |
 
 ---
 

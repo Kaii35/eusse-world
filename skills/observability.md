@@ -21,18 +21,18 @@ nuevo**.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| `console.log` en producción | Imposible de consultar y correlacionar |
-| Log sin contexto ("Error al guardar") | Inútil: ¿qué? ¿de quién? ¿cuándo? |
-| Sin `correlationId` | No se puede seguir una petición entre servicios |
-| Datos personales en logs | Incumplimiento normativo |
-| Alertas por causa | Ruido; se ignoran |
-| Alertar de todo | Fatiga; se pierde la que importaba |
-| Métricas sin dimensiones | No se puede segmentar por endpoint o cuenta |
-| Trazas sólo en la API | El cuello de botella está en el worker y no se ve |
-| Log de nivel `error` para casos de negocio esperados | Ruido que oculta errores reales |
-| Sin dashboard por contexto | Nadie sabe si su módulo está sano |
+| Error                                                | Consecuencia                                      |
+| ---------------------------------------------------- | ------------------------------------------------- |
+| `console.log` en producción                          | Imposible de consultar y correlacionar            |
+| Log sin contexto ("Error al guardar")                | Inútil: ¿qué? ¿de quién? ¿cuándo?                 |
+| Sin `correlationId`                                  | No se puede seguir una petición entre servicios   |
+| Datos personales en logs                             | Incumplimiento normativo                          |
+| Alertas por causa                                    | Ruido; se ignoran                                 |
+| Alertar de todo                                      | Fatiga; se pierde la que importaba                |
+| Métricas sin dimensiones                             | No se puede segmentar por endpoint o cuenta       |
+| Trazas sólo en la API                                | El cuello de botella está en el worker y no se ve |
+| Log de nivel `error` para casos de negocio esperados | Ruido que oculta errores reales                   |
+| Sin dashboard por contexto                           | Nadie sabe si su módulo está sano                 |
 
 ## Patrones
 
@@ -66,12 +66,12 @@ Navegador → header X-Correlation-Id (o generado en el borde)
 
 **Niveles con criterio**
 
-| Nivel | Cuándo |
-| ----- | ------ |
-| `error` | Fallo inesperado que requiere intervención |
-| `warn` | Degradación o comportamiento anómalo recuperable |
-| `info` | Hecho de negocio relevante (orden creada, cuenta aprobada) |
-| `debug` | Detalle de diagnóstico, apagado en producción |
+| Nivel   | Cuándo                                                     |
+| ------- | ---------------------------------------------------------- |
+| `error` | Fallo inesperado que requiere intervención                 |
+| `warn`  | Degradación o comportamiento anómalo recuperable           |
+| `info`  | Hecho de negocio relevante (orden creada, cuenta aprobada) |
+| `debug` | Detalle de diagnóstico, apagado en producción              |
 
 Un `CART_QTY_BELOW_MINIMUM` es `info`, no `error`: el sistema funcionó como debía.
 

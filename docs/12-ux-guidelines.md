@@ -13,13 +13,13 @@
 
 Referencias de **nivel de ejecución**, no de estética a copiar:
 
-| Referencia | Qué tomamos | Qué NO tomamos |
-| ---------- | ----------- | -------------- |
-| **Apple** | Jerarquía tipográfica, respiración, producto como protagonista | Su paleta, su tono, sus layouts |
-| **Stripe** | Densidad de información sin agobio, degradados con propósito, documentación como producto | Su ilustración isométrica |
-| **Vercel** | Contraste negro/blanco, bordes finos, dark mode nativo | Su minimalismo extremo (somos comerciales) |
-| **Linear** | Movimiento con propósito, velocidad percibida, teclado primero | Su temática de gestión de proyectos |
-| **Shopify** | Patrones de comercio, tablas de datos, formularios largos que no cansan | Su lenguaje visual retail |
+| Referencia  | Qué tomamos                                                                               | Qué NO tomamos                             |
+| ----------- | ----------------------------------------------------------------------------------------- | ------------------------------------------ |
+| **Apple**   | Jerarquía tipográfica, respiración, producto como protagonista                            | Su paleta, su tono, sus layouts            |
+| **Stripe**  | Densidad de información sin agobio, degradados con propósito, documentación como producto | Su ilustración isométrica                  |
+| **Vercel**  | Contraste negro/blanco, bordes finos, dark mode nativo                                    | Su minimalismo extremo (somos comerciales) |
+| **Linear**  | Movimiento con propósito, velocidad percibida, teclado primero                            | Su temática de gestión de proyectos        |
+| **Shopify** | Patrones de comercio, tablas de datos, formularios largos que no cansan                   | Su lenguaje visual retail                  |
 
 **Regla:** copiar un layout es plagio y además no funciona: sus decisiones responden a su
 producto. Se copia el **estándar de calidad**, no el resultado.
@@ -64,6 +64,7 @@ Borde        border · border-strong · ring
 ```
 
 Reglas:
+
 - El código **nunca** nombra un color literal. `bg-primary`, jamás `bg-blue-600`.
 - Todo par de tokens declara su ratio de contraste, verificado en test.
 - Light y dark se definen simultáneamente. Un token sin par oscuro no existe.
@@ -92,12 +93,14 @@ El vidrio es una **herramienta de jerarquía**, no una decoración. Se usa donde
 sobre contenido: navegación adherida, tarjetas del hero, overlays, drawer del carrito.
 
 Receta (token `--surface-glass`):
+
 - Fondo semitransparente (8–12% en claro, 6–10% en oscuro).
 - `backdrop-filter: blur(16–24px) saturate(150%)`.
 - Borde de 1 px con un blanco/negro muy tenue que sugiera el canto del cristal.
 - Sombra suave y amplia, nunca dura.
 
 **Límites duros:**
+
 - Nunca vidrio sobre texto que deba leerse sin fondo garantizado. El contraste se verifica
   contra el peor fondo posible, no contra el de la maqueta.
 - Fallback sólido obligatorio cuando `backdrop-filter` no esté soportado.
@@ -120,14 +123,15 @@ componentes: si la tarjeta es `lg`, su imagen interior también.
 
 Con **Motion**. El movimiento comunica causalidad y jerarquía; no entretiene.
 
-| Uso | Duración | Curva |
-| --- | -------- | ----- |
-| Microinteracción (hover, presión) | 120–160 ms | `ease-out` |
-| Transición de estado (abrir, cerrar) | 200–280 ms | `ease-in-out` |
-| Entrada de elemento (revelado al scroll) | 400–600 ms | spring suave |
-| Transición de página | 200–300 ms | `ease-out` |
+| Uso                                      | Duración   | Curva         |
+| ---------------------------------------- | ---------- | ------------- |
+| Microinteracción (hover, presión)        | 120–160 ms | `ease-out`    |
+| Transición de estado (abrir, cerrar)     | 200–280 ms | `ease-in-out` |
+| Entrada de elemento (revelado al scroll) | 400–600 ms | spring suave  |
+| Transición de página                     | 200–300 ms | `ease-out`    |
 
 Reglas:
+
 - **`prefers-reduced-motion` se respeta siempre.** No es opcional. El contenido aparece
   sin desplazamiento ni escala; sólo opacidad, o nada.
 - Sólo se animan `transform` y `opacity`. Animar `width`, `height`, `top` o `box-shadow`
@@ -153,20 +157,21 @@ Skeleton (pulso suave, no brillo agresivo).
 
 Cada sección responde a **una** pregunta del visitante:
 
-| # | Sección | Pregunta que responde |
-| - | ------- | --------------------- |
-| 1 | **Hero** | ¿Qué es esto y por qué me importa? |
-| 2 | Prueba social | ¿Quién más confía? |
-| 3 | Categorías | ¿Tienen lo que necesito? |
-| 4 | Propuesta de valor B2B | ¿Por qué aquí y no a mi proveedor actual? |
-| 5 | Cómo funciona | ¿Qué tengo que hacer? |
-| 6 | Producto destacado | ¿Qué tan bueno es esto de verdad? |
-| 7 | Testimonios | ¿Le funcionó a alguien como yo? |
-| 8 | FAQ | ¿Y mis dudas específicas de B2B (crédito, mínimos, despacho)? |
-| 9 | CTA final | ¿Cómo empiezo? |
-| 10 | Footer | ¿Cómo los contacto y quiénes son? |
+| #   | Sección                | Pregunta que responde                                         |
+| --- | ---------------------- | ------------------------------------------------------------- |
+| 1   | **Hero**               | ¿Qué es esto y por qué me importa?                            |
+| 2   | Prueba social          | ¿Quién más confía?                                            |
+| 3   | Categorías             | ¿Tienen lo que necesito?                                      |
+| 4   | Propuesta de valor B2B | ¿Por qué aquí y no a mi proveedor actual?                     |
+| 5   | Cómo funciona          | ¿Qué tengo que hacer?                                         |
+| 6   | Producto destacado     | ¿Qué tan bueno es esto de verdad?                             |
+| 7   | Testimonios            | ¿Le funcionó a alguien como yo?                               |
+| 8   | FAQ                    | ¿Y mis dudas específicas de B2B (crédito, mínimos, despacho)? |
+| 9   | CTA final              | ¿Cómo empiezo?                                                |
+| 10  | Footer                 | ¿Cómo los contacto y quiénes son?                             |
 
 **El hero** decide todo. Requisitos:
+
 - Propuesta de valor legible en menos de 3 segundos.
 - Un CTA primario inequívoco ("Crear cuenta mayorista") y uno secundario ("Ver catálogo").
 - LCP < 2.0 s: la imagen del hero está optimizada, dimensionada y con prioridad.
@@ -178,6 +183,7 @@ Cada sección responde a **una** pregunta del visitante:
 ## 6. Patrones de ecommerce B2B
 
 ### Tarjeta de producto
+
 Imagen consistente (relación fija, fondo uniforme) · Nombre a dos líneas con truncado ·
 SKU visible (el comprador B2B busca por código) · **Zona de precio con tres estados**
 (sin sesión / cargando / precio de la cuenta) · Cantidad mínima si aplica · Acción rápida
@@ -185,28 +191,31 @@ de añadir · Indicador de disponibilidad.
 
 ### Zona de precio — el componente más delicado del sistema
 
-| Estado | Qué muestra |
-| ------ | ----------- |
-| Sin sesión | "Inicia sesión para ver tu precio" + enlace, **sin número** |
-| Cargando | Skeleton del tamaño exacto del precio, sin salto de layout |
-| Con precio | Precio unitario · moneda · escala aplicable ("desde 50 uds: $X") |
-| Sin precio para la cuenta | "Consulta con tu asesor" + acción de contacto |
-| No visible para la cuenta | El producto no aparece |
+| Estado                    | Qué muestra                                                      |
+| ------------------------- | ---------------------------------------------------------------- |
+| Sin sesión                | "Inicia sesión para ver tu precio" + enlace, **sin número**      |
+| Cargando                  | Skeleton del tamaño exacto del precio, sin salto de layout       |
+| Con precio                | Precio unitario · moneda · escala aplicable ("desde 50 uds: $X") |
+| Sin precio para la cuenta | "Consulta con tu asesor" + acción de contacto                    |
+| No visible para la cuenta | El producto no aparece                                           |
 
 **Nunca** se muestra un precio placeholder, tachado o inventado. Ver regla PRC-02.
 
 ### Listado y filtros
+
 Filtros como facetas con conteo · Escritorio: barra lateral fija; móvil: hoja inferior ·
 Filtros activos como chips eliminables · Estado en la URL (compartible y navegable) ·
 Sin recarga completa al filtrar · Estado vacío que sugiere cómo relajar los filtros.
 
 ### Carrito B2B
+
 Tabla, no tarjetas: 40 líneas en tarjetas es inmanejable · Edición de cantidad en línea
 con debounce · Subtotal por línea y total siempre visibles · Aviso claro si un precio
 cambió · "Añadir por SKU" (pegar una lista de códigos) · Importar CSV (Fase 2) ·
 Guardar como plantilla de pedido.
 
 ### Checkout
+
 Tres pasos como máximo, con progreso visible · Un solo objetivo por paso · Resumen del
 pedido siempre visible · Campo de orden de compra del cliente destacado (es lo que su
 contabilidad necesita) · Errores en línea, junto al campo, nunca sólo arriba ·
@@ -235,13 +244,13 @@ contrario que un visitante:
 Móvil primero en implementación. En B2B, escritorio primero en prioridad de diseño (el
 comprador pide desde su oficina), pero consulta y seguimiento son móviles.
 
-| Punto de corte | Ancho | Notas |
-| -------------- | ----- | ----- |
-| `sm` | 640 | Móvil grande |
-| `md` | 768 | Tablet vertical |
-| `lg` | 1024 | Tablet horizontal / portátil |
-| `xl` | 1280 | Escritorio |
-| `2xl` | 1536 | Escritorio amplio |
+| Punto de corte | Ancho | Notas                        |
+| -------------- | ----- | ---------------------------- |
+| `sm`           | 640   | Móvil grande                 |
+| `md`           | 768   | Tablet vertical              |
+| `lg`           | 1024  | Tablet horizontal / portátil |
+| `xl`           | 1280  | Escritorio                   |
+| `2xl`          | 1536  | Escritorio amplio            |
 
 Objetivos táctiles ≥ 44×44 px · Sin hover como único mecanismo de descubrimiento ·
 Tablas → tarjetas o desplazamiento horizontal con columna fija en móvil · Navegación
@@ -267,13 +276,13 @@ inferior en móvil para el portal de cliente.
 **Toda vista que muestre datos implementa cinco estados.** Una vista sin estado vacío
 diseñado se rechaza en revisión.
 
-| Estado | Requisito |
-| ------ | --------- |
+| Estado      | Requisito                                                        |
+| ----------- | ---------------------------------------------------------------- |
 | **Loading** | Skeleton con la forma del contenido real, no un spinner centrado |
-| **Empty** | Explica por qué está vacío y ofrece la acción siguiente |
-| **Error** | Qué pasó, si es recuperable, y un botón de reintentar |
-| **Partial** | Datos incompletos señalados, sin bloquear el resto |
-| **Success** | El contenido, con jerarquía clara |
+| **Empty**   | Explica por qué está vacío y ofrece la acción siguiente          |
+| **Error**   | Qué pasó, si es recuperable, y un botón de reintentar            |
+| **Partial** | Datos incompletos señalados, sin bloquear el resto               |
+| **Success** | El contenido, con jerarquía clara                                |
 
 ---
 

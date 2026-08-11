@@ -1,10 +1,10 @@
 # RFC-0010 — Portal de cliente
 
-| Campo | Valor |
-| ----- | ----- |
-| **Estado** | Borrador · **Autor** UX + Dashboard Cliente · **Creado** 2026-08-06 |
-| **Revisores** | Auth · Backend · Seguridad · Accesibilidad · Product Owner |
-| **Bloque** | G · Sprint 10 |
+| Campo         | Valor                                                               |
+| ------------- | ------------------------------------------------------------------- |
+| **Estado**    | Borrador · **Autor** UX + Dashboard Cliente · **Creado** 2026-08-06 |
+| **Revisores** | Auth · Backend · Seguridad · Accesibilidad · Product Owner          |
+| **Bloque**    | G · Sprint 10                                                       |
 
 ---
 
@@ -30,16 +30,16 @@ guardadas (F2) · informes avanzados (F2).
 
 **Organización del portal**
 
-| Alternativa | Descarte |
-| ----------- | -------- |
-| A. Por entidad (Órdenes, Usuarios, Direcciones…) | Refleja el modelo de datos, no la tarea del usuario |
-| **B. Por objetivo, con la recompra en primer lugar** | **Elegida.** El portal existe para repetir pedidos |
+| Alternativa                                          | Descarte                                            |
+| ---------------------------------------------------- | --------------------------------------------------- |
+| A. Por entidad (Órdenes, Usuarios, Direcciones…)     | Refleja el modelo de datos, no la tarea del usuario |
+| **B. Por objetivo, con la recompra en primer lugar** | **Elegida.** El portal existe para repetir pedidos  |
 
 **Recompra**
 
-| Alternativa | Descarte |
-| ----------- | -------- |
-| A. Duplicar la orden con sus precios originales | Los precios cambian: crearía un compromiso falso |
+| Alternativa                                                                          | Descarte                                              |
+| ------------------------------------------------------------------------------------ | ----------------------------------------------------- |
+| A. Duplicar la orden con sus precios originales                                      | Los precios cambian: crearía un compromiso falso      |
 | **B. Crear un carrito nuevo revalidando precios, mínimos y disponibilidad actuales** | **Elegida.** Informa línea por línea de lo que cambió |
 
 ## 4. Diseño
@@ -112,12 +112,12 @@ caché ni indexación.
 
 ## 6. Riesgos
 
-| Riesgo | Prob. | Impacto | Mitigación |
-| ------ | ----- | ------- | ---------- |
-| IDOR entre cuentas (R-03) | Media | Crítico | `accountId` de sesión + test por endpoint + repositorio con ámbito obligatorio |
-| Recompra que falla en silencio | Media | Alto | Informe línea por línea obligatorio; E2E con SKU no disponible |
-| Portal indexado por buscadores | Baja | Alto | `noindex` verificado por test |
-| Panel con métricas inútiles | Media | Bajo | Regla: toda tarjeta lleva a una acción |
+| Riesgo                         | Prob. | Impacto | Mitigación                                                                     |
+| ------------------------------ | ----- | ------- | ------------------------------------------------------------------------------ |
+| IDOR entre cuentas (R-03)      | Media | Crítico | `accountId` de sesión + test por endpoint + repositorio con ámbito obligatorio |
+| Recompra que falla en silencio | Media | Alto    | Informe línea por línea obligatorio; E2E con SKU no disponible                 |
+| Portal indexado por buscadores | Baja  | Alto    | `noindex` verificado por test                                                  |
+| Panel con métricas inútiles    | Media | Bajo    | Regla: toda tarjeta lleva a una acción                                         |
 
 ## 7. Criterios de aceptación
 
@@ -161,9 +161,9 @@ la estructura de navegación admite secciones nuevas (cotizaciones, cursos) sin 
 
 ## 10. Preguntas abiertas
 
-| # | Pregunta | Bloquea | Resuelta |
-| - | -------- | ------- | -------- |
-| 1 | ¿Un `VIEWER` puede ver los importes de pedidos que no creó? | G2 | **No.** Ve estado y líneas, sin importes |
+| #   | Pregunta                                                    | Bloquea | Resuelta                                 |
+| --- | ----------------------------------------------------------- | ------- | ---------------------------------------- |
+| 1   | ¿Un `VIEWER` puede ver los importes de pedidos que no creó? | G2      | **No.** Ve estado y líneas, sin importes |
 
 ## 11. Enlaces
 

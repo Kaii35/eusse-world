@@ -1,11 +1,11 @@
 # CU-NNN · <Nombre del caso de uso>
 
-| Campo | Valor |
-| ----- | ----- |
-| **Contexto acotado** | |
-| **RFC** | RFC-XXXX |
-| **Autor** | Analista Funcional |
-| **Estado** | Borrador · Aprobado |
+| Campo                | Valor               |
+| -------------------- | ------------------- |
+| **Contexto acotado** |                     |
+| **RFC**              | RFC-XXXX            |
+| **Autor**            | Analista Funcional  |
+| **Estado**           | Borrador · Aprobado |
 
 ## Actor
 
@@ -36,18 +36,20 @@ Paso a paso, sin saltos. Cada paso referencia las reglas que aplica.
 ## Flujos alternos
 
 **A1. <Condición>**
+
 1. …
 2. Continúa en el paso N del flujo principal
 
 **A2. <Condición>**
+
 1. …
 
 ## Flujos de error
 
-| ID | Condición | Código de error | Qué ve el usuario |
-| -- | --------- | --------------- | ----------------- |
-| E1 | | | |
-| E2 | | | |
+| ID  | Condición | Código de error | Qué ve el usuario |
+| --- | --------- | --------------- | ----------------- |
+| E1  |           |                 |                   |
+| E2  |           |                 |                   |
 
 ## Postcondiciones
 
@@ -57,19 +59,19 @@ Qué es cierto al terminar con éxito. Incluye los eventos emitidos.
 
 ## Reglas de negocio aplicadas
 
-| ID | Regla | Ejemplo | Contraejemplo |
-| -- | ----- | ------- | ------------- |
-| REGLA-01 | | | |
+| ID       | Regla | Ejemplo | Contraejemplo |
+| -------- | ----- | ------- | ------------- |
+| REGLA-01 |       |         |               |
 
 ## Permisos
 
-| Rol | ¿Puede? | Condición |
-| --- | ------- | --------- |
-| `OWNER` | | |
-| `ADMIN` | | |
-| `BUYER` | | |
-| `APPROVER` | | |
-| `VIEWER` | | |
+| Rol        | ¿Puede? | Condición |
+| ---------- | ------- | --------- |
+| `OWNER`    |         |           |
+| `ADMIN`    |         |           |
+| `BUYER`    |         |           |
+| `APPROVER` |         |           |
+| `VIEWER`   |         |           |
 
 ## Concurrencia
 
@@ -77,17 +79,17 @@ Qué ocurre si dos usuarios de la misma cuenta ejecutan esto a la vez. **Obligat
 
 ## Casos borde
 
-| Caso | Comportamiento esperado |
-| ---- | ----------------------- |
-| Vacío | |
-| Uno | |
-| Muchos | |
-| Máximo | |
-| Nulo | |
-| Negativo / cero | |
-| Texto muy largo | |
-| Expirado | |
-| Concurrente | |
+| Caso            | Comportamiento esperado |
+| --------------- | ----------------------- |
+| Vacío           |                         |
+| Uno             |                         |
+| Muchos          |                         |
+| Máximo          |                         |
+| Nulo            |                         |
+| Negativo / cero |                         |
+| Texto muy largo |                         |
+| Expirado        |                         |
+| Concurrente     |                         |
 
 ## Criterios de aceptación
 
@@ -105,16 +107,16 @@ Un escenario por criterio. **Verificables objetivamente**: sin "rápido", "intui
 
 ## Estados de la interfaz
 
-| Estado | Qué se muestra |
-| ------ | -------------- |
-| Loading | |
-| Empty | |
-| Error | |
-| Partial | |
-| Success | |
+| Estado  | Qué se muestra |
+| ------- | -------------- |
+| Loading |                |
+| Empty   |                |
+| Error   |                |
+| Partial |                |
+| Success |                |
 
 ## Preguntas abiertas
 
-| # | Pregunta | Bloquea | Resuelta |
-| - | -------- | ------- | -------- |
-| 1 | | | |
+| #   | Pregunta | Bloquea | Resuelta |
+| --- | -------- | ------- | -------- |
+| 1   |          |         |          |

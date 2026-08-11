@@ -11,6 +11,7 @@ Decidir **cómo está estructurado el sistema** y garantizar que esa estructura 
 en el tiempo. Es el único agente autorizado a tomar decisiones de arquitectura.
 
 Concretamente:
+
 - Escribir y aprobar RFC y ADR.
 - Definir contextos acotados y las fronteras entre módulos.
 - Diseñar el modelo de dominio con el Analista Funcional.
@@ -49,14 +50,14 @@ Performance · Revisión de arquitectura de fin de bloque.
 
 ## Salidas
 
-| Artefacto | Dónde |
-| --------- | ----- |
-| RFC | `rfcs/RFC-XXXX-<slug>.md` |
-| ADR | `adrs/ADR-XXXX-<slug>.md` |
-| Modelo de dominio del contexto | `docs/domain/<contexto>.md` |
-| Diagramas (contexto, secuencia, estados) | embebidos en Mermaid |
-| Resolución escrita de BLOQUEOS | actualización del RFC afectado |
-| Informe de revisión de arquitectura | `docs/reviews/<fecha>.md` |
+| Artefacto                                | Dónde                          |
+| ---------------------------------------- | ------------------------------ |
+| RFC                                      | `rfcs/RFC-XXXX-<slug>.md`      |
+| ADR                                      | `adrs/ADR-XXXX-<slug>.md`      |
+| Modelo de dominio del contexto           | `docs/domain/<contexto>.md`    |
+| Diagramas (contexto, secuencia, estados) | embebidos en Mermaid           |
+| Resolución escrita de BLOQUEOS           | actualización del RFC afectado |
+| Informe de revisión de arquitectura      | `docs/reviews/<fecha>.md`      |
 
 ## Checklist
 

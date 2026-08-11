@@ -19,18 +19,18 @@ cuando se superan.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Optimizar sin medir | Se complica el código sin ganar nada |
-| Medir en local con datos de juguete | Todo parece rápido hasta producción |
-| N+1 en un listado | 60 tarjetas = 61 consultas |
-| Cargar todo el bundle en la primera visita | LCP arruinado |
-| Imagen sin dimensiones | CLS alto |
-| Fuente sin `swap` | Texto invisible durante la carga |
-| Cachear respuestas privadas en capa compartida | Fuga de datos entre usuarios |
-| `useEffect` en cascada | Peticiones en serie en vez de en paralelo |
-| Animar propiedades que provocan layout | Jank |
-| Índice ausente | Funciona con 100 filas, muere con 100 000 |
+| Error                                          | Consecuencia                              |
+| ---------------------------------------------- | ----------------------------------------- |
+| Optimizar sin medir                            | Se complica el código sin ganar nada      |
+| Medir en local con datos de juguete            | Todo parece rápido hasta producción       |
+| N+1 en un listado                              | 60 tarjetas = 61 consultas                |
+| Cargar todo el bundle en la primera visita     | LCP arruinado                             |
+| Imagen sin dimensiones                         | CLS alto                                  |
+| Fuente sin `swap`                              | Texto invisible durante la carga          |
+| Cachear respuestas privadas en capa compartida | Fuga de datos entre usuarios              |
+| `useEffect` en cascada                         | Peticiones en serie en vez de en paralelo |
+| Animar propiedades que provocan layout         | Jank                                      |
+| Índice ausente                                 | Funciona con 100 filas, muere con 100 000 |
 
 ## Patrones
 

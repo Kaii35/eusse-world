@@ -7,13 +7,13 @@ de tener el mismo dato en dos sitios.
 
 ## La regla
 
-| Tipo de estado | Dueño | Ejemplos |
-| -------------- | ----- | -------- |
-| **Servidor** — remoto, cacheable, puede quedar obsoleto | TanStack Query | catálogo, carrito, órdenes, precios, cuenta |
-| **URL** — compartible, navegable | *search params* | filtros, búsqueda, página, pestaña activa |
-| **Cliente global** — sólo UI, efímero | Zustand | tema, drawer abierto, sidebar colapsada |
-| **Formulario** | React Hook Form | cualquier entrada de datos |
-| **Local** | `useState` | acordeón abierto, hover, foco |
+| Tipo de estado                                          | Dueño           | Ejemplos                                    |
+| ------------------------------------------------------- | --------------- | ------------------------------------------- |
+| **Servidor** — remoto, cacheable, puede quedar obsoleto | TanStack Query  | catálogo, carrito, órdenes, precios, cuenta |
+| **URL** — compartible, navegable                        | _search params_ | filtros, búsqueda, página, pestaña activa   |
+| **Cliente global** — sólo UI, efímero                   | Zustand         | tema, drawer abierto, sidebar colapsada     |
+| **Formulario**                                          | React Hook Form | cualquier entrada de datos                  |
+| **Local**                                               | `useState`      | acordeón abierto, hover, foco               |
 
 **Si vino de la API, lo posee TanStack Query. Punto.**
 
@@ -29,16 +29,16 @@ de tener el mismo dato en dos sitios.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Copiar la respuesta de la API a Zustand | Dos fuentes de verdad; una queda obsoleta |
-| `useEffect` para sincronizar estado | Cascadas de renders y bugs de temporización |
-| Un store global gigante | Todo re-renderiza con cualquier cambio |
-| `staleTime: 0` en todo | Peticiones constantes; la app parece lenta |
-| Optimistic update sin reversión | La UI miente cuando el servidor falla |
-| Filtros sólo en `useState` | Enlace no compartible; botón atrás roto |
-| `refetch()` manual tras cada mutación | Se olvida uno y la UI queda desincronizada |
-| Estado de servidor en Context | Se pierde caché, deduplicación y reintentos |
+| Error                                   | Consecuencia                                |
+| --------------------------------------- | ------------------------------------------- |
+| Copiar la respuesta de la API a Zustand | Dos fuentes de verdad; una queda obsoleta   |
+| `useEffect` para sincronizar estado     | Cascadas de renders y bugs de temporización |
+| Un store global gigante                 | Todo re-renderiza con cualquier cambio      |
+| `staleTime: 0` en todo                  | Peticiones constantes; la app parece lenta  |
+| Optimistic update sin reversión         | La UI miente cuando el servidor falla       |
+| Filtros sólo en `useState`              | Enlace no compartible; botón atrás roto     |
+| `refetch()` manual tras cada mutación   | Se olvida uno y la UI queda desincronizada  |
+| Estado de servidor en Context           | Se pierde caché, deduplicación y reintentos |
 
 ## Patrones
 
@@ -84,13 +84,13 @@ export const useUiStore = create<UiState>((set) => ({
 
 **staleTime por tipo de dato**
 
-| Dato | `staleTime` | Motivo |
-| ---- | ----------- | ------ |
-| Categorías | 1 h | Cambian rara vez |
-| Listado de productos | 5 min | Cambia con publicaciones |
-| Precio de cuenta | 1 min | Debe ser fresco |
-| Carrito | 0 | Siempre fresco: es el estado de la compra |
-| Órdenes | 30 s | Casi estático tras confirmar |
+| Dato                 | `staleTime` | Motivo                                    |
+| -------------------- | ----------- | ----------------------------------------- |
+| Categorías           | 1 h         | Cambian rara vez                          |
+| Listado de productos | 5 min       | Cambia con publicaciones                  |
+| Precio de cuenta     | 1 min       | Debe ser fresco                           |
+| Carrito              | 0           | Siempre fresco: es el estado de la compra |
+| Órdenes              | 30 s        | Casi estático tras confirmar              |
 
 ## Antipatrones
 

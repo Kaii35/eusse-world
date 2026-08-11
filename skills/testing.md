@@ -21,18 +21,18 @@ ser algo en lo que el equipo confíe; si no, deja de servir.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Mockear lo que se está probando | El test verifica el mock, no el código |
+| Error                                  | Consecuencia                                       |
+| -------------------------------------- | -------------------------------------------------- |
+| Mockear lo que se está probando        | El test verifica el mock, no el código             |
 | Mockear Prisma en tests de integración | No detecta índices, restricciones ni transacciones |
-| `data-testid` en todo | Tests acoplados al DOM; no verifican accesibilidad |
-| `waitForTimeout(2000)` | Lento y aun así inestable |
-| Tests que dependen del orden | Fallan en paralelo y no se sabe por qué |
-| Datos compartidos entre tests | Contaminación cruzada |
-| Sólo el camino feliz | Los bugs viven en los caminos alternos |
-| Test que replica la implementación | Se rompe con cualquier refactor |
-| Marcar como `skip` un test inestable | La cobertura miente |
-| Perseguir el 100% de cobertura | Tests inútiles de getters y setters |
+| `data-testid` en todo                  | Tests acoplados al DOM; no verifican accesibilidad |
+| `waitForTimeout(2000)`                 | Lento y aun así inestable                          |
+| Tests que dependen del orden           | Fallan en paralelo y no se sabe por qué            |
+| Datos compartidos entre tests          | Contaminación cruzada                              |
+| Sólo el camino feliz                   | Los bugs viven en los caminos alternos             |
+| Test que replica la implementación     | Se rompe con cualquier refactor                    |
+| Marcar como `skip` un test inestable   | La cobertura miente                                |
+| Perseguir el 100% de cobertura         | Tests inútiles de getters y setters                |
 
 ## Patrones
 

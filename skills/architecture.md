@@ -24,15 +24,15 @@ qué** y no sólo **qué**.
 
 ## Errores comunes
 
-| Error | Consecuencia | Qué hacer |
-| ----- | ------------ | --------- |
-| Microservicios por defecto | Coste operativo x5, fronteras equivocadas congeladas | Monolito modular con fronteras verificadas |
-| Abstraer "por si acaso" | Complejidad permanente por un futuro que no llega | Tres repeticiones antes de abstraer |
-| Decidir sin escribirlo | Se re-discute cada trimestre | ADR, siempre |
-| Editar un ADR aceptado | Se pierde la historia de por qué se cambió | Supersedir con uno nuevo |
-| Copiar la arquitectura de una empresa 100× mayor | Resuelves problemas que no tienes | Diseña para tu escala + un orden de magnitud |
-| Diagrama que no coincide con el código | Nadie vuelve a confiar en la documentación | Auditar el grafo real en cada bloque |
-| Dominio acoplado al ORM | Cambiar de base de datos exige reescribir reglas de negocio | Dominio puro, adaptadores fuera |
+| Error                                            | Consecuencia                                                | Qué hacer                                    |
+| ------------------------------------------------ | ----------------------------------------------------------- | -------------------------------------------- |
+| Microservicios por defecto                       | Coste operativo x5, fronteras equivocadas congeladas        | Monolito modular con fronteras verificadas   |
+| Abstraer "por si acaso"                          | Complejidad permanente por un futuro que no llega           | Tres repeticiones antes de abstraer          |
+| Decidir sin escribirlo                           | Se re-discute cada trimestre                                | ADR, siempre                                 |
+| Editar un ADR aceptado                           | Se pierde la historia de por qué se cambió                  | Supersedir con uno nuevo                     |
+| Copiar la arquitectura de una empresa 100× mayor | Resuelves problemas que no tienes                           | Diseña para tu escala + un orden de magnitud |
+| Diagrama que no coincide con el código           | Nadie vuelve a confiar en la documentación                  | Auditar el grafo real en cada bloque         |
+| Dominio acoplado al ORM                          | Cambiar de base de datos exige reescribir reglas de negocio | Dominio puro, adaptadores fuera              |
 
 ## Patrones
 
@@ -50,7 +50,7 @@ disciplina en una regla de lint.
 Elimina la clase entera de bugs "se guardó pero no se notificó".
 
 **Strangler fig** — para reemplazar algo, se rodea con una fachada, se migra pieza a pieza
-y se elimina lo viejo. Nunca *big bang*.
+y se elimina lo viejo. Nunca _big bang_.
 
 **Decisión reversible vs. irreversible** — las reversibles se toman rápido y solo; las
 irreversibles (modelo de datos, autenticación, esquema de eventos) requieren ADR y revisión.

@@ -1,0 +1,12 @@
+{
+  "name": "@eusse/config-typescript",
+  "version": "0.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "files": [
+    "*.json"
+  ],
+  "publishConfig": {
+    "access": "restricted"
+  }
+}

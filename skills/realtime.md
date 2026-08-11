@@ -23,27 +23,27 @@ mensajes, sin duplicarlos y sin abrir un agujero de escalabilidad.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Asumir conexión estable | Mensajes perdidos en cada cambio de red |
-| Sin recuperación al reconectar | Huecos en la conversación |
-| Ordenar por hora del cliente | Mensajes desordenados entre dispositivos |
-| Canal sin ámbito de cuenta | Un cliente recibe mensajes de otro |
-| Estado sólo en memoria del servidor | Se pierde al reiniciar; no escala a varias réplicas |
-| WebSocket para notificaciones unidireccionales | Complejidad innecesaria |
-| Sin límite de conexiones | Un cliente agota los recursos |
-| Adjuntos sin validar | Vector de malware |
-| Sin política de retención | Crecimiento sin control y riesgo legal |
+| Error                                          | Consecuencia                                        |
+| ---------------------------------------------- | --------------------------------------------------- |
+| Asumir conexión estable                        | Mensajes perdidos en cada cambio de red             |
+| Sin recuperación al reconectar                 | Huecos en la conversación                           |
+| Ordenar por hora del cliente                   | Mensajes desordenados entre dispositivos            |
+| Canal sin ámbito de cuenta                     | Un cliente recibe mensajes de otro                  |
+| Estado sólo en memoria del servidor            | Se pierde al reiniciar; no escala a varias réplicas |
+| WebSocket para notificaciones unidireccionales | Complejidad innecesaria                             |
+| Sin límite de conexiones                       | Un cliente agota los recursos                       |
+| Adjuntos sin validar                           | Vector de malware                                   |
+| Sin política de retención                      | Crecimiento sin control y riesgo legal              |
 
 ## Patrones
 
 **Elección de transporte**
 
-| Necesidad | Transporte |
-| --------- | ---------- |
-| Notificaciones del servidor al cliente | **SSE** — simple, reconexión nativa, sobre HTTP |
-| Chat bidireccional con presencia | **WebSocket** |
-| Actualización cada varios segundos | **Sondeo** con TanStack Query — a menudo suficiente |
+| Necesidad                              | Transporte                                          |
+| -------------------------------------- | --------------------------------------------------- |
+| Notificaciones del servidor al cliente | **SSE** — simple, reconexión nativa, sobre HTTP     |
+| Chat bidireccional con presencia       | **WebSocket**                                       |
+| Actualización cada varios segundos     | **Sondeo** con TanStack Query — a menudo suficiente |
 
 Empezar por lo simple. Escalar el transporte sólo cuando el sondeo demuestre no bastar.
 

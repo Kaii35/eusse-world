@@ -21,17 +21,17 @@ tres días de ida y vuelta.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Sólo el camino feliz | El desarrollador improvisa el resto |
+| Error                               | Consecuencia                                     |
+| ----------------------------------- | ------------------------------------------------ |
+| Sólo el camino feliz                | El desarrollador improvisa el resto              |
 | "El sistema debe validar los datos" | ¿Qué datos? ¿qué validación? ¿qué pasa si falla? |
-| Criterios subjetivos | Imposible verificar; discusión en la aceptación |
-| Reglas sin identificador | No se pueden referenciar ni rastrear |
-| No definir la concurrencia | Bugs de corrupción de datos |
-| Omitir permisos | Cualquiera hace cualquier cosa |
-| Términos ambiguos ("cliente") | Se implementa lo que no era |
-| Proponer la solución técnica | Se cierra el espacio de diseño prematuramente |
-| No validar con el negocio | Se construye lo que nadie pidió |
+| Criterios subjetivos                | Imposible verificar; discusión en la aceptación  |
+| Reglas sin identificador            | No se pueden referenciar ni rastrear             |
+| No definir la concurrencia          | Bugs de corrupción de datos                      |
+| Omitir permisos                     | Cualquiera hace cualquier cosa                   |
+| Términos ambiguos ("cliente")       | Se implementa lo que no era                      |
+| Proponer la solución técnica        | Se cierra el espacio de diseño prematuramente    |
+| No validar con el negocio           | Se construye lo que nadie pidió                  |
 
 ## Patrones
 
@@ -82,12 +82,12 @@ Escenario: Cantidad que no es múltiplo del incremento de venta
 
 **Tabla de decisión** — para combinaciones de condiciones:
 
-| Cuenta activa | Crédito suficiente | Total > umbral | Resultado |
-| ------------- | ------------------ | -------------- | --------- |
-| No | — | — | `ACCOUNT_NOT_ACTIVE` |
-| Sí | No | — | `ACCOUNT_CREDIT_EXCEEDED` |
-| Sí | Sí | No | Orden `PENDING_PAYMENT` |
-| Sí | Sí | Sí | Orden `PENDING_APPROVAL` |
+| Cuenta activa | Crédito suficiente | Total > umbral | Resultado                 |
+| ------------- | ------------------ | -------------- | ------------------------- |
+| No            | —                  | —              | `ACCOUNT_NOT_ACTIVE`      |
+| Sí            | No                 | —              | `ACCOUNT_CREDIT_EXCEEDED` |
+| Sí            | Sí                 | No             | Orden `PENDING_PAYMENT`   |
+| Sí            | Sí                 | Sí             | Orden `PENDING_APPROVAL`  |
 
 **Casos borde sistemáticos:** vacío · uno · muchos · máximo · nulo · negativo · cero ·
 texto muy largo · caracteres especiales · expirado · concurrente.

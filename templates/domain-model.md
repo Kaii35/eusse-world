@@ -7,13 +7,14 @@
 Qué responsabilidad tiene este contexto.
 
 **Qué NO hace** (igual de importante):
+
 - …
 
 ## 2. Lenguaje ubicuo
 
 | Término | Significado exacto en este contexto | No confundir con |
 | ------- | ----------------------------------- | ---------------- |
-| | | |
+|         |                                     |                  |
 
 Términos que significan algo distinto en otro contexto: declararlo explícitamente.
 
@@ -22,9 +23,10 @@ Términos que significan algo distinto en otro contexto: declararlo explícitame
 ### `<AgregadoRaíz>`
 
 **Invariantes** (cada uno con test unitario):
-| ID | Invariante |
-| -- | ---------- |
-| INV-01 | |
+
+| ID     | Invariante |
+| ------ | ---------- |
+| INV-01 |            |
 
 **Entidades internas:** …
 **Value objects:** …
@@ -37,9 +39,9 @@ erDiagram
 
 ## 4. Casos de uso
 
-| ID | Nombre | Tipo | Actor |
-| -- | ------ | ---- | ----- |
-| CU-001 | | Comando / Consulta | |
+| ID     | Nombre | Tipo               | Actor |
+| ------ | ------ | ------------------ | ----- |
+| CU-001 |        | Comando / Consulta |       |
 
 Detalle de cada uno en [`templates/use-case.md`](use-case.md).
 
@@ -57,27 +59,27 @@ Toda transición no representada lanza `<CONTEXT>_INVALID_TRANSITION`.
 
 **Emite**
 
-| Evento | Cuándo | Payload | Consumidores |
-| ------ | ------ | ------- | ------------ |
-| `<ctx>.XxxYyy.v1` | | | |
+| Evento            | Cuándo | Payload | Consumidores |
+| ----------------- | ------ | ------- | ------------ |
+| `<ctx>.XxxYyy.v1` |        |         |              |
 
 **Consume**
 
 | Evento | Efecto | Idempotente por |
 | ------ | ------ | --------------- |
-| | | `eventId` |
+|        |        | `eventId`       |
 
 ## 7. Errores
 
 | Código | HTTP | Cuándo |
 | ------ | ---- | ------ |
-| | | |
+|        |      |        |
 
 ## 8. Puertos
 
 | Puerto | Para qué | Adaptador F1 | Adaptador futuro |
 | ------ | -------- | ------------ | ---------------- |
-| | | | |
+|        |          |              |                  |
 
 ## 9. Persistencia
 
@@ -85,15 +87,15 @@ Toda transición no representada lanza `<CONTEXT>_INVALID_TRANSITION`.
 
 | Tabla | Propósito | Índices y su motivo |
 | ----- | --------- | ------------------- |
-| | | |
+|       |           |                     |
 
 Mapeo agregado ↔ tablas. Referencias a otros contextos: sólo por ID, **sin FK**.
 
 ## 10. Dependencias
 
-| Depende de | Tipo | Qué usa |
-| ---------- | ---- | ------- |
-| | Síncrona (`public/`) / Evento | |
+| Depende de | Tipo                          | Qué usa |
+| ---------- | ----------------------------- | ------- |
+|            | Síncrona (`public/`) / Evento |         |
 
 ## 11. Preparación para fases futuras
 

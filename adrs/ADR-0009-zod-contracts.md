@@ -1,7 +1,7 @@
 # ADR-0009 — Zod como fuente de verdad de los contratos
 
 | Estado | Aceptado · **Fecha** 2026-08-06 · **Decisor** Arquitecto · **RFC** RFC-0012 |
-| ------ | --- |
+| ------ | --------------------------------------------------------------------------- |
 
 ## Contexto
 
@@ -27,13 +27,13 @@ en rojo.
 
 ## Alternativas descartadas
 
-| Alternativa | Por qué se descarta |
-| ----------- | ------------------- |
-| OpenAPI escrito a mano + generador | El esquema se desincroniza del código; nadie lo mantiene |
-| Decoradores de NestJS como fuente | Ata el contrato al framework del backend; frontend y móvil no lo pueden importar |
-| tRPC | Excelente en monorepos TypeScript, pero acopla cliente y servidor y complica cualquier consumidor no-TS |
-| GraphQL | Maquinaria considerable para un consumidor principal; el problema que resuelve (sobre/infra-fetching) se resuelve con endpoints bien diseñados |
-| Tipos escritos a mano | Divergen. Siempre |
+| Alternativa                        | Por qué se descarta                                                                                                                            |
+| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| OpenAPI escrito a mano + generador | El esquema se desincroniza del código; nadie lo mantiene                                                                                       |
+| Decoradores de NestJS como fuente  | Ata el contrato al framework del backend; frontend y móvil no lo pueden importar                                                               |
+| tRPC                               | Excelente en monorepos TypeScript, pero acopla cliente y servidor y complica cualquier consumidor no-TS                                        |
+| GraphQL                            | Maquinaria considerable para un consumidor principal; el problema que resuelve (sobre/infra-fetching) se resuelve con endpoints bien diseñados |
+| Tipos escritos a mano              | Divergen. Siempre                                                                                                                              |
 
 ## Consecuencias
 

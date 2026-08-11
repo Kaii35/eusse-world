@@ -12,7 +12,7 @@ rompa el build en vez de romper producción.
 - **El contrato se aprueba y se mergea primero.** Después backend y frontend avanzan en
   paralelo.
 - **Contract tests desde el primer día**, en rojo, antes de implementar.
-- **Errores en formato *problem+json*** con `code` estable. El frontend reacciona al código,
+- **Errores en formato _problem+json_** con `code` estable. El frontend reacciona al código,
   nunca al texto.
 - **Paginación por cursor** siempre. El `offset` se degrada y es inestable.
 - **`Idempotency-Key` en toda mutación** que cree o cobre algo.
@@ -21,16 +21,16 @@ rompa el build en vez de romper producción.
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Tipos TS escritos a mano junto al esquema | Divergen en la primera prisa |
-| Errores identificados por mensaje | Se rompe el frontend al mejorar la redacción o al traducir |
-| Devolver la entidad de base de datos tal cual | Se filtran campos internos; el esquema dicta la API |
-| Cambiar un campo sin subir versión | Clientes antiguos rotos en silencio |
-| `POST /getOrders` | Sin caché, sin semántica, sin idempotencia |
-| Paginación por offset | Duplicados y saltos cuando se insertan filas |
-| `200 OK` con `{ error: ... }` | Los clientes HTTP no pueden reaccionar correctamente |
-| Filtros como blob de query sin tipar | Imposible de validar y de documentar |
+| Error                                         | Consecuencia                                               |
+| --------------------------------------------- | ---------------------------------------------------------- |
+| Tipos TS escritos a mano junto al esquema     | Divergen en la primera prisa                               |
+| Errores identificados por mensaje             | Se rompe el frontend al mejorar la redacción o al traducir |
+| Devolver la entidad de base de datos tal cual | Se filtran campos internos; el esquema dicta la API        |
+| Cambiar un campo sin subir versión            | Clientes antiguos rotos en silencio                        |
+| `POST /getOrders`                             | Sin caché, sin semántica, sin idempotencia                 |
+| Paginación por offset                         | Duplicados y saltos cuando se insertan filas               |
+| `200 OK` con `{ error: ... }`                 | Los clientes HTTP no pueden reaccionar correctamente       |
+| Filtros como blob de query sin tipar          | Imposible de validar y de documentar                       |
 
 ## Patrones
 

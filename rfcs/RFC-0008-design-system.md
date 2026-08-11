@@ -1,11 +1,11 @@
 # RFC-0008 — Design System y tokens
 
-| Campo | Valor |
-| ----- | ----- |
-| **Estado** | Aprobado · **Autor** Design System + UI · **Creado** 2026-08-06 |
-| **Revisores** | UX · Frontend · Accesibilidad · Performance · Arquitecto |
-| **ADR generados** | ADR-0010, ADR-0011 |
-| **Bloque** | A (A8, A9) · Sprint 0 |
+| Campo             | Valor                                                           |
+| ----------------- | --------------------------------------------------------------- |
+| **Estado**        | Aprobado · **Autor** Design System + UI · **Creado** 2026-08-06 |
+| **Revisores**     | UX · Frontend · Accesibilidad · Performance · Arquitecto        |
+| **ADR generados** | ADR-0010, ADR-0011                                              |
+| **Bloque**        | A (A8, A9) · Sprint 0                                           |
 
 ---
 
@@ -29,10 +29,10 @@ soporte RTL (preparado, no implementado).
 
 ## 3. Alternativas consideradas
 
-| Alternativa | Descarte |
-| ----------- | -------- |
-| A. Librería de componentes externa completa (MUI, Ant) | Estética ajena difícil de personalizar; bundle grande; se lucha contra ella |
-| B. Todo a medida desde cero | Meses reimplementando accesibilidad ya resuelta |
+| Alternativa                                                                                                     | Descarte                                                                                           |
+| --------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| A. Librería de componentes externa completa (MUI, Ant)                                                          | Estética ajena difícil de personalizar; bundle grande; se lucha contra ella                        |
+| B. Todo a medida desde cero                                                                                     | Meses reimplementando accesibilidad ya resuelta                                                    |
 | **C. Radix (comportamiento) + Tailwind v4 (estilo) + shadcn/ui como punto de partida, copiado a `packages/ui`** | **Elegida.** Accesibilidad resuelta, control total del estilo, sin dependencia de versiones ajenas |
 
 ## 4. Diseño
@@ -86,14 +86,14 @@ secundarios en el import (tree-shakeable).
 
 ### 4.6 Verificación
 
-| Qué | Cómo | Bloquea |
-| --- | ---- | ------- |
-| Contraste | Test sobre todos los pares de tokens, en ambos temas | Sí |
-| Accesibilidad | Test de comportamiento + axe | Sí |
-| Regresión visual | Snapshots de Playwright en ambos temas | Sí |
-| Valores mágicos | Regla de ESLint | Sí |
-| Bundle | `size-limit` por paquete | Sí |
-| Documentación | Story obligatoria por variante y estado | Sí |
+| Qué              | Cómo                                                 | Bloquea |
+| ---------------- | ---------------------------------------------------- | ------- |
+| Contraste        | Test sobre todos los pares de tokens, en ambos temas | Sí      |
+| Accesibilidad    | Test de comportamiento + axe                         | Sí      |
+| Regresión visual | Snapshots de Playwright en ambos temas               | Sí      |
+| Valores mágicos  | Regla de ESLint                                      | Sí      |
+| Bundle           | `size-limit` por paquete                             | Sí      |
+| Documentación    | Story obligatoria por variante y estado              | Sí      |
 
 ## 5. Impacto
 
@@ -102,12 +102,12 @@ guía de migración y actualización de ambos consumidores.
 
 ## 6. Riesgos
 
-| Riesgo | Prob. | Impacto | Mitigación |
-| ------ | ----- | ------- | ---------- |
-| Deriva del sistema (R-10) | Alta | Medio | Lint contra valores arbitrarios + auditoría trimestral de duplicación entre apps |
-| Modo oscuro que falla | Media | Medio | Token sin par oscuro no compila; test de contraste en ambos temas |
-| Bundle inflado por Radix e iconos (R-11) | Media | Medio | Imports granulares + `size-limit` + iconos uno a uno |
-| Promoción prematura a `@eusse/ui` | Media | Medio | Regla de las dos apariciones |
+| Riesgo                                   | Prob. | Impacto | Mitigación                                                                       |
+| ---------------------------------------- | ----- | ------- | -------------------------------------------------------------------------------- |
+| Deriva del sistema (R-10)                | Alta  | Medio   | Lint contra valores arbitrarios + auditoría trimestral de duplicación entre apps |
+| Modo oscuro que falla                    | Media | Medio   | Token sin par oscuro no compila; test de contraste en ambos temas                |
+| Bundle inflado por Radix e iconos (R-11) | Media | Medio   | Imports granulares + `size-limit` + iconos uno a uno                             |
+| Promoción prematura a `@eusse/ui`        | Media | Medio   | Regla de las dos apariciones                                                     |
 
 ## 7. Criterios de aceptación
 

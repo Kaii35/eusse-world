@@ -20,18 +20,18 @@ En B2B el cobro rara vez es "tarjeta ahora": es crédito, plazos y transferencia
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Importe del cliente | Manipulación de precio |
-| Confirmar por el retorno del usuario | El usuario cierra la pestaña y el pago se pierde |
-| Webhook sin verificar la firma | Cualquiera marca órdenes como pagadas |
-| Webhook no idempotente | Doble abono, doble envío |
-| Asumir orden de llegada de los webhooks | Estado incorrecto |
-| Guardar el PAN de la tarjeta | Incumplimiento PCI grave |
-| Llamar a la pasarela antes de crear la orden | Cobro sin orden asociada |
-| Sin conciliación | Descuadres que se descubren meses después |
-| Crédito verificado sólo al iniciar el checkout | Cambió mientras el usuario rellenaba |
-| Secreto de la pasarela en el cliente | Compromiso inmediato |
+| Error                                          | Consecuencia                                     |
+| ---------------------------------------------- | ------------------------------------------------ |
+| Importe del cliente                            | Manipulación de precio                           |
+| Confirmar por el retorno del usuario           | El usuario cierra la pestaña y el pago se pierde |
+| Webhook sin verificar la firma                 | Cualquiera marca órdenes como pagadas            |
+| Webhook no idempotente                         | Doble abono, doble envío                         |
+| Asumir orden de llegada de los webhooks        | Estado incorrecto                                |
+| Guardar el PAN de la tarjeta                   | Incumplimiento PCI grave                         |
+| Llamar a la pasarela antes de crear la orden   | Cobro sin orden asociada                         |
+| Sin conciliación                               | Descuadres que se descubren meses después        |
+| Crédito verificado sólo al iniciar el checkout | Cambió mientras el usuario rellenaba             |
+| Secreto de la pasarela en el cliente           | Compromiso inmediato                             |
 
 ## Patrones
 

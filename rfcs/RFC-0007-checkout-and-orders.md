@@ -1,11 +1,11 @@
 # RFC-0007 — Checkout y órdenes
 
-| Campo | Valor |
-| ----- | ----- |
-| **Estado** | Borrador · **Autor** Arquitecto + Checkout · **Creado** 2026-08-06 |
-| **Revisores** | Backend · Pagos · Tracking · UX · Seguridad · QA · Product Owner |
-| **ADR generados** | ADR-0018 |
-| **Bloque** | F · Sprints 8–9 |
+| Campo             | Valor                                                              |
+| ----------------- | ------------------------------------------------------------------ |
+| **Estado**        | Borrador · **Autor** Arquitecto + Checkout · **Creado** 2026-08-06 |
+| **Revisores**     | Backend · Pagos · Tracking · UX · Seguridad · QA · Product Owner   |
+| **ADR generados** | ADR-0018                                                           |
+| **Bloque**        | F · Sprints 8–9                                                    |
 
 ---
 
@@ -34,17 +34,17 @@ transportadora (F2) · facturación electrónica (F2) · devoluciones (F2).
 
 **Cuándo se crea la orden**
 
-| Alternativa | Descarte |
-| ----------- | -------- |
-| A. Tras confirmar el pago | Si la pasarela cobra y la creación falla, hay un cobro sin orden. Inaceptable |
-| **B. Antes de llamar a cualquier tercero, en estado `PENDING_PAYMENT`** | **Elegida.** Un fallo deja una orden recuperable y auditable |
+| Alternativa                                                             | Descarte                                                                      |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| A. Tras confirmar el pago                                               | Si la pasarela cobra y la creación falla, hay un cobro sin orden. Inaceptable |
+| **B. Antes de llamar a cualquier tercero, en estado `PENDING_PAYMENT`** | **Elegida.** Un fallo deja una orden recuperable y auditable                  |
 
 **Coordinación entre módulos**
 
-| Alternativa | Descarte |
-| ----------- | -------- |
-| A. Saga con orquestador central | Complejidad no justificada con cuatro módulos |
-| **B. Coreografía por eventos** | **Elegida.** Cada módulo reacciona a `OrderPlaced` y emite lo suyo |
+| Alternativa                     | Descarte                                                           |
+| ------------------------------- | ------------------------------------------------------------------ |
+| A. Saga con orquestador central | Complejidad no justificada con cuatro módulos                      |
+| **B. Coreografía por eventos**  | **Elegida.** Cada módulo reacciona a `OrderPlaced` y emite lo suyo |
 
 ## 4. Diseño
 
@@ -84,17 +84,17 @@ sequenceDiagram
 
 En este orden, todas en el servidor:
 
-| # | Validación | Error |
-| - | ---------- | ----- |
-| 1 | Cuenta `ACTIVE` | `ACCOUNT_NOT_ACTIVE` |
-| 2 | Permiso `order:create` | `AUTH_FORBIDDEN` |
-| 3 | Carrito no vacío | `CART_EMPTY` |
-| 4 | Todas las líneas disponibles y visibles | `CATALOG_VARIANT_NOT_VISIBLE` |
-| 5 | Cantidades válidas (mínimos y múltiplos actuales) | `CART_QTY_*` |
-| 6 | Precios vigentes | `PRICING_PRICE_CHANGED` (409) |
-| 7 | Total ≥ `minOrderAmount` de la cuenta | `CHECKOUT_BELOW_MIN_ORDER` |
-| 8 | Crédito suficiente si el pago es a crédito | `ACCOUNT_CREDIT_EXCEEDED` |
-| 9 | Total vs. `approvalThreshold` del comprador | → `PENDING_APPROVAL` (202) |
+| #   | Validación                                        | Error                         |
+| --- | ------------------------------------------------- | ----------------------------- |
+| 1   | Cuenta `ACTIVE`                                   | `ACCOUNT_NOT_ACTIVE`          |
+| 2   | Permiso `order:create`                            | `AUTH_FORBIDDEN`              |
+| 3   | Carrito no vacío                                  | `CART_EMPTY`                  |
+| 4   | Todas las líneas disponibles y visibles           | `CATALOG_VARIANT_NOT_VISIBLE` |
+| 5   | Cantidades válidas (mínimos y múltiplos actuales) | `CART_QTY_*`                  |
+| 6   | Precios vigentes                                  | `PRICING_PRICE_CHANGED` (409) |
+| 7   | Total ≥ `minOrderAmount` de la cuenta             | `CHECKOUT_BELOW_MIN_ORDER`    |
+| 8   | Crédito suficiente si el pago es a crédito        | `ACCOUNT_CREDIT_EXCEEDED`     |
+| 9   | Total vs. `approvalThreshold` del comprador       | → `PENDING_APPROVAL` (202)    |
 
 ### 4.4 Modelo
 
@@ -123,11 +123,11 @@ autoriza a sí mismo anula el control que motiva la funcionalidad.
 
 ### 4.7 Puertos con adaptador mínimo en Fase 1
 
-| Puerto | Adaptador F1 | Adaptador F2 |
-| ------ | ------------ | ------------ |
-| `PaymentPort` | Offline: transferencia o crédito | Pasarela real |
-| `InventoryPort` | Siempre disponible | Inventario propio |
-| `ShippingPort` | Tarifa plana por zona | Transportadora |
+| Puerto          | Adaptador F1                     | Adaptador F2      |
+| --------------- | -------------------------------- | ----------------- |
+| `PaymentPort`   | Offline: transferencia o crédito | Pasarela real     |
+| `InventoryPort` | Siempre disponible               | Inventario propio |
+| `ShippingPort`  | Tarifa plana por zona            | Transportadora    |
 
 El checkout está **completo** desde la Fase 1: los adaptadores reales llegan sin tocar
 dominio ni UI.
@@ -154,22 +154,22 @@ envío es visible desde el paso 1.
 
 ## 5. Impacto
 
-| Área | Impacto |
-| ---- | ------- |
-| Contextos | Checkout y Orders (nuevos) · Cart (conversión) · Notifications (consume) |
-| Rendimiento | Confirmar < 500 ms p95, excluyendo terceros |
-| **Seguridad** | Importes del servidor · idempotencia · autorización por operación |
-| Observabilidad | Evento por cada paso del embudo, para medir abandono |
+| Área           | Impacto                                                                  |
+| -------------- | ------------------------------------------------------------------------ |
+| Contextos      | Checkout y Orders (nuevos) · Cart (conversión) · Notifications (consume) |
+| Rendimiento    | Confirmar < 500 ms p95, excluyendo terceros                              |
+| **Seguridad**  | Importes del servidor · idempotencia · autorización por operación        |
+| Observabilidad | Evento por cada paso del embudo, para medir abandono                     |
 
 ## 6. Riesgos
 
-| Riesgo | Prob. | Impacto | Mitigación verificable |
-| ------ | ----- | ------- | ---------------------- |
-| Órdenes duplicadas | Alta | Alto | Idempotencia + restricción única + test de 10 concurrentes |
-| Cobro distinto al mostrado | Media | Crítico | Revalidación en el paso final con confirmación explícita |
-| Estado inconsistente por fallo de tercero | Media | Alto | Orden creada antes de llamar a terceros; test de fallo inyectado |
-| Colisión de número de orden | Baja | Medio | Secuencia de PostgreSQL; test de concurrencia |
-| Crédito superado por pedidos simultáneos | Media | Alto | Reserva de crédito dentro de la transacción de confirmación |
+| Riesgo                                    | Prob. | Impacto | Mitigación verificable                                           |
+| ----------------------------------------- | ----- | ------- | ---------------------------------------------------------------- |
+| Órdenes duplicadas                        | Alta  | Alto    | Idempotencia + restricción única + test de 10 concurrentes       |
+| Cobro distinto al mostrado                | Media | Crítico | Revalidación en el paso final con confirmación explícita         |
+| Estado inconsistente por fallo de tercero | Media | Alto    | Orden creada antes de llamar a terceros; test de fallo inyectado |
+| Colisión de número de orden               | Baja  | Medio   | Secuencia de PostgreSQL; test de concurrencia                    |
+| Crédito superado por pedidos simultáneos  | Media | Alto    | Reserva de crédito dentro de la transacción de confirmación      |
 
 ## 7. Criterios de aceptación
 
@@ -225,10 +225,10 @@ publicados para CRM y Analytics.
 
 ## 10. Preguntas abiertas
 
-| # | Pregunta | Bloquea | Resuelta |
-| - | -------- | ------- | -------- |
-| 1 | ¿Puede cancelarse una orden ya en `PROCESSING`? | F8 | **Sí**, sólo por staff con permiso `order:cancel` y motivo obligatorio. El cliente sólo puede cancelar en `PENDING_PAYMENT` y `PENDING_APPROVAL` |
-| 2 | ¿Qué pasa si el aprobador no actúa? | F8 | La orden expira a los 7 días → `CANCELLED` con motivo `APPROVAL_TIMEOUT`, con recordatorios a los días 3 y 6 |
+| #   | Pregunta                                        | Bloquea | Resuelta                                                                                                                                         |
+| --- | ----------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1   | ¿Puede cancelarse una orden ya en `PROCESSING`? | F8      | **Sí**, sólo por staff con permiso `order:cancel` y motivo obligatorio. El cliente sólo puede cancelar en `PENDING_PAYMENT` y `PENDING_APPROVAL` |
+| 2   | ¿Qué pasa si el aprobador no actúa?             | F8      | La orden expira a los 7 días → `CANCELLED` con motivo `APPROVAL_TIMEOUT`, con recordatorios a los días 3 y 6                                     |
 
 ## 11. Enlaces
 

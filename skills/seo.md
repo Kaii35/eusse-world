@@ -19,18 +19,18 @@ Que el catálogo público se encuentre en buscadores y que **nada privado se ind
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Contenido sólo en cliente | El buscador no lo ve |
-| Portal o admin indexable | Datos de clientes en Google: incidente |
-| **Precios de cuenta en JSON-LD** | Fuga de acuerdos comerciales |
-| Datos estructurados que no coinciden con la página | Penalización |
-| Slug cambiado sin 301 | Se pierde el posicionamiento acumulado |
-| Título duplicado en todo el catálogo | Canibalización |
-| Sin canónica en páginas con filtros | Contenido duplicado masivo |
-| Sitemap con URLs `noindex` | Señales contradictorias |
-| Imágenes sin `alt` | Se pierde tráfico de imágenes y falla la accesibilidad |
-| Paginación sin URLs rastreables | Sólo se indexa la primera página |
+| Error                                              | Consecuencia                                           |
+| -------------------------------------------------- | ------------------------------------------------------ |
+| Contenido sólo en cliente                          | El buscador no lo ve                                   |
+| Portal o admin indexable                           | Datos de clientes en Google: incidente                 |
+| **Precios de cuenta en JSON-LD**                   | Fuga de acuerdos comerciales                           |
+| Datos estructurados que no coinciden con la página | Penalización                                           |
+| Slug cambiado sin 301                              | Se pierde el posicionamiento acumulado                 |
+| Título duplicado en todo el catálogo               | Canibalización                                         |
+| Sin canónica en páginas con filtros                | Contenido duplicado masivo                             |
+| Sitemap con URLs `noindex`                         | Señales contradictorias                                |
+| Imágenes sin `alt`                                 | Se pierde tráfico de imágenes y falla la accesibilidad |
+| Paginación sin URLs rastreables                    | Sólo se indexa la primera página                       |
 
 ## Patrones
 
@@ -55,8 +55,10 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 
 ```json
 {
-  "@context": "https://schema.org", "@type": "Product",
-  "name": "Taladro percutor industrial X", "sku": "TAL-500",
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Taladro percutor industrial X",
+  "sku": "TAL-500",
   "brand": { "@type": "Brand", "name": "Eusse" },
   "offers": {
     "@type": "Offer",

@@ -21,16 +21,16 @@ Formularios que no pierden datos, validan igual que el servidor y son accesibles
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
+| Error                                  | Consecuencia                                        |
+| -------------------------------------- | --------------------------------------------------- |
 | Esquema distinto en cliente y servidor | El usuario pasa el cliente y el servidor lo rechaza |
-| Validar en cada pulsación | Errores en rojo mientras el usuario escribe: hostil |
-| Sólo resumen de errores arriba | En formularios largos no se encuentra el campo |
-| Perder los datos ante un error | El usuario abandona; con 15 campos, no vuelve |
-| Sin estado de envío | Doble envío |
-| `placeholder` como etiqueta | Desaparece al escribir; inaccesible |
-| Mensajes genéricos | El usuario no sabe qué corregir |
-| Sin `autocomplete` | El gestor de contraseñas no funciona |
+| Validar en cada pulsación              | Errores en rojo mientras el usuario escribe: hostil |
+| Sólo resumen de errores arriba         | En formularios largos no se encuentra el campo      |
+| Perder los datos ante un error         | El usuario abandona; con 15 campos, no vuelve       |
+| Sin estado de envío                    | Doble envío                                         |
+| `placeholder` como etiqueta            | Desaparece al escribir; inaccesible                 |
+| Mensajes genéricos                     | El usuario no sabe qué corregir                     |
+| Sin `autocomplete`                     | El gestor de contraseñas no funciona                |
 
 ## Patrones
 

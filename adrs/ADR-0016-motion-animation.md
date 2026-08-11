@@ -1,7 +1,7 @@
 # ADR-0016 — Motion como librería de animación
 
 | Estado | Aceptado · **Fecha** 2026-08-06 · **Decisor** Design System + UI · **RFC** RFC-0008, RFC-0009 |
-| ------ | --- |
+| ------ | --------------------------------------------------------------------------------------------- |
 
 ## Contexto
 
@@ -17,6 +17,7 @@ tiene que animar.
 **Motion** (antes Framer Motion) como librería única de animación.
 
 Reglas de uso:
+
 - Sólo se animan `transform` y `opacity`.
 - `prefers-reduced-motion` se respeta **siempre**.
 - Revelado al scroll con `once: true`.
@@ -26,13 +27,13 @@ Reglas de uso:
 
 ## Alternativas descartadas
 
-| Alternativa | Por qué se descarta |
-| ----------- | ------------------- |
-| Sólo transiciones y `@keyframes` de CSS | Suficiente para microinteracciones, insuficiente para orquestación, gestos y transiciones de layout |
-| GSAP | Muy potente, pero licencia comercial en algunos usos y API imperativa que encaja peor con React |
-| React Spring | Buena alternativa; Motion tiene mejor integración con React 19, mejor API declarativa y mejor documentación |
-| Web Animations API a pelo | Habría que construir la capa declarativa: reinventar Motion peor |
-| Sin librería | El nivel de ejecución que pide RFC-0009 no se alcanza sólo con CSS |
+| Alternativa                             | Por qué se descarta                                                                                         |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Sólo transiciones y `@keyframes` de CSS | Suficiente para microinteracciones, insuficiente para orquestación, gestos y transiciones de layout         |
+| GSAP                                    | Muy potente, pero licencia comercial en algunos usos y API imperativa que encaja peor con React             |
+| React Spring                            | Buena alternativa; Motion tiene mejor integración con React 19, mejor API declarativa y mejor documentación |
+| Web Animations API a pelo               | Habría que construir la capa declarativa: reinventar Motion peor                                            |
+| Sin librería                            | El nivel de ejecución que pide RFC-0009 no se alcanza sólo con CSS                                          |
 
 ## Consecuencias
 

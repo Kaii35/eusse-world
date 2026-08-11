@@ -1,11 +1,11 @@
 # ADR-XXXX — <Decisión en una frase>
 
-| Campo | Valor |
-| ----- | ----- |
-| **Estado** | Propuesto · Aceptado · Rechazado · Supersedido por ADR-YYYY |
-| **Fecha** | AAAA-MM-DD |
-| **Decisor** | Arquitecto |
-| **RFC origen** | RFC-XXXX |
+| Campo          | Valor                                                       |
+| -------------- | ----------------------------------------------------------- |
+| **Estado**     | Propuesto · Aceptado · Rechazado · Supersedido por ADR-YYYY |
+| **Fecha**      | AAAA-MM-DD                                                  |
+| **Decisor**    | Arquitecto                                                  |
+| **RFC origen** | RFC-XXXX                                                    |
 
 ## Contexto
 
@@ -20,17 +20,20 @@ Qué se decide. En presente y en afirmativo: "Usamos X", no "Se podría usar X".
 
 | Alternativa | Por qué se descarta |
 | ----------- | ------------------- |
-| | |
+|             |                     |
 
 ## Consecuencias
 
 **Positivas**
+
 - …
 
 **Negativas** (hay que escribirlas; una decisión sin coste no es una decisión)
+
 - …
 
 **Neutras**
+
 - …
 
 ## Criterio de revisión

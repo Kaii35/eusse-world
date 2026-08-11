@@ -1,7 +1,7 @@
 # ADR-0017 — Almacenamiento de medios compatible con S3, tras un puerto
 
 | Estado | Aceptado · **Fecha** 2026-08-06 · **Decisor** Arquitecto · **RFC** RFC-0005 |
-| ------ | --- |
+| ------ | --------------------------------------------------------------------------- |
 
 ## Contexto
 
@@ -23,13 +23,13 @@ Almacenamiento de objetos **compatible con S3**, detrás de `StoragePort`.
 
 ## Alternativas descartadas
 
-| Alternativa | Por qué se descarta |
-| ----------- | ------------------- |
-| Imágenes en PostgreSQL | Infla la base de datos, ralentiza copias de seguridad y consultas |
-| Sistema de archivos del servidor | No sobrevive a instancias efímeras ni escala horizontalmente |
-| Cloudinary / imgix | Excelentes, pero coste por transformación y dependencia de un tercero para servir el catálogo completo |
-| Generar derivados al vuelo en cada petición | Coste de CPU y latencia en cada visita |
-| Acoplarse al SDK de un proveedor concreto | Cambiar de proveedor obligaría a tocar el dominio |
+| Alternativa                                 | Por qué se descarta                                                                                    |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Imágenes en PostgreSQL                      | Infla la base de datos, ralentiza copias de seguridad y consultas                                      |
+| Sistema de archivos del servidor            | No sobrevive a instancias efímeras ni escala horizontalmente                                           |
+| Cloudinary / imgix                          | Excelentes, pero coste por transformación y dependencia de un tercero para servir el catálogo completo |
+| Generar derivados al vuelo en cada petición | Coste de CPU y latencia en cada visita                                                                 |
+| Acoplarse al SDK de un proveedor concreto   | Cambiar de proveedor obligaría a tocar el dominio                                                      |
 
 ## Consecuencias
 

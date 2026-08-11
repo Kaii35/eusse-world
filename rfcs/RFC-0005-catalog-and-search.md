@@ -1,10 +1,10 @@
 # RFC-0005 — Catálogo, búsqueda y filtrado
 
-| Campo | Valor |
-| ----- | ----- |
-| **Estado** | Borrador · **Autor** Arquitecto + Productos · **Creado** 2026-08-06 |
-| **Revisores** | Catálogo · Base de Datos · SEO · Performance · UX · Product Owner |
-| **Bloque** | D · Sprints 4–5 |
+| Campo         | Valor                                                               |
+| ------------- | ------------------------------------------------------------------- |
+| **Estado**    | Borrador · **Autor** Arquitecto + Productos · **Creado** 2026-08-06 |
+| **Revisores** | Catálogo · Base de Datos · SEO · Performance · UX · Product Owner   |
+| **Bloque**    | D · Sprints 4–5                                                     |
 
 ---
 
@@ -30,17 +30,17 @@ reseñas · comparador · stock real (F2).
 
 **Motor de búsqueda**
 
-| Alternativa | Descarte |
-| ----------- | -------- |
-| A. Meilisearch/Typesense desde el día 1 | Un servicio más que desplegar, operar y sincronizar, para un catálogo que cabe en PostgreSQL |
+| Alternativa                                                      | Descarte                                                                                                                      |
+| ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| A. Meilisearch/Typesense desde el día 1                          | Un servicio más que desplegar, operar y sincronizar, para un catálogo que cabe en PostgreSQL                                  |
 | **B. PostgreSQL FTS (`tsvector` + `pg_trgm`) tras `SearchPort`** | **Elegida.** Suficiente hasta ~50 000 SKUs; cero infraestructura adicional; el puerto permite cambiar sin tocar dominio ni UI |
 
 **Atributos**
 
-| Alternativa | Descarte |
-| ----------- | -------- |
-| A. Columnas por atributo | Cada categoría nueva es una migración |
-| B. EAV | Consultas imposibles, sin tipos |
+| Alternativa                                               | Descarte                                              |
+| --------------------------------------------------------- | ----------------------------------------------------- |
+| A. Columnas por atributo                                  | Cada categoría nueva es una migración                 |
+| B. EAV                                                    | Consultas imposibles, sin tipos                       |
 | **C. JSONB con diccionario de definiciones + índice GIN** | **Elegida.** Flexible, validado, filtrable con índice |
 
 ## 4. Diseño
@@ -110,12 +110,12 @@ en el coste de escritura, medido y aceptado.
 
 ## 6. Riesgos
 
-| Riesgo | Prob. | Impacto | Mitigación |
-| ------ | ----- | ------- | ---------- |
-| Listado lento con filtros multi-atributo (R-07) | Media | Alto | Índices GIN + `EXPLAIN ANALYZE` en cada PR + prueba de carga con 50 000 SKUs |
-| Facetas con conteos incorrectos | Media | Medio | Test que compara el conteo de la faceta con el resultado real de aplicar el filtro |
-| Búsqueda que no encuentra por SKU | Media | Alto | SKU con peso máximo + test con 20 búsquedas reales del negocio |
-| Fuga de catálogo restringido | Baja | Alto | Visibilidad en la consulta + test por nivel de visibilidad |
+| Riesgo                                          | Prob. | Impacto | Mitigación                                                                         |
+| ----------------------------------------------- | ----- | ------- | ---------------------------------------------------------------------------------- |
+| Listado lento con filtros multi-atributo (R-07) | Media | Alto    | Índices GIN + `EXPLAIN ANALYZE` en cada PR + prueba de carga con 50 000 SKUs       |
+| Facetas con conteos incorrectos                 | Media | Medio   | Test que compara el conteo de la faceta con el resultado real de aplicar el filtro |
+| Búsqueda que no encuentra por SKU               | Media | Alto    | SKU con peso máximo + test con 20 búsquedas reales del negocio                     |
+| Fuga de catálogo restringido                    | Baja  | Alto    | Visibilidad en la consulta + test por nivel de visibilidad                         |
 
 ## 7. Criterios de aceptación
 
@@ -154,9 +154,9 @@ admite tipos nuevos sin migración.
 
 ## 10. Preguntas abiertas
 
-| # | Pregunta | Bloquea | Resuelta |
-| - | -------- | ------- | -------- |
-| 1 | ¿Se indexan las URLs con facetas aplicadas? | D10 | **No** por defecto: canonizan a la categoría. Se decidirá caso a caso si alguna faceta tiene volumen de búsqueda propio |
+| #   | Pregunta                                    | Bloquea | Resuelta                                                                                                                |
+| --- | ------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------- |
+| 1   | ¿Se indexan las URLs con facetas aplicadas? | D10     | **No** por defecto: canonizan a la categoría. Se decidirá caso a caso si alguna faceta tiene volumen de búsqueda propio |
 
 ## 11. Enlaces
 

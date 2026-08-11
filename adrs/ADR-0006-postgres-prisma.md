@@ -1,7 +1,7 @@
 # ADR-0006 — PostgreSQL + Prisma, un esquema por contexto acotado
 
 | Estado | Aceptado · **Fecha** 2026-08-06 · **Decisor** Arquitecto · **RFC** RFC-0001, RFC-0002 |
-| ------ | --- |
+| ------ | ------------------------------------------------------------------------------------- |
 
 ## Contexto
 
@@ -23,13 +23,13 @@ expand → migrate → contract.
 
 ## Alternativas descartadas
 
-| Alternativa | Por qué se descarta |
-| ----------- | ------------------- |
-| MongoDB | El dominio es relacional; las transacciones multi-documento son un parche |
-| Una base de datos por módulo desde el día 1 | Coste operativo sin beneficio; el esquema por contexto da el mismo aislamiento lógico |
-| Drizzle | Buena opción y más ligera, pero Prisma tiene migraciones y tooling más maduros para un equipo pequeño |
-| TypeORM | Historial de problemas de mantenimiento y de comportamiento sorprendente en migraciones |
-| Prisma con un solo esquema | No impide joins accidentales entre contextos: la frontera se rompería en el primer sprint con prisa |
+| Alternativa                                 | Por qué se descarta                                                                                   |
+| ------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| MongoDB                                     | El dominio es relacional; las transacciones multi-documento son un parche                             |
+| Una base de datos por módulo desde el día 1 | Coste operativo sin beneficio; el esquema por contexto da el mismo aislamiento lógico                 |
+| Drizzle                                     | Buena opción y más ligera, pero Prisma tiene migraciones y tooling más maduros para un equipo pequeño |
+| TypeORM                                     | Historial de problemas de mantenimiento y de comportamiento sorprendente en migraciones               |
+| Prisma con un solo esquema                  | No impide joins accidentales entre contextos: la frontera se rompería en el primer sprint con prisa   |
 
 ## Consecuencias
 

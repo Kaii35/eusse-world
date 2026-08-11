@@ -1,7 +1,7 @@
 # ADR-0010 — TailwindCSS v4 con tokens CSS-first
 
 | Estado | Aceptado · **Fecha** 2026-08-06 · **Decisor** Design System · **RFC** RFC-0008 |
-| ------ | --- |
+| ------ | ------------------------------------------------------------------------------ |
 
 ## Contexto
 
@@ -20,13 +20,13 @@ Modo oscuro por **clase**, no por media query: el usuario elige.
 
 ## Alternativas descartadas
 
-| Alternativa | Por qué se descarta |
-| ----------- | ------------------- |
-| CSS Modules | Sin sistema de restricciones: cada archivo puede inventar sus valores |
-| styled-components / Emotion | Coste en runtime; mala interacción con Server Components |
-| Panda CSS / vanilla-extract | Buenas opciones, ecosistema menor y menos integración con shadcn/ui |
-| Tailwind v3 | v4 tiene configuración CSS-first, que hace los tokens más naturales y compartibles entre paquetes |
-| Modo oscuro por media query | El usuario no puede elegir; en B2B se trabaja en entornos de iluminación muy distintos |
+| Alternativa                 | Por qué se descarta                                                                               |
+| --------------------------- | ------------------------------------------------------------------------------------------------- |
+| CSS Modules                 | Sin sistema de restricciones: cada archivo puede inventar sus valores                             |
+| styled-components / Emotion | Coste en runtime; mala interacción con Server Components                                          |
+| Panda CSS / vanilla-extract | Buenas opciones, ecosistema menor y menos integración con shadcn/ui                               |
+| Tailwind v3                 | v4 tiene configuración CSS-first, que hace los tokens más naturales y compartibles entre paquetes |
+| Modo oscuro por media query | El usuario no puede elegir; en B2B se trabaja en entornos de iluminación muy distintos            |
 
 ## Consecuencias
 

@@ -1,13 +1,24 @@
 # @eusse/config-typescript
 
-> Vacío. Se crea en el **Sprint 0**.
+Configuraciones de TypeScript compartidas. Heredadas por todo el workspace.
 
-Propósito, dependencias permitidas y paso de creación: ver [packages/README.md](../README.md).
+| Preset               | Para                                                        |
+| -------------------- | ----------------------------------------------------------- |
+| `base.json`          | Base de todo. `strict` y comprobaciones estrictas activadas |
+| `library.json`       | Paquetes que compilan a `dist/`                             |
+| `react-library.json` | Paquetes con JSX (`@eusse/ui`)                              |
+| `next.json`          | `apps/web`, `apps/admin`                                    |
+| `nest.json`          | `apps/api`, `apps/workers` (decoradores, CommonJS)          |
 
-## Cuándo usarlo
+## Uso
 
-*Por definir al implementarlo.*
+```json
+{ "extends": "@eusse/config-typescript/next.json" }
+```
 
-## Cuándo NO usarlo
+## Reglas heredadas
 
-*Por definir al implementarlo. Esta sección es la que evita la deriva del sistema.*
+`strict` · `noUncheckedIndexedAccess` · `exactOptionalPropertyTypes` ·
+`verbatimModuleSyntax` · `isolatedModules`. Ver [docs/03-conventions.md](../../docs/03-conventions.md) §4.
+
+**`any` está prohibido por lint, no por tsconfig.** Ver `@eusse/config-eslint`.

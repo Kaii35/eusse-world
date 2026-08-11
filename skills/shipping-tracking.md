@@ -20,18 +20,18 @@ Que el cliente sepa dónde está su pedido sin llamar a nadie. Meta de Fase 1: r
 
 ## Errores comunes
 
-| Error | Consecuencia |
-| ----- | ------------ |
-| Estado logístico sin evento | Imposible reconstruir qué pasó |
-| Handler que asume orden de llegada | Un pedido "entregado" vuelve a "en tránsito" |
-| Evento duplicado no deduplicado | Notificaciones repetidas al cliente |
-| Prometer fecha exacta | Incumplimiento y ticket asegurado |
-| Un solo despacho por orden | No se puede enviar lo disponible y el resto después |
-| Coste de envío revelado en el último paso | Abandono |
-| Sondeo sin límite | Bloqueo por exceso de peticiones del proveedor |
-| Fallo del proveedor que bloquea el checkout | Se pierden ventas por un problema ajeno |
-| Cambio manual de estado sin auditar | Imposible investigar |
-| Notificar cada micro-evento | El cliente silencia las notificaciones |
+| Error                                       | Consecuencia                                        |
+| ------------------------------------------- | --------------------------------------------------- |
+| Estado logístico sin evento                 | Imposible reconstruir qué pasó                      |
+| Handler que asume orden de llegada          | Un pedido "entregado" vuelve a "en tránsito"        |
+| Evento duplicado no deduplicado             | Notificaciones repetidas al cliente                 |
+| Prometer fecha exacta                       | Incumplimiento y ticket asegurado                   |
+| Un solo despacho por orden                  | No se puede enviar lo disponible y el resto después |
+| Coste de envío revelado en el último paso   | Abandono                                            |
+| Sondeo sin límite                           | Bloqueo por exceso de peticiones del proveedor      |
+| Fallo del proveedor que bloquea el checkout | Se pierden ventas por un problema ajeno             |
+| Cambio manual de estado sin auditar         | Imposible investigar                                |
+| Notificar cada micro-evento                 | El cliente silencia las notificaciones              |
 
 ## Patrones
 
