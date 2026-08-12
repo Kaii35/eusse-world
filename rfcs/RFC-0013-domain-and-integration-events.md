@@ -105,20 +105,33 @@ Siempre en **pasado**: describe un hecho ocurrido, no una orden de hacer algo.
 
 ### 4.4 Catálogo de eventos de Fase 1
 
-| Evento                           | Emisor   | Consumidores (fase)                              |
-| -------------------------------- | -------- | ------------------------------------------------ |
-| `identity.UserRegistered.v1`     | Identity | Notifications, CRM(3)                            |
-| `accounts.AccountApproved.v1`    | Accounts | Notifications, Pricing, CRM(3)                   |
-| `accounts.AccountRejected.v1`    | Accounts | Notifications                                    |
-| `catalog.ProductPublished.v1`    | Catalog  | Search, ISR, Analytics(2)                        |
-| `pricing.VariantPriceChanged.v1` | Pricing  | Cart, Notifications                              |
-| `cart.ItemAdded.v1`              | Cart     | Analytics(2)                                     |
-| `cart.CartAbandoned.v1`          | Cart     | Notifications, CRM(3)                            |
-| `orders.OrderPlaced.v1`          | Orders   | Notifications, Inventory(2), Payments(2), CRM(3) |
-| `orders.OrderApproved.v1`        | Orders   | Notifications                                    |
-| `orders.OrderCancelled.v1`       | Orders   | Notifications, Inventory(2), Payments(2)         |
-| `orders.OrderShipped.v1`         | Orders   | Notifications, Tracking(2)                       |
-| `content.LeadCaptured.v1`        | Content  | Notifications, CRM(3)                            |
+| Evento                                   | Emisor   | Consumidores (fase)                              |
+| ---------------------------------------- | -------- | ------------------------------------------------ |
+| `identity.UserRegistered.v1`             | Identity | Notifications, CRM(3)                            |
+| `identity.EmailVerificationRequested.v1` | Identity | Notifications                                    |
+| `identity.PasswordResetRequested.v1`     | Identity | Notifications                                    |
+| `identity.PasswordChanged.v1`            | Identity | Notifications                                    |
+| `accounts.AccountApproved.v1`            | Accounts | Notifications, Pricing, CRM(3)                   |
+| `accounts.AccountRejected.v1`            | Accounts | Notifications                                    |
+| `catalog.ProductPublished.v1`            | Catalog  | Search, ISR, Analytics(2)                        |
+| `pricing.VariantPriceChanged.v1`         | Pricing  | Cart, Notifications                              |
+| `cart.ItemAdded.v1`                      | Cart     | Analytics(2)                                     |
+| `cart.CartAbandoned.v1`                  | Cart     | Notifications, CRM(3)                            |
+| `orders.OrderPlaced.v1`                  | Orders   | Notifications, Inventory(2), Payments(2), CRM(3) |
+| `orders.OrderApproved.v1`                | Orders   | Notifications                                    |
+| `orders.OrderCancelled.v1`               | Orders   | Notifications, Inventory(2), Payments(2)         |
+| `orders.OrderShipped.v1`                 | Orders   | Notifications, Tracking(2)                       |
+| `content.LeadCaptured.v1`                | Content  | Notifications, CRM(3)                            |
+
+Los tres eventos de Identity se añadieron al implementar B4: el correo de verificación, el
+de recuperación y el aviso de cambio de contraseña salen por outbox como cualquier otro
+efecto, para que no exista el caso "usuario creado, correo nunca enviado".
+
+**Pendiente de decisión (BLOQUEO abierto):** `EmailVerificationRequested` y
+`PasswordResetRequested` llevan el token **en claro** en el payload, porque el consumidor
+lo necesita para componer el enlace. Eso lo deja escrito en `shared.outbox_events`, lo que
+contradice la regla de RFC-0003 §4.9 de guardar sólo el hash. Mitigación propuesta: que el
+relay **borre el payload** de estos tipos al marcarlos `SENT`. Se decide antes de B5.
 
 ### 4.5 Versionado
 
