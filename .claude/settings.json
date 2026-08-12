@@ -92,7 +92,8 @@
       "Bash(curl -s http://localhost:3002/es)",
       "Bash(curl -s -D - -o /dev/null http://localhost:3002/es)",
       "Bash(pnpm --filter @eusse/contracts build)",
-      "Bash(pnpm --filter @eusse/api test)"
+      "Bash(pnpm --filter @eusse/api test)",
+      "Bash(awk '{s+=$1} END {print \"TOTAL TESTS: \" s}')"
     ],
     "additionalDirectories": ["c:\\Users"]
   }
