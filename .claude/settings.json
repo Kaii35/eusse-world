@@ -84,7 +84,15 @@
       "Bash(pnpm --filter @eusse/workers exec eslint . --fix)",
       "Bash(grep -E \"Failed|Error:|Route|First Load|/\\\\[locale\\\\]|○|●\")",
       "Bash(npx playwright *)",
-      "Bash(pnpm --filter @eusse/web build)"
+      "Bash(pnpm --filter @eusse/web build)",
+      "Bash(cat)",
+      "Bash(grep -c \"^\\\\.env$\" .gitignore)",
+      "Bash(curl -s http://localhost:3010/es)",
+      "Bash(curl -s http://localhost:3010/en)",
+      "Bash(curl -s http://localhost:3002/es)",
+      "Bash(curl -s -D - -o /dev/null http://localhost:3002/es)",
+      "Bash(pnpm --filter @eusse/contracts build)",
+      "Bash(pnpm --filter @eusse/api test)"
     ],
     "additionalDirectories": ["c:\\Users"]
   }
