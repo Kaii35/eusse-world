@@ -20,6 +20,7 @@ function anAccount(overrides: Partial<Parameters<typeof Account.fromSnapshot>[0]
     tenantId: 'eusse',
     legalName: 'Ferretería Acme S.A.S.',
     taxId: '900123456-7',
+    phone: '+57 3001234567',
     status: ACCOUNT_STATUS.ACTIVE,
     creditLimit: Money.of(5_000_000, 'COP'),
     memberships: [member('u-owner', ACCOUNT_ROLE.OWNER)],

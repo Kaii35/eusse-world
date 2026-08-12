@@ -25,6 +25,18 @@ Autenticación **propia**, emitida por `apps/api`:
   revocar un permiso tenga efecto inmediato.
 - El `accountId` sale **siempre de la sesión**, nunca del cliente.
 
+### Librerías (añadido al implementar B5)
+
+| Necesidad     | Elegida                                   | Por qué                                                                                                                                                           |
+| ------------- | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Argon2id      | `@node-rs/argon2`                         | Binario precompilado. `argon2` obliga a compilar con node-gyp, que falla en Windows sin herramientas de compilación y añade minutos a cada instalación en CI      |
+| Firma del JWT | `jose`                                    | TypeScript puro, sin dependencias nativas; el mismo paquete sirve en el runtime edge de Next si algún día hace falta verificar allí                               |
+| Algoritmo     | **HS256**                                 | Un solo emisor y un solo verificador. RS256 tendría sentido si terceros verificaran el token; hoy nadie lo hace, y una clave asimétrica sería complejidad sin uso |
+| Secreto       | `JWT_ACCESS_SECRET`, mínimo 32 caracteres | Sólo en `apps/api`. El BFF de Next **no verifica tokens**: pregunta a la API. Repartir el secreto multiplicaría los sitios desde los que se filtra                |
+
+No hay `JWT_REFRESH_SECRET`: el refresh es **opaco**, no firmado, y de él sólo se guarda un
+SHA-256 (sin sal, porque son 32 bytes aleatorios y no hay diccionario que atacar).
+
 ## Alternativas descartadas
 
 | Alternativa              | Por qué se descarta                                                                                                      |

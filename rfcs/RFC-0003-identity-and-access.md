@@ -108,6 +108,34 @@ findById(accountId: AccountId, orderId: OrderId): Promise<Order | null>
 
 Si el recurso pertenece a otra cuenta → **404**, no 403 (403 confirma su existencia).
 
+**Matriz rol → permisos.** Los tres niveles anteriores necesitan una tabla concreta; ésta
+es la de Fase 1. Vive en `apps/api/src/modules/accounts/domain/permissions.ts` y tiene
+test. El permiso autoriza la _operación_; que el recurso sea de la cuenta de la sesión es
+la comprobación del nivel 3, aparte y siempre.
+
+| Permiso                      | OWNER | ADMIN | BUYER | APPROVER | VIEWER |
+| ---------------------------- | :---: | :---: | :---: | :------: | :----: |
+| `catalog:read`               |  ✅   |  ✅   |  ✅   |    ✅    |   ✅   |
+| `price:read`                 |  ✅   |  ✅   |  ✅   |    ✅    |   ✅   |
+| `order:read`                 |  ✅   |  ✅   |  ✅   |    ✅    |   ✅   |
+| `account:read`               |  ✅   |  ✅   |  ✅   |    ✅    |   ✅   |
+| `cart:manage`                |  ✅   |  ✅   |  ✅   |    —     |   —    |
+| `order:create`               |  ✅   |  ✅   |  ✅   |    —     |   —    |
+| `order:approve`              |  ✅   |  ✅   |   —   |    ✅    |   —    |
+| `order:cancel`               |  ✅   |  ✅   |   —   |    ✅    |   —    |
+| `account:manage`             |  ✅   |  ✅   |   —   |    —     |   —    |
+| `account:manage-users`       |  ✅   |  ✅   |   —   |    —     |   —    |
+| `account:transfer-ownership` |  ✅   |   —   |   —   |    —     |   —    |
+
+Dos decisiones son **política de empresa, no restricción técnica**, y conviene confirmarlas
+con negocio:
+
+1. **`APPROVER` no crea pedidos** — separación de funciones: quien aprueba no compra. Si en
+   la práctica es la misma persona, la respuesta correcta es darle rol `ADMIN`, no ampliar
+   `APPROVER`: haría falta además impedir que apruebe sus propios pedidos, y esa regla vive
+   en Orders (RFC-0007).
+2. **`ADMIN` puede todo salvo ceder la propiedad** — es lo único reservado al `OWNER`.
+
 ### 4.6 Cambio de cuenta activa
 
 `POST /auth/switch-account { accountId }` → verifica membresía → reemite la sesión con la

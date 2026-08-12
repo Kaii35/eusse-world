@@ -35,7 +35,21 @@ Verificado en ejecución, no sólo compilado:
   publica en BullMQ y el consumidor lo procesa una sola vez, con el `correlationId`
   intacto hasta el worker.
 
-**Bloque A cerrado.** El Bloque B (Identidad, RFC-0003) está desbloqueado.
+**Bloque A cerrado.** Bloque B (Identidad, RFC-0003) en curso:
+
+| Paso   | Entregable                                                                   | Estado       |
+| ------ | ---------------------------------------------------------------------------- | ------------ |
+| B1     | Contratos de auth                                                            | ✅           |
+| B2     | Dominio Identity: `User`, sesión, familia de refresh, enlaces de un solo uso | ✅           |
+| B3     | Dominio Accounts: `Account`, membresías, matriz de permisos                  | ✅           |
+| B4     | Casos de uso: registro, verificación, login, refresh, logout, recuperación   | ✅           |
+| B5     | Persistencia, migraciones de `identity` y `accounts`, adaptadores            | ✅           |
+| B6–B10 | HTTP y guards, `@eusse/auth` + BFF, pantallas, E2E, revisión de seguridad    | ⏳ pendiente |
+
+Verificado contra PostgreSQL real, no sólo con dobles: el registro es atómico entre
+Identity y Accounts (un `taxId` duplicado no deja usuario huérfano), la rotación
+concurrente del mismo refresh sólo la gana una petición, y el enlace de verificación sólo
+se consume una vez aunque llegue dos veces a la vez.
 
 **Sólo se implementa lo que cubre un RFC ya aprobado.** Los bloques D, E y F siguen
 bloqueados: RFC-0005, RFC-0006 y RFC-0007 están en `Borrador` y requieren validar el

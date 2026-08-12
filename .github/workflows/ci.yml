@@ -84,11 +84,20 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      # Sin esto, los tests de integración corren contra una base de datos vacía. Las
+      # migraciones son autocontenidas: crean esquema, extensiones y funciones. El script
+      # de `docker/postgres/init` NO se ejecuta aquí.
+      - name: Migraciones
+        run: pnpm --filter @eusse/api db:generate && pnpm --filter @eusse/api db:deploy
+        env:
+          DATABASE_URL: postgresql://eusse:eusse@localhost:5432/eusse_test
+
       - name: Tests unitarios y de integración
         run: pnpm test
         env:
           DATABASE_URL: postgresql://eusse:eusse@localhost:5432/eusse_test
           REDIS_URL: redis://localhost:6379
+          JWT_ACCESS_SECRET: solo-para-ci-no-es-un-secreto-real-0123456789
 
   build:
     name: Build

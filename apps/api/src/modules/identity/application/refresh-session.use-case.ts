@@ -39,7 +39,7 @@ export class RefreshSessionUseCase {
     @Inject(ACCOUNTS_PORT) private readonly accounts: AccountsPort,
     @Inject(TOKEN_GENERATOR) private readonly tokens: TokenGeneratorPort,
     @Inject(CLOCK) private readonly clock: ClockPort,
-    private readonly issuer: SessionIssuer,
+    @Inject(SessionIssuer) private readonly issuer: SessionIssuer,
   ) {}
 
   async execute(presentedToken: string): Promise<RefreshResult> {

@@ -1,3 +1,33 @@
+-- Arranque del kernel compartido.
+--
+-- Estas tres cosas tienen que existir ANTES que cualquier tabla que las use. Van aquí y no
+-- sólo en `docker/postgres/init/`, porque ese script se ejecuta únicamente al crear el
+-- volumen de desarrollo: la base de datos de sombra de Prisma, la de CI y cualquier
+-- entorno nuevo aplican SÓLO estas migraciones. Sin esto, `prisma migrate deploy` falla en
+-- el primer despliegue con "function shared.uuid_generate_v7() does not exist".
+
+CREATE SCHEMA IF NOT EXISTS "shared";
+
+-- gen_random_bytes, que usa uuid_generate_v7
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+-- UUID v7: ordenable en el tiempo, no enumerable, sin filtrar volumen de negocio
+-- (docs/03-conventions.md §5). PostgreSQL 18 lo trae nativo; en 16 se genera aquí.
+CREATE OR REPLACE FUNCTION shared.uuid_generate_v7()
+RETURNS uuid
+AS $$
+DECLARE
+  unix_ts_ms bytea;
+  uuid_bytes bytea;
+BEGIN
+  unix_ts_ms = substring(int8send((extract(epoch FROM clock_timestamp()) * 1000)::bigint) FROM 3);
+  uuid_bytes = unix_ts_ms || gen_random_bytes(10);
+  uuid_bytes = set_byte(uuid_bytes, 6, (b'0111' || get_byte(uuid_bytes, 6)::bit(4))::bit(8)::int);
+  uuid_bytes = set_byte(uuid_bytes, 8, (b'10'   || get_byte(uuid_bytes, 8)::bit(6))::bit(8)::int);
+  RETURN encode(uuid_bytes, 'hex')::uuid;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
 -- CreateSchema
 CREATE SCHEMA IF NOT EXISTS "shared";
 

@@ -44,7 +44,7 @@ export class LoginUseCase {
     @Inject(ACCOUNTS_PORT) private readonly accounts: AccountsPort,
     @Inject(PASSWORD_HASHER) private readonly hasher: PasswordHasherPort,
     @Inject(CLOCK) private readonly clock: ClockPort,
-    private readonly issuer: SessionIssuer,
+    @Inject(SessionIssuer) private readonly issuer: SessionIssuer,
   ) {}
 
   async execute(input: LoginInput): Promise<LoginResult> {

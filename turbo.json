@@ -26,7 +26,7 @@
     "test": {
       "dependsOn": ["^build"],
       "outputs": ["coverage/**"],
-      "env": ["DATABASE_URL", "REDIS_URL"]
+      "env": ["DATABASE_URL", "REDIS_URL", "JWT_ACCESS_SECRET", "TENANT_ID", "DEFAULT_CURRENCY"]
     },
     "test:watch": {
       "cache": false,

@@ -4,6 +4,7 @@ import { Queue } from 'bullmq'
 import { ENV } from '../config/config.module'
 import { PrismaService } from '../shared/prisma.service'
 import { QUEUE_FOR_EVENT, type QueueName } from '../shared/queues'
+import { partitionForRedaction } from '../shared/sensitive-events'
 
 import type { Env } from '../config/env.schema'
 
@@ -83,11 +84,11 @@ export class OutboxRelayService implements OnModuleInit, OnModuleDestroy {
 
         if (rows.length === 0) return 0
 
-        const sent: string[] = []
+        const sent: OutboxRow[] = []
         for (const row of rows) {
           try {
             await this.publish(row)
-            sent.push(row.id)
+            sent.push(row)
           } catch (error) {
             // Un evento que falla no bloquea a los demás de la tanda: se reintenta en
             // la siguiente vuelta y, si insiste, se marca como fallido.
@@ -95,11 +96,24 @@ export class OutboxRelayService implements OnModuleInit, OnModuleDestroy {
           }
         }
 
-        if (sent.length > 0) {
+        const { keep, redact } = partitionForRedaction(sent)
+
+        if (keep.length > 0) {
           await tx.$executeRaw`
             UPDATE shared.outbox_events
             SET status = 'SENT', published_at = now()
-            WHERE id = ANY(${sent}::uuid[])
+            WHERE id = ANY(${keep}::uuid[])
+          `
+        }
+
+        if (redact.length > 0) {
+          // El payload lleva un token en claro. Ya está en la cola, con sus datos; aquí
+          // se borra en el mismo UPDATE que marca la fila como enviada, para no dejarlo
+          // guardado (RFC-0013 §4.4).
+          await tx.$executeRaw`
+            UPDATE shared.outbox_events
+            SET status = 'SENT', published_at = now(), payload = '{"redacted":true}'::jsonb
+            WHERE id = ANY(${redact}::uuid[])
           `
         }
 

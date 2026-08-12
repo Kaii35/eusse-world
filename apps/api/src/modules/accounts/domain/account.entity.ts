@@ -71,9 +71,26 @@ export type AccountSnapshot = {
   readonly tenantId: string
   readonly legalName: string
   readonly taxId: string
+  /** Teléfono de contacto de la empresa. Lo pide el registro; el staff lo usa para aprobar. */
+  readonly phone: string | null
   readonly status: AccountStatus
   readonly creditLimit: Money
   readonly memberships: readonly Membership[]
+}
+
+/**
+ * Vista plana de una membresía, tal y como la ven otros módulos.
+ *
+ * Vive en el dominio para que el repositorio pueda devolverla, y `public/` la reexporta.
+ * Nunca se expone el agregado `Account` fuera del módulo: sería una puerta trasera.
+ */
+export type AccountSummary = {
+  readonly accountId: string
+  readonly legalName: string
+  readonly status: AccountStatus
+  readonly role: AccountRole
+  /** Monto por encima del cual el pedido requiere aprobación. `null` = sin límite. */
+  readonly approvalThreshold: number | null
 }
 
 export class Account {
@@ -82,6 +99,7 @@ export class Account {
     readonly tenantId: string,
     readonly legalName: string,
     readonly taxId: string,
+    readonly phone: string | null,
     private status: AccountStatus,
     private creditLimit: Money,
     private memberships: readonly Membership[],
@@ -100,6 +118,7 @@ export class Account {
       snapshot.tenantId,
       snapshot.legalName,
       snapshot.taxId,
+      snapshot.phone,
       snapshot.status,
       snapshot.creditLimit,
       snapshot.memberships,
@@ -112,6 +131,7 @@ export class Account {
     tenantId: string
     legalName: string
     taxId: string
+    phone?: string | null
     ownerUserId: string
     currency: Money['currency']
   }): Account {
@@ -120,6 +140,7 @@ export class Account {
       params.tenantId,
       params.legalName,
       params.taxId,
+      params.phone ?? null,
       ACCOUNT_STATUS.PENDING_VERIFICATION,
       Money.zero(params.currency),
       [{ userId: params.ownerUserId, role: ACCOUNT_ROLE.OWNER, approvalThreshold: null }],
@@ -199,6 +220,7 @@ export class Account {
       tenantId: this.tenantId,
       legalName: this.legalName,
       taxId: this.taxId,
+      phone: this.phone,
       status: this.status,
       creditLimit: this.creditLimit,
       memberships: this.memberships,

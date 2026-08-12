@@ -2,9 +2,11 @@
   "extends": "@eusse/config-typescript/nest.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "dist",
-    "rootDir": "src"
+    "outDir": "dist"
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "dist", "test"]
+  // `test/` entra aquí para que ESLint y `tsc --noEmit` lo cubran: un test de integración
+  // sin comprobación de tipos es exactamente donde se cuelan los errores que no se ven.
+  // `rootDir` vive en tsconfig.build.json, que es el que emite.
+  "include": ["src/**/*.ts", "test/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }

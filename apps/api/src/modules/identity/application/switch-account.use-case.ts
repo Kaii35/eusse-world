@@ -38,7 +38,7 @@ export class SwitchAccountUseCase {
     @Inject(SESSION_REPOSITORY) private readonly sessions: SessionRepositoryPort,
     @Inject(ACCOUNTS_PORT) private readonly accounts: AccountsPort,
     @Inject(CLOCK) private readonly clock: ClockPort,
-    private readonly issuer: SessionIssuer,
+    @Inject(SessionIssuer) private readonly issuer: SessionIssuer,
   ) {}
 
   async execute(input: SwitchAccountInput): Promise<SwitchAccountResult> {

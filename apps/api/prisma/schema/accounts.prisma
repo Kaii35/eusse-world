@@ -1,0 +1,57 @@
+/// Contexto Accounts (docs/02-domain-model.md §2).
+///
+/// En B2B quien compra es la cuenta, no el usuario: de aquí cuelgan precios, crédito y
+/// permisos.
+model Account {
+  id        String @id @db.Uuid
+  tenantId  String @map("tenant_id") @db.VarChar(64)
+  legalName String @map("legal_name") @db.VarChar(200)
+  taxId     String @map("tax_id") @db.VarChar(32)
+  phone     String? @db.VarChar(32)
+  /// PENDING_VERIFICATION · PENDING_APPROVAL · ACTIVE · SUSPENDED · REJECTED · CLOSED
+  status    String @db.VarChar(32)
+  /// Importe en **unidades mínimas** (centavos), no en unidades mayores. La convención
+  /// pide numeric(18,4); lo que se guarda aquí es exactamente el `amount` de `Money`.
+  /// Mezclar las dos lecturas multiplicaría o dividiría por cien los límites de crédito.
+  creditLimitAmount   Decimal @map("credit_limit_amount") @db.Decimal(18, 4)
+  creditLimitCurrency String  @map("credit_limit_currency") @db.VarChar(3)
+  /// Motivo del rechazo, para poder decírselo al cliente.
+  rejectionReason String?  @map("rejection_reason") @db.VarChar(500)
+  createdAt       DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt       DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  memberships Membership[]
+
+  /// Invariante de docs/02-domain-model.md §2: un solo taxId por tenant. En la base de
+  /// datos y no sólo en el agregado, porque dos registros simultáneos pasarían la
+  /// comprobación en memoria a la vez.
+  @@unique([tenantId, taxId])
+  @@index([tenantId, status])
+  @@map("accounts")
+  @@schema("accounts")
+}
+
+/// Pertenencia de una persona a una cuenta, con su rol.
+model Membership {
+  id        String @id @db.Uuid
+  accountId String @map("account_id") @db.Uuid
+  /// Referencia a `identity.users` POR ID, sin clave foránea entre contextos (ADR-0006).
+  userId    String @map("user_id") @db.Uuid
+  /// OWNER · ADMIN · BUYER · APPROVER · VIEWER
+  role      String @db.VarChar(16)
+  /// Importe por encima del cual el pedido requiere aprobación, en unidades mínimas.
+  /// `null` = sin límite.
+  approvalThresholdAmount   Decimal? @map("approval_threshold_amount") @db.Decimal(18, 4)
+  approvalThresholdCurrency String?  @map("approval_threshold_currency") @db.VarChar(3)
+  createdAt                 DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt                 DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  /// Una persona no puede estar dos veces en la misma cuenta.
+  @@unique([accountId, userId])
+  /// sirve: listar las cuentas de un usuario al iniciar sesión
+  @@index([userId])
+  @@map("memberships")
+  @@schema("accounts")
+}

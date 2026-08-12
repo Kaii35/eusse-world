@@ -1,0 +1,110 @@
+/// Contexto Identity (RFC-0003 §4.1).
+///
+/// `users` NO lleva `tenant_id` a propósito, aunque la convención lo pida para tablas de
+/// negocio: la persona es previa a la empresa y en Fase 2 podrá pertenecer a cuentas de
+/// tenants distintos. Lo que está acotado por tenant es `accounts`, y la sesión hereda el
+/// tenant de su cuenta activa.
+model User {
+  id              String    @id @db.Uuid
+  /// Siempre normalizado a minúsculas antes de escribir. La unicidad depende de ello.
+  email           String    @unique @db.VarChar(320)
+  /// Argon2id (ADR-0008). Nunca la contraseña.
+  passwordHash    String    @map("password_hash") @db.VarChar(255)
+  firstName       String    @map("first_name") @db.VarChar(80)
+  lastName        String    @map("last_name") @db.VarChar(80)
+  status          String    @default("ACTIVE") @db.VarChar(16)
+  emailVerifiedAt DateTime? @map("email_verified_at") @db.Timestamptz
+  lastLoginAt     DateTime? @map("last_login_at") @db.Timestamptz
+  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt       DateTime  @updatedAt @map("updated_at") @db.Timestamptz
+
+  sessions      Session[]
+  oneTimeTokens OneTimeToken[]
+  refreshTokens RefreshToken[]
+
+  @@map("users")
+  @@schema("identity")
+}
+
+/// Sesión. `activeAccountId` es la clave del modelo multi-cuenta: define el contexto de
+/// toda operación (RFC-0003 §4.1).
+model Session {
+  id              String    @id @db.Uuid
+  userId          String    @map("user_id") @db.Uuid
+  /// Referencia a `accounts.accounts` POR ID, sin clave foránea: contextos distintos
+  /// (ADR-0006). `null` mientras la empresa esté pendiente de aprobación.
+  activeAccountId String?   @map("active_account_id") @db.Uuid
+  ip              String?   @db.VarChar(45)
+  userAgent       String?   @map("user_agent") @db.VarChar(512)
+  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  lastSeenAt      DateTime  @default(now()) @map("last_seen_at") @db.Timestamptz
+  /// Logout, robo detectado o cambio de contraseña. Es lo que invalida la sesión EN EL
+  /// SERVIDOR: borrar la cookie no basta.
+  revokedAt       DateTime? @map("revoked_at") @db.Timestamptz
+  updatedAt       DateTime  @updatedAt @map("updated_at") @db.Timestamptz
+
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refreshTokens RefreshToken[]
+
+  /// sirve: revocar todas las sesiones de un usuario al cambiar su contraseña
+  @@index([userId])
+  @@map("sessions")
+  @@schema("identity")
+}
+
+/// Refresh token opaco y rotatorio. Sólo se guarda el hash: el valor vive únicamente en la
+/// cookie del cliente (RFC-0003 §4.3).
+model RefreshToken {
+  id        String    @id @db.Uuid
+  sessionId String    @map("session_id") @db.Uuid
+  /// Todos los tokens que descienden de un mismo login. Presentar uno ya usado revoca la
+  /// familia entera: es la detección de robo.
+  familyId  String    @map("family_id") @db.Uuid
+  /// Denormalizado desde `sessions` para revocar por usuario sin un JOIN en el camino
+  /// crítico del cambio de contraseña.
+  userId    String    @map("user_id") @db.Uuid
+  tokenHash String    @unique @map("token_hash") @db.VarChar(128)
+  /// ACTIVE · USED · REVOKED
+  state     String    @default("ACTIVE") @db.VarChar(16)
+  expiresAt DateTime  @map("expires_at") @db.Timestamptz
+  usedAt    DateTime? @map("used_at") @db.Timestamptz
+  revokedAt DateTime? @map("revoked_at") @db.Timestamptz
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz
+
+  session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  /// sirve: revocar la familia al detectar reutilización
+  @@index([familyId])
+  /// sirve: revocar todo lo del usuario al restablecer la contraseña
+  @@index([userId])
+  /// sirve: limpieza de tokens caducados
+  @@index([expiresAt])
+  @@map("refresh_tokens")
+  @@schema("identity")
+}
+
+/// Enlaces de un solo uso: verificación de correo y recuperación de contraseña.
+///
+/// Igual que el refresh: en la base de datos, sólo el hash.
+model OneTimeToken {
+  id         String    @id @db.Uuid
+  userId     String    @map("user_id") @db.Uuid
+  /// EMAIL_VERIFICATION · PASSWORD_RESET
+  purpose    String    @db.VarChar(32)
+  tokenHash  String    @unique @map("token_hash") @db.VarChar(128)
+  expiresAt  DateTime  @map("expires_at") @db.Timestamptz
+  /// El consumo se comprueba EN LA ESCRITURA (`WHERE consumed_at IS NULL`): validar antes
+  /// dejaría pasar dos peticiones simultáneas con el mismo enlace.
+  consumedAt DateTime? @map("consumed_at") @db.Timestamptz
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamptz
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  /// sirve: invalidar los anteriores del mismo propósito al emitir uno nuevo
+  @@index([userId, purpose])
+  /// sirve: limpieza de enlaces caducados
+  @@index([expiresAt])
+  @@map("one_time_tokens")
+  @@schema("identity")
+}

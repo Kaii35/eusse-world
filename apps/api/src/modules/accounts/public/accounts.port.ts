@@ -1,4 +1,4 @@
-import type { AccountRole, AccountStatus } from '@eusse/contracts'
+import type { AccountSummary } from '../domain/account.entity'
 
 /**
  * Fachada pública del módulo Accounts.
@@ -10,14 +10,7 @@ import type { AccountRole, AccountStatus } from '@eusse/contracts'
  * Devuelve datos planos, nunca el agregado `Account`: exponer el agregado convertiría la
  * fachada en una puerta trasera al dominio ajeno.
  */
-export type AccountSummary = {
-  readonly accountId: string
-  readonly legalName: string
-  readonly status: AccountStatus
-  readonly role: AccountRole
-  /** Monto por encima del cual el pedido requiere aprobación. `null` = sin límite. */
-  readonly approvalThreshold: number | null
-}
+export type { AccountSummary }
 
 export type AccountsPort = {
   /** Crea la cuenta con su registrante como OWNER, en `PENDING_VERIFICATION`. */

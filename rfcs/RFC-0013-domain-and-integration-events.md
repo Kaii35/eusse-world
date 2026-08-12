@@ -127,11 +127,16 @@ Los tres eventos de Identity se añadieron al implementar B4: el correo de verif
 de recuperación y el aviso de cambio de contraseña salen por outbox como cualquier otro
 efecto, para que no exista el caso "usuario creado, correo nunca enviado".
 
-**Pendiente de decisión (BLOQUEO abierto):** `EmailVerificationRequested` y
-`PasswordResetRequested` llevan el token **en claro** en el payload, porque el consumidor
-lo necesita para componer el enlace. Eso lo deja escrito en `shared.outbox_events`, lo que
-contradice la regla de RFC-0003 §4.9 de guardar sólo el hash. Mitigación propuesta: que el
-relay **borre el payload** de estos tipos al marcarlos `SENT`. Se decide antes de B5.
+**Payload con secreto — resuelto.** `EmailVerificationRequested` y `PasswordResetRequested`
+llevan el token **en claro** en el payload, porque el consumidor lo necesita para componer
+el enlace. Dejarlo ahí contradiría la regla de RFC-0003 §4.9 de guardar sólo el hash, así
+que el relay **borra el payload en el mismo `UPDATE` que marca la fila como `SENT`**. La
+fila se conserva —es la traza de que el evento existió y se publicó— con
+`payload = {"redacted": true}`. El reintento no se ve afectado: lo hace BullMQ desde el
+mensaje ya encolado, no releyendo el outbox.
+
+La lista vive en `apps/workers/src/shared/sensitive-events.ts` y tiene test. **Añadir un
+evento con un secreto en el payload sin añadirlo a esa lista es un fallo de seguridad.**
 
 ### 4.5 Versionado
 

@@ -53,7 +53,7 @@ export class RegisterUseCase {
       // nada: no se le avisa a quien prueba emails de que ha acertado.
       if (!existing.isEmailVerified) {
         await this.uow.run(async () => {
-          const event = await this.issueVerification(existing.id, email)
+          const event = await this.issueVerification(existing.id, email, this.clock.now())
           await this.events.publish([event])
         })
       }
@@ -69,6 +69,11 @@ export class RegisterUseCase {
       lastName: input.lastName,
     })
 
+    // Un solo instante para toda la transacción: los dos eventos describen el mismo
+    // hecho. Leer el reloj dos veces les daría marcas distintas y el orden en que un
+    // consumidor los ve dependería de microsegundos.
+    const now = this.clock.now()
+
     await this.uow.run(async () => {
       await this.users.create(user)
 
@@ -79,12 +84,12 @@ export class RegisterUseCase {
         phone: input.company.phone,
       })
 
-      const verification = await this.issueVerification(user.id, email)
+      const verification = await this.issueVerification(user.id, email, now)
 
       await this.events.publish([
         {
           type: 'identity.UserRegistered.v1',
-          occurredAt: this.clock.now(),
+          occurredAt: now,
           // Payload autocontenido: Notifications y CRM no deben volver a preguntar.
           payload: {
             userId: user.id,
@@ -102,8 +107,11 @@ export class RegisterUseCase {
   }
 
   /** Emite el enlace de verificación e invalida los anteriores. */
-  private async issueVerification(userId: string, email: string): Promise<DomainEventInput> {
-    const now = this.clock.now()
+  private async issueVerification(
+    userId: string,
+    email: string,
+    now: Date,
+  ): Promise<DomainEventInput> {
     await this.oneTimeTokens.invalidateAllFor(userId, TOKEN_PURPOSE.EMAIL_VERIFICATION, now)
 
     const token = this.tokens.generate()
