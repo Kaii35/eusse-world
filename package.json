@@ -30,9 +30,9 @@
     "check:boundaries": "tsx scripts/check-boundaries.ts",
     "check:env": "tsx scripts/check-env.ts",
     "sync:claude": "tsx scripts/sync-claude.ts",
-    "db:up": "docker compose -f docker/docker-compose.yml up -d",
-    "db:down": "docker compose -f docker/docker-compose.yml down",
-    "db:logs": "docker compose -f docker/docker-compose.yml logs -f",
+    "db:up": "docker compose --env-file .env -f docker/docker-compose.yml up -d",
+    "db:down": "docker compose --env-file .env -f docker/docker-compose.yml down",
+    "db:logs": "docker compose --env-file .env -f docker/docker-compose.yml logs -f",
     "prepare": "husky"
   },
   "devDependencies": {
