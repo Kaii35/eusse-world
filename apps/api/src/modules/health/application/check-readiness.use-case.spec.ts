@@ -65,14 +65,25 @@ describe('CheckReadinessUseCase', () => {
         }),
     })
 
-    const useCase = new CheckReadinessUseCase(slow('postgres'), slow('redis'), env)
+    // Reloj simulado: medir milisegundos reales hacía el test inestable con la CPU
+    // cargada (CI, pre-push con toda la batería en paralelo).
+    vi.useFakeTimers()
+    try {
+      const useCase = new CheckReadinessUseCase(slow('postgres'), slow('redis'), env)
 
-    const startedAt = Date.now()
-    await useCase.execute()
-    const elapsed = Date.now() - startedAt
+      let settled = false
+      const execution = useCase.execute().then(() => {
+        settled = true
+      })
 
-    // En serie serían ≥ 100 ms. Se deja margen amplio para no volverlo inestable.
-    expect(elapsed).toBeLessThan(90)
+      // Con 50 ms simulados sólo termina si ambas sondas corren a la vez; en serie
+      // harían falta 100 ms.
+      await vi.advanceTimersByTimeAsync(50)
+      expect(settled).toBe(true)
+      await execution
+    } finally {
+      vi.useRealTimers()
+    }
   })
 
   it('no debería filtrar detalles internos en el error de una sonda', async () => {
