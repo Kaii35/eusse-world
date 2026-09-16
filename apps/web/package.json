@@ -4,7 +4,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port 3000",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
@@ -17,6 +17,7 @@
     "@eusse/domain": "workspace:*",
     "@eusse/tokens": "workspace:*",
     "@eusse/ui": "workspace:*",
+    "lucide-react": "^1.46.0",
     "next": "^15.1.6",
     "next-intl": "^3.26.3",
     "react": "^19.0.0",

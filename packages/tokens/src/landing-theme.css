@@ -1,0 +1,348 @@
+/**
+ * Tema de la landing pública (RFC-0009): blanco y azul de la marca EUSSE WORLD.
+ *
+ * Azul del globo del logotipo sobre blanco, tinta casi negra para el texto y bandas
+ * en azul noche para cerrar la página. Tipografía empresarial: Montserrat en
+ * titulares (la geometría del logotipo) e Inter en el texto.
+ * Los componentes nombran sólo los tokens semánticos de la capa 2.
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CAPA 1 — PRIMITIVOS
+   ═══════════════════════════════════════════════════════════════════════════ */
+:root {
+  --eusse-blue-50: #eef5fe;
+  --eusse-blue-100: #d9e8fc;
+  --eusse-blue-200: #b3d1f8;
+  --eusse-blue-300: #7fb2f1;
+  --eusse-blue-400: #3d8be6;
+  --eusse-blue-500: #1e7ad6;
+  --eusse-blue-600: #1565c0;
+  --eusse-blue-700: #0f4fa0;
+  --eusse-blue-900: #0b2a57;
+  --eusse-blue-950: #071a38;
+
+  --eusse-ink-900: #0e1a2b;
+  --eusse-ink-600: #475467;
+  --eusse-ink-500: #5f6b7e;
+  --eusse-ink-300: #9fb0c6;
+  --eusse-paper-0: #ffffff;
+  --eusse-paper-50: #f4f7fb;
+  --eusse-paper-200: #e4e9f0;
+  --eusse-paper-300: #cbd4e1;
+  --eusse-night-muted: #b4c3da;
+
+  /* Lienzo del globo: lo lee el canvas con getComputedStyle. */
+  --globe-dot: var(--eusse-blue-300);
+  --globe-arc: var(--eusse-blue-500);
+  --globe-marker: var(--eusse-blue-700);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CAPA 2 — SEMÁNTICOS
+   Contraste sobre blanco: ink 17.5:1 · ink-muted 7.7:1 · ink-subtle 5.4:1 ·
+   brand 5.8:1 · blanco sobre brand 5.8:1. Sobre night: on-night 17.3:1 ·
+   on-night-muted 9.7:1 · brand-glow 7.9:1 (6.4:1 sobre night-raised).
+   brand-bright no es color de texto: 3.4:1 sobre blanco y 3.5:1 sobre night. Sólo
+   decoración y degradados.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@theme {
+  --font-display: var(--font-montserrat), Montserrat, system-ui, sans-serif;
+  --font-body: var(--font-inter), Inter, system-ui, sans-serif;
+
+  --color-page: var(--eusse-paper-0);
+  --color-page-alt: var(--eusse-paper-50);
+
+  --color-ink: var(--eusse-ink-900);
+  --color-ink-muted: var(--eusse-ink-600);
+  --color-ink-subtle: var(--eusse-ink-500);
+
+  --color-brand: var(--eusse-blue-600);
+  --color-brand-strong: var(--eusse-blue-700);
+  --color-brand-bright: var(--eusse-blue-400);
+  --color-brand-glow: var(--eusse-blue-300);
+  --color-brand-soft: var(--eusse-blue-100);
+  --color-brand-tint: var(--eusse-blue-50);
+
+  --color-night: var(--eusse-blue-950);
+  --color-night-raised: var(--eusse-blue-900);
+  --color-on-night: var(--eusse-paper-0);
+  --color-on-night-muted: var(--eusse-night-muted);
+
+  --color-line: var(--eusse-paper-200);
+  --color-line-strong: var(--eusse-paper-300);
+  --color-map-dot: var(--eusse-ink-300);
+
+  /* Escala editorial. Los tamaños fluidos llevan interlineado y tracking propios. */
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1rem;
+  --text-lead: clamp(1.0625rem, 1.15vw, 1.25rem);
+  --text-lead--line-height: 1.65;
+  --text-display-md: clamp(1.375rem, 2vw, 1.875rem);
+  --text-display-md--line-height: 1.2;
+  --text-display-md--letter-spacing: -0.02em;
+  --text-display-lg: clamp(2.125rem, 4vw, 3.5rem);
+  --text-display-lg--line-height: 1.08;
+  --text-display-lg--letter-spacing: -0.03em;
+  --text-display-xl: clamp(2.625rem, 4.9vw, 4.25rem);
+  --text-display-xl--line-height: 1.02;
+  --text-display-xl--letter-spacing: -0.035em;
+  --text-stat: clamp(2.25rem, 3.6vw, 3rem);
+  --text-stat--line-height: 1;
+  --text-stat--letter-spacing: -0.03em;
+  --text-wordmark: clamp(3rem, 12.5vw, 12rem);
+  --text-wordmark--line-height: 0.85;
+  --text-wordmark--letter-spacing: -0.05em;
+
+  --tracking-eyebrow: 0.2em;
+
+  --container-headline: 18ch;
+  --container-title: 20ch;
+  --container-blurb: 42ch;
+  --container-lead: 50ch;
+  --container-globe: 44rem;
+
+  --radius-2xl: 2rem;
+
+  /* Proporción del mapa de las Américas (viewBox 95 × 80 de public/maps). */
+  --aspect-map: 95 / 80;
+  /* Separación entre palabras de un titular animado palabra a palabra. */
+  --spacing-word: 0.28em;
+
+  --shadow-brand: 0 12px 32px -12px color-mix(in srgb, var(--eusse-blue-600) 55%, transparent);
+  --shadow-float: 0 24px 60px -28px color-mix(in srgb, var(--eusse-ink-900) 30%, transparent);
+  --shadow-card: 0 1px 2px 0 color-mix(in srgb, var(--eusse-ink-900) 5%, transparent);
+
+  /* Movimiento (ADR-0016): transform y opacity. Única excepción documentada:
+     el trazado de los arcos del mapa (stroke-dashoffset en cinco paths SVG). */
+  --animate-rise: rise 0.9s var(--ease-out-soft) var(--rise-delay, 0ms) both;
+  --animate-emerge: emerge 1.6s var(--ease-out-soft) var(--rise-delay, 0ms) both;
+  --animate-draw: draw 1.2s var(--ease-out-soft) 0.6s both;
+  --animate-marquee: marquee 60s linear infinite;
+  --animate-orbit: orbit 48s linear infinite;
+  --animate-orbit-reverse: orbit 72s linear infinite reverse;
+  --animate-drift: drift 18s ease-in-out infinite alternate;
+  --animate-glow: glow 2.4s ease-out var(--rise-delay, 0ms) infinite;
+  --animate-unfold: rise 0.5s var(--ease-out-soft) both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(1.25rem);
+    }
+  }
+
+  @keyframes emerge {
+    from {
+      opacity: 0;
+      transform: scale(0.92);
+    }
+  }
+
+  @keyframes draw {
+    from {
+      transform: scaleX(0);
+    }
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes orbit {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes drift {
+    to {
+      transform: translate3d(4%, 6%, 0) scale(1.08);
+    }
+  }
+
+  @keyframes glow {
+    from {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+
+    to {
+      opacity: 0;
+      transform: scale(3.2);
+    }
+  }
+}
+
+/* Fuera de @theme: ninguna utilidad animate-* la nombra y Tailwind la descartaría. */
+@keyframes trace {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Entrada escalonada sin JavaScript: `rise-delay-3` = 3 pasos de 110 ms.
+   Es una variable, no animation-delay: el atajo `animation` lo reiniciaría. */
+@utility rise-delay-* {
+  --rise-delay: calc(--value(integer) * 110ms);
+}
+
+/* Escala y gira elementos SVG desde su propio centro, no desde el del lienzo. */
+@utility transform-fill {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* Desvanece los extremos de una cinta horizontal. */
+@utility mask-fade-x {
+  mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+}
+
+/* Desvanece los bordes superior e inferior del mapa. */
+@utility mask-fade-y {
+  mask-image: linear-gradient(180deg, transparent, black 10%, black 90%, transparent);
+}
+
+@utility bg-dot-grid {
+  background-image: radial-gradient(var(--color-line-strong) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse at center, black 15%, transparent 70%);
+}
+
+/* Mapa punteado como máscara: el color sale del token, no del SVG. */
+@utility map-dots {
+  background-color: var(--color-map-dot);
+  mask-image: url('/maps/americas-dots.svg');
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+}
+
+/* La barra se vuelve vidrio al hacer scroll; lo marca LandingMotion en <html>. */
+@custom-variant scrolled (&:where([data-scrolled='true'] *));
+
+@layer base {
+  html:has(.landing) {
+    background-color: var(--color-page);
+    color-scheme: light;
+  }
+
+  .landing {
+    --color-ring: var(--color-brand);
+    --color-border: var(--color-line);
+  }
+
+  .landing ::selection {
+    background-color: var(--color-brand-soft);
+    color: var(--color-ink);
+  }
+}
+
+@layer components {
+  /* ── Revelado al scroll ────────────────────────────────────────────────────
+     Sólo se oculta si hay JavaScript para revelarlo y el usuario acepta movimiento:
+     sin cualquiera de los dos, el contenido está visible desde el primer pintado. */
+  @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+    [data-reveal] {
+      transition:
+        opacity 0.9s var(--ease-out-soft),
+        transform 0.9s var(--ease-out-soft);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+
+    [data-reveal]:not([data-shown='true']) {
+      opacity: 0;
+      transform: translateY(1.75rem);
+    }
+
+    [data-reveal='scale']:not([data-shown='true']) {
+      transform: scale(0.96);
+    }
+
+    [data-reveal='left']:not([data-shown='true']) {
+      transform: translateX(-1.75rem);
+    }
+
+    [data-reveal='fade']:not([data-shown='true']) {
+      transform: none;
+    }
+
+    [data-reveal-line] {
+      transform-origin: left center;
+      transition: transform 1.8s var(--ease-out-soft) 200ms;
+    }
+
+    [data-reveal-line]:not([data-shown='true']) {
+      transform: scaleX(0);
+    }
+
+    [data-reveal-line='y'] {
+      transform-origin: center top;
+    }
+
+    [data-reveal-line='y']:not([data-shown='true']) {
+      transform: scaleY(0);
+    }
+
+    /* Titular palabra a palabra: cada palabra sube con su retraso (rise-delay-*). */
+    [data-reveal='words']:not([data-shown='true']) {
+      transform: none;
+      opacity: 1;
+    }
+
+    [data-reveal='words']:not([data-shown='true']) [data-word] {
+      opacity: 0;
+    }
+
+    [data-reveal='words'][data-shown='true'] [data-word] {
+      animation: var(--animate-rise);
+    }
+
+    /* Arcos del mapa: se trazan al entrar en pantalla, uno tras otro. */
+    [data-arc] {
+      stroke-dashoffset: 1;
+    }
+
+    [data-shown='true'] [data-arc] {
+      animation: trace 1.6s var(--ease-out-soft) var(--rise-delay, 0ms) forwards;
+    }
+  }
+
+  [data-word] {
+    display: inline-block;
+  }
+
+  [data-arc] {
+    stroke-dasharray: 1;
+  }
+
+  /* ── Foco de luz que sigue al puntero ─────────────────────────────────────
+     LandingMotion escribe --spot-x/--spot-y; en táctil nunca se enciende. */
+  [data-spotlight] {
+    position: relative;
+    isolation: isolate;
+  }
+
+  [data-spotlight]::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: radial-gradient(
+      24rem circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      color-mix(in srgb, var(--color-brand) 9%, transparent),
+      transparent 65%
+    );
+    opacity: 0;
+    transition: opacity 500ms var(--ease-out-soft);
+    pointer-events: none;
+  }
+
+  @media (hover: hover) {
+    [data-spotlight]:hover::before {
+      opacity: 1;
+    }
+  }
+}

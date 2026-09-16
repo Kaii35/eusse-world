@@ -4,12 +4,194 @@
     "title": "Eusse World — Distribución mayorista con tus precios",
     "description": "Compra al por mayor con tu lista de precios, tu crédito y tu histórico. Sin llamadas, sin PDF desactualizados."
   },
-  "home": {
-    "eyebrow": "Distribución mayorista",
-    "title": "Tus precios, tu crédito, tu histórico. En un solo sitio.",
-    "subtitle": "Deja de reconstruir pedidos desde un PDF. Repite tu última compra en menos de un minuto y sigue tu despacho sin llamar a nadie.",
-    "ctaPrimary": "Crear cuenta mayorista",
-    "ctaSecondary": "Ver catálogo"
+  "landing": {
+    "nav": {
+      "label": "Secciones",
+      "services": "Servicios",
+      "routes": "Rutas",
+      "process": "Proceso",
+      "faq": "Preguntas",
+      "brand": "EUSSE WORLD",
+      "whatsapp": "WhatsApp",
+      "cta": "Cotizar",
+      "language": "Idioma",
+      "home": "EUSSE WORLD, inicio",
+      "brandMain": "EUSSE",
+      "brandSub": "WORLD"
+    },
+    "hero": {
+      "eyebrow": "Colombia · Costa Rica · Nicaragua · USA",
+      "titleLead": "Conectamos mercados.",
+      "titleAccent": "Movemos negocios.",
+      "lead": "Conectamos mercados entre Colombia, Costa Rica, Nicaragua, Estados Unidos y seguimos expandiendo nuestras operaciones.",
+      "support": "En EUSSE WORLD no solo movemos mercancía; impulsamos negocios, conectamos oportunidades y construimos relaciones de confianza.",
+      "ctaPrimary": "Cotizar por WhatsApp",
+      "ctaSecondary": "Ver servicios",
+      "globeHint": "Arrastra el globo para explorar la red",
+      "corridors": "Corredores activos"
+    },
+    "stats": {
+      "countries": {
+        "value": "04",
+        "label": "Países en operación"
+      },
+      "services": {
+        "value": "06",
+        "label": "Líneas de servicio"
+      },
+      "modes": {
+        "value": "03",
+        "label": "Modos: aéreo, marítimo, terrestre"
+      }
+    },
+    "services": {
+      "title": "Seis líneas de servicio, una sola operación",
+      "lead": "Del abastecimiento en origen hasta la entrega final, con un mismo responsable de la carga.",
+      "freight": {
+        "title": "Transporte internacional de mercancías",
+        "body": "Carga aérea, marítima y terrestre coordinada de origen a destino, con documentación y seguimiento en cada tramo."
+      },
+      "trade": {
+        "title": "Importaciones y exportaciones",
+        "body": "Gestión del proceso completo: clasificación, trámites, agencia de aduanas y liberación de la carga."
+      },
+      "shopper": {
+        "title": "Compras internacionales (Personal Shopper)",
+        "body": "Compramos por ti en tiendas de Estados Unidos, consolidamos y te lo entregamos en tu país."
+      },
+      "sourcing": {
+        "title": "Abastecimiento comercial",
+        "body": "Búsqueda y validación de proveedores, negociación y compra por volumen para tu operación."
+      },
+      "warehousing": {
+        "title": "Almacenamiento y distribución",
+        "body": "Bodegaje, consolidación de pedidos y despachos programados según la rotación de tu inventario."
+      },
+      "lastMile": {
+        "title": "Última milla y logística empresarial",
+        "body": "Entrega final al cliente y operación logística recurrente para empresas con despachos constantes."
+      },
+      "eyebrow": "Servicios",
+      "air": "Aéreo",
+      "sea": "Marítimo",
+      "land": "Terrestre"
+    },
+    "routes": {
+      "title": "Cuatro países, corredores activos",
+      "lead": "Movemos carga entre nuestros nodos de operación y seguimos abriendo rutas nuevas.",
+      "caption": "Esquema de corredores · no a escala",
+      "miami": {
+        "city": "Miami",
+        "country": "USA"
+      },
+      "managua": {
+        "city": "Managua",
+        "country": "Nicaragua"
+      },
+      "sanJose": {
+        "city": "San José",
+        "country": "Costa Rica"
+      },
+      "medellin": {
+        "city": "Medellín",
+        "country": "Colombia"
+      },
+      "eyebrow": "Red operativa",
+      "hubs": "Nodos de operación"
+    },
+    "process": {
+      "title": "Cómo funciona",
+      "step": "Paso",
+      "brief": {
+        "title": "Cuéntanos qué necesitas",
+        "body": "Escríbenos por WhatsApp con el tipo de carga, origen y destino. Te respondemos con opciones y tiempos."
+      },
+      "pickup": {
+        "title": "Compramos o recogemos",
+        "body": "Gestionamos la compra en origen o coordinamos el retiro con tu proveedor y consolidamos la mercancía."
+      },
+      "customs": {
+        "title": "Transporte y aduana",
+        "body": "Elegimos el modo según urgencia y costo, y manejamos la documentación hasta la liberación."
+      },
+      "delivery": {
+        "title": "Entrega final",
+        "body": "Almacenamos, distribuimos y entregamos en la puerta de tu bodega o de tu cliente."
+      },
+      "eyebrow": "Proceso"
+    },
+    "partners": {
+      "title": "Clientes y aliados",
+      "partner": "logo aliado",
+      "certification": "certificación"
+    },
+    "testimonials": {
+      "title": "Lo que dicen nuestros clientes",
+      "notice": "texto de ejemplo — reemplazar por testimonios reales",
+      "one": {
+        "text": "“Sacaron nuestro primer contenedor desde Miami sin que tuviéramos que aprender de aduanas.”",
+        "author": "Nombre del cliente · Empresa · Medellín"
+      },
+      "two": {
+        "text": "“Compran por nosotros en Estados Unidos y llega todo consolidado en un solo envío.”",
+        "author": "Nombre del cliente · Empresa · San José"
+      },
+      "three": {
+        "text": "“Un solo contacto para transporte, bodega y entrega final. Eso nos ahorra semanas.”",
+        "author": "Nombre del cliente · Empresa · Managua"
+      },
+      "eyebrow": "Clientes"
+    },
+    "faq": {
+      "title": "Preguntas frecuentes",
+      "lead": "Si tu caso no está aquí, escríbenos por WhatsApp y lo revisamos contigo.",
+      "volume": {
+        "q": "¿Qué volumen mínimo manejan?",
+        "a": "Trabajamos desde compras personales y carga suelta hasta contenedor completo. El mínimo depende de la ruta y el modo de transporte."
+      },
+      "customs": {
+        "q": "¿Se encargan de los trámites de aduana?",
+        "a": "Sí. Coordinamos la documentación, la clasificación y la gestión aduanera en origen y destino hasta la liberación de la carga."
+      },
+      "transit": {
+        "q": "¿Cuánto tarda un envío?",
+        "a": "Depende del corredor y del modo elegido. Al cotizar te damos el rango estimado de tránsito y los tiempos de trámite."
+      },
+      "shopper": {
+        "q": "¿Cómo funciona el Personal Shopper?",
+        "a": "Nos envías el enlace o la referencia del producto, compramos en tu nombre en tiendas de Estados Unidos, consolidamos y despachamos a tu país."
+      },
+      "tracking": {
+        "q": "¿Puedo seguir mi carga?",
+        "a": "Sí. Te informamos el estado en cada hito del trayecto: retiro, salida, llegada, aduana y entrega."
+      },
+      "eyebrow": "Preguntas",
+      "cta": "Escríbenos por WhatsApp"
+    },
+    "quote": {
+      "title": "Cotiza tu operación",
+      "lead": "Déjanos los datos de tu carga y te contactamos con una propuesta. Si prefieres hablar ahora, escríbenos directo.",
+      "name": "Nombre",
+      "company": "Empresa",
+      "origin": "Origen",
+      "destination": "Destino",
+      "service": "Servicio",
+      "detail": "Detalle de la carga",
+      "placeCity": "Ciudad, país",
+      "placeDetail": "Tipo de producto, peso o volumen aproximado, fechas",
+      "submit": "Enviar solicitud",
+      "sent": "Solicitud registrada. Te contactamos por WhatsApp.",
+      "eyebrow": "Contacto",
+      "direct": "¿Prefieres hablar ahora?"
+    },
+    "footer": {
+      "blurb": "Transporte internacional, importaciones, exportaciones y logística empresarial.",
+      "contact": "Contacto",
+      "operations": "Operación",
+      "sections": "Secciones",
+      "quote": "Cotizar",
+      "rights": "© 2026 EUSSE WORLD · Todos los derechos reservados"
+    }
   },
   "notFound": {
     "code": "Error 404",
