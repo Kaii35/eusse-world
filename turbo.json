@@ -39,6 +39,48 @@
     },
     "clean": {
       "cache": false
+    },
+    "db:generate": {
+      "cache": false,
+      "outputs": []
+    },
+    "@eusse/api#build": {
+      "dependsOn": ["^build", "@eusse/api#db:generate"],
+      "inputs": ["$TURBO_DEFAULT$", "!**/*.test.ts", "!**/*.spec.ts", "!**/*.stories.tsx"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**", "storybook-static/**"],
+      "env": ["NEXT_PUBLIC_*", "APP_VERSION"]
+    },
+    "@eusse/api#lint": {
+      "dependsOn": ["^build", "@eusse/api#db:generate"],
+      "outputs": []
+    },
+    "@eusse/api#typecheck": {
+      "dependsOn": ["^build", "@eusse/api#db:generate"],
+      "outputs": []
+    },
+    "@eusse/api#test": {
+      "dependsOn": ["^build", "@eusse/api#db:generate"],
+      "outputs": ["coverage/**"],
+      "env": ["DATABASE_URL", "REDIS_URL", "JWT_ACCESS_SECRET", "TENANT_ID", "DEFAULT_CURRENCY"]
+    },
+    "@eusse/workers#build": {
+      "dependsOn": ["^build", "@eusse/api#db:generate"],
+      "inputs": ["$TURBO_DEFAULT$", "!**/*.test.ts", "!**/*.spec.ts", "!**/*.stories.tsx"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**", "storybook-static/**"],
+      "env": ["NEXT_PUBLIC_*", "APP_VERSION"]
+    },
+    "@eusse/workers#lint": {
+      "dependsOn": ["^build", "@eusse/api#db:generate"],
+      "outputs": []
+    },
+    "@eusse/workers#typecheck": {
+      "dependsOn": ["^build", "@eusse/api#db:generate"],
+      "outputs": []
+    },
+    "@eusse/workers#test": {
+      "dependsOn": ["^build", "@eusse/api#db:generate"],
+      "outputs": ["coverage/**"],
+      "env": ["DATABASE_URL", "REDIS_URL", "JWT_ACCESS_SECRET", "TENANT_ID", "DEFAULT_CURRENCY"]
     }
   }
 }
