@@ -23,13 +23,14 @@ export function Hero() {
 
   return (
     <section className="from-brand-tint via-page to-page relative isolate overflow-hidden bg-gradient-to-b">
-      {/* Atmósfera: halos azules que derivan despacio y retícula de puntos. */}
+      {/* Atmósfera: halos azules que derivan despacio y retícula de puntos. Los halos son
+          degradados radiales, no filter: blur: moverlos cuesta sólo composición. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div data-parallax="0.12" className="absolute -right-40 top-10">
-          <div className="bg-brand-bright/15 motion-safe:animate-drift size-160 rounded-full blur-3xl" />
+          <div className="from-brand-bright/20 motion-safe:animate-drift size-160 bg-radial to-transparent to-70%" />
         </div>
         <div data-parallax="0.2" className="absolute -left-32 bottom-0">
-          <div className="bg-brand/10 motion-safe:animate-drift size-120 rounded-full blur-3xl" />
+          <div className="from-brand/15 motion-safe:animate-drift size-120 bg-radial to-transparent to-70%" />
         </div>
         <div className="bg-dot-grid absolute inset-0 opacity-60" />
       </div>
@@ -127,7 +128,7 @@ export function Hero() {
       </div>
 
       {/* Cinta de corredores: se duplica para que el bucle no tenga costura. */}
-      <div className="border-line bg-page/80 relative border-t py-5 backdrop-blur">
+      <div className="border-line bg-page/90 relative border-t py-5">
         <p className="sr-only">{t('corridors')}</p>
         <div className="mask-fade-x flex overflow-hidden">
           {[false, true].map((duplicate) => (

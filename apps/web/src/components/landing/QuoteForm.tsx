@@ -40,7 +40,7 @@ export function QuoteForm() {
         <div className="bg-night text-on-night relative grid grid-cols-1 items-center gap-12 overflow-hidden rounded-2xl p-6 md:p-14 lg:grid-cols-12">
           <div
             aria-hidden
-            className="bg-brand-bright/25 motion-safe:animate-drift size-120 pointer-events-none absolute -left-24 -top-24 rounded-full blur-3xl"
+            className="from-brand-bright/30 motion-safe:animate-drift size-120 bg-radial pointer-events-none absolute -left-40 -top-40 to-transparent to-70%"
           />
 
           <div className="relative lg:col-span-5">

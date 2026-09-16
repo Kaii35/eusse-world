@@ -25,7 +25,13 @@ type InteractiveGlobeProps = {
 
 const DOT_COUNT = 1200
 const FOV = 600
-const AUTO_ROTATE_SPEED = 0.002
+/** Radianes por segundo: la velocidad no depende de la tasa de refresco. */
+const AUTO_ROTATE_SPEED = 0.12
+/** 30 fps bastan para un giro lento y reducen a la mitad el trabajo del hilo principal. */
+const FRAME_MS = 1000 / 30
+/** Los puntos se agrupan por profundidad: un fill por grupo en vez de uno por punto. */
+const DEPTH_BUCKETS = 6
+const TAU = Math.PI * 2
 const DRAG_SENSITIVITY = 0.005
 const TILT_LIMIT = 1
 /** Rotación inicial: centra el continente americano en la cara visible. */
@@ -81,6 +87,8 @@ export function InteractiveGlobe({ markers, connections, className }: Interactiv
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const rotation = useRef({ ...INITIAL_ROTATION })
   const drag = useRef({ active: false, startX: 0, startY: 0, startRotY: 0, startRotX: 0 })
+  /** Pide un repintado cuando el globo está quieto (movimiento reducido) y se arrastra. */
+  const dirty = useRef(true)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -99,31 +107,63 @@ export function InteractiveGlobe({ markers, connections, className }: Interactiv
 
     let width = 0
     let height = 0
-    let dpr = 0
     let time = 0
     let raf = 0
+    let last = 0
 
-    /** Redimensiona el buffer sólo cuando cambia la caja, no en cada frame. */
-    const fit = (): boolean => {
-      const nextDpr = Math.min(window.devicePixelRatio || 1, 2)
-      const rect = canvas.getBoundingClientRect()
-      if (rect.width < 2 || rect.height < 2) return false
-      if (rect.width === width && rect.height === height && nextDpr === dpr) return true
-      width = rect.width
-      height = rect.height
-      dpr = nextDpr
+    // El tamaño llega por ResizeObserver: leer getBoundingClientRect en cada frame forzaba
+    // un recálculo de estilos por frame.
+    // Halo y contorno no cambian al girar: se pintan una vez por tamaño en un lienzo aparte.
+    const backdrop = document.createElement('canvas')
+    const backdropCtx = backdrop.getContext('2d')
+
+    const paintBackdrop = (dpr: number) => {
+      if (!backdropCtx) return
+      backdrop.width = canvas.width
+      backdrop.height = canvas.height
+      backdropCtx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      const cx = width / 2
+      const cy = height / 2
+      const radius = Math.min(width, height) * 0.4
+      const glow = backdropCtx.createRadialGradient(cx, cy, radius * 0.6, cx, cy, radius * 1.25)
+      glow.addColorStop(0, palette.arc)
+      glow.addColorStop(1, transparentOf(palette.arc))
+      backdropCtx.globalAlpha = 0.12
+      backdropCtx.fillStyle = glow
+      backdropCtx.beginPath()
+      backdropCtx.arc(cx, cy, radius * 1.25, 0, TAU)
+      backdropCtx.fill()
+      backdropCtx.globalAlpha = 0.15
+      backdropCtx.strokeStyle = palette.arc
+      backdropCtx.lineWidth = 1
+      backdropCtx.beginPath()
+      backdropCtx.arc(cx, cy, radius, 0, TAU)
+      backdropCtx.stroke()
+    }
+
+    const resize = new ResizeObserver(([entry]) => {
+      if (!entry) return
+      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      width = entry.contentRect.width
+      height = entry.contentRect.height
       canvas.width = Math.round(width * dpr)
       canvas.height = Math.round(height * dpr)
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      return true
-    }
+      // Cambiar el tamaño reinicia el estado del contexto. La fuente se fija aquí y no en
+      // cada frame: asignar ctx.font obliga al navegador a interpretarla como CSS.
+      ctx.font = labelFont
+      ctx.textBaseline = 'middle'
+      paintBackdrop(dpr)
+      dirty.current = true
+    })
+    resize.observe(canvas)
 
-    const draw = () => {
-      if (!fit()) return
+    const draw = (seconds: number) => {
+      if (width < 2 || height < 2) return
 
       if (!reduced) {
-        time += 0.015
-        if (!drag.current.active) rotation.current.y += AUTO_ROTATE_SPEED
+        time += seconds * 0.9
+        if (!drag.current.active) rotation.current.y += AUTO_ROTATE_SPEED * seconds
       }
 
       const { y: rotY, x: rotX } = rotation.current
@@ -132,37 +172,31 @@ export function InteractiveGlobe({ markers, connections, className }: Interactiv
       const radius = Math.min(width, height) * 0.4
 
       ctx.clearRect(0, 0, width, height)
+      ctx.globalAlpha = 1
+      ctx.setTransform(1, 0, 0, 1, 0, 0)
+      ctx.drawImage(backdrop, 0, 0)
+      const dpr = canvas.width / width
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
 
-      // Halo exterior
-      const glow = ctx.createRadialGradient(cx, cy, radius * 0.6, cx, cy, radius * 1.25)
-      glow.addColorStop(0, palette.arc)
-      glow.addColorStop(1, transparentOf(palette.arc))
-      ctx.globalAlpha = 0.12
-      ctx.fillStyle = glow
-      ctx.beginPath()
-      ctx.arc(cx, cy, radius * 1.25, 0, Math.PI * 2)
-      ctx.fill()
-
-      // Contorno
-      ctx.globalAlpha = 0.15
-      ctx.strokeStyle = palette.arc
-      ctx.lineWidth = 1
-      ctx.beginPath()
-      ctx.arc(cx, cy, radius, 0, Math.PI * 2)
-      ctx.stroke()
-
-      // Puntos de la esfera: sólo la cara visible, más tenues hacia el borde
-      ctx.fillStyle = palette.dot
+      // Puntos de la cara visible, agrupados por profundidad: más tenues hacia el borde.
+      const buckets = Array.from({ length: DEPTH_BUCKETS }, () => new Path2D())
       for (const unit of SPHERE) {
         const point = rotate([unit[0] * radius, unit[1] * radius, unit[2] * radius], rotY, rotX)
         if (point[2] > 0) continue
-        const [sx, sy] = project(point, cx, cy)
         const depth = Math.max(0.1, 1 - (point[2] + radius) / (2 * radius))
-        ctx.globalAlpha = depth
-        ctx.beginPath()
-        ctx.arc(sx, sy, 1 + depth * 0.8, 0, Math.PI * 2)
-        ctx.fill()
+        const bucket = Math.min(DEPTH_BUCKETS - 1, Math.floor(depth * DEPTH_BUCKETS))
+        const [sx, sy] = project(point, cx, cy)
+        const dotRadius = 1 + ((bucket + 0.5) / DEPTH_BUCKETS) * 0.8
+        const path = buckets[bucket]
+        if (!path) continue
+        path.moveTo(sx + dotRadius, sy)
+        path.arc(sx, sy, dotRadius, 0, TAU)
       }
+      ctx.fillStyle = palette.dot
+      buckets.forEach((path, bucket) => {
+        ctx.globalAlpha = (bucket + 0.5) / DEPTH_BUCKETS
+        ctx.fill(path)
+      })
 
       // Corredores: arco elevado y un pulso que lo recorre de origen a destino
       connections.forEach((connection, index) => {
@@ -204,14 +238,12 @@ export function InteractiveGlobe({ markers, connections, className }: Interactiv
           u * u * ay + 2 * u * t * qy + t * t * by,
           2,
           0,
-          Math.PI * 2,
+          TAU,
         )
         ctx.fill()
       })
 
       // Nodos: anillo pulsante, núcleo y etiqueta
-      ctx.font = labelFont
-      ctx.textBaseline = 'middle'
       for (const marker of markers) {
         const point = rotate(latLngToXYZ(marker.lat, marker.lng, radius), rotY, rotX)
         if (point[2] > radius * 0.1) continue
@@ -222,13 +254,13 @@ export function InteractiveGlobe({ markers, connections, className }: Interactiv
         ctx.strokeStyle = palette.marker
         ctx.lineWidth = 1
         ctx.beginPath()
-        ctx.arc(sx, sy, 4 + pulse * 4, 0, Math.PI * 2)
+        ctx.arc(sx, sy, 4 + pulse * 4, 0, TAU)
         ctx.stroke()
 
         ctx.globalAlpha = 1
         ctx.fillStyle = palette.marker
         ctx.beginPath()
-        ctx.arc(sx, sy, 2.5, 0, Math.PI * 2)
+        ctx.arc(sx, sy, 2.5, 0, TAU)
         ctx.fill()
 
         if (marker.label) {
@@ -242,20 +274,29 @@ export function InteractiveGlobe({ markers, connections, className }: Interactiv
       ctx.globalAlpha = 1
     }
 
-    const loop = () => {
-      draw()
+    const loop = (now: number) => {
       raf = requestAnimationFrame(loop)
+      const elapsed = now - last
+      if (elapsed < FRAME_MS) return
+      last = now
+      if (reduced && !dirty.current) return
+      dirty.current = false
+      draw(Math.min(elapsed, 100) / 1000)
     }
 
     // Fuera de pantalla no se dibuja: el hero no debe gastar batería mientras se lee el resto.
-    const observer = new IntersectionObserver(([entry]) => {
+    const visibility = new IntersectionObserver(([entry]) => {
       cancelAnimationFrame(raf)
-      if (entry?.isIntersecting) raf = requestAnimationFrame(loop)
+      if (!entry?.isIntersecting) return
+      last = performance.now() - FRAME_MS
+      dirty.current = true
+      raf = requestAnimationFrame(loop)
     })
-    observer.observe(canvas)
+    visibility.observe(canvas)
 
     return () => {
-      observer.disconnect()
+      visibility.disconnect()
+      resize.disconnect()
       cancelAnimationFrame(raf)
     }
   }, [markers, connections])
@@ -276,6 +317,7 @@ export function InteractiveGlobe({ markers, connections, className }: Interactiv
     const dx = event.clientX - drag.current.startX
     const dy = event.clientY - drag.current.startY
     rotation.current.y = drag.current.startRotY + dx * DRAG_SENSITIVITY
+    dirty.current = true
     rotation.current.x = Math.max(
       -TILT_LIMIT,
       Math.min(TILT_LIMIT, drag.current.startRotX - dy * DRAG_SENSITIVITY),
