@@ -4,12 +4,194 @@
     "title": "Eusse World — Wholesale distribution with your pricing",
     "description": "Buy wholesale with your own price list, credit terms and order history. No phone calls, no outdated PDFs."
   },
-  "home": {
-    "eyebrow": "Wholesale distribution",
-    "title": "Your pricing, your credit, your history. All in one place.",
-    "subtitle": "Stop rebuilding orders from a PDF. Repeat your last purchase in under a minute and track your shipment without calling anyone.",
-    "ctaPrimary": "Open a wholesale account",
-    "ctaSecondary": "Browse catalogue"
+  "landing": {
+    "nav": {
+      "label": "Sections",
+      "services": "Services",
+      "routes": "Routes",
+      "process": "Process",
+      "faq": "FAQ",
+      "brand": "EUSSE WORLD",
+      "whatsapp": "WhatsApp",
+      "cta": "Get a quote",
+      "language": "Language",
+      "home": "EUSSE WORLD, home",
+      "brandMain": "EUSSE",
+      "brandSub": "WORLD"
+    },
+    "hero": {
+      "eyebrow": "Colombia · Costa Rica · Nicaragua · USA",
+      "titleLead": "We connect markets.",
+      "titleAccent": "We move business.",
+      "lead": "We connect markets across Colombia, Costa Rica, Nicaragua and the United States, and we keep expanding our operations.",
+      "support": "At EUSSE WORLD we do more than move cargo: we drive businesses forward, connect opportunities and build relationships based on trust.",
+      "ctaPrimary": "Get a quote on WhatsApp",
+      "ctaSecondary": "See services",
+      "globeHint": "Drag the globe to explore the network",
+      "corridors": "Active corridors"
+    },
+    "stats": {
+      "countries": {
+        "value": "04",
+        "label": "Countries in operation"
+      },
+      "services": {
+        "value": "06",
+        "label": "Service lines"
+      },
+      "modes": {
+        "value": "03",
+        "label": "Modes: air, ocean, road"
+      }
+    },
+    "services": {
+      "title": "Six service lines, one single operation",
+      "lead": "From sourcing at origin to final delivery, with one team accountable for the cargo.",
+      "freight": {
+        "title": "International freight forwarding",
+        "body": "Air, ocean and road freight coordinated from origin to destination, with documentation and tracking at every leg."
+      },
+      "trade": {
+        "title": "Imports and exports",
+        "body": "The full process handled: classification, paperwork, customs brokerage and cargo release."
+      },
+      "shopper": {
+        "title": "International purchasing (Personal Shopper)",
+        "body": "We buy on your behalf at US retailers, consolidate the goods and deliver them in your country."
+      },
+      "sourcing": {
+        "title": "Commercial sourcing",
+        "body": "Supplier search and vetting, negotiation and volume purchasing for your operation."
+      },
+      "warehousing": {
+        "title": "Warehousing and distribution",
+        "body": "Storage, order consolidation and scheduled dispatches based on your inventory turnover."
+      },
+      "lastMile": {
+        "title": "Last mile and business logistics",
+        "body": "Final delivery to your customer and ongoing logistics for companies with recurring shipments."
+      },
+      "eyebrow": "Services",
+      "air": "Air",
+      "sea": "Ocean",
+      "land": "Road"
+    },
+    "routes": {
+      "title": "Four countries, active corridors",
+      "lead": "We move cargo between our operating nodes and keep opening new routes.",
+      "caption": "Corridor schematic · not to scale",
+      "miami": {
+        "city": "Miami",
+        "country": "USA"
+      },
+      "managua": {
+        "city": "Managua",
+        "country": "Nicaragua"
+      },
+      "sanJose": {
+        "city": "San José",
+        "country": "Costa Rica"
+      },
+      "medellin": {
+        "city": "Medellín",
+        "country": "Colombia"
+      },
+      "eyebrow": "Network",
+      "hubs": "Operating hubs"
+    },
+    "process": {
+      "title": "How it works",
+      "step": "Step",
+      "brief": {
+        "title": "Tell us what you need",
+        "body": "Message us on WhatsApp with the cargo type, origin and destination. We come back with options and timings."
+      },
+      "pickup": {
+        "title": "We buy or collect",
+        "body": "We handle the purchase at origin or arrange pickup with your supplier, then consolidate the goods."
+      },
+      "customs": {
+        "title": "Transport and customs",
+        "body": "We pick the mode by urgency and cost, and handle the paperwork through to release."
+      },
+      "delivery": {
+        "title": "Final delivery",
+        "body": "We store, distribute and deliver to your warehouse door or to your customer."
+      },
+      "eyebrow": "Process"
+    },
+    "partners": {
+      "title": "Clients and partners",
+      "partner": "partner logo",
+      "certification": "certification"
+    },
+    "testimonials": {
+      "title": "What our clients say",
+      "notice": "sample copy — replace with real testimonials",
+      "one": {
+        "text": "“They cleared our first container out of Miami without us having to learn customs.”",
+        "author": "Client name · Company · Medellín"
+      },
+      "two": {
+        "text": "“They buy for us in the United States and everything arrives consolidated in one shipment.”",
+        "author": "Client name · Company · San José"
+      },
+      "three": {
+        "text": "“One contact for freight, warehousing and final delivery. That saves us weeks.”",
+        "author": "Client name · Company · Managua"
+      },
+      "eyebrow": "Clients"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "lead": "If your case is not here, message us on WhatsApp and we will look at it with you.",
+      "volume": {
+        "q": "What is your minimum volume?",
+        "a": "We handle everything from personal purchases and loose cargo to full containers. The minimum depends on the route and the mode of transport."
+      },
+      "customs": {
+        "q": "Do you handle customs?",
+        "a": "Yes. We coordinate documentation, classification and customs clearance at origin and destination through to cargo release."
+      },
+      "transit": {
+        "q": "How long does a shipment take?",
+        "a": "It depends on the corridor and the mode chosen. With your quote we give the estimated transit range and clearance times."
+      },
+      "shopper": {
+        "q": "How does the Personal Shopper service work?",
+        "a": "You send us the product link or reference, we buy on your behalf at US retailers, consolidate and ship to your country."
+      },
+      "tracking": {
+        "q": "Can I track my cargo?",
+        "a": "Yes. We report the status at every milestone: pickup, departure, arrival, customs and delivery."
+      },
+      "eyebrow": "FAQ",
+      "cta": "Message us on WhatsApp"
+    },
+    "quote": {
+      "title": "Request a quote",
+      "lead": "Send us your cargo details and we will come back with a proposal. If you would rather talk now, message us directly.",
+      "name": "Name",
+      "company": "Company",
+      "origin": "Origin",
+      "destination": "Destination",
+      "service": "Service",
+      "detail": "Cargo details",
+      "placeCity": "City, country",
+      "placeDetail": "Product type, approximate weight or volume, dates",
+      "submit": "Send request",
+      "sent": "Request received. We will contact you on WhatsApp.",
+      "eyebrow": "Contact",
+      "direct": "Rather talk now?"
+    },
+    "footer": {
+      "blurb": "International freight, imports, exports and business logistics.",
+      "contact": "Contact",
+      "operations": "Operations",
+      "sections": "Sections",
+      "quote": "Quote",
+      "rights": "© 2026 EUSSE WORLD · All rights reserved"
+    }
   },
   "notFound": {
     "code": "Error 404",

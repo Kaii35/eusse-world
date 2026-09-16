@@ -1,3 +1,4 @@
+import { Geist_Mono, Inter, Montserrat } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server'
@@ -8,6 +9,12 @@ import { ThemeProvider } from '@/components/ThemeProvider'
 import { routing, type AppLocale } from '@/lib/i18n/routing'
 
 import '@/styles/globals.css'
+
+// Tipografía de la landing (RFC-0009): Montserrat en titulares, Inter en texto y
+// Geist Mono para códigos de ruta. Expone las variables que lee landing-theme.css.
+const display = Montserrat({ subsets: ['latin'], variable: '--font-montserrat' })
+const body = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const mono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' })
 
 type LayoutProps = {
   children: React.ReactNode
@@ -48,7 +55,11 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
   return (
     // `suppressHydrationWarning` porque ThemeProvider ajusta la clase antes de hidratar:
     // sin ello habría un parpadeo de tema claro en cada carga.
-    <html lang={locale} suppressHydrationWarning>
+    <html
+      lang={locale}
+      className={`${display.variable} ${body.variable} ${mono.variable}`}
+      suppressHydrationWarning
+    >
       <body className="bg-background text-foreground min-h-dvh antialiased">
         <ThemeProvider>
           <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>

@@ -23,6 +23,14 @@ const FONT_SIZES = [
   'h2',
   'h1',
   'display',
+  // Escala editorial de la landing (@eusse/tokens/landing-theme.css).
+  'eyebrow',
+  'lead',
+  'display-md',
+  'display-lg',
+  'display-xl',
+  'stat',
+  'wordmark',
 ] as const
 
 const twMerge = extendTailwindMerge({
