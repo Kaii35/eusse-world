@@ -1,6 +1,8 @@
 {
   "extends": "@eusse/config-typescript/next.json",
-  "compilerOptions": { "baseUrl": "." },
+  // El alias vive aquí y no en el config compartido: sin `baseUrl` (obsoleto en TS 6),
+  // `paths` se resuelve respecto al archivo que lo declara, y Next no admite `${configDir}`.
+  "compilerOptions": { "paths": { "@/*": ["./src/*"] } },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
