@@ -46,10 +46,17 @@ export async function BrandLockup({ size = 'md' }: { size?: 'md' | 'lg' }) {
 export async function SiteHeader() {
   const t = await getTranslations('landing')
   const ta = await getTranslations('a11y')
+  const tm = await getTranslations('marketplace.nav')
   const locale = (await getLocale()) as AppLocale
 
   const links = NAV_ITEMS.map(([key, id]) => ({ href: `#${id}`, label: t(`nav.${key}`) }))
   const cta = { href: `#${SECTION_IDS.contact}`, label: t('nav.cta') }
+
+  // Acceso a la zona de cuenta: tienda e ingreso. Son rutas reales, con el prefijo de idioma.
+  const accountLinks = [
+    { href: `/${locale}/tienda`, label: tm('store') },
+    { href: `/${locale}/acceso`, label: tm('access') },
+  ]
 
   return (
     <>
@@ -75,6 +82,11 @@ export async function SiteHeader() {
           </nav>
 
           <div className={styles.headerActions}>
+            {accountLinks.map((link) => (
+              <a key={link.href} className={styles.navLink} href={link.href}>
+                {link.label}
+              </a>
+            ))}
             <LanguageSwitcher
               current={locale}
               label={t('language.label')}
@@ -103,7 +115,7 @@ export async function SiteHeader() {
             <MobileNav
               label={t('nav.openMenu')}
               title={t('nav.menu')}
-              links={links}
+              links={[...links, ...accountLinks]}
               cta={cta}
               ctaClassName={cx(styles.button, styles.buttonPrimary)}
             />
