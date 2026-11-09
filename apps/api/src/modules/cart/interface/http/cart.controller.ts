@@ -18,7 +18,7 @@ import { parseBody } from '../../../../common/parse-body'
 import { AddCartLineUseCase } from '../../application/add-cart-line.use-case'
 import { GetCartUseCase, type CartView } from '../../application/get-cart.use-case'
 import { RemoveCartLineUseCase } from '../../application/remove-cart-line.use-case'
-import { lineTotal, type CartLine } from '../../domain/cart-line'
+import { lineTotal, lineUnits, type CartLine } from '../../domain/cart-line'
 
 /** Carrito del comerciante. Todo sale de la sesión: ninguna ruta recibe un `ownerId`. */
 @Controller('cart')
@@ -70,8 +70,15 @@ function toLineDto(line: CartLine) {
  * total se calcula en el navegador (CLAUDE.md).
  */
 function toCartDto(view: CartView) {
+  const currency = view.lines[0]?.unitPrice.currency ?? 'COP'
+  const grandTotal = Money.sum(
+    view.lines.map((line) => lineTotal(line)),
+    currency,
+  )
   return {
     lines: view.lines.map(toLineDto),
+    totalUnits: view.lines.reduce((sum, line) => sum + lineUnits(line), 0),
+    total: { amount: grandTotal.amount, currency: grandTotal.currency },
     suppliers: view.suppliers.map((supplier) => {
       const own = view.lines.filter((line) => line.supplierId === supplier.supplierId)
       const currency = own[0]?.unitPrice.currency ?? 'COP'
