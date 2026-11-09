@@ -17,6 +17,7 @@
     "@eusse/domain": "workspace:*",
     "@eusse/tokens": "workspace:*",
     "@eusse/ui": "workspace:*",
+    "@tanstack/react-query": "5.104.5",
     "cobe": "^2.0.1",
     "next": "^15.1.6",
     "next-intl": "^3.26.3",
