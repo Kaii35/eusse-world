@@ -19,5 +19,5 @@ datasource db {
   url      = env("DATABASE_URL")
   // Un schema por contexto acotado. En una sola línea: el parser de Prisma no acepta
   // arrays multilínea dentro de `datasource`.
-  schemas  = ["shared", "identity", "accounts", "catalog", "pricing", "cart", "orders", "content", "notifications", "search"]
+  schemas  = ["shared", "identity", "accounts", "suppliers", "catalog", "pricing", "cart", "orders", "content", "notifications", "search"]
 }

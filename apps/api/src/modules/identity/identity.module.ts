@@ -31,6 +31,7 @@ import { PrismaSessionRepository } from './infrastructure/persistence/prisma-ses
 import { PrismaUnitOfWork } from './infrastructure/persistence/prisma-unit-of-work'
 import { PrismaUserRepository } from './infrastructure/persistence/prisma-user.repository'
 import { SystemClock } from './infrastructure/system-clock'
+import { AuthController } from './interface/http/auth.controller'
 
 import type { Env } from '../../config/env.schema'
 
@@ -44,6 +45,7 @@ import type { Env } from '../../config/env.schema'
  */
 @Module({
   imports: [AccountsModule],
+  controllers: [AuthController],
   providers: [
     SessionIssuer,
     RegisterUseCase,

@@ -1,0 +1,31 @@
+/// Contexto Cart (RFC-0016 §4.1, §4.8).
+///
+/// Sin claves foráneas hacia Suppliers: el producto y el proveedor se guardan por ID. El
+/// precio de cada línea se congela en `priced_at` (RFC-0006).
+
+/// Línea del carrito de un comerciante. Una línea es un producto con un color, unas
+/// cantidades por talla y, si lo hay, un estampado.
+model CartLine {
+  id                String   @id @db.Uuid
+  /// Usuario comerciante dueño del carrito. Sale de la sesión, nunca del cliente.
+  ownerUserId       String   @map("owner_user_id") @db.Uuid
+  productId         String   @map("product_id") @db.Uuid
+  supplierId        String   @map("supplier_id") @db.Uuid
+  color             String   @db.VarChar(60)
+  /// Cantidad por talla, p. ej. {"S": 2, "M": 4}. Validado en dominio.
+  qtyBySize         Json     @map("qty_by_size")
+  printTechnique    String?  @map("print_technique") @db.VarChar(16)
+  printSize         String?  @map("print_size") @db.VarChar(16)
+  printPlacement    String?  @map("print_placement") @db.VarChar(80)
+  /// Precio por unidad congelado al agregar la línea, en unidades mínimas (centavos).
+  unitPriceAmount   Decimal  @map("unit_price_amount") @db.Decimal(18, 4)
+  unitPriceCurrency String   @map("unit_price_currency") @db.VarChar(3)
+  pricedAt          DateTime @map("priced_at") @db.Timestamptz
+  createdAt         DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt         DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  /// sirve: listar el carrito de un comerciante
+  @@index([ownerUserId])
+  @@map("cart_lines")
+  @@schema("cart")
+}

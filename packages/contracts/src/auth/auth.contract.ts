@@ -113,3 +113,10 @@ export type ResetPasswordRequest = z.infer<typeof resetPasswordRequest>
 export type SwitchAccountRequest = z.infer<typeof switchAccountRequest>
 export type Membership = z.infer<typeof membershipSchema>
 export type MeResponse = z.infer<typeof meResponse>
+
+/** Token de verificación de correo, tal como sale en el enlace. */
+export const verifyEmailRequest = z.object({
+  token: z.string().min(20).max(200),
+})
+
+export type VerifyEmailRequest = z.infer<typeof verifyEmailRequest>

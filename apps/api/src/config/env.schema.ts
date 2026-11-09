@@ -46,6 +46,27 @@ export const envSchema = z.object({
    */
   JWT_ACCESS_SECRET: z.string().min(32, 'JWT_ACCESS_SECRET debe tener al menos 32 caracteres'),
 
+  /**
+   * Usuarios de Operaciones que aprueban proveedores, separados por coma.
+   * TEMPORAL: sustituir por roles de staff en Identity cuando exista (RFC-0003). Hasta
+   * entonces, un usuario fuera de esta lista no puede decidir sobre proveedores.
+   */
+  OPS_USER_IDS: z
+    .string()
+    .default('')
+    .transform((value) =>
+      value
+        .split(',')
+        .map((id) => id.trim())
+        .filter(Boolean),
+    ),
+
+  /** Cookies `Secure` y prefijo `__Host-`. En cualquier entorno que no sea local, `true`. */
+  COOKIE_SECURE: z
+    .enum(['true', 'false'])
+    .default('false')
+    .transform((value) => value === 'true'),
+
   LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).default('info'),
 })
 

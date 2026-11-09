@@ -3,8 +3,10 @@ import { Module, type MiddlewareConsumer, type NestModule } from '@nestjs/common
 import { CorrelationIdMiddleware } from './common/correlation-id.middleware'
 import { ConfigModule } from './config/config.module'
 import { AccountsModule } from './modules/accounts/accounts.module'
+import { CartModule } from './modules/cart/cart.module'
 import { HealthModule } from './modules/health/health.module'
 import { IdentityModule } from './modules/identity/identity.module'
+import { SuppliersModule } from './modules/suppliers/suppliers.module'
 import { SharedKernelModule } from './shared-kernel/shared-kernel.module'
 
 /**
@@ -16,7 +18,15 @@ import { SharedKernelModule } from './shared-kernel/shared-kernel.module'
  * revisión de arquitectura.
  */
 @Module({
-  imports: [ConfigModule, SharedKernelModule, HealthModule, AccountsModule, IdentityModule],
+  imports: [
+    ConfigModule,
+    SharedKernelModule,
+    HealthModule,
+    AccountsModule,
+    IdentityModule,
+    SuppliersModule,
+    CartModule,
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): void {

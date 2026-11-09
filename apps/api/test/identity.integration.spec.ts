@@ -372,14 +372,15 @@ async function cleanUp(prisma: PrismaService): Promise<void> {
 
 async function verificationTokenFor(prisma: PrismaService, email: string): Promise<string> {
   const user = await prisma.user.findUniqueOrThrow({ where: { email } })
+  // Se filtra por usuario: las pruebas de otros archivos escriben en la misma base en paralelo.
   const event = await prisma.outboxEvent.findFirstOrThrow({
-    where: { type: 'identity.EmailVerificationRequested.v1' },
+    where: {
+      type: 'identity.EmailVerificationRequested.v1',
+      payload: { path: ['userId'], equals: user.id },
+    },
     orderBy: { createdAt: 'desc' },
   })
-  const payload = event.payload as { userId: string; token: string }
-
-  if (payload.userId !== user.id) throw new Error('El evento no corresponde a este usuario')
-  return payload.token
+  return (event.payload as { token: string }).token
 }
 
 /** El staff aprueba: sin esto no hay cuenta activa y la sesión abre sin `acc`. */

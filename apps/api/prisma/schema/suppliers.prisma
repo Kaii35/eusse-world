@@ -1,0 +1,94 @@
+/// Contexto Suppliers (RFC-0016 §4.1, §4.8).
+///
+/// Sin claves foráneas hacia otros contextos: el usuario se referencia por ID (ADR-0006).
+/// Las relaciones que sí existen son internas a este contexto.
+
+/// Proveedor: quien vende prendas al por mayor.
+model Supplier {
+  id              String    @id @db.Uuid
+  tenantId        String    @map("tenant_id") @db.VarChar(64)
+  legalName       String    @map("legal_name") @db.VarChar(200)
+  taxId           String    @map("tax_id") @db.VarChar(32)
+  /// PENDING_REVIEW · ACTIVE · REJECTED · SUSPENDED
+  status          String    @db.VarChar(16)
+  /// Motivo del último rechazo o suspensión, para poder explicarlo y auditarlo.
+  rejectionReason String?   @map("rejection_reason") @db.VarChar(500)
+  approvedBy      String?   @map("approved_by") @db.Uuid
+  approvedAt      DateTime? @map("approved_at") @db.Timestamptz
+  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt       DateTime  @updatedAt @map("updated_at") @db.Timestamptz
+
+  members  SupplierMember[]
+  products SupplierProduct[]
+
+  /// Un documento tributario, un proveedor. En la base y no solo en memoria: dos altas
+  /// simultáneas pasarían la comprobación previa a la vez.
+  @@unique([tenantId, taxId])
+  /// sirve: listar proveedores activos para los compradores
+  @@index([tenantId, status])
+  @@map("suppliers")
+  @@schema("suppliers")
+}
+
+/// Usuario que administra un proveedor.
+model SupplierMember {
+  id         String   @id @db.Uuid
+  supplierId String   @map("supplier_id") @db.Uuid
+  /// Referencia a `identity.users` por ID. Único: hoy un usuario administra un solo
+  /// proveedor. Si cambia, se cambia con un ADR, no con una migración silenciosa.
+  userId     String   @unique @map("user_id") @db.Uuid
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt  DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  supplier Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+
+  @@index([supplierId])
+  @@map("supplier_members")
+  @@schema("suppliers")
+}
+
+/// Producto de un proveedor. Colores y tallas van como JSON validado en dominio.
+model SupplierProduct {
+  id                String   @id @db.Uuid
+  supplierId        String   @map("supplier_id") @db.Uuid
+  name              String   @db.VarChar(200)
+  category          String   @db.VarChar(80)
+  /// Importe en unidades mínimas (centavos), igual que `Money.amount`. Nunca float.
+  basePriceAmount   Decimal  @map("base_price_amount") @db.Decimal(18, 4)
+  basePriceCurrency String   @map("base_price_currency") @db.VarChar(3)
+  colors            Json
+  sizes             Json
+  /// DRAFT · PUBLISHED · ARCHIVED
+  status            String   @db.VarChar(16)
+  createdAt         DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt         DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  supplier     Supplier      @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  printOptions PrintOption[]
+
+  /// sirve: catálogo público de un proveedor, filtrado por estado
+  @@index([supplierId, status])
+  @@map("supplier_products")
+  @@schema("suppliers")
+}
+
+/// Estampado que un proveedor ofrece para un producto.
+model PrintOption {
+  id              String   @id @db.Uuid
+  productId       String   @map("product_id") @db.Uuid
+  /// DTF · SCREEN · EMBROIDERY · SUBLIMATION
+  technique       String   @db.VarChar(16)
+  sizes           Json
+  placements      Json
+  unitFeeAmount   Decimal  @map("unit_fee_amount") @db.Decimal(18, 4)
+  unitFeeCurrency String   @map("unit_fee_currency") @db.VarChar(3)
+  createdAt       DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt       DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  product SupplierProduct @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  /// Una técnica aparece una sola vez por producto (invariante del dominio, también aquí).
+  @@unique([productId, technique])
+  @@map("print_options")
+  @@schema("suppliers")
+}
