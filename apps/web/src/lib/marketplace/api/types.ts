@@ -71,7 +71,13 @@ export type SupplierMinimum = {
   subtotal: Money
 }
 
-export type Cart = { lines: CartLine[]; suppliers: SupplierMinimum[] }
+/** Carrito tal como lo devuelve la API: todos los totales llegan calculados por el servidor. */
+export type Cart = {
+  lines: CartLine[]
+  totalUnits: number
+  total: Money
+  suppliers: SupplierMinimum[]
+}
 
 export type Me = {
   userId: string

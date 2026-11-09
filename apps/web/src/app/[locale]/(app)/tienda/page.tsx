@@ -2,8 +2,9 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import type { Metadata } from 'next'
 
+import { PageHeader } from '@/components/marketplace/kit'
+import { RequireSession } from '@/components/marketplace/RequireSession'
 import { SupplierList } from '@/components/marketplace/Store'
-import { headingClass, pageClass, hintClass } from '@/components/marketplace/ui'
 
 type PageProps = { params: Promise<{ locale: string }> }
 
@@ -15,12 +16,11 @@ export default async function StorePage({ params }: PageProps) {
   const t = await getTranslations('marketplace.store')
 
   return (
-    <div className={pageClass}>
-      <header className="flex flex-col gap-2">
-        <h1 className={headingClass}>{t('title')}</h1>
-        <p className={hintClass}>{t('intro')}</p>
-      </header>
-      <SupplierList />
+    <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-10">
+      <PageHeader title={t('title')} description={t('intro')} />
+      <RequireSession>
+        <SupplierList />
+      </RequireSession>
     </div>
   )
 }

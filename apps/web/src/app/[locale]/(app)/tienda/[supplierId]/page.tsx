@@ -2,9 +2,9 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import type { Metadata } from 'next'
 
+import { Breadcrumb } from '@/components/marketplace/kit'
+import { RequireSession } from '@/components/marketplace/RequireSession'
 import { SupplierCatalog } from '@/components/marketplace/Store'
-import { headingClass, pageClass } from '@/components/marketplace/ui'
-import { Link } from '@/lib/i18n/navigation'
 
 type PageProps = { params: Promise<{ locale: string; supplierId: string }> }
 
@@ -14,14 +14,14 @@ export default async function SupplierCatalogPage({ params }: PageProps) {
   const { locale, supplierId } = await params
   setRequestLocale(locale)
   const t = await getTranslations('marketplace.store')
+  const c = await getTranslations('marketplace.common')
 
   return (
-    <div className={pageClass}>
-      <Link href="/tienda" className="text-primary text-body-sm underline-offset-4 hover:underline">
-        {t('back')}
-      </Link>
-      <h1 className={headingClass}>{t('catalog')}</h1>
-      <SupplierCatalog supplierId={supplierId} />
+    <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10">
+      <Breadcrumb items={[{ href: '/tienda', label: t('back') }, { label: c('breadcrumb') }]} />
+      <RequireSession>
+        <SupplierCatalog supplierId={supplierId} />
+      </RequireSession>
     </div>
   )
 }

@@ -1,90 +1,74 @@
 'use client'
 
-import { Badge, Button, Skeleton } from '@eusse/ui'
+import { Button, Skeleton } from '@eusse/ui'
 import { useLocale, useTranslations } from 'next-intl'
-import { useState } from 'react'
+import { useId, useState } from 'react'
 
-import {
-  errorClass,
-  fieldClass,
-  headingClass,
-  hintClass,
-  labelClass,
-  listClass,
-  noticeClass,
-  sectionClass,
-} from './ui'
+import { controlClass, EmptyState, Field, Notice, Pill, PageHeader, Surface } from './kit'
+import { RequireSession } from './RequireSession'
 
-import type { OwnSupplier, PrintTechnique, Product } from '@/lib/marketplace/api/types'
+import type { PillTone } from './kit'
+import type { OwnSupplier, Product, SupplierStatus } from '@/lib/marketplace/api/types'
 
 import { Link } from '@/lib/i18n/navigation'
 import {
-  useCreateProduct,
-  useMe,
   useMyProducts,
   useMySupplier,
   usePublishProduct,
   useRegisterSupplier,
-  type ProductInput,
 } from '@/lib/marketplace/api/queries'
-import { formatMoney, parseList, toMinorUnits } from '@/lib/marketplace/format'
+import { formatMoney } from '@/lib/marketplace/format'
 import { useApiErrorMessage } from '@/lib/marketplace/useApiErrorMessage'
 
-const TECHNIQUES: readonly PrintTechnique[] = ['DTF', 'SCREEN', 'EMBROIDERY', 'SUBLIMATION']
-const CURRENCIES = ['COP', 'USD', 'EUR'] as const
-type Currency = (typeof CURRENCIES)[number]
+const STATUS_TONE: Record<SupplierStatus, PillTone> = {
+  PENDING_REVIEW: 'warning',
+  ACTIVE: 'success',
+  REJECTED: 'danger',
+  SUSPENDED: 'danger',
+}
 
-/** Panel del proveedor: registro, estado, catálogo y alta de productos. */
+/** Panel del proveedor: sin empresa, pide registrarla; con empresa, muestra su estado y catálogo. */
 export function SupplierPanel() {
-  const t = useTranslations('marketplace.supplier')
-  const tNav = useTranslations('marketplace.nav')
-  const me = useMe()
-  const supplier = useMySupplier()
-
-  if (me.isError) {
-    return (
-      <Shell title={t('title')}>
-        <p role="alert" className={errorClass}>
-          <Link href="/acceso" className="underline">
-            {tNav('access')}
-          </Link>
-        </p>
-      </Shell>
-    )
-  }
-
-  if (supplier.isPending) {
-    return (
-      <Shell title={t('title')}>
-        <Skeleton className="h-40 w-full" />
-      </Shell>
-    )
-  }
-
-  const own = supplier.data
-  if (!own) {
-    return (
-      <Shell title={t('title')}>
-        <RegisterSupplier />
-      </Shell>
-    )
-  }
-
   return (
-    <Shell title={t('title')}>
-      <SupplierStatus supplier={own} />
-      <Catalog />
-    </Shell>
+    <RequireSession>
+      <SupplierArea />
+    </RequireSession>
   )
 }
 
-function Shell({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-4 py-8">
-      <h1 className={headingClass}>{title}</h1>
-      {children}
-    </div>
-  )
+function SupplierArea() {
+  const t = useTranslations('marketplace.supplier')
+  const supplier = useMySupplier()
+
+  if (supplier.isPending) {
+    return (
+      <div className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-10">
+        <Skeleton className="h-40 w-full" />
+        <Skeleton className="h-72 w-full" />
+      </div>
+    )
+  }
+
+  if (supplier.isError) {
+    return (
+      <div className="mx-auto max-w-5xl px-4 py-10">
+        <Notice tone="danger" role="alert">
+          {t('registerBody')}
+        </Notice>
+      </div>
+    )
+  }
+
+  if (!supplier.data) {
+    return (
+      <div className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-10">
+        <PageHeader title={t('title')} />
+        <RegisterSupplier />
+      </div>
+    )
+  }
+
+  return <Dashboard supplier={supplier.data} />
 }
 
 function RegisterSupplier() {
@@ -92,378 +76,205 @@ function RegisterSupplier() {
   const tAccess = useTranslations('marketplace.access')
   const errorMessage = useApiErrorMessage()
   const register = useRegisterSupplier()
+  const ids = useId()
   const [legalName, setLegalName] = useState('')
   const [taxId, setTaxId] = useState('')
 
-  function onSubmit(event: { preventDefault: () => void }) {
-    event.preventDefault()
-    register.mutate({ legalName, taxId })
-  }
-
   return (
-    <section className={sectionClass} aria-labelledby="register-supplier">
-      <h2 id="register-supplier" className="text-h3 font-semibold">
-        {t('registerTitle')}
-      </h2>
-      <p className={hintClass}>{t('registerBody')}</p>
-      <form onSubmit={onSubmit} className="flex max-w-md flex-col gap-4" noValidate>
-        <label className={labelClass}>
-          {tAccess('legalName')}
+    <Surface labelledBy={`${ids}-title`}>
+      <div className="flex flex-col gap-2">
+        <h2 id={`${ids}-title`} className="text-h3 text-foreground font-semibold">
+          {t('registerTitle')}
+        </h2>
+        <p className="text-body text-muted-foreground">{t('registerBody')}</p>
+      </div>
+      <form
+        className="flex flex-col gap-5"
+        noValidate
+        onSubmit={(event: { preventDefault: () => void }) => {
+          event.preventDefault()
+          register.mutate({ legalName, taxId })
+        }}
+      >
+        <Field label={tAccess('legalName')} htmlFor={`${ids}-legal`}>
           <input
+            id={`${ids}-legal`}
             required
             value={legalName}
-            onChange={(e) => {
-              setLegalName(e.target.value)
+            onChange={(event) => {
+              setLegalName(event.target.value)
             }}
-            className={fieldClass}
+            className={controlClass}
           />
-        </label>
-        <label className={labelClass}>
-          {tAccess('taxId')}
+        </Field>
+        <Field label={tAccess('taxId')} htmlFor={`${ids}-tax`}>
           <input
+            id={`${ids}-tax`}
             required
             value={taxId}
-            onChange={(e) => {
-              setTaxId(e.target.value)
+            onChange={(event) => {
+              setTaxId(event.target.value)
             }}
-            className={fieldClass}
+            className={controlClass}
           />
-        </label>
+        </Field>
         {register.error ? (
-          <p role="alert" className={errorClass}>
+          <Notice tone="danger" role="alert">
             {errorMessage(register.error)}
-          </p>
+          </Notice>
         ) : null}
-        <Button type="submit" isLoading={register.isPending} disabled={register.isPending}>
+        <Button
+          type="submit"
+          size="lg"
+          isLoading={register.isPending}
+          disabled={register.isPending}
+        >
           {t('register')}
         </Button>
       </form>
-    </section>
+    </Surface>
   )
 }
 
-function SupplierStatus({ supplier }: { supplier: OwnSupplier }) {
+function Dashboard({ supplier }: { supplier: OwnSupplier }) {
   const t = useTranslations('marketplace.supplier')
-  const variant = supplier.status === 'ACTIVE' ? 'success' : 'neutral'
-  return (
-    <section className={sectionClass} aria-labelledby="supplier-status">
-      <div className="flex flex-wrap items-center gap-3">
-        <h2 id="supplier-status" className="text-h3 font-semibold">
-          {supplier.legalName}
-        </h2>
-        <Badge variant={variant}>{t(`status${supplier.status}`)}</Badge>
-      </div>
-      {supplier.status === 'PENDING_REVIEW' ? (
-        <p className={noticeClass}>{t('pendingNotice')}</p>
-      ) : null}
-      {supplier.rejectionReason ? (
-        <p className={errorClass}>
-          {t('rejectionReasonText', { reason: supplier.rejectionReason })}
-        </p>
-      ) : null}
-    </section>
-  )
-}
-
-function Catalog() {
-  const t = useTranslations('marketplace.supplier')
-  const locale = useLocale()
-  const errorMessage = useApiErrorMessage()
   const products = useMyProducts(true)
-  const publish = usePublishProduct()
+  const list = products.data ?? []
+  const published = list.filter((p) => p.status === 'PUBLISHED').length
+  const drafts = list.filter((p) => p.status === 'DRAFT').length
 
   return (
-    <div className="grid gap-8 lg:grid-cols-2">
-      <section className={sectionClass} aria-labelledby="my-products">
-        <h2 id="my-products" className="text-h3 font-semibold">
-          {t('products')}
-        </h2>
-        {products.isPending ? <Skeleton className="h-24 w-full" /> : null}
-        {products.isSuccess && products.data.length === 0 ? (
-          <p className={hintClass}>{t('noProducts')}</p>
+    <div className="mx-auto flex max-w-5xl flex-col gap-8 px-4 py-10">
+      <Surface labelledBy="supplier-name">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex flex-col gap-2">
+            <p className="text-caption text-muted-foreground">{t('title')}</p>
+            <h1 id="supplier-name" className="text-h2 text-foreground font-semibold">
+              {supplier.legalName}
+            </h1>
+          </div>
+          <div className="flex flex-col items-start gap-2 md:items-end">
+            <span className="text-caption text-muted-foreground">{t('statusLabel')}</span>
+            <Pill tone={STATUS_TONE[supplier.status]}>{t(`status${supplier.status}`)}</Pill>
+          </div>
+        </div>
+        {supplier.status === 'PENDING_REVIEW' ? (
+          <Notice tone="warning">{t('pendingNotice')}</Notice>
         ) : null}
-        {products.isSuccess && products.data.length > 0 ? (
-          <ul className={listClass}>
-            {products.data.map((product) => (
-              <ProductRow
-                key={product.id}
-                product={product}
-                locale={locale}
-                publishing={publish.isPending && publish.variables === product.id}
-                onPublish={() => {
-                  publish.mutate(product.id)
-                }}
-              />
-            ))}
-          </ul>
+        {supplier.rejectionReason ? (
+          <Notice tone="danger" role="alert">
+            {t('rejectionReasonText', { reason: supplier.rejectionReason })}
+          </Notice>
         ) : null}
-        {publish.error ? (
-          <p role="alert" className={errorClass}>
-            {errorMessage(publish.error)}
-          </p>
-        ) : null}
-      </section>
+      </Surface>
 
-      <ProductForm />
+      <dl className="grid gap-4 sm:grid-cols-3">
+        <Kpi label={t('kpiProducts')} value={list.length} />
+        <Kpi label={t('kpiPublished')} value={published} />
+        <Kpi label={t('kpiDrafts')} value={drafts} />
+      </dl>
+
+      <Catalog products={products.data} isPending={products.isPending} isError={products.isError} />
     </div>
   )
 }
 
-function ProductRow({
-  product,
-  locale,
-  publishing,
-  onPublish,
+function Kpi({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="border-border bg-surface shadow-raised flex flex-col gap-1 rounded-lg border p-5">
+      <dt className="text-body-sm text-muted-foreground">{label}</dt>
+      <dd className="text-h2 text-foreground font-semibold tabular-nums">{value}</dd>
+    </div>
+  )
+}
+
+function Catalog({
+  products,
+  isPending,
+  isError,
 }: {
-  product: Product
-  locale: string
-  publishing: boolean
-  onPublish: () => void
+  products: Product[] | undefined
+  isPending: boolean
+  isError: boolean
 }) {
   const t = useTranslations('marketplace.supplier')
-  const published = product.status === 'PUBLISHED'
+  const c = useTranslations('marketplace.common')
+
   return (
-    <li className="flex flex-wrap items-center justify-between gap-3 py-3">
-      <div className="flex flex-col gap-1">
-        <span className="font-medium">{product.name}</span>
-        <span className={hintClass}>
-          {formatMoney(product.basePrice, locale)} · {product.colors.join(', ')} ·{' '}
-          {product.sizes.join(', ')}
+    <Surface labelledBy="catalog-title">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div className="flex flex-col gap-1">
+          <h2 id="catalog-title" className="text-h3 text-foreground font-semibold">
+            {t('productsTitle')}
+          </h2>
+          <p className="text-body-sm text-muted-foreground">{t('productsIntro')}</p>
+        </div>
+        <Button asChild>
+          <Link href="/proveedor/productos/nuevo">{t('newProduct')}</Link>
+        </Button>
+      </div>
+
+      {isPending ? <Skeleton className="h-32 w-full" /> : null}
+      {isError ? (
+        <Notice tone="danger" role="alert">
+          {c('loadFailed')}
+        </Notice>
+      ) : null}
+      {products?.length === 0 ? (
+        <EmptyState title={t('productsTitle')} body={t('noProducts')} />
+      ) : null}
+      {products && products.length > 0 ? (
+        <ul className="divide-border flex flex-col divide-y">
+          {products.map((product) => (
+            <ProductRow key={product.id} product={product} />
+          ))}
+        </ul>
+      ) : null}
+    </Surface>
+  )
+}
+
+function ProductRow({ product }: { product: Product }) {
+  const t = useTranslations('marketplace.supplier')
+  const locale = useLocale()
+  const errorMessage = useApiErrorMessage()
+  const publish = usePublishProduct()
+  const published = product.status === 'PUBLISHED'
+
+  return (
+    <li className="flex flex-wrap items-center justify-between gap-4 py-4">
+      <div className="flex min-w-0 flex-col gap-1">
+        <span className="text-body text-foreground font-semibold">{product.name}</span>
+        <span className="text-caption text-muted-foreground">
+          {t('productSummary', {
+            price: formatMoney(product.basePrice, locale),
+            colors: product.colors.length,
+            sizes: product.sizes.length,
+          })}
         </span>
+        {publish.error && publish.variables === product.id ? (
+          <Notice tone="danger" role="alert">
+            {errorMessage(publish.error)}
+          </Notice>
+        ) : null}
       </div>
       <div className="flex items-center gap-3">
-        <Badge variant={published ? 'success' : 'neutral'}>
+        <Pill tone={published ? 'success' : 'neutral'}>
           {published ? t('published') : t('draft')}
-        </Badge>
+        </Pill>
         {published ? null : (
-          <Button size="sm" onClick={onPublish} isLoading={publishing} disabled={publishing}>
-            {publishing ? t('publishing') : t('publish')}
+          <Button
+            size="sm"
+            isLoading={publish.isPending && publish.variables === product.id}
+            disabled={publish.isPending}
+            onClick={() => {
+              publish.mutate(product.id)
+            }}
+          >
+            {t('publish')}
           </Button>
         )}
       </div>
     </li>
-  )
-}
-
-function ProductForm() {
-  const t = useTranslations('marketplace.supplier')
-  const errorMessage = useApiErrorMessage()
-  const create = useCreateProduct()
-
-  const [name, setName] = useState('')
-  const [category, setCategory] = useState('')
-  const [price, setPrice] = useState('')
-  const [currency, setCurrency] = useState<Currency>('COP')
-  const [colors, setColors] = useState('')
-  const [sizes, setSizes] = useState('')
-  const [withPrint, setWithPrint] = useState(false)
-  const [technique, setTechnique] = useState<PrintTechnique>('DTF')
-  const [printSizes, setPrintSizes] = useState('')
-  const [placements, setPlacements] = useState('')
-  const [printFee, setPrintFee] = useState('')
-  const [localError, setLocalError] = useState<string | null>(null)
-
-  function onSubmit(event: { preventDefault: () => void }) {
-    event.preventDefault()
-    setLocalError(null)
-
-    const basePrice = toMinorUnits(price)
-    if (Number.isNaN(basePrice)) {
-      setLocalError(t('priceInvalid'))
-      return
-    }
-    const feeAmount = withPrint ? toMinorUnits(printFee) : 0
-    if (Number.isNaN(feeAmount)) {
-      setLocalError(t('printFeeInvalid'))
-      return
-    }
-
-    const input: ProductInput = {
-      name,
-      category,
-      basePrice: { amount: basePrice, currency },
-      colors: parseList(colors),
-      sizes: parseList(sizes),
-      printOptions: withPrint
-        ? [
-            {
-              technique,
-              sizes: parseList(printSizes),
-              placements: parseList(placements),
-              unitFee: { amount: feeAmount, currency },
-            },
-          ]
-        : [],
-    }
-    create.mutate(input, {
-      onSuccess: () => {
-        setName('')
-        setPrice('')
-        setColors('')
-        setSizes('')
-        setWithPrint(false)
-      },
-    })
-  }
-
-  return (
-    <section className={sectionClass} aria-labelledby="new-product">
-      <h2 id="new-product" className="text-h3 font-semibold">
-        {t('addProduct')}
-      </h2>
-      <form onSubmit={onSubmit} className="flex flex-col gap-4" noValidate>
-        <label className={labelClass}>
-          {t('name')}
-          <input
-            required
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value)
-            }}
-            className={fieldClass}
-          />
-        </label>
-        <label className={labelClass}>
-          {t('category')}
-          <input
-            required
-            value={category}
-            onChange={(e) => {
-              setCategory(e.target.value)
-            }}
-            className={fieldClass}
-          />
-        </label>
-        <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,8rem)] gap-3">
-          <label className={labelClass}>
-            {t('price')}
-            <input
-              required
-              inputMode="decimal"
-              value={price}
-              onChange={(e) => {
-                setPrice(e.target.value)
-              }}
-              className={fieldClass}
-            />
-          </label>
-          <label className={labelClass}>
-            {t('currency')}
-            <select
-              value={currency}
-              onChange={(e) => {
-                setCurrency(e.target.value as Currency)
-              }}
-              className={fieldClass}
-            >
-              {CURRENCIES.map((code) => (
-                <option key={code} value={code}>
-                  {code}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-        <label className={labelClass}>
-          {t('colors')}
-          <input
-            required
-            value={colors}
-            onChange={(e) => {
-              setColors(e.target.value)
-            }}
-            className={fieldClass}
-          />
-        </label>
-        <label className={labelClass}>
-          {t('sizes')}
-          <input
-            required
-            value={sizes}
-            onChange={(e) => {
-              setSizes(e.target.value)
-            }}
-            className={fieldClass}
-          />
-        </label>
-
-        <fieldset className="border-border flex flex-col gap-3 border-t pt-4">
-          <legend className="text-body font-semibold">{t('printTitle')}</legend>
-          <label className="text-body-sm flex items-center gap-2">
-            <input
-              type="checkbox"
-              checked={withPrint}
-              onChange={(e) => {
-                setWithPrint(e.target.checked)
-              }}
-            />
-            {t('printTitle')}
-          </label>
-          {withPrint ? (
-            <>
-              <label className={labelClass}>
-                {t('printTechnique')}
-                <select
-                  value={technique}
-                  onChange={(e) => {
-                    setTechnique(e.target.value as PrintTechnique)
-                  }}
-                  className={fieldClass}
-                >
-                  {TECHNIQUES.map((code) => (
-                    <option key={code} value={code}>
-                      {code}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className={labelClass}>
-                {t('printSizes')}
-                <input
-                  required
-                  value={printSizes}
-                  onChange={(e) => {
-                    setPrintSizes(e.target.value)
-                  }}
-                  className={fieldClass}
-                />
-              </label>
-              <label className={labelClass}>
-                {t('printPlacements')}
-                <input
-                  required
-                  value={placements}
-                  onChange={(e) => {
-                    setPlacements(e.target.value)
-                  }}
-                  className={fieldClass}
-                />
-              </label>
-              <label className={labelClass}>
-                {t('printFee')}
-                <input
-                  required
-                  inputMode="decimal"
-                  value={printFee}
-                  onChange={(e) => {
-                    setPrintFee(e.target.value)
-                  }}
-                  className={fieldClass}
-                />
-              </label>
-            </>
-          ) : null}
-        </fieldset>
-
-        {localError || create.error ? (
-          <p role="alert" className={errorClass}>
-            {localError ?? errorMessage(create.error)}
-          </p>
-        ) : null}
-        <Button type="submit" isLoading={create.isPending} disabled={create.isPending}>
-          {t('save')}
-        </Button>
-      </form>
-    </section>
   )
 }
