@@ -46,3 +46,4 @@ Plantilla: [`templates/adr.md`](../templates/adr.md)
 | [0020](ADR-0020-deployment-strategy.md)      | Contenedores en PaaS gestionado, sin Kubernetes           | Aceptado  |
 | [0021](ADR-0021-threejs-landing-globe.md)    | three.js diferido para el globo 3D de la landing          | Propuesto |
 | [0022](ADR-0022-cobe-route-planner-globe.md) | cobe diferido para el globo del planificador de rutas     | Propuesto |
+| [0023](ADR-0023-manual-supplier-payouts.md)  | Liquidación manual y periódica a proveedores en Fase 1    | Propuesto |
