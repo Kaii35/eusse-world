@@ -3,8 +3,8 @@
 Aplicaciones desplegables. **Las apps no se importan entre sí**: lo común sube a
 `packages/`.
 
-> Estas carpetas están vacías. El código se crea en el **Sprint 0** (Bloque A de
-> [`docs/06-implementation-order.md`](../docs/06-implementation-order.md)).
+> Sólo aplicaciones desplegables. Los prototipos de diseño (exportes de React, maquetas)
+> van a [`docs/design/prototypes`](../docs/design/prototypes/README.md).
 
 | App                   | Qué es                                                                | Puerto local | Fase | Paso |
 | --------------------- | --------------------------------------------------------------------- | ------------ | ---- | ---- |
