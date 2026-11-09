@@ -52,7 +52,7 @@ export function AccessPanel() {
       password,
       firstName,
       lastName,
-      company: { legalName, taxId, ...(phone ? { phone } : {}) },
+      company: { legalName, taxId, phone },
     })
   }
 
@@ -147,6 +147,7 @@ export function AccessPanel() {
                   <input
                     type="tel"
                     autoComplete="tel"
+                    required
                     value={phone}
                     onChange={(e) => {
                       setPhone(e.target.value)

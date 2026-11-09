@@ -373,7 +373,7 @@
       "lastName": "Last name",
       "legalName": "Legal name",
       "taxId": "Tax ID",
-      "phone": "Phone (optional)",
+      "phone": "Phone",
       "login": "Sign in",
       "register": "Create account",
       "switchToRegister": "No account yet? Sign up",

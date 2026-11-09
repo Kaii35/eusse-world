@@ -373,7 +373,7 @@
       "lastName": "Apellido",
       "legalName": "Razón social",
       "taxId": "NIT o documento tributario",
-      "phone": "Teléfono (opcional)",
+      "phone": "Teléfono",
       "login": "Ingresar",
       "register": "Crear cuenta",
       "switchToRegister": "¿No tienes cuenta? Regístrate",
