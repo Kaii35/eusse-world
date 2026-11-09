@@ -1,3 +1,8 @@
+---
+name: forms-validation
+description: Formularios con React Hook Form y el mismo esquema Zod de @eusse/contracts en cliente y servidor — validación en blur, sin pérdida de datos, errores junto al campo y mensajes específicos. Úsala al construir o revisar cualquier formulario.
+---
+
 # Skill — Formularios y validación
 
 ## Objetivo

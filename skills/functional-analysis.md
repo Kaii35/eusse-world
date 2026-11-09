@@ -1,3 +1,8 @@
+---
+name: functional-analysis
+description: Análisis funcional sin ambigüedad — casos de uso con flujos alternos y de error, criterios verificables, reglas numeradas con ejemplo y contraejemplo, comportamiento concurrente y permisos por rol. Úsala antes de un RFC, al escribir casos de uso o criterios de aceptación, o ante una duda funcional.
+---
+
 # Skill — Análisis funcional
 
 ## Objetivo

@@ -1,3 +1,8 @@
+---
+name: performance
+description: Rendimiento medido con presupuestos que rompen el build — medir antes de optimizar, p75/p95 en móvil, CLS 0, trabajo pesado a colas, consultas en lote sin N+1 y caché con invalidación escrita. Úsala cuando una ruta supere su presupuesto o antes de cerrar un feature con impacto en latencia o peso.
+---
+
 # Skill — Rendimiento
 
 ## Objetivo

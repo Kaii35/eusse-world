@@ -1,3 +1,8 @@
+---
+name: product-management
+description: Gestión de producto — priorizar por lo que desbloquea, atacar pronto el riesgo, métrica de éxito previa, recortar alcance y nunca calidad, y respetar las puertas entre sprints. Úsala para priorizar el backlog, definir alcance o aceptar una entrega.
+---
+
 # Skill — Gestión de producto
 
 ## Objetivo

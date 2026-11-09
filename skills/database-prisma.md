@@ -1,3 +1,8 @@
+---
+name: database-prisma
+description: Esquema PostgreSQL con Prisma — un esquema por contexto, sin FK entre contextos, restricciones en la base, UUID v7, dinero en numeric(18,4), timestamptz, EXPLAIN ANALYZE en listados y migraciones expand-migrate-contract. Úsala para cambiar el modelo de datos, escribir migraciones o diagnosticar consultas lentas.
+---
+
 # Skill — Base de datos con Prisma
 
 ## Objetivo

@@ -1,3 +1,8 @@
+---
+name: catalog-products
+description: Modelo de catálogo — producto comercial frente a variante vendible, SKU inmutable, atributos tipados en diccionario, reglas de venta en la variante, publicación explícita, slugs con 301, medios por StoragePort y visibilidad por cuenta en la consulta. Úsala al modelar o administrar productos, variantes, categorías o medios.
+---
+
 # Skill — Catálogo y productos
 
 ## Objetivo

@@ -1,1 +1,3 @@
 pnpm lint-staged
+pnpm sync:claude
+git add .claude/agents .claude/skills

@@ -1,3 +1,8 @@
+---
+name: observability
+description: Observabilidad en producción — logs JSON estructurados, correlationId de web a worker, spans por caso de uso, métricas RED, errores agrupados por código, alertas por síntoma, SLO y ningún dato personal en logs. Úsala al instrumentar código, definir alertas o diagnosticar un incidente.
+---
+
 # Skill — Observabilidad
 
 ## Objetivo

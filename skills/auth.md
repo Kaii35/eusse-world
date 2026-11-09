@@ -1,3 +1,8 @@
+---
+name: auth
+description: Autenticación y autorización — cookies httpOnly __Host-, access token corto con refresh rotatorio y detección de reutilización, Argon2id, accountId desde la sesión, respuestas uniformes, rate limiting e intención del visitante firmada. Úsala para login, sesión, permisos, guards o rutas protegidas.
+---
+
 # Skill — Autenticación y autorización
 
 ## Objetivo

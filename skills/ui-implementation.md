@@ -1,3 +1,8 @@
+---
+name: ui-implementation
+description: Implementación de UI desde un diseño — estados antes que camino feliz, móvil primero, skeletons con CLS 0, composición sobre configuración, cn(), números tabulares, next/image y modo oscuro desde el principio. Úsala al construir pantallas, secciones o componentes visuales.
+---
+
 # Skill — Implementación de UI
 
 ## Objetivo

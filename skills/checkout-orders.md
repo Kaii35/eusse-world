@@ -1,3 +1,8 @@
+---
+name: checkout-orders
+description: Checkout y órdenes sin duplicados ni sorpresas de precio — Idempotency-Key con restricción única, revalidación final de precios, crédito evaluado al confirmar, orden inmutable, transiciones por el agregado y eventos por outbox. Úsala para el trayecto de carrito a orden confirmada y la máquina de estados de la orden.
+---
+
 # Skill — Checkout y órdenes
 
 ## Objetivo

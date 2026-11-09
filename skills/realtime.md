@@ -1,3 +1,8 @@
+---
+name: realtime
+description: Tiempo real para Fase 3 (chat con el asesor y notificaciones) — SSE frente a WebSocket, reconexión con cursor, orden decidido por el servidor, ámbito de cuenta en cada suscripción y límites de conexión. Úsala al diseñar mensajería o notificaciones en vivo; en Fase 1 no se implementa nada.
+---
+
 # Skill — Tiempo real
 
 > **Fase 3.** En Fase 1 no se implementa nada. Esta skill existe para que la decisión, cuando

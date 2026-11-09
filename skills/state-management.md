@@ -1,3 +1,8 @@
+---
+name: state-management
+description: Gestión de estado en frontend con un solo dueño por dato — TanStack Query para datos del servidor, search params para la URL, Zustand sólo para UI efímera, React Hook Form para formularios y useState para lo local. Úsala al decidir dónde vive un estado o al revisar duplicación de datos en el cliente.
+---
+
 # Skill — Gestión de estado
 
 ## Objetivo

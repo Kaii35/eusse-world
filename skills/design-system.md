@@ -1,3 +1,8 @@
+---
+name: design-system
+description: Design system en @eusse/tokens y @eusse/ui — tokens semánticos con tema claro y oscuro, contraste verificado por test, Radix, variantes con CVA, forwardRef y asChild, regla de las dos apariciones y story por variante. Úsala al crear o modificar un token o un componente compartido.
+---
+
 # Skill — Design System
 
 ## Objetivo

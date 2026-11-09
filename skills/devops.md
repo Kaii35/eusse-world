@@ -1,3 +1,8 @@
+---
+name: devops
+description: CI/CD y operación con Turborepo, pnpm y contenedores — main siempre desplegable, CI por debajo de 15 minutos, caché con inputs y outputs explícitos, migraciones antes del código, reversión probada, secretos y alertas por síntoma. Úsala para pipelines, Docker, entornos, despliegues o runbooks.
+---
+
 # Skill — DevOps
 
 ## Objetivo
