@@ -1,3 +1,8 @@
+---
+name: api-contracts
+description: Contratos de API con Zod como fuente única de tipos, validación y OpenAPI — errores problem+json con código estable, paginación por cursor, Idempotency-Key y versionado /api/v1. Úsala al diseñar o cambiar un endpoint o un esquema de @eusse/contracts.
+---
+
 # Skill — Contratos de API
 
 ## Objetivo

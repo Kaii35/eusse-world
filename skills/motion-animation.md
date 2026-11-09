@@ -1,3 +1,8 @@
+---
+name: motion-animation
+description: Movimiento con Motion que comunica causalidad, no decora — duraciones cortas, sólo transform y opacity, prefers-reduced-motion, once en revelados, carga dinámica y springs frente a easing. Úsala al añadir animaciones, transiciones o microinteracciones.
+---
+
 # Skill — Movimiento y animación
 
 ## Objetivo

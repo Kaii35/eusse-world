@@ -1,3 +1,8 @@
+---
+name: cart
+description: Carrito de cuenta B2B en el servidor — líneas que suman cantidad, mínimos y múltiplos validados en dominio, precio congelado con pricedAt, SKUs no disponibles marcados y cartId desde la sesión. Úsala para cualquier trabajo sobre el carrito o la intención de compra del visitante.
+---
+
 # Skill — Carrito
 
 ## Objetivo

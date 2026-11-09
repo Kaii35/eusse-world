@@ -1,3 +1,8 @@
+---
+name: accessibility
+description: Accesibilidad WCAG 2.2 AA verificada — HTML semántico, Radix, teclado, gestión del foco, aria-live y contraste en ambos temas. Úsala al construir o revisar cualquier pantalla o componente interactivo, y antes de darlo por terminado.
+---
+
 # Skill — Accesibilidad
 
 ## Objetivo

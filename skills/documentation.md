@@ -1,3 +1,8 @@
+---
+name: documentation
+description: Documentación cierta y actualizada en el mismo PR — un dato en un sitio, el porqué antes que el qué, ADR que se supersedan, diagramas Mermaid y ejemplos que compilan. Úsala al escribir o actualizar docs, RFC, ADR, READMEs o runbooks, o cuando código y documentación diverjan.
+---
+
 # Skill — Documentación
 
 ## Objetivo

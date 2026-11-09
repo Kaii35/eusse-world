@@ -1,3 +1,8 @@
+---
+name: shipping-tracking
+description: Envíos y trazabilidad de la orden — estados logísticos por evento tolerando desorden y duplicados, varios despachos por orden, guía visible al cliente, coste de envío en servidor y fallos de transportadora que no bloquean. Úsala para ShippingPort, estados de envío o el seguimiento en el portal.
+---
+
 # Skill — Envíos y trazabilidad
 
 ## Objetivo

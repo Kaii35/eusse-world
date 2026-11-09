@@ -1,3 +1,8 @@
+---
+name: search
+description: Búsqueda de catálogo detrás de SearchPort con PostgreSQL en Fase 1 — SKU exacto primero, facetas con conteo real, tolerancia tipográfica con pg_trgm, índices GIN, estado en la URL y paginación por cursor. Úsala para búsqueda, facetas, filtros o relevancia del catálogo.
+---
+
 # Skill — Búsqueda
 
 ## Objetivo

@@ -1,3 +1,8 @@
+---
+name: payments
+description: Pagos B2B (crédito, plazos, transferencia y pasarela) — importe siempre del servidor, sin datos de tarjeta, webhooks firmados e idempotentes, orden antes del cobro y registro inmutable de movimientos. Úsala para PaymentPort, conciliación, webhooks de pasarela o cualquier flujo que mueva dinero.
+---
+
 # Skill — Pagos
 
 ## Objetivo

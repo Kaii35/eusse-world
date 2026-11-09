@@ -1,3 +1,8 @@
+---
+name: architecture
+description: Toma y documentación de decisiones estructurales con RFC y ADR — alternativas reales, lo descartado, fronteras verificadas por máquina y pagar el hueco en vez de la habitación. Úsala al escribir un RFC o ADR, definir fronteras entre contextos o arbitrar un trade-off técnico.
+---
+
 # Skill — Arquitectura
 
 ## Objetivo

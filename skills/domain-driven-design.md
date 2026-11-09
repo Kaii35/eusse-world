@@ -1,3 +1,8 @@
+---
+name: domain-driven-design
+description: Modelado DDD — dominio sin dependencias de framework, invariantes en constructor y métodos, un agregado por transacción, value objects (Money, Sku, Quantity), métodos y factorías con nombre del negocio y errores tipados. Úsala al diseñar entidades, agregados o value objects en domain/.
+---
+
 # Skill — Domain-Driven Design
 
 ## Objetivo

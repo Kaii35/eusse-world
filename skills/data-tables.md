@@ -1,3 +1,8 @@
+---
+name: data-tables
+description: Tablas de datos usables con 10 000 filas — un único DataTable en @eusse/ui/patterns, estado en la URL, paginación por cursor, orden y filtro en servidor, acciones en lote con vista previa y HTML de tabla accesible. Úsala para cualquier listado tabular del portal o del admin.
+---
+
 # Skill — Tablas de datos
 
 ## Objetivo

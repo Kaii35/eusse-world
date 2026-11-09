@@ -1,3 +1,8 @@
+---
+name: testing
+description: Estrategia de pruebas fiables — comportamiento y no implementación, mocks sólo en la frontera, integración con PostgreSQL y Redis reales (Testcontainers), getByRole, tests independientes, E2E sin esperas fijas y contract tests en rojo primero. Úsala al escribir o arreglar tests de cualquier nivel.
+---
+
 # Skill — Testing
 
 ## Objetivo

@@ -9,3 +9,5 @@ storybook-static
 playwright-report
 test-results
 *.min.*
+docs/design/prototypes/*/
+apps/web/prompts/

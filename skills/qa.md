@@ -1,3 +1,8 @@
+---
+name: qa
+description: Verificación QA de lo entregado frente a lo especificado — criterio por criterio, flujos alternos, errores y concurrencia, todos los roles, aislamiento entre cuentas y sesión exploratoria acotada. Úsala al cerrar un feature, antes de aceptarlo, o al reportar un defecto.
+---
+
 # Skill — QA
 
 ## Objetivo

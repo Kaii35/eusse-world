@@ -1,3 +1,8 @@
+---
+name: refactoring
+description: Refactoring sin cambiar comportamiento — tests primero e intactos, refactor y feature en commits separados, pasos pequeños y verdes, regla de tres y mejora medible. Úsala cuando el código funciona pero cuesta entenderlo o modificarlo.
+---
+
 # Skill — Refactoring
 
 ## Objetivo

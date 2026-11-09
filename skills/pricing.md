@@ -1,3 +1,8 @@
+---
+name: pricing
+description: Resolución de precios B2B por cuenta, cantidad y momento (riesgo R-01) — Money en unidades menores con moneda, redondeo único HALF_UP, prioridad explícita entre listas, resolución en lote, precio congelado y bordes de escala. Úsala para cualquier cálculo, lista de precios o escala por volumen.
+---
+
 # Skill — Precios
 
 ## Objetivo

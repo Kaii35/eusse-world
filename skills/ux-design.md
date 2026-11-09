@@ -1,3 +1,8 @@
+---
+name: ux-design
+description: Diseño de UX del comportamiento antes que del aspecto — cinco estados, errores diseñados, nada se pierde nunca, un objetivo por pantalla y diseño para el comprador B2B recurrente. Úsala antes de que exista una pantalla o para resolver fricción en un flujo.
+---
+
 # Skill — Diseño de UX
 
 ## Objetivo

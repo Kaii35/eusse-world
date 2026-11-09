@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap');
+
+html{scroll-behavior:smooth}
+body{margin:0;background:#f2f2f3;color:#1d1f20;font-family:"Barlow",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*,*::before,*::after{box-sizing:border-box}
+a{color:#416180;text-underline-offset:3px}
+a:hover{color:#5980a6}
+::selection{background:rgba(89,128,166,.3)}
+:focus-visible{outline:2px solid #5980a6;outline-offset:2px}
+input::placeholder,textarea::placeholder{color:#98989b}
+
+/* Estados hover / focus / active */
+.ew-1:hover{color:#ffffff !important}
+.ew-2:hover{color:#ffffff !important}
+.ew-3:hover{color:#ffffff !important}
+.ew-4:hover{color:#ffffff !important}
+.ew-5:hover{background:#749dc4 !important;color:#ffffff !important}
+.ew-6:hover{background:#749dc4 !important}
+.ew-7:hover{background:rgba(181,217,253,.08) !important;border-color:#b5d9fd !important}
+.ew-8:hover{background:#e7e7ea !important;border-color:#5980a6 !important}
+.ew-9:hover{background:#e7e7ea !important;border-color:#5980a6 !important}
+.ew-10:hover{background:#e7e7ea !important;border-color:#5980a6 !important}
+.ew-11:hover{background:#e7e7ea !important;border-color:#5980a6 !important}
+.ew-12:hover{background:#e7e7ea !important;border-color:#5980a6 !important}
+.ew-13:hover{background:#e7e7ea !important;border-color:#5980a6 !important}
+.ew-14:hover{background:#f2f2f3 !important}
+.ew-15:hover{background:#f2f2f3 !important}
+.ew-16:hover{background:#f2f2f3 !important}
+.ew-17:hover{background:#f2f2f3 !important}
+.ew-18:focus{border-color:#5980a6 !important;outline:none !important;background:#f5f5f8 !important}
+.ew-19:focus{border-color:#5980a6 !important;outline:none !important;background:#f5f5f8 !important}
+.ew-20:focus{border-color:#5980a6 !important;outline:none !important;background:#f5f5f8 !important}
+.ew-21:focus{border-color:#5980a6 !important;outline:none !important}
+.ew-22:focus{border-color:#5980a6 !important;outline:none !important}
+.ew-23:focus{border-color:#5980a6 !important;outline:none !important}
+.ew-24:focus{border-color:#5980a6 !important;outline:none !important;background:#f5f5f8 !important}
+.ew-25:hover{background:#416180 !important}
+.ew-26:active{background:#2c455d !important}
+.ew-27:hover{color:#ffffff !important}
+.ew-28:hover{color:#ffffff !important}
+.ew-29:hover{color:#ffffff !important}
+.ew-30:hover{color:#ffffff !important}

@@ -110,6 +110,70 @@ describe.each(['light', 'dark'] as const)('contraste — tema %s', (theme) => {
   })
 })
 
+/**
+ * Tokens de componente de la landing (capa 3, en `:root` y `.dark`). En oscuro, `.dark`
+ * redefine sólo las secciones claras; las de noche heredan de `:root`.
+ */
+function resolveComponent(token: string, theme: 'light' | 'dark'): string {
+  const lookup = (name: string): string | undefined =>
+    (theme === 'dark' ? darkSemantic.get(name) : undefined) ?? primitives.get(name)
+
+  let value = lookup(token)
+  if (!value) throw new Error(`Token de componente no encontrado: ${token}`)
+  for (let depth = 0; depth < 5; depth += 1) {
+    const varMatch = /^var\((--[\w-]+)\)$/.exec(value.trim())
+    if (!varMatch?.[1]) return value.trim()
+    const next = lookup(varMatch[1])
+    if (!next) throw new Error(`Primitivo no encontrado: ${varMatch[1]} (desde ${token})`)
+    value = next
+  }
+  return value.trim()
+}
+
+const LANDING_TEXT_PAIRS: [fg: string, bg: string, label: string][] = [
+  ['--landing-ink', '--landing-paper', 'texto sobre papel'],
+  ['--landing-ink', '--landing-paper-sunken', 'texto sobre papel hundido'],
+  ['--landing-ink', '--landing-surface', 'texto sobre tarjeta'],
+  ['--landing-ink-muted', '--landing-surface', 'texto atenuado sobre tarjeta'],
+  ['--landing-accent', '--landing-surface', 'acento sobre tarjeta'],
+  ['--landing-ink-muted', '--landing-paper', 'texto atenuado sobre papel'],
+  ['--landing-ink-muted', '--landing-paper-sunken', 'texto atenuado sobre papel hundido'],
+  ['--landing-accent', '--landing-paper', 'acento sobre papel'],
+  ['--landing-chip-foreground', '--landing-chip', 'etiqueta'],
+  ['--landing-night-foreground', '--landing-night', 'texto sobre noche'],
+  ['--landing-night-muted', '--landing-night', 'texto atenuado sobre noche'],
+  ['--landing-night-soft', '--landing-night', 'texto suave sobre noche'],
+  ['--landing-night-subtle', '--landing-night', 'texto sutil sobre noche'],
+  ['--landing-night-foreground', '--landing-glass-solid', 'texto sobre tarjeta de vidrio'],
+  ['--landing-night-muted', '--landing-glass-solid', 'texto atenuado sobre tarjeta de vidrio'],
+  ['--landing-ink-muted', '--landing-paper-sunken', 'texto atenuado sobre papel hundido'],
+  ['--landing-cta-foreground', '--landing-cta', 'texto sobre CTA'],
+  ['--landing-cta-foreground', '--landing-cta-hover', 'texto sobre CTA en hover'],
+]
+
+const LANDING_UI_PAIRS: [fg: string, bg: string, label: string][] = [
+  ['--landing-icon', '--landing-paper', 'icono sobre papel'],
+  ['--landing-night-highlight', '--landing-night', 'resaltado sobre noche'],
+]
+
+describe.each(['light', 'dark'] as const)('contraste de la landing — tema %s', (theme) => {
+  it.each(LANDING_TEXT_PAIRS)('%s / %s → AA para texto normal (%s)', (fg, bg) => {
+    const ratio = contrastRatioOklch(resolveComponent(fg, theme), resolveComponent(bg, theme))
+    expect(
+      ratio,
+      `${fg} sobre ${bg} en tema ${theme}: ${ratio.toFixed(2)}:1`,
+    ).toBeGreaterThanOrEqual(WCAG_AA_NORMAL)
+  })
+
+  it.each(LANDING_UI_PAIRS)('%s / %s → AA para elementos de UI (%s)', (fg, bg) => {
+    const ratio = contrastRatioOklch(resolveComponent(fg, theme), resolveComponent(bg, theme))
+    expect(
+      ratio,
+      `${fg} sobre ${bg} en tema ${theme}: ${ratio.toFixed(2)}:1`,
+    ).toBeGreaterThanOrEqual(WCAG_AA_UI)
+  })
+})
+
 describe('todo token semántico tiene par en el tema opuesto', () => {
   it('no hay tokens de color definidos sólo en claro', () => {
     const lightColors = [...lightSemantic.keys()].filter((k) => k.startsWith('--color-'))

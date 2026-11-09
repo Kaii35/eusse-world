@@ -1,6 +1,6 @@
 ---
 name: tracking
-description: Envíos, estados logísticos, guías y trazabilidad de la orden. Define ShippingPort en Fase 1; integración con transportadora en Fase 2.
+description: Envíos, estados logísticos, guías y trazabilidad de la orden. Define ShippingPort en Fase 1; integración con transportadora en Fase 2. Úsalo para despachos, estados de envío o el seguimiento del pedido.
 ---
 
 # Agente 17 — Tracking

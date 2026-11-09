@@ -1,15 +1,342 @@
 {
   "meta": {
     "siteName": "Eusse World",
-    "title": "Eusse World — Distribución mayorista con tus precios",
-    "description": "Compra al por mayor con tu lista de precios, tu crédito y tu histórico. Sin llamadas, sin PDF desactualizados."
+    "title": "Eusse World — Logística internacional, compras y distribución",
+    "description": "Conectamos mercados entre Colombia, Costa Rica, Nicaragua y Estados Unidos: transporte internacional, importaciones, compras en el exterior, almacenamiento y última milla."
   },
-  "home": {
-    "eyebrow": "Distribución mayorista",
-    "title": "Tus precios, tu crédito, tu histórico. En un solo sitio.",
-    "subtitle": "Deja de reconstruir pedidos desde un PDF. Repite tu última compra en menos de un minuto y sigue tu despacho sin llamar a nadie.",
-    "ctaPrimary": "Crear cuenta mayorista",
-    "ctaSecondary": "Ver catálogo"
+  "landing": {
+    "brand": {
+      "name": "EUSSE",
+      "suffix": "WORLD",
+      "home": "EUSSE WORLD — inicio"
+    },
+    "nav": {
+      "label": "Principal",
+      "services": "Servicios",
+      "network": "Red",
+      "process": "Proceso",
+      "contact": "Contacto",
+      "cta": "Cotizar envío",
+      "openMenu": "Abrir menú",
+      "menu": "Menú"
+    },
+    "language": {
+      "label": "Cambiar idioma",
+      "heading": "Idioma",
+      "es": "Español",
+      "en": "English"
+    },
+    "theme": {
+      "label": "Cambiar tema",
+      "heading": "Tema",
+      "light": "Claro",
+      "dark": "Oscuro",
+      "system": "Sistema"
+    },
+    "hero": {
+      "eyebrow": "Logística internacional · Compras · Distribución",
+      "titleLine1": "Conectamos mercados.",
+      "titleLine2": "Impulsamos negocios.",
+      "lead": "Transporte, importaciones, compras en el exterior y distribución entre Colombia, Costa Rica, Nicaragua y Estados Unidos, coordinados por un solo equipo.",
+      "ctaPrimary": "Solicitar cotización",
+      "ctaSecondary": "Ver servicios",
+      "hubsLabel": "Centros de operación"
+    },
+    "countries": {
+      "CO": "Colombia",
+      "CR": "Costa Rica",
+      "NI": "Nicaragua",
+      "US": "Estados Unidos",
+      "other": "Otro"
+    },
+    "highlights": {
+      "label": "Por qué Eusse World",
+      "coverage": {
+        "title": "4 países",
+        "description": "Colombia, Costa Rica, Nicaragua y Estados Unidos"
+      },
+      "modes": {
+        "title": "Aéreo, marítimo y terrestre",
+        "description": "Carga coordinada de origen a destino"
+      },
+      "doorToDoor": {
+        "title": "Puerta a puerta",
+        "description": "Desde la compra hasta la última milla"
+      },
+      "advisor": {
+        "title": "Un asesor para su ruta",
+        "description": "Propuesta a la medida de su operación"
+      }
+    },
+    "about": {
+      "eyebrow": "Quiénes somos",
+      "title": "No solo movemos mercancía.",
+      "body": "En EUSSE WORLD impulsamos negocios, conectamos oportunidades y construimos relaciones de confianza. Coordinamos cada tramo de la cadena para que su mercancía llegue a tiempo y su operación siga en movimiento.",
+      "points": {
+        "business": "Impulsamos negocios",
+        "opportunities": "Conectamos oportunidades",
+        "trust": "Construimos relaciones de confianza"
+      }
+    },
+    "services": {
+      "eyebrow": "Servicios",
+      "title": "Toda la cadena, una sola operación.",
+      "lead": "Desde la compra en origen hasta la entrega final. Coordinamos cada tramo para que su mercancía llegue a tiempo y su negocio siga en movimiento.",
+      "transport": {
+        "title": "Transporte internacional",
+        "description": "Carga aérea, marítima y terrestre coordinada de origen a destino, con seguimiento en cada tramo.",
+        "features": {
+          "f1": "Coordinación de origen a destino",
+          "f2": "Seguimiento en cada tramo",
+          "f3": "Un solo equipo en toda la ruta"
+        },
+        "modes": {
+          "air": "Aéreo",
+          "sea": "Marítimo",
+          "land": "Terrestre"
+        }
+      },
+      "trade": {
+        "title": "Importaciones y exportaciones",
+        "description": "Gestión documental, clasificación arancelaria y acompañamiento aduanero en cada país de la ruta.",
+        "features": {
+          "f1": "Gestión documental",
+          "f2": "Clasificación arancelaria",
+          "f3": "Acompañamiento aduanero"
+        }
+      },
+      "personalShopper": {
+        "title": "Compras internacionales",
+        "note": "Personal Shopper",
+        "description": "Compramos por usted en el exterior: verificamos proveedores, consolidamos pedidos y los enviamos a su destino.",
+        "features": {
+          "f1": "Verificación de proveedores",
+          "f2": "Consolidación de pedidos",
+          "f3": "Envío a su destino"
+        }
+      },
+      "sourcing": {
+        "title": "Abastecimiento comercial",
+        "description": "Búsqueda de producto y proveedores para mantener su inventario continuo y competitivo.",
+        "features": {
+          "f1": "Búsqueda de producto",
+          "f2": "Selección de proveedores",
+          "f3": "Inventario continuo"
+        }
+      },
+      "warehousing": {
+        "title": "Almacenamiento y distribución",
+        "description": "Recepción, bodegaje, control de inventario y despacho según la demanda de su operación.",
+        "features": {
+          "f1": "Recepción y bodegaje",
+          "f2": "Control de inventario",
+          "f3": "Despacho según demanda"
+        }
+      },
+      "lastMile": {
+        "title": "Última milla y logística empresarial",
+        "description": "Entrega final a clientes y puntos de venta, y diseño de la cadena logística de su empresa.",
+        "features": {
+          "f1": "Entrega a clientes",
+          "f2": "Puntos de venta",
+          "f3": "Diseño de su cadena logística"
+        },
+        "stages": {
+          "warehouse": "Bodega",
+          "transit": "En ruta",
+          "delivered": "Entregado"
+        }
+      },
+      "cta": "Cotizar este servicio",
+      "featuresLabel": "Incluye",
+      "custom": {
+        "eyebrow": "A la medida",
+        "title": "¿Su operación necesita varios servicios?",
+        "description": "Los combinamos en una sola propuesta para su ruta, con un mismo equipo de principio a fin.",
+        "cta": "Hablar con un asesor"
+      }
+    },
+    "shopper": {
+      "eyebrow": "Personal Shopper · Moda y textiles",
+      "title": "Lo que compra en el exterior, revisado pieza por pieza.",
+      "lead": "Compramos por usted en tiendas y proveedores de Estados Unidos, revisamos cada prenda y la enviamos consolidada a su destino.",
+      "caption": "Pase el cursor por el perchero, arrastre una percha o abra una prenda para verla por detrás.",
+      "cta": "Cotizar una compra",
+      "fallbackLabel": "Ejemplos de prendas que compramos por usted",
+      "labels": {
+        "rail": "Perchero de prendas",
+        "roleDescription": "perchero",
+        "front": "Frente",
+        "back": "Espalda",
+        "close": "Cerrar",
+        "show": "Ver"
+      },
+      "items": {
+        "tee": {
+          "name": "Camiseta de algodón",
+          "description": "Básicos de algodón para reposición de tienda: verificamos tallaje y gramaje antes de comprar.",
+          "d1": "Tallaje verificado",
+          "d2": "Compra por volumen",
+          "d3": "Consolidado en Miami"
+        },
+        "oxford": {
+          "name": "Camisa oxford",
+          "description": "Camisería para uniformes o reventa: revisamos costuras, botones y etiquetado.",
+          "d1": "Control de costuras",
+          "d2": "Etiquetado revisado",
+          "d3": "Envío a Costa Rica"
+        },
+        "hoodie": {
+          "name": "Hoodie de felpa",
+          "description": "Prendas de temporada compradas cuando conviene y enviadas a tiempo para su venta.",
+          "d1": "Compra de temporada",
+          "d2": "Empaque protegido",
+          "d3": "Envío a Nicaragua"
+        },
+        "knit": {
+          "name": "Suéter tejido",
+          "description": "Tejidos delicados: fotografiamos cada pieza al recibirla para que la apruebe antes de enviarla.",
+          "d1": "Fotos de recepción",
+          "d2": "Aprobación previa",
+          "d3": "Envío a Colombia"
+        },
+        "jacket": {
+          "name": "Chaqueta de trabajo",
+          "description": "Ropa de trabajo para empresas: consolidamos varias tallas y proveedores en un solo envío.",
+          "d1": "Varios proveedores",
+          "d2": "Un solo envío",
+          "d3": "Envío a Costa Rica"
+        },
+        "coat": {
+          "name": "Abrigo de lana",
+          "description": "Piezas de mayor valor con revisión detallada y embalaje reforzado.",
+          "d1": "Revisión detallada",
+          "d2": "Embalaje reforzado",
+          "d3": "Envío a Colombia"
+        },
+        "polo": {
+          "name": "Polo piqué",
+          "description": "Pedidos recurrentes: repetimos la compra con las mismas referencias y calidad.",
+          "d1": "Recompra recurrente",
+          "d2": "Mismas referencias",
+          "d3": "Envío a Nicaragua"
+        },
+        "sweat": {
+          "name": "Sudadera",
+          "description": "Colecciones completas: compramos todas las tallas y colores de una referencia.",
+          "d1": "Curva completa",
+          "d2": "Todos los colores",
+          "d3": "Envío a Costa Rica"
+        }
+      }
+    },
+    "network": {
+      "eyebrow": "Nuestra red",
+      "title": "Cuatro países. Un mismo equipo.",
+      "lead": "Operamos con aliados y procesos propios en cada mercado, lo que nos permite mover carga en ambas direcciones sin perder el control.",
+      "tags": {
+        "import": "Importación",
+        "export": "Exportación",
+        "distribution": "Distribución",
+        "purchasing": "Compras",
+        "consolidation": "Consolidación"
+      },
+      "soon": {
+        "tag": "Próximamente",
+        "title": "Nuevos mercados",
+        "description": "Seguimos expandiendo nuestras operaciones."
+      }
+    },
+    "process": {
+      "eyebrow": "Cómo trabajamos",
+      "title": "De origen a destino, en cuatro pasos.",
+      "lead": "Cada operación sigue el mismo método: usted sabe en qué etapa está su mercancía y qué recibe en cada una.",
+      "cta": "Empezar con una cotización",
+      "deliverableLabel": "Usted recibe",
+      "quote": {
+        "title": "Diagnóstico y cotización",
+        "description": "Definimos origen, destino, tipo de carga y tiempos de entrega.",
+        "deliverable": "Una propuesta para su ruta"
+      },
+      "purchase": {
+        "title": "Compra y consolidación",
+        "description": "Adquirimos, recibimos y agrupamos su mercancía en origen.",
+        "deliverable": "Su mercancía lista para viajar"
+      },
+      "transit": {
+        "title": "Transporte y aduanas",
+        "description": "Movemos la carga y gestionamos la nacionalización en destino.",
+        "deliverable": "Seguimiento en cada tramo"
+      },
+      "delivery": {
+        "title": "Entrega y distribución",
+        "description": "Almacenamos y entregamos en el punto final, hasta la última milla.",
+        "deliverable": "Entrega en el punto final"
+      }
+    },
+    "planner": {
+      "eyebrow": "Planifique su ruta",
+      "title": "Diseñe su envío en segundos.",
+      "lead": "Elija de dónde sale y a dónde va su mercancía. Nosotros coordinamos todo lo que hay en medio.",
+      "origin": "Origen",
+      "destination": "Destino",
+      "mode": "Modalidad",
+      "mapLabel": "Mapa de la ruta seleccionada",
+      "summary": "Su ruta",
+      "includesTitle": "Lo que coordinamos por usted",
+      "includes": {
+        "purchase": "Compra y consolidación en origen",
+        "customs": "Aduana y nacionalización en destino",
+        "tracking": "Seguimiento en cada tramo",
+        "delivery": "Entrega hasta el punto final"
+      },
+      "cta": "Cotizar esta ruta",
+      "note": "Sin compromiso: un asesor revisa su ruta y le responde con una propuesta.",
+      "detailsPrefill": "Modalidad"
+    },
+    "contact": {
+      "eyebrow": "Contacto",
+      "title": "Hablemos de su próxima operación.",
+      "lead": "Cuéntenos qué necesita mover, comprar o almacenar. Un asesor le responde con una propuesta para su ruta.",
+      "points": {
+        "response": "Respuesta en horario laboral",
+        "coverage": "Origen y destino en cualquiera de nuestros cuatro países",
+        "proposal": "Propuesta a la medida de su carga y sus tiempos"
+      },
+      "form": {
+        "label": "Solicitud de cotización",
+        "name": "Nombre",
+        "namePlaceholder": "Nombre y apellido",
+        "company": "Empresa",
+        "companyPlaceholder": "Nombre de la empresa",
+        "email": "Correo electrónico",
+        "emailPlaceholder": "nombre@empresa.com",
+        "service": "Servicio",
+        "origin": "Origen",
+        "destination": "Destino",
+        "details": "Detalles de la carga",
+        "detailsPlaceholder": "Tipo de mercancía, volumen aproximado, fechas…",
+        "responseNote": "Sus datos solo se usan para responder esta solicitud.",
+        "submit": "Enviar solicitud",
+        "sentTitle": "Solicitud recibida",
+        "sentDescription": "Gracias. Un asesor de EUSSE WORLD se pondrá en contacto con usted.",
+        "sendAnother": "Enviar otra solicitud"
+      },
+      "services": {
+        "transport": "Transporte internacional",
+        "trade": "Importaciones y exportaciones",
+        "personalShopper": "Personal Shopper",
+        "sourcing": "Abastecimiento comercial",
+        "warehousing": "Almacenamiento y distribución",
+        "lastMile": "Última milla"
+      }
+    },
+    "footer": {
+      "tagline": "Compras internacionales y logística empresarial.",
+      "operatesIn": "Operamos en",
+      "navigation": "Navegación",
+      "rights": "© {year} EUSSE WORLD. Todos los derechos reservados."
+    }
   },
   "notFound": {
     "code": "Error 404",

@@ -5,6 +5,7 @@ import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server
 import type { Metadata } from 'next'
 
 import { ThemeProvider } from '@/components/ThemeProvider'
+import { ThemeScript } from '@/components/ThemeScript'
 import { routing, type AppLocale } from '@/lib/i18n/routing'
 
 import '@/styles/globals.css'
@@ -46,9 +47,12 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
   const messages = await getMessages()
 
   return (
-    // `suppressHydrationWarning` porque ThemeProvider ajusta la clase antes de hidratar:
-    // sin ello habría un parpadeo de tema claro en cada carga.
+    // `suppressHydrationWarning` porque ThemeScript pone la clase `dark` antes de hidratar
+    // (sin parpadeo de tema claro) y React vería una diferencia con el HTML del servidor.
     <html lang={locale} suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
       <body className="bg-background text-foreground min-h-dvh antialiased">
         <ThemeProvider>
           <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>

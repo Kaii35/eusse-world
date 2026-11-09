@@ -1,0 +1,184 @@
+/*
+ * Desplegables de la cabecera (idioma, tema, menú móvil) y confirmación del formulario.
+ *
+ * Módulo aparte a propósito: lo importan islas de cliente, y un CSS Module importado en
+ * el cliente envía al navegador el mapa de TODAS sus clases. Separado, la landing no
+ * paga en JS las ~200 clases de landing.module.css.
+ */
+
+/* ── Desplegables (idioma y menú móvil): <details> funciona sin JS ─────── */
+.dropdown {
+  position: relative;
+}
+
+.dropdownTrigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid var(--landing-night-line);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--landing-night-foreground);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease;
+}
+
+.dropdownTrigger::-webkit-details-marker {
+  display: none;
+}
+
+.dropdownTrigger:hover,
+.dropdown[open] > .dropdownTrigger {
+  border-color: var(--landing-night-highlight);
+  background: oklch(0.847 0.062 240 / 0.08);
+}
+
+.chevron {
+  transition: transform 150ms var(--ease-out-soft);
+}
+
+.dropdown[open] .chevron {
+  transform: rotate(180deg);
+}
+
+.dropdownPanel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: var(--z-overlay);
+  min-width: 200px;
+  padding: 6px;
+  border: 1px solid var(--landing-line);
+  border-radius: var(--radius-md);
+  background: var(--landing-surface);
+  color: var(--landing-ink);
+  box-shadow: var(--shadow-modal);
+}
+
+.dropdownHeading {
+  margin: 0;
+  padding: 8px 10px 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--landing-ink-muted);
+}
+
+.dropdownList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 0 10px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  color: var(--landing-ink);
+  text-decoration: none;
+  transition: background-color 120ms ease;
+}
+
+button.dropdownItem {
+  width: 100%;
+  font: inherit;
+  font-size: 14px;
+  text-align: left;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.dropdownItem[aria-pressed='true'] {
+  font-weight: 600;
+}
+
+.dropdownIcon {
+  color: var(--landing-ink-muted);
+}
+
+.dropdownItem:hover {
+  background: var(--landing-paper-sunken);
+}
+
+.dropdownItem[aria-current='true'] {
+  font-weight: 600;
+}
+
+.localeCode {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 20px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  background: var(--landing-chip);
+  color: var(--landing-chip-foreground);
+}
+
+.check {
+  margin-left: auto;
+  color: var(--landing-icon);
+}
+
+/* Menú móvil: panel a lo ancho bajo la cabecera */
+.mobilePanel {
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  right: 0;
+  z-index: var(--z-overlay);
+  padding: 12px var(--gutter) 20px;
+  border-bottom: 1px solid var(--landing-line);
+  background: var(--landing-surface);
+  color: var(--landing-ink);
+  box-shadow: var(--shadow-modal);
+}
+
+.mobileList {
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.mobileLink {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  border-bottom: 1px solid var(--landing-line);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--landing-ink);
+  text-decoration: none;
+}
+
+.mobileCta {
+  width: 100%;
+}
+
+.iconButton {
+  width: 38px;
+  padding: 0;
+  justify-content: center;
+}
+
+@media (min-width: 960px) {
+  .mobileNav {
+    display: none;
+  }
+}

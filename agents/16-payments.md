@@ -1,6 +1,6 @@
 ---
 name: payments
-description: Pagos, crédito, conciliación y webhooks de pasarela. Define PaymentPort en Fase 1 con adaptador offline; integración real en Fase 2.
+description: Pagos, crédito, conciliación y webhooks de pasarela. Define PaymentPort en Fase 1 con adaptador offline; integración real en Fase 2. Úsalo para cualquier flujo de cobro, crédito de cuenta o webhook de pago.
 ---
 
 # Agente 16 — Pagos

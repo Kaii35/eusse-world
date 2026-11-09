@@ -1,3 +1,8 @@
+---
+name: security
+description: Seguridad frente a atacantes reales y fugas entre cuentas — validación Zod en la frontera, autorización por recurso, accountId de la sesión, 404 en vez de 403, mínimo privilegio, defensa en profundidad y rate limiting. Úsala antes de cerrar cualquier feature que toque datos privados, dinero, autenticación o entrada externa.
+---
+
 # Skill — Seguridad
 
 ## Objetivo

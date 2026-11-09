@@ -1,3 +1,8 @@
+---
+name: ecommerce-b2b
+description: Diferencias entre comercio mayorista y minorista que condicionan el diseño — precio por cuenta y volumen, compra de la cuenta, crédito y plazos, carritos de 40+ SKUs y recompra. Úsala al tomar cualquier decisión de producto o técnica sobre precios, carrito, checkout o portal, para no aplicar intuiciones B2C.
+---
+
 # Skill — Ecommerce B2B
 
 ## Objetivo

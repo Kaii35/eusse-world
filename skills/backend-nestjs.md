@@ -1,3 +1,8 @@
+---
+name: backend-nestjs
+description: Módulos NestJS con arquitectura hexagonal (public, domain, application, infrastructure, interface) — un caso de uso por clase, puertos inyectados, transacciones en aplicación, errores de dominio mapeados a HTTP y config validada con Zod. Úsala para cualquier código en apps/api o apps/workers.
+---
+
 # Skill — Backend con NestJS
 
 ## Objetivo

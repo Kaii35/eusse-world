@@ -51,6 +51,15 @@ Identity y Accounts (un `taxId` duplicado no deja usuario huérfano), la rotaci�
 concurrente del mismo refresh sólo la gana una petición, y el enlace de verificación sólo
 se consume una vez aunque llegue dos veces a la vez.
 
+**Landing (Bloque C, adelantada a petición de negocio):** implementada en
+`apps/web/src/components/marketing/landing` a partir del diseño entregado
+([`docs/design/prototypes`](docs/design/prototypes/README.md)). Pendiente: RFC-0009 §10
+pregunta 3 (posicionamiento), ADR-0021 (three.js) en estado `Propuesto`, y el envío real
+del formulario ([`docs/tech-debt.md`](docs/tech-debt.md) TD-LANDING-01).
+
+**Agentes y skills:** la fuente de verdad son `agents/` y `skills/`; `pnpm sync:claude`
+genera `.claude/agents` y `.claude/skills` (CI lo verifica con `--check`).
+
 **Sólo se implementa lo que cubre un RFC ya aprobado.** Los bloques D, E y F siguen
 bloqueados: RFC-0005, RFC-0006 y RFC-0007 están en `Borrador` y requieren validar el
 modelo de precios contra listas reales del negocio.

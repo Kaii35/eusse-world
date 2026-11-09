@@ -1,3 +1,8 @@
+---
+name: seo
+description: SEO del catálogo público — SSR y estático con ISR, noindex verificado en todo lo privado, JSON-LD coherente, un h1, canónica, 301 ante cambio de slug, Core Web Vitals y hreflang es/en con x-default. Úsala para landing, categorías y fichas de producto.
+---
+
 # Skill — SEO
 
 ## Objetivo

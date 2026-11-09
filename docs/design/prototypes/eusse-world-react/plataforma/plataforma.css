@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap');
+
+body{margin:0;background:#f2f2f3;color:#1d1f20;font-family:"Barlow",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*,*::before,*::after{box-sizing:border-box}
+a{color:#416180;text-underline-offset:3px}
+a:hover{color:#5980a6}
+button{font:inherit}
+input::placeholder,textarea::placeholder{color:#98989b}
+:focus-visible{outline:2px solid #5980a6;outline-offset:2px}
+@keyframes ewspin{to{transform:rotate(360deg)}}
+
+/* Estados hover / focus / active */
+.ewp-1:hover{background:#416180 !important}
+.ewp-2:hover{color:#ffffff !important}
+.ewp-3:hover{color:#ffffff !important}
+.ewp-4:hover{background:#749dc4 !important}
+.ewp-5:hover{border-color:#5980a6 !important;background:#ececef !important}
+.ewp-6:hover{border-color:#b5d9fd !important;color:#ffffff !important}
+.ewp-7:hover{border-color:#5980a6 !important}
+.ewp-8:hover{background:#416180 !important}
+.ewp-9:hover{background:#416180 !important}
+.ewp-10:hover{border-color:#1d1f20 !important;color:#1d1f20 !important}
+.ewp-11:hover{background:#416180 !important}
+.ewp-12:hover{background:#416180 !important}
+.ewp-13:hover{background:#e9e9ea !important}
+.ewp-14:hover{background:#e9e9ea !important}
+.ewp-15:hover{background:#e9e9ea !important}
+.ewp-16:hover{background:#416180 !important}
+.ewp-17:hover{background:#416180 !important}
+.ewp-18:hover{background:#e6e9ee !important}
+.ewp-19:hover{color:#1d1f20 !important}
+.ewp-20:hover{background:#416180 !important}
+.ewp-21:hover{background:#416180 !important}
+.ewp-22:hover{background:#e9e9ea !important}

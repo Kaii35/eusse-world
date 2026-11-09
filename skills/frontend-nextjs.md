@@ -1,3 +1,8 @@
+---
+name: frontend-nextjs
+description: Aplicaciones Next.js con App Router y React 19 — Server Component por defecto, use client lo más abajo posible, renderizado explícito por ruta, vertical slices, loading y error por segmento, Suspense granular y textos por next-intl. Úsala para rutas, obtención de datos e integración en apps/web y apps/admin.
+---
+
 # Skill — Frontend con Next.js
 
 ## Objetivo

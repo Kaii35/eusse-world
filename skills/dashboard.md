@@ -1,3 +1,8 @@
+---
+name: dashboard
+description: Portales de cliente y back-office organizados por objetivo (recompra en el cliente, operación en el admin) — métricas accionables, densidad según usuario, ámbito de cuenta, permisos en servidor, cinco estados, auditoría visible y Cmd+K. Úsala al diseñar o construir el portal del cliente en apps/web o pantallas de apps/admin.
+---
+
 # Skill — Dashboards
 
 ## Objetivo

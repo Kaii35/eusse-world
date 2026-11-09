@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
+// Debe coincidir con ThemeScript.tsx, que aplica el tema antes de pintar.
 const STORAGE_KEY = 'eusse-theme'
 
 export type Theme = 'light' | 'dark' | 'system'

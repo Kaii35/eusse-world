@@ -1,3 +1,8 @@
+---
+name: events-messaging
+description: Eventos y mensajería entre módulos — outbox transaccional, entrega at-least-once, consumidores idempotentes por eventId, eventos en pasado y versionados, colas por dominio, DLQ y reintento con jitter. Úsala al publicar o consumir eventos, o al trabajar con BullMQ y el relay del outbox.
+---
+
 # Skill — Eventos y mensajería
 
 ## Objetivo

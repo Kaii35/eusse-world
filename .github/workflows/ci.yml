@@ -47,6 +47,9 @@ jobs:
       - name: Enlaces de documentación
         run: pnpm check:docs
 
+      - name: Sincronización de agentes y skills de Claude Code
+        run: pnpm sync:claude --check
+
   # ── Tests con PostgreSQL y Redis REALES (ADR-0015) ────────────────────────
   test:
     name: Tests

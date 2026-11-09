@@ -77,6 +77,32 @@
   /* 0.56 daba 4.45:1 con texto blanco: por debajo de AA. Verificado en contrast.spec.ts */
   --eusse-info-600: oklch(0.535 0.13 232);
   --eusse-info-900: oklch(0.33 0.08 232);
+
+  /* Acero — paleta de marca, tomada del logo (public/landing/logoeusse.jpeg):
+     900 = azul marino del texto "EUSSE" · 950 = sombra del globo · 300/200 = brillo cian
+     del globo. El nombre se conserva para no tocar a los consumidores. */
+  --eusse-steel-50: oklch(0.969 0.013 244);
+  --eusse-steel-100: oklch(0.929 0.029 245);
+  --eusse-steel-200: oklch(0.847 0.062 240);
+  --eusse-steel-300: oklch(0.756 0.09 246);
+  --eusse-steel-400: oklch(0.659 0.112 251);
+  /* 500 sobre papel da 4.3:1: sólo para iconos y texto grande (≥ 3:1). */
+  --eusse-steel-500: oklch(0.553 0.123 254);
+  /* Botones: 6.4:1 con texto blanco. */
+  --eusse-steel-600: oklch(0.485 0.129 255);
+  --eusse-steel-700: oklch(0.429 0.117 256);
+  --eusse-steel-800: oklch(0.351 0.095 257);
+  --eusse-steel-900: oklch(0.267 0.084 263);
+  --eusse-steel-950: oklch(0.228 0.073 262);
+  /* Plata del anillo del logo */
+  --eusse-silver-500: oklch(0.65 0.03 267);
+
+  /* Papel — neutros de las secciones claras de la landing */
+  --eusse-paper-50: oklch(0.961 0.001 0);
+  --eusse-paper-100: oklch(0.934 0.001 0);
+  --eusse-paper-200: oklch(0.929 0.004 286);
+  --eusse-paper-600: oklch(0.479 0.005 286);
+  --eusse-paper-900: oklch(0.238 0.004 229);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -284,6 +310,70 @@
   --surface-glass-bg: oklch(0.226 0.013 247 / 0.68);
   --surface-glass-border: oklch(1 0 0 / 0.08);
   --surface-glass-fallback: var(--eusse-neutral-850);
+}
+
+/* --- Landing (RFC-0009)
+       Secciones "papel" (claras) y "noche" (azul acero), ambas con par oscuro.
+       Jerarquía en oscuro: noche (la más profunda) < papel < superficie (tarjetas), para
+       que hero, proceso y pie sigan leyéndose como bloques ancla y no como más claros.
+       Pares de contraste verificados en contrast.spec.ts. --- */
+:root {
+  --landing-paper: var(--eusse-paper-50);
+  --landing-surface: var(--eusse-neutral-0);
+  --landing-paper-sunken: var(--eusse-paper-100);
+  --landing-paper-hover: var(--eusse-paper-200);
+  --landing-ink: var(--eusse-paper-900);
+  --landing-ink-muted: var(--eusse-paper-600);
+  --landing-line: oklch(0.238 0.004 229 / 0.14);
+  --landing-line-strong: oklch(0.238 0.004 229 / 0.5);
+  --landing-accent: var(--eusse-steel-700);
+  --landing-icon: var(--eusse-steel-500);
+  --landing-chip: var(--eusse-steel-100);
+  --landing-chip-foreground: var(--eusse-steel-800);
+  --landing-watermark: oklch(0.553 0.123 254 / 0.08);
+
+  --landing-night: var(--eusse-steel-900);
+  --landing-night-raised: var(--eusse-steel-800);
+  --landing-night-foreground: var(--eusse-paper-50);
+  --landing-night-muted: var(--eusse-steel-300);
+  --landing-night-soft: var(--eusse-steel-100);
+  --landing-night-subtle: var(--eusse-steel-400);
+  --landing-night-highlight: var(--eusse-steel-200);
+  --landing-night-line: oklch(0.847 0.062 240 / 0.18);
+  --landing-night-grid: oklch(0.847 0.062 240 / 0.06);
+
+  --landing-cta: var(--eusse-steel-600);
+  --landing-cta-hover: var(--eusse-steel-700);
+  --landing-cta-active: var(--eusse-steel-800);
+  --landing-cta-border: var(--eusse-steel-400);
+  --landing-cta-foreground: var(--eusse-paper-50);
+
+  /* Capas translúcidas sobre la noche: cabecera fija y tarjeta del globo */
+  --landing-header-bg: oklch(0.267 0.084 263 / 0.82);
+  --landing-glass: oklch(0.351 0.095 257 / 0.55);
+  --landing-glass-solid: var(--eusse-steel-800);
+}
+
+.dark {
+  --landing-paper: oklch(0.205 0.03 260);
+  --landing-surface: oklch(0.25 0.04 260);
+  --landing-paper-sunken: oklch(0.18 0.028 260);
+  --landing-paper-hover: oklch(0.285 0.045 260);
+  --landing-night: oklch(0.155 0.03 262);
+  --landing-night-raised: oklch(0.24 0.045 262);
+  --landing-night-grid: oklch(0.847 0.062 240 / 0.045);
+  --landing-header-bg: oklch(0.155 0.03 262 / 0.82);
+  --landing-glass: oklch(0.24 0.045 262 / 0.7);
+  --landing-glass-solid: oklch(0.24 0.045 262);
+  --landing-ink: oklch(0.943 0.012 250);
+  --landing-ink-muted: oklch(0.76 0.03 250);
+  --landing-line: oklch(0.943 0.012 248 / 0.14);
+  --landing-line-strong: oklch(0.943 0.012 248 / 0.4);
+  --landing-accent: var(--eusse-steel-300);
+  --landing-icon: var(--eusse-steel-400);
+  --landing-chip: var(--eusse-steel-800);
+  --landing-chip-foreground: var(--eusse-steel-100);
+  --landing-watermark: oklch(0.78 0.071 248 / 0.06);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
