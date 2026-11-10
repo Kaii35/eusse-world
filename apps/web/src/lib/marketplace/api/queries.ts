@@ -1,6 +1,6 @@
 'use client'
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueries, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { ApiError, apiRequest } from './client'
 
@@ -65,6 +65,17 @@ export function useSupplierProducts(supplierId: string) {
     queryKey: queryKeys.supplierProducts(supplierId),
     queryFn: () => apiRequest<Product[]>('GET', `/suppliers/${supplierId}/products`),
     retry: false,
+  })
+}
+
+/** Catálogos de varios proveedores a la vez (tienda), cada uno con su propia caché. */
+export function useSupplierCatalogs(supplierIds: string[]) {
+  return useQueries({
+    queries: supplierIds.map((supplierId) => ({
+      queryKey: queryKeys.supplierProducts(supplierId),
+      queryFn: () => apiRequest<Product[]>('GET', `/suppliers/${supplierId}/products`),
+      retry: false,
+    })),
   })
 }
 

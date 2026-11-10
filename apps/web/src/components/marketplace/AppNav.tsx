@@ -1,15 +1,17 @@
 'use client'
 
-import { Button } from '@eusse/ui'
 import { useTranslations } from 'next-intl'
 import { useState, type ReactNode } from 'react'
+
+import { buttonClass, cx } from './kit'
+import styles from './wholesale.module.css'
 
 import { Link, usePathname, useRouter } from '@/lib/i18n/navigation'
 import { useCart, useLogout, useMe } from '@/lib/marketplace/api/queries'
 
 /**
- * Cabecera de la zona de cuenta: marca, secciones y sesión. Las secciones de proveedor y
- * el carrito sólo aparecen con sesión, para no ofrecer lo que no se puede usar.
+ * Cabecera de la zona mayorista. Va siempre en azul de la landing, así el logo y el texto
+ * se leen igual en tema claro y oscuro. Las secciones de cuenta sólo aparecen con sesión.
  */
 export function AppNav({ brand }: { brand: ReactNode }) {
   const t = useTranslations('marketplace.nav')
@@ -24,49 +26,55 @@ export function AppNav({ brand }: { brand: ReactNode }) {
     { href: '/tienda', label: t('store') },
     ...(signedIn
       ? [
-          { href: '/carrito', label: t('cart') },
+          { href: '/pedidos', label: t('orders') },
           { href: '/proveedor', label: t('supplier') },
         ]
       : []),
   ]
 
-  return (
-    <header className="border-border bg-surface sticky top-0 z-40 border-b">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-        <div className="flex items-center gap-8">
-          <Link href="/tienda" aria-label={t('brand')} className="flex items-center">
-            {brand}
-          </Link>
-          <nav aria-label={t('label')} className="hidden md:block">
-            <ul className="flex items-center gap-6">
-              {sections.map((section) => {
-                const current = pathname === section.href
-                return (
-                  <li key={section.href}>
-                    <Link
-                      href={section.href}
-                      aria-current={current ? 'page' : undefined}
-                      className={
-                        current
-                          ? 'text-primary text-body font-semibold'
-                          : 'text-muted-foreground hover:text-foreground text-body'
-                      }
-                    >
-                      {section.label}
-                      {section.href === '/carrito' ? <CartCount /> : null}
-                    </Link>
-                  </li>
-                )
-              })}
-            </ul>
-          </nav>
-        </div>
+  const isCurrent = (href: string) => pathname === href || pathname.startsWith(`${href}/`)
 
-        <div className="flex items-center gap-3">
+  return (
+    <header className={styles.header}>
+      <div className={cx(styles.container, styles.headerInner)}>
+        <Link href="/tienda" aria-label={t('brand')} className={styles.brand}>
+          {brand}
+        </Link>
+
+        <nav aria-label={t('label')} className="hidden md:block">
+          <ul className={styles.navList}>
+            {sections.map((section) => {
+              const current = isCurrent(section.href)
+              return (
+                <li key={section.href}>
+                  <Link
+                    href={section.href}
+                    aria-current={current ? 'page' : undefined}
+                    className={cx(styles.navLink, current && styles.navLinkOn)}
+                  >
+                    {section.label}
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
+        </nav>
+
+        <div className={styles.headerEnd}>
           {signedIn ? (
-            <Button
-              variant="ghost"
-              size="sm"
+            <Link
+              href="/carrito"
+              aria-current={isCurrent('/carrito') ? 'page' : undefined}
+              className={buttonClass({ variant: 'primary', size: 'sm' })}
+            >
+              {t('cart')}
+              <CartCount />
+            </Link>
+          ) : null}
+          {signedIn ? (
+            <button
+              type="button"
+              className={buttonClass({ variant: 'onDarkGhost', size: 'sm' })}
               disabled={logout.isPending}
               onClick={() => {
                 logout.mutate(undefined, {
@@ -77,23 +85,25 @@ export function AppNav({ brand }: { brand: ReactNode }) {
               }}
             >
               {t('logout')}
-            </Button>
+            </button>
           ) : (
-            <Button asChild size="sm">
-              <Link href="/acceso">{t('access')}</Link>
-            </Button>
+            <Link href="/acceso" className={buttonClass({ variant: 'primary', size: 'sm' })}>
+              {t('access')}
+            </Link>
           )}
-          <button
-            type="button"
-            className="text-body-sm text-foreground border-border rounded-md border px-3 py-2 md:hidden"
-            aria-expanded={menuOpen}
-            aria-controls="account-menu"
-            onClick={() => {
-              setMenuOpen((open) => !open)
-            }}
-          >
-            {t('label')}
-          </button>
+          <div className="md:hidden">
+            <button
+              type="button"
+              className={buttonClass({ variant: 'onDark', size: 'sm' })}
+              aria-expanded={menuOpen}
+              aria-controls="account-menu"
+              onClick={() => {
+                setMenuOpen((open) => !open)
+              }}
+            >
+              {t('menu')}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -101,12 +111,13 @@ export function AppNav({ brand }: { brand: ReactNode }) {
         <nav
           id="account-menu"
           aria-label={t('label')}
-          className="border-border border-t px-4 py-3 md:hidden"
+          className="border-t px-4 py-4 md:hidden"
+          style={{ borderColor: 'var(--landing-night-line)' }}
         >
-          <ul className="flex flex-col gap-3">
+          <ul className="flex flex-col gap-2">
             {sections.map((section) => (
               <li key={section.href}>
-                <Link href={section.href} className="text-foreground text-body">
+                <Link href={section.href} className={styles.navLink}>
                   {section.label}
                 </Link>
               </li>
@@ -120,12 +131,7 @@ export function AppNav({ brand }: { brand: ReactNode }) {
 
 /** Unidades en el carrito. Sólo se consulta con sesión, así no llama al servidor a ciegas. */
 function CartCount() {
-  const t = useTranslations('marketplace.nav')
   const cart = useCart()
   if (!cart.isSuccess || !(cart.data.totalUnits > 0)) return null
-  return (
-    <span className="bg-primary text-primary-foreground text-caption ms-2 rounded-full px-2 py-0.5">
-      {t('cartCount', { count: cart.data.totalUnits })}
-    </span>
-  )
+  return <span className={styles.countBadge}>{cart.data.totalUnits}</span>
 }

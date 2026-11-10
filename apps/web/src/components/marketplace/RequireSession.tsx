@@ -1,9 +1,10 @@
 'use client'
 
-import { Button, Skeleton } from '@eusse/ui'
+import { Skeleton } from '@eusse/ui'
 import { useTranslations } from 'next-intl'
 
-import { Surface } from './kit'
+import { buttonClass, cx, Surface } from './kit'
+import styles from './wholesale.module.css'
 
 import type { ReactNode } from 'react'
 
@@ -22,16 +23,16 @@ export function RequireSession({ children }: { children: ReactNode }) {
 
   if (me.isError) {
     return (
-      <Surface className="mx-auto max-w-lg">
-        <h2 className="text-h3 text-foreground font-semibold">{t('title')}</h2>
-        <p className="text-body text-muted-foreground">{t('body')}</p>
+      <Surface className={cx(styles.gate)}>
+        <h2 className={cx(styles.display, styles.h3)}>{t('title')}</h2>
+        <p className={styles.muted}>{t('body')}</p>
         <div className="flex flex-wrap gap-3">
-          <Button asChild>
-            <Link href="/acceso">{t('signIn')}</Link>
-          </Button>
-          <Button asChild variant="secondary">
-            <Link href="/acceso?modo=registro">{t('createAccount')}</Link>
-          </Button>
+          <Link href="/acceso" className={buttonClass()}>
+            {t('signIn')}
+          </Link>
+          <Link href="/acceso?modo=registro" className={buttonClass({ variant: 'secondary' })}>
+            {t('createAccount')}
+          </Link>
         </div>
       </Surface>
     )

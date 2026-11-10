@@ -1,11 +1,11 @@
 'use client'
 
-import { Button } from '@eusse/ui'
 import { useTranslations } from 'next-intl'
 import { useId, useState } from 'react'
 
-import { controlClass, Field, Notice, Pill, PageHeader, Surface } from './kit'
+import { buttonClass, controlClass, Field, Notice, Pill, PageHeader, Surface } from './kit'
 import { RequireSession } from './RequireSession'
+import styles from './wholesale.module.css'
 
 import type { PrintTechnique } from '@/lib/marketplace/api/types'
 
@@ -114,16 +114,17 @@ function ProductFormBody() {
 
   if (supplier.data && supplier.data.status !== 'ACTIVE') {
     return (
-      <div className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-10">
-        <PageHeader title={t('newProductTitle')} />
+      <div className="flex flex-col gap-6">
+        <PageHeader level="h2" title={t('newProductTitle')} />
         <Notice tone="warning">{t('pendingNotice')}</Notice>
       </div>
     )
   }
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-8 px-4 py-10">
+    <div className="flex flex-col gap-8">
       <PageHeader
+        level="h2"
         title={t('newProductTitle')}
         description={t('newProductBody')}
         actions={
@@ -136,7 +137,7 @@ function ProductFormBody() {
         }
       />
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,18rem)]">
+      <div className={styles.formLayout}>
         <form
           noValidate
           className="flex flex-col gap-6"
@@ -325,21 +326,21 @@ function ProductFormBody() {
           ) : null}
 
           <div className="flex flex-wrap items-center gap-3">
-            <Button
+            <button
               type="submit"
-              size="lg"
-              isLoading={create.isPending}
               disabled={create.isPending}
+              aria-busy={create.isPending}
+              className={buttonClass({ size: 'lg' })}
             >
               {t('saveDraft')}
-            </Button>
-            <Button asChild variant="ghost" size="lg">
-              <Link href="/proveedor">{t('cancel')}</Link>
-            </Button>
+            </button>
+            <Link href="/proveedor" className={buttonClass({ variant: 'secondary', size: 'lg' })}>
+              {t('cancel')}
+            </Link>
           </div>
         </form>
 
-        <aside className="lg:sticky lg:top-24 lg:self-start">
+        <aside className={styles.sticky}>
           <Surface labelledBy={`${ids}-check`}>
             <h2 id={`${ids}-check`} className="text-h4 text-foreground font-semibold">
               {t('checklistTitle')}

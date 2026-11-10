@@ -2,9 +2,10 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import type { Metadata } from 'next'
 
-import { Cart } from '@/components/marketplace/Cart'
+import { CartView } from '@/components/marketplace/Cart'
 import { PageHeader } from '@/components/marketplace/kit'
 import { RequireSession } from '@/components/marketplace/RequireSession'
+import styles from '@/components/marketplace/wholesale.module.css'
 
 type PageProps = { params: Promise<{ locale: string }> }
 
@@ -16,11 +17,13 @@ export default async function CartPage({ params }: PageProps) {
   const t = await getTranslations('marketplace.cart')
 
   return (
-    <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-10">
-      <PageHeader title={t('title')} />
-      <RequireSession>
-        <Cart />
-      </RequireSession>
+    <div className={styles.container}>
+      <div className={styles.page}>
+        <PageHeader eyebrow={t('eyebrow')} title={t('title')} description={t('intro')} />
+        <RequireSession>
+          <CartView />
+        </RequireSession>
+      </div>
     </div>
   )
 }

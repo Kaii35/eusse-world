@@ -29,3 +29,22 @@ export function parseList(text: string): string[] {
     .filter((item) => item.length > 0)
   return [...new Set(items)]
 }
+
+/** Iniciales para la marca de un proveedor o un comerciante: "Textiles Andinos" → "TA". */
+export function initialsOf(name: string): string {
+  return name
+    .split(/\s+/)
+    .filter((word) => word.length > 0)
+    .map((word) => word[0] ?? '')
+    .slice(0, 2)
+    .join('')
+    .toUpperCase()
+}
+
+/** Rango de tallas legible: ["XS","S","M","L"] → "XS–L". Respeta el orden en que se cargaron. */
+export function sizeRange(sizes: string[]): string {
+  if (sizes.length === 0) return ''
+  const first = sizes[0] ?? ''
+  const last = sizes[sizes.length - 1] ?? ''
+  return first === last ? first : `${first}–${last}`
+}

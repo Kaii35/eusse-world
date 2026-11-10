@@ -1,10 +1,10 @@
 'use client'
 
-import { Button } from '@eusse/ui'
 import { useTranslations } from 'next-intl'
 import { useId, useState } from 'react'
 
-import { controlClass, Field, Notice, Surface } from './kit'
+import { buttonClass, controlClass, cx, Field, Notice, Eyebrow } from './kit'
+import styles from './wholesale.module.css'
 
 import { Link, useRouter } from '@/lib/i18n/navigation'
 import { useLogin, useRegister } from '@/lib/marketplace/api/queries'
@@ -13,12 +13,11 @@ import { useApiErrorMessage } from '@/lib/marketplace/useApiErrorMessage'
 type Mode = 'login' | 'register'
 
 /**
- * Ingreso y registro en una sola pantalla. Tras ingresar, la tienda. Tras registrarse,
- * una pantalla que pide revisar el correo antes de seguir.
+ * Registro e ingreso. Columna izquierda en azul de la landing con la propuesta; columna
+ * derecha con el formulario. Tras ingresar, la tienda. Tras registrarse, pide revisar el correo.
  */
 export function AccessPanel({ initialMode }: { initialMode: Mode }) {
   const t = useTranslations('marketplace.access')
-  const tStore = useTranslations('marketplace.store')
   const errorMessage = useApiErrorMessage()
   const router = useRouter()
   const [mode, setMode] = useState<Mode>(initialMode)
@@ -65,43 +64,47 @@ export function AccessPanel({ initialMode }: { initialMode: Mode }) {
     register.reset()
   }
 
+  const points = [t('heroPoint1'), t('heroPoint2'), t('heroPoint3')]
+
   return (
-    <div className="mx-auto grid max-w-5xl gap-8 px-4 py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:py-16">
-      <aside className="bg-primary text-primary-foreground flex flex-col justify-between gap-8 rounded-lg p-8">
-        <div className="flex flex-col gap-4">
-          <h1 className="text-h2 font-semibold">{t('heroTitle')}</h1>
-          <p className="text-body opacity-90">{t('heroBody')}</p>
+    <div className={styles.authWrap}>
+      <aside className={styles.authAside}>
+        <div className="flex flex-col gap-6">
+          <Eyebrow onDark>{t('heroEyebrow')}</Eyebrow>
+          <h1 className={cx(styles.display, styles.h1)}>{t('heroTitle')}</h1>
+          <p className={styles.authLead}>{t('heroBody')}</p>
         </div>
-        <ul className="text-body-sm flex flex-col gap-3">
-          <li>{t('heroPoint1')}</li>
-          <li>{t('heroPoint2')}</li>
-          <li>{t('heroPoint3')}</li>
+        <ul className={styles.authPoints}>
+          {points.map((point) => (
+            <li key={point} className={styles.authPoint}>
+              <span aria-hidden="true" className={styles.authDot} />
+              {point}
+            </li>
+          ))}
         </ul>
       </aside>
 
-      <Surface labelledBy={`${ids}-title`}>
+      <section className={styles.authMain} aria-labelledby={`${ids}-title`}>
         {register.isSuccess ? (
-          <div className="flex flex-col gap-4">
-            <h2 id={`${ids}-title`} className="text-h3 text-foreground font-semibold">
+          <div className={styles.authForm}>
+            <Eyebrow>{t('tabRegister')}</Eyebrow>
+            <h2 id={`${ids}-title`} className={cx(styles.display, styles.h2)}>
               {t('registeredTitle')}
             </h2>
             <Notice>{t('registered')}</Notice>
-            <Button
-              variant="secondary"
+            <button
+              type="button"
+              className={buttonClass({ variant: 'secondary' })}
               onClick={() => {
                 switchMode('login')
               }}
             >
               {t('goLogin')}
-            </Button>
+            </button>
           </div>
         ) : (
-          <>
-            <div
-              role="tablist"
-              aria-label={t('tabLogin')}
-              className="bg-surface-sunken grid grid-cols-2 gap-1 rounded-md p-1"
-            >
+          <div className={styles.authForm}>
+            <div role="tablist" aria-label={t('tabsLabel')} className={styles.tabs}>
               {(['login', 'register'] as const).map((tab) => (
                 <button
                   key={tab}
@@ -113,23 +116,24 @@ export function AccessPanel({ initialMode }: { initialMode: Mode }) {
                   onClick={() => {
                     switchMode(tab)
                   }}
-                  className={
-                    mode === tab
-                      ? 'bg-surface text-foreground text-body-sm shadow-raised rounded-sm py-2 font-semibold'
-                      : 'text-muted-foreground text-body-sm rounded-sm py-2'
-                  }
+                  className={cx(styles.tab, mode === tab && styles.tabOn)}
                 >
                   {tab === 'login' ? t('tabLogin') : t('tabRegister')}
                 </button>
               ))}
             </div>
 
-            <div id={`${ids}-form`} role="tabpanel" aria-labelledby={`${ids}-tab-${mode}`}>
-              <div className="flex flex-col gap-1 pb-4">
-                <h2 id={`${ids}-title`} className="text-h3 text-foreground font-semibold">
+            <div
+              id={`${ids}-form`}
+              role="tabpanel"
+              aria-labelledby={`${ids}-tab-${mode}`}
+              className="flex flex-col gap-6"
+            >
+              <div className="flex flex-col gap-2">
+                <h2 id={`${ids}-title`} className={cx(styles.display, styles.h2)}>
                   {mode === 'login' ? t('loginTitle') : t('registerTitle')}
                 </h2>
-                <p className="text-body-sm text-muted-foreground">
+                <p className={styles.muted}>
                   {mode === 'login' ? t('loginBody') : t('registerBody')}
                 </p>
               </div>
@@ -144,7 +148,7 @@ export function AccessPanel({ initialMode }: { initialMode: Mode }) {
               >
                 {mode === 'register' ? (
                   <fieldset className="flex flex-col gap-4">
-                    <legend className="text-body font-semibold">{t('sectionPerson')}</legend>
+                    <legend className="text-body mb-1 font-semibold">{t('sectionPerson')}</legend>
                     <div className="grid gap-4 sm:grid-cols-2">
                       <Field label={t('firstName')} htmlFor={`${ids}-first`}>
                         <input
@@ -176,7 +180,7 @@ export function AccessPanel({ initialMode }: { initialMode: Mode }) {
 
                 <fieldset className="flex flex-col gap-4">
                   {mode === 'register' ? (
-                    <legend className="text-body font-semibold">{t('sectionCompany')}</legend>
+                    <legend className="text-body mb-1 font-semibold">{t('sectionCompany')}</legend>
                   ) : (
                     <legend className="sr-only">{t('loginTitle')}</legend>
                   )}
@@ -261,20 +265,19 @@ export function AccessPanel({ initialMode }: { initialMode: Mode }) {
                   </Notice>
                 ) : null}
 
-                <Button
+                <button
                   type="submit"
-                  size="lg"
-                  isLoading={pending}
                   disabled={pending}
-                  className="w-full"
+                  aria-busy={pending}
+                  className={buttonClass({ size: 'lg', block: true })}
                 >
                   {mode === 'login' ? t('login') : t('register')}
-                </Button>
+                </button>
               </form>
 
               <button
                 type="button"
-                className="text-primary text-body-sm mt-4 underline-offset-4 hover:underline"
+                className={cx(buttonClass({ variant: 'ghost' }), 'self-start')}
                 onClick={() => {
                   switchMode(mode === 'login' ? 'register' : 'login')
                 }}
@@ -282,18 +285,15 @@ export function AccessPanel({ initialMode }: { initialMode: Mode }) {
                 {mode === 'login' ? t('switchToRegister') : t('switchToLogin')}
               </button>
             </div>
-          </>
+          </div>
         )}
-      </Surface>
 
-      <div className="lg:col-span-2">
-        <Link
-          href="/tienda"
-          className="text-primary text-body-sm underline-offset-4 hover:underline"
-        >
-          {tStore('back')}
-        </Link>
-      </div>
+        <div className={styles.authForm}>
+          <Link href="/tienda" className={buttonClass({ variant: 'ghost' })}>
+            {t('back')}
+          </Link>
+        </div>
+      </section>
     </div>
   )
 }

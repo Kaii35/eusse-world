@@ -1,29 +1,73 @@
-import { Badge } from '@eusse/ui'
+import { useTranslations } from 'next-intl'
+
+import { swatchFor } from './swatch'
+import styles from './wholesale.module.css'
 
 import type { ReactNode } from 'react'
 
 import { Link } from '@/lib/i18n/navigation'
 
 /**
- * Piezas visuales de la zona de cuenta. Sólo tokens de @eusse/tokens: sin colores ni
- * medidas sueltas (CLAUDE.md). Todas son sin estado, para usarse desde Server y Client.
+ * Piezas visuales de la zona mayorista. Usan la hoja `wholesale.module.css`, que a su vez
+ * sólo toma colores de `--landing-*` (mismo lenguaje que la landing). Sin estado: sirven
+ * igual desde Server y Client Components.
  */
+
+export function cx(...names: (string | false | null | undefined)[]): string {
+  return names.filter(Boolean).join(' ')
+}
+
+export type ButtonVariant = 'primary' | 'secondary' | 'onDark' | 'onDarkGhost' | 'ghost'
+export type ButtonSize = 'sm' | 'md' | 'lg'
+
+/** Clases de botón. Úsalas en `<button>` o en `<Link>` para que se vean igual. */
+export function buttonClass({
+  variant = 'primary',
+  size = 'md',
+  block = false,
+}: {
+  variant?: ButtonVariant
+  size?: ButtonSize
+  block?: boolean
+} = {}): string {
+  const variantClass = {
+    primary: styles.btnPrimary,
+    secondary: styles.btnSecondary,
+    onDark: styles.btnOnDark,
+    onDarkGhost: styles.btnOnDarkGhost,
+    ghost: styles.btnGhost,
+  }[variant]
+  return cx(
+    styles.btn,
+    variantClass,
+    size === 'sm' && styles.btnSm,
+    size === 'lg' && styles.btnLg,
+    block && styles.btnBlock,
+  )
+}
+
+/** Etiqueta de sección. Sobre fondo azul usa un tono que sí se lee (`onDark`). */
+export function Eyebrow({ children, onDark = false }: { children: ReactNode; onDark?: boolean }) {
+  return <span className={cx(styles.eyebrow, onDark && styles.eyebrowOnDark)}>{children}</span>
+}
 
 export function Surface({
   children,
-  className = '',
+  className,
   as: Tag = 'section',
   labelledBy,
+  padded = true,
 }: {
   children: ReactNode
   className?: string
   as?: 'section' | 'article' | 'div'
   labelledBy?: string
+  padded?: boolean
 }) {
   return (
     <Tag
       aria-labelledby={labelledBy}
-      className={`border-border bg-surface shadow-raised flex flex-col gap-5 rounded-lg border p-6 ${className}`}
+      className={cx(styles.card, padded && styles.cardBody, className)}
     >
       {children}
     </Tag>
@@ -31,19 +75,26 @@ export function Surface({
 }
 
 export function PageHeader({
+  eyebrow,
   title,
   description,
   actions,
+  level = 'h1',
 }: {
+  eyebrow?: string
   title: string
   description?: string
   actions?: ReactNode
+  /** Dentro del panel la cabecera de página ya es h1; aquí va como h2 para no duplicarlo. */
+  level?: 'h1' | 'h2'
 }) {
+  const Heading = level
   return (
-    <header className="flex flex-wrap items-end justify-between gap-4">
-      <div className="flex max-w-2xl flex-col gap-2">
-        <h1 className="text-h2 text-foreground font-semibold">{title}</h1>
-        {description ? <p className="text-body text-muted-foreground">{description}</p> : null}
+    <header className="flex flex-wrap items-end justify-between gap-6">
+      <div className="flex max-w-3xl flex-col gap-3">
+        {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
+        <Heading className={cx(styles.display, styles.h1)}>{title}</Heading>
+        {description ? <p className={styles.lead}>{description}</p> : null}
       </div>
       {actions ? <div className="flex flex-wrap items-center gap-3">{actions}</div> : null}
     </header>
@@ -75,6 +126,15 @@ export function Notice({
   )
 }
 
+/** Aviso de vista previa: la pantalla existe pero sus datos aún no vienen de la API. */
+export function PreviewBanner({ children }: { children: ReactNode }) {
+  return (
+    <div role="note" className={styles.banner}>
+      {children}
+    </div>
+  )
+}
+
 export function EmptyState({
   title,
   body,
@@ -85,18 +145,23 @@ export function EmptyState({
   action?: ReactNode
 }) {
   return (
-    <div className="border-border flex flex-col items-start gap-3 rounded-lg border border-dashed p-8">
-      <h2 className="text-h4 text-foreground font-semibold">{title}</h2>
-      <p className="text-body text-muted-foreground max-w-prose">{body}</p>
+    <div className={styles.dashed}>
+      <h2 className={cx(styles.display, styles.h4)}>{title}</h2>
+      <p className={cx(styles.muted, 'max-w-prose')}>{body}</p>
       {action}
     </div>
   )
 }
 
-export type PillTone = 'neutral' | 'success' | 'warning' | 'danger' | 'info'
+export function Pill({ children, outline = false }: { children: ReactNode; outline?: boolean }) {
+  return <span className={cx(styles.pill, outline && styles.pillOutline)}>{children}</span>
+}
 
-export function Pill({ tone = 'neutral', children }: { tone?: PillTone; children: ReactNode }) {
-  return <Badge variant={tone}>{children}</Badge>
+/** Color de una prenda como muestra. El color es sólo visual, nunca un dato de precio. */
+export function Swatch({ name }: { name: string }) {
+  return (
+    <span aria-hidden="true" className={styles.swatch} style={{ background: swatchFor(name) }} />
+  )
 }
 
 /** Campo con etiqueta visible, pista y error. El control va como hijo. */
@@ -114,22 +179,21 @@ export function Field({
   children: ReactNode
 }) {
   return (
-    <div className="flex flex-col gap-2">
-      <label htmlFor={htmlFor} className="text-body-sm text-foreground font-medium">
+    <div className={styles.field}>
+      <label htmlFor={htmlFor} className="text-foreground text-body-sm font-medium">
         {label}
       </label>
       {children}
       {error ? (
         <p className="text-caption text-danger">{error}</p>
       ) : hint ? (
-        <p className="text-caption text-muted-foreground">{hint}</p>
+        <p className={styles.hint}>{hint}</p>
       ) : null}
     </div>
   )
 }
 
-export const controlClass =
-  'border-border bg-surface text-foreground text-body placeholder:text-subtle-foreground focus-visible:outline-ring h-11 w-full rounded-md border px-3 focus-visible:outline-2 focus-visible:outline-offset-2'
+export const controlClass = styles.input
 
 /** Barra de progreso accesible hacia un mínimo. El ancho es visual, no un precio. */
 export function ProgressBar({ value, max, label }: { value: number; max: number; label: string }) {
@@ -141,16 +205,18 @@ export function ProgressBar({ value, max, label }: { value: number; max: number;
       aria-valuemin={0}
       aria-valuemax={max}
       aria-valuenow={Math.min(value, max)}
-      className="bg-surface-sunken h-2 w-full overflow-hidden rounded-full"
+      className={styles.progress}
     >
-      <div className="bg-primary h-full rounded-full" style={{ width: `${percent}%` }} />
+      <div className={styles.progressFill} style={{ width: `${percent}%` }} />
     </div>
   )
 }
 
+/** Migas de pan. La última entrada es la página actual y no es un enlace. */
 export function Breadcrumb({ items }: { items: { href?: string; label: string }[] }) {
+  const t = useTranslations('marketplace.common')
   return (
-    <nav aria-label="breadcrumb" className="text-body-sm text-muted-foreground">
+    <nav aria-label={t('breadcrumb')} className="text-body-sm text-muted-foreground">
       <ol className="flex flex-wrap items-center gap-2">
         {items.map((item, index) => (
           <li key={item.label} className="flex items-center gap-2">

@@ -1,256 +1,256 @@
 'use client'
 
-import { Button, Skeleton } from '@eusse/ui'
-import { useQueries } from '@tanstack/react-query'
+import { SUPPLIER_MINIMUM_UNITS } from '@eusse/contracts'
+import { Skeleton } from '@eusse/ui'
 import { useLocale, useTranslations } from 'next-intl'
 
-import { EmptyState, Notice, Pill, ProgressBar, Surface } from './kit'
-import { SUPPLIER_MINIMUM } from './Store'
+import { buttonClass, cx, EmptyState, Notice, Pill, ProgressBar, Swatch } from './kit'
+import styles from './wholesale.module.css'
 
-import type {
-  Cart as CartView,
-  CartLine,
-  Product,
-  SupplierMinimum,
-} from '@/lib/marketplace/api/types'
+import type { Cart, CartLine, Money, PrintChoice, Product } from '@/lib/marketplace/api/types'
 
 import { Link } from '@/lib/i18n/navigation'
-import { apiRequest } from '@/lib/marketplace/api/client'
 import {
-  queryKeys,
   useActiveSuppliers,
   useCart,
   useRemoveCartLine,
+  useSupplierProducts,
 } from '@/lib/marketplace/api/queries'
-import { formatMoney } from '@/lib/marketplace/format'
+import { formatMoney, initialsOf } from '@/lib/marketplace/format'
 import { useApiErrorMessage } from '@/lib/marketplace/useApiErrorMessage'
 
 /**
- * Carrito agrupado por proveedor. Todos los importes (líneas, subtotales y total) llegan del
- * servidor: esta pantalla sólo los muestra.
+ * Carrito agrupado por proveedor. Cada grupo muestra cuánto falta para el mínimo. Todos los
+ * importes llegan calculados por el servidor; aquí sólo se muestran.
  */
-export function Cart() {
+export function CartView() {
   const t = useTranslations('marketplace.cart')
   const cart = useCart()
 
   if (cart.isPending) {
-    return <Skeleton className="h-64 w-full" />
+    return <Skeleton className="h-96 w-full" />
   }
 
   if (cart.isError) {
     return (
       <Notice tone="danger" role="alert">
-        {t('emptyBody')}
+        {t('loadFailed')}
       </Notice>
     )
   }
 
-  if (cart.data.lines.length === 0) {
+  const data = cart.data
+  if (data.lines.length === 0) {
     return (
       <EmptyState
         title={t('emptyTitle')}
-        body={t('emptyBody')}
+        body={t('emptyBody', { required: SUPPLIER_MINIMUM_UNITS })}
         action={
-          <Button asChild>
-            <Link href="/tienda">{t('emptyCta')}</Link>
-          </Button>
+          <Link href="/tienda" className={buttonClass({ size: 'md' })}>
+            {t('emptyCta')}
+          </Link>
         }
       />
     )
   }
 
-  return <CartLayout cart={cart.data} />
-}
-
-function CartLayout({ cart }: { cart: CartView }) {
-  const names = useProductNames(cart)
-  const suppliers = useActiveSuppliers()
-  const supplierName = (id: string) => suppliers.data?.find((s) => s.id === id)?.legalName ?? ''
-
   return (
-    <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]">
+    <div className={styles.twoCol}>
       <div className="flex flex-col gap-6">
-        {cart.suppliers.map((minimum) => (
+        {data.suppliers.map((minimum) => (
           <SupplierGroup
             key={minimum.supplierId}
-            minimum={minimum}
-            name={supplierName(minimum.supplierId)}
-            lines={cart.lines.filter((line) => line.supplierId === minimum.supplierId)}
-            productName={(productId) => names.get(productId) ?? ''}
+            supplierId={minimum.supplierId}
+            lines={data.lines.filter((line) => line.supplierId === minimum.supplierId)}
+            units={minimum.units}
+            required={minimum.required}
+            met={minimum.met}
+            missing={minimum.missing}
+            subtotal={minimum.subtotal}
           />
         ))}
       </div>
-      <Summary cart={cart} />
+      <Summary cart={data} />
     </div>
   )
 }
 
-/** Nombres de producto: el carrito guarda IDs y el nombre sale del catálogo publicado. */
-function useProductNames(cart: CartView): Map<string, string> {
-  const supplierIds = [...new Set(cart.lines.map((line) => line.supplierId))]
-  const results = useQueries({
-    queries: supplierIds.map((supplierId) => ({
-      queryKey: queryKeys.supplierProducts(supplierId),
-      queryFn: () => apiRequest<Product[]>('GET', `/suppliers/${supplierId}/products`),
-    })),
-  })
-  const names = new Map<string, string>()
-  for (const result of results) {
-    for (const product of result.data ?? []) names.set(product.id, product.name)
-  }
-  return names
-}
-
 function SupplierGroup({
-  minimum,
-  name,
+  supplierId,
   lines,
-  productName,
+  units,
+  required,
+  met,
+  missing,
+  subtotal,
 }: {
-  minimum: SupplierMinimum
-  name: string
+  supplierId: string
   lines: CartLine[]
-  productName: (productId: string) => string
+  units: number
+  required: number
+  met: boolean
+  missing: number
+  subtotal: Money
 }) {
   const t = useTranslations('marketplace.cart')
   const locale = useLocale()
+  const suppliers = useActiveSuppliers()
+  const products = useSupplierProducts(supplierId)
+  const name = suppliers.data?.find((item) => item.id === supplierId)?.legalName ?? ''
+  const byId = new Map((products.data ?? []).map((product) => [product.id, product]))
 
   return (
-    <Surface labelledBy={`supplier-${minimum.supplierId}`}>
-      <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h2 id={`supplier-${minimum.supplierId}`} className="text-h4 text-foreground font-semibold">
-          {name}
-        </h2>
-        <p className="text-body text-foreground font-semibold">
-          {formatMoney(minimum.subtotal, locale)}
-        </p>
-      </div>
+    <section className={styles.card} aria-labelledby={`group-${supplierId}`}>
+      <header className={cx(styles.cardHead, 'flex-wrap')}>
+        <div className="flex min-w-0 items-center gap-4">
+          <span aria-hidden="true" className={styles.groupMark}>
+            {initialsOf(name)}
+          </span>
+          <div className="flex min-w-0 flex-col gap-1">
+            <h2 id={`group-${supplierId}`} className={cx(styles.display, styles.h4)}>
+              {name || '…'}
+            </h2>
+            <span className={cx(styles.muted, 'text-body-sm')}>
+              {met ? t('supplierMet') : t('supplierMissing', { missing })}
+            </span>
+          </div>
+        </div>
+        <Link href={`/tienda/${supplierId}`} className={buttonClass({ variant: 'ghost' })}>
+          {t('addMore')}
+        </Link>
+      </header>
 
-      <div className="flex flex-col gap-2">
-        <ProgressBar value={minimum.units} max={SUPPLIER_MINIMUM} label={name} />
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <p className="text-body-sm text-muted-foreground">
-            {t('supplierProgress', { units: minimum.units, required: SUPPLIER_MINIMUM })}
-          </p>
-          {minimum.met ? (
-            <Pill tone="success">{t('supplierMet')}</Pill>
-          ) : (
-            <Pill tone="warning">{t('supplierMissing', { missing: minimum.missing })}</Pill>
-          )}
+      <div className={styles.groupBar}>
+        <div className="flex items-center gap-4">
+          <div className="flex-1">
+            <ProgressBar value={units} max={required} label={name} />
+          </div>
+          <span className="text-body-sm whitespace-nowrap">
+            {t('supplierProgress', { units, required })}
+          </span>
         </div>
       </div>
 
-      <ul className="divide-border flex flex-col divide-y">
-        {lines.map((line) => (
-          <CartLineRow
-            key={line.id}
-            line={line}
-            productName={productName(line.productId)}
-            locale={locale}
-          />
-        ))}
+      <ul className="flex flex-col">
+        {lines.map((line) => {
+          const product: Product | undefined = byId.get(line.productId)
+          const sizes = Object.entries(line.qtyBySize)
+            .filter(([, value]) => value > 0)
+            .map(([size, value]) => `${size}×${value}`)
+            .join('  ')
+          const units = Object.values(line.qtyBySize).reduce((sum, value) => sum + value, 0)
+          return (
+            <li key={line.id} className={styles.lineRow}>
+              <Swatch name={line.color} />
+              <div className="flex min-w-0 flex-col gap-1">
+                <span className="font-medium">{product?.name ?? '…'}</span>
+                <span className={cx(styles.muted, 'text-body-sm')}>
+                  {line.color} · {sizes}
+                </span>
+                {line.print ? <PrintSummary print={line.print} /> : null}
+              </div>
+              <div className="text-body-sm flex flex-col items-end gap-1">
+                <span className={styles.muted}>
+                  {t('lineUnits', { units })} × {formatMoney(line.unitPrice, locale)}
+                </span>
+                <span className={cx(styles.price, styles.priceSm)}>
+                  {formatMoney(line.lineTotal, locale)}
+                </span>
+              </div>
+              <RemoveLine lineId={line.id} />
+            </li>
+          )
+        })}
       </ul>
-    </Surface>
+
+      <footer className={styles.groupFoot}>
+        <span className={styles.muted}>{t('subtotal')}</span>
+        <strong className="font-semibold">{formatMoney(subtotal, locale)}</strong>
+      </footer>
+    </section>
   )
 }
 
-function CartLineRow({
-  line,
-  productName,
-  locale,
-}: {
-  line: CartLine
-  productName: string
-  locale: string
-}) {
+function PrintSummary({ print }: { print: PrintChoice }) {
+  return (
+    <span className="text-body-sm">
+      <Pill outline>
+        {print.technique} · {print.size} · {print.placement}
+      </Pill>
+    </span>
+  )
+}
+
+function RemoveLine({ lineId }: { lineId: string }) {
   const t = useTranslations('marketplace.cart')
   const errorMessage = useApiErrorMessage()
   const remove = useRemoveCartLine()
-
-  const units = Object.values(line.qtyBySize).reduce((sum, qty) => sum + qty, 0)
-  const sizes = Object.entries(line.qtyBySize)
-    .map(([size, qty]) => `${size} × ${qty}`)
-    .join(', ')
-
   return (
-    <li className="flex flex-wrap items-start justify-between gap-4 py-4">
-      <div className="flex min-w-0 flex-col gap-1">
-        <span className="text-body text-foreground font-semibold">{productName}</span>
-        <span className="text-caption text-muted-foreground">
-          {line.color} · {sizes}
+    <div className="flex flex-col items-end gap-1">
+      <button
+        type="button"
+        disabled={remove.isPending}
+        onClick={() => {
+          remove.mutate(lineId)
+        }}
+        className={buttonClass({ variant: 'ghost', size: 'sm' })}
+      >
+        {t('remove')}
+      </button>
+      {remove.error ? (
+        <span role="alert" className="text-caption text-danger">
+          {errorMessage(remove.error)}
         </span>
-        {line.print ? (
-          <span className="text-caption text-muted-foreground">
-            {line.print.technique} · {line.print.size} · {line.print.placement}
-          </span>
-        ) : null}
-        <span className="text-caption text-muted-foreground">
-          {t('lineUnits', { units })} · {formatMoney(line.unitPrice, locale)}
-        </span>
-        {remove.error ? (
-          <Notice tone="danger" role="alert">
-            {errorMessage(remove.error)}
-          </Notice>
-        ) : null}
-      </div>
-      <div className="flex flex-col items-end gap-2">
-        <span className="text-body text-foreground font-semibold">
-          {formatMoney(line.lineTotal, locale)}
-        </span>
-        <Button
-          variant="link"
-          size="sm"
-          disabled={remove.isPending}
-          onClick={() => {
-            remove.mutate(line.id)
-          }}
-        >
-          {t('remove')}
-        </Button>
-      </div>
-    </li>
+      ) : null}
+    </div>
   )
 }
 
-function Summary({ cart }: { cart: CartView }) {
+function Summary({ cart }: { cart: Cart }) {
   const t = useTranslations('marketplace.cart')
   const locale = useLocale()
-  const blocked = cart.suppliers.some((supplier) => !supplier.met)
+  const blocked = cart.suppliers.filter((minimum) => !minimum.met)
+  const ready = blocked.length === 0
 
   return (
-    <aside className="lg:sticky lg:top-24 lg:self-start">
-      <Surface labelledBy="summary-title">
-        <h2 id="summary-title" className="text-h4 text-foreground font-semibold">
-          {t('summaryTitle')}
-        </h2>
-        <dl className="flex flex-col gap-3">
-          <div className="flex justify-between gap-4">
-            <dt className="text-body-sm text-muted-foreground">{t('summaryUnits')}</dt>
-            <dd className="text-body-sm text-foreground tabular-nums">{cart.totalUnits}</dd>
-          </div>
-          <div className="border-border flex items-baseline justify-between gap-4 border-t pt-3">
-            <dt className="text-body font-semibold">{t('summaryTotal')}</dt>
-            <dd className="text-h4 text-foreground font-semibold tabular-nums">
-              {formatMoney(cart.total, locale)}
-            </dd>
-          </div>
-        </dl>
+    <aside
+      className={cx(styles.card, styles.cardBody, styles.sticky, 'gap-4')}
+      aria-labelledby="cart-summary"
+    >
+      <h2 id="cart-summary" className={cx(styles.display, styles.h4)}>
+        {t('summaryTitle')}
+      </h2>
+      <dl className="text-body-sm flex flex-col gap-3">
+        <div className="flex justify-between gap-4">
+          <dt className={styles.muted}>{t('summaryUnits')}</dt>
+          <dd>{cart.totalUnits}</dd>
+        </div>
+        <div className="flex justify-between gap-4">
+          <dt className={styles.muted}>{t('summarySuppliersLabel')}</dt>
+          <dd>{t('summarySuppliers', { count: cart.suppliers.length })}</dd>
+        </div>
+      </dl>
+      <div className={styles.totalRow}>
+        <span className="text-body">{t('summaryTotal')}</span>
+        <span className={cx(styles.price, styles.priceXl)}>{formatMoney(cart.total, locale)}</span>
+      </div>
+      <p className={styles.hint}>{t('shippingNote')}</p>
 
-        {blocked ? (
-          <Notice tone="warning">{t('checkoutBlocked')}</Notice>
-        ) : (
-          <Notice>{t('checkoutSoon')}</Notice>
-        )}
-        <Button disabled size="lg" className="w-full">
+      {ready ? (
+        <Link href="/carrito/pago" className={buttonClass({ size: 'lg', block: true })}>
           {t('checkout')}
-        </Button>
-        <Link
-          href="/tienda"
-          className="text-primary text-body-sm text-center underline-offset-4 hover:underline"
-        >
-          {t('continueShopping')}
         </Link>
-      </Surface>
+      ) : (
+        <div className="flex flex-col gap-3">
+          <button type="button" disabled className={buttonClass({ size: 'lg', block: true })}>
+            {t('checkout')}
+          </button>
+          <Notice tone="warning">{t('checkoutBlocked')}</Notice>
+        </div>
+      )}
+      <Link href="/tienda" className={buttonClass({ variant: 'ghost' })}>
+        {t('continueShopping')}
+      </Link>
     </aside>
   )
 }
